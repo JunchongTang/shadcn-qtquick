@@ -1,0 +1,19 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "dev",
+            "displayName": "Dev (Debug · Ninja · Qt 6.8.6)",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_PREFIX_PATH": "$env{HOME}/Qt/6.8.6/macos",
+                "CMAKE_MAKE_PROGRAM": "$env{HOME}/Qt/Tools/Ninja/ninja"
+            }
+        }
+    ],
+    "buildPresets": [
+        { "name": "dev", "configurePreset": "dev" }
+    ]
+}
