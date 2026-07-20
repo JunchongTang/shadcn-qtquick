@@ -1,0 +1,120 @@
+import QtQuick
+import QtQuick.Layouts
+import Shadcn
+
+// 完整表单:Payment Method + Billing Address + Comments + 操作按钮。
+// 综合演示 FieldSet/Legend/Description/Group/Separator/Field(纵横)/Content。
+FieldGroup {
+    width: 420        // max-w-md
+
+    // ==== Payment Method ====
+    FieldSet {
+        FieldLegend { text: "Payment Method" }
+        FieldDescription { text: "All transactions are secure and encrypted" }
+
+        FieldGroup {
+            Field {
+                FieldLabel { text: "Name on Card" }
+                Input {
+                    Layout.fillWidth: true
+                    placeholderText: "Evil Rabbit"
+                }
+            }
+            Field {
+                FieldLabel { text: "Card Number" }
+                Input {
+                    Layout.fillWidth: true
+                    placeholderText: "1234 5678 9012 3456"
+                }
+                FieldDescription { text: "Enter your 16-digit card number" }
+            }
+
+            // grid grid-cols-3 gap-4
+            GridLayout {
+                Layout.fillWidth: true
+                columns: 3
+                columnSpacing: Theme.space4
+                rowSpacing: Theme.space4
+
+                Field {
+                    FieldLabel { text: "Month" }
+                    Select {
+                        Layout.fillWidth: true
+                        currentIndex: -1
+                        placeholder: "MM"
+                        model: ["01", "02", "03", "04", "05", "06",
+                                "07", "08", "09", "10", "11", "12"]
+                    }
+                }
+                Field {
+                    FieldLabel { text: "Year" }
+                    Select {
+                        Layout.fillWidth: true
+                        currentIndex: -1
+                        placeholder: "YYYY"
+                        model: ["2024", "2025", "2026", "2027", "2028", "2029"]
+                    }
+                }
+                Field {
+                    FieldLabel { text: "CVV" }
+                    Input {
+                        Layout.fillWidth: true
+                        placeholderText: "123"
+                    }
+                }
+            }
+        }
+    }
+
+    FieldSeparator {}
+
+    // ==== Billing Address ====
+    FieldSet {
+        FieldLegend { text: "Billing Address" }
+        FieldDescription { text: "The billing address associated with your payment method" }
+
+        FieldGroup {
+            Field {
+                orientation: Field.Horizontal
+                Checkbox {
+                    checked: true
+                    Layout.alignment: Qt.AlignVCenter
+                }
+                FieldLabel {
+                    text: "Same as shipping address"
+                    font.weight: Font.Normal
+                    Layout.alignment: Qt.AlignVCenter
+                }
+            }
+        }
+    }
+
+    // ==== Comments(无 Legend 的 FieldSet)====
+    FieldSet {
+        FieldGroup {
+            Field {
+                FieldLabel { text: "Comments" }
+                Textarea {
+                    Layout.fillWidth: true
+                    implicitHeight: 72
+                    placeholderText: "Add any additional comments"
+                }
+            }
+        }
+    }
+
+    // ==== 操作按钮(横排)====
+    Field {
+        orientation: Field.Horizontal
+        Button {
+            text: "Submit"
+            Layout.fillWidth: false
+        }
+        Button {
+            text: "Cancel"
+            variant: Button.Outline
+            Layout.fillWidth: false
+        }
+        Item { Layout.fillWidth: true }
+    }
+}

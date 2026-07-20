@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(SHADCN_BUILD_EXAMPLES "Build the shadcn-qtquick gallery example" ON)
+option(SHADCN_BUILD_TESTS "Build the shadcn-qtquick unit tests" ON)
 
 find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick)
 qt_standard_project_setup(REQUIRES 6.8)
@@ -21,4 +22,9 @@ add_subdirectory(src)
 
 if(SHADCN_BUILD_EXAMPLES)
     add_subdirectory(examples/gallery)
+endif()
+
+if(SHADCN_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
 endif()

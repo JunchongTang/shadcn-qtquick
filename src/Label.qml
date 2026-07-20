@@ -8,7 +8,7 @@ C.Label {
     id: control
 
     color: Theme.foreground
-    font.pixelSize: Theme.textSm
+    font.pixelSize: Theme.textXs        // text-xs/relaxed
     font.weight: Font.Medium
     // 禁用时变暗(对标 group-data-[disabled]:opacity-50)。
     opacity: enabled ? 1.0 : 0.5

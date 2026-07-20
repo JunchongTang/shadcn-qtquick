@@ -16,8 +16,8 @@ C.ScrollView {
         policy: C.ScrollBar.AsNeeded
 
         contentItem: Rectangle {
-            implicitWidth: 8
-            radius: Theme.radiusSm
+            implicitWidth: 10               // w-2.5
+            radius: Theme.radiusFull        // rounded-full
             color: vbar.pressed ? Theme.alpha(Theme.mutedForeground, 0.7)
                  : vbar.hovered ? Theme.alpha(Theme.mutedForeground, 0.6)
                                 : Theme.alpha(Theme.mutedForeground, 0.4)
@@ -37,8 +37,8 @@ C.ScrollView {
         policy: C.ScrollBar.AsNeeded
 
         contentItem: Rectangle {
-            implicitHeight: 8
-            radius: Theme.radiusSm
+            implicitHeight: 10              // h-2.5
+            radius: Theme.radiusFull        // rounded-full
             color: hbar.pressed ? Theme.alpha(Theme.mutedForeground, 0.7)
                  : hbar.hovered ? Theme.alpha(Theme.mutedForeground, 0.6)
                                 : Theme.alpha(Theme.mutedForeground, 0.4)

@@ -1,0 +1,52 @@
+import QtQuick
+import Shadcn
+
+// 子菜单:用嵌套 Menu 承载次级动作(sub-trigger 自动带右侧 chevron)。
+Item {
+    id: area
+    implicitWidth: 320
+    implicitHeight: 180
+
+    Canvas {
+        id: dashed
+        anchors.fill: parent
+        onPaint: {
+            const ctx = getContext("2d")
+            ctx.reset()
+            ctx.strokeStyle = Theme.border
+            ctx.lineWidth = 1
+            ctx.setLineDash([4, 4])
+            ctx.beginPath()
+            ctx.roundedRect(0.5, 0.5, width - 1, height - 1, 12, 12)
+            ctx.stroke()
+        }
+        onWidthChanged: requestPaint()
+        onHeightChanged: requestPaint()
+        Connections { target: Theme; function onDarkChanged() { dashed.requestPaint() } }
+    }
+
+    Text {
+        anchors.centerIn: parent
+        text: "Right click here"
+        color: Theme.foreground
+        font.pixelSize: Theme.textSm
+    }
+
+    ContextMenu {
+        target: area
+
+        MenuItem { text: "Copy"; shortcut: "⌘C" }
+        MenuItem { text: "Cut"; shortcut: "⌘X" }
+
+        Menu {
+            title: "More Tools"
+            MenuItem { text: "Save Page..." }
+            MenuItem { text: "Create Shortcut..." }
+            MenuItem { text: "Name Window..." }
+            MenuSeparator {}
+            MenuItem { text: "Developer Tools" }
+            MenuSeparator {}
+            MenuItem { text: "Delete"; destructive: true }
+        }
+    }
+}

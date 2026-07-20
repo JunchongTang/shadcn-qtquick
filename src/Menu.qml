@@ -11,20 +11,35 @@ C.Menu {
     overlap: 0
     modal: false
 
-    // 弹出面 popover:1px 边框 + radiusLg + 轻微投影(shadow-md 的近似)
+    // C.Menu 不会自动按最宽项撑宽(其 ListView contentItem 不上报内容宽,菜单宽只取 background 的 min-w),
+    // 故显式把 contentWidth 设为最宽项的 implicitWidth → 文本完整显示、不被省略。
+    contentWidth: {
+        var w = 0
+        for (var i = 0; i < count; i++) {
+            var it = itemAt(i)
+            if (it && it.implicitWidth > w)
+                w = it.implicitWidth
+        }
+        return w
+    }
+
+    // 子菜单触发项(嵌套 Menu)由本 delegate 自动创建 → 复用样式化 MenuItem(带右侧 chevron)。
+    delegate: MenuItem {}
+
+    // 弹出面 popover:rounded-lg + ring-1 ring-foreground/10 + shadow-md。
     background: Rectangle {
         implicitWidth: 128           // min-w-32 = 8rem
         color: Theme.popover
         radius: Theme.radiusLg
-        border.width: 1
-        border.color: Theme.border
+        border.width: Theme.overlayRingWidth
+        border.color: Theme.overlayRing
         layer.enabled: true
         layer.effect: MultiEffect {
             autoPaddingEnabled: true
             shadowEnabled: true
-            shadowColor: Theme.alpha(Theme.foreground, 0.18)
-            shadowBlur: 0.4
-            shadowVerticalOffset: 2
+            shadowColor: Theme.shadowColor
+            shadowBlur: Theme.shadowBlur
+            shadowVerticalOffset: Theme.shadowOffset
         }
     }
 

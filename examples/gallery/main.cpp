@@ -2,12 +2,18 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#include <QStyleHints>
 #include <QTimer>
 #include <QImage>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    // 让 Tab 在所有控件间移动(不止文本框)。macOS 默认按系统「键盘导航」开关设为
+    // TabFocusTextControls(Tab 只走文本框);这里显式覆盖为 TabFocusAllControls,
+    // 使键盘焦点导航跨平台一致、无需用户改系统设置(与浏览器/Web 应用行为一致)。
+    app.styleHints()->setTabFocusBehavior(Qt::TabFocusAllControls);
 
     QQmlApplicationEngine engine;
 

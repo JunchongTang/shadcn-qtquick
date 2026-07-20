@@ -1,0 +1,49 @@
+import QtQuick
+import QtQuick.Layouts
+import Shadcn
+
+// Markdown 内容:用 Text.MarkdownText 近似富文本(粗体 / 行内 code / 段落)。
+// 对标官方 bubble-markdown。
+ColumnLayout {
+    width: 360
+    spacing: 32
+
+    Bubble {
+        variant: Bubble.Muted
+        align: Bubble.End
+        BubbleContent {
+            id: mdBubble
+            Text {
+                Layout.maximumWidth: mdBubble._innerMaxW
+                textFormat: Text.MarkdownText
+                text: "Hello! Are you actually **thinking**?"
+                color: Theme.foreground
+                font.pixelSize: Theme.textXs
+                lineHeight: Theme.lineRelaxed
+                lineHeightMode: Text.ProportionalHeight
+                wrapMode: Text.Wrap
+            }
+        }
+    }
+
+    Bubble {
+        variant: Bubble.Ghost
+        BubbleContent {
+            id: ghostBubble
+            Text {
+                Layout.maximumWidth: ghostBubble._innerMaxW
+                textFormat: Text.MarkdownText
+                text: "Ghost bubbles work for assistant text, **markdown**, and other content "
+                      + "that should not be framed.\n\nThis is perfect for assistant messages that "
+                      + "should not have a frame and can take the full width of the container. "
+                      + "You can also render `code` in it.\n\n"
+                      + "Ghost bubbles are full width and can take the full width of the container."
+                color: Theme.foreground
+                font.pixelSize: Theme.textXs
+                lineHeight: Theme.lineRelaxed
+                lineHeightMode: Text.ProportionalHeight
+                wrapMode: Text.Wrap
+            }
+        }
+    }
+}
