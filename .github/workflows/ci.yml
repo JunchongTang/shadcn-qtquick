@@ -30,11 +30,21 @@ jobs:
             libgl1 libegl1 libopengl0 libxkbcommon0 \
             fontconfig fonts-dejavu-core
 
+      # The generated qmlcache/qrc translation units are large; compiling them in
+      # parallel on a 7 GB runner OOM-kills cc1plus. Add swap for headroom.
+      - name: Add swap space
+        run: |
+          sudo fallocate -l 8G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+
       - name: Configure
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
+      # Cap parallelism to 2 to bound peak memory during those heavy TUs.
       - name: Build
-        run: cmake --build build --parallel
+        run: cmake --build build --parallel 2
 
       - name: Test (offscreen)
         env:
