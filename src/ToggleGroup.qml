@@ -1,22 +1,68 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Toggle Group(base-mira) —— 一组两态按钮。子项用 ToggleGroupItem。
-// variant/size 由分组统一向下传播;multiple 决定单选(互斥)还是多选。
-// spacing 为 shadcn 间距单位(× 4 = px;默认 2 → 8px 间距,自 2026-05-17 起默认值由 0 改为 2)。
-// orientation:Horizontal(单行)/Vertical(单列)。分组 disabled 会自动向下禁用子项。
+/*!
+    \qmltype ToggleGroup
+    \inqmlmodule Shadcn
+    \inherits GridLayout
+    \brief A set of two-state buttons that share styling and selection.
+
+    ToggleGroup lays out \l ToggleGroupItem children and propagates \l variant and
+    \l size down to them. \l multiple chooses between single-selection (mutually
+    exclusive, the default) and multi-selection. A disabled group disables its items.
+
+    \l spacing is expressed in shadcn spacing units (multiplied by 4 to get pixels);
+    it defaults to 2 (8px). \l orientation lays the items out in a row or a column.
+
+    \qml
+    ToggleGroup {
+        ToggleGroupItem { iconName: "bold" }
+        ToggleGroupItem { iconName: "italic" }
+        ToggleGroupItem { iconName: "underline" }
+    }
+    \endqml
+
+    \sa ToggleGroupItem, Toggle
+*/
 GridLayout {
     id: group
 
+    /*!
+        \qmlproperty enumeration ToggleGroup::variant
+        \value ToggleGroup.Default Transparent items.
+        \value ToggleGroup.Outline Outlined items.
+    */
     enum Variant { Default, Outline }
-    enum Size { Sm, Default, Lg }
+
+    /*!
+        \qmlproperty enumeration ToggleGroup::size
+        \value ToggleGroup.Default 28px items.
+        \value ToggleGroup.Sm 24px items.
+        \value ToggleGroup.Lg 32px items.
+
+        \note \c Default is listed first so it shares value 0 with \l Variant's
+        \c Default; QML flattens enum values into the type scope, so a colliding
+        name must resolve to the same number in both enums.
+    */
+    enum Size { Default, Sm, Lg }
+
+    /*!
+        \qmlproperty enumeration ToggleGroup::orientation
+        \value ToggleGroup.Horizontal Single row.
+        \value ToggleGroup.Vertical Single column.
+    */
     enum Orientation { Horizontal, Vertical }
 
+    /*! \qmlproperty int ToggleGroup::variant \brief Variant propagated to items; see \l Variant. */
     property int variant: ToggleGroup.Default
+    /*! \qmlproperty int ToggleGroup::size \brief Size propagated to items; see \l Size. */
     property int size: ToggleGroup.Default
-    property int spacing: 2                       // shadcn 单位(× 4 得 px)
+    /*! \qmlproperty int ToggleGroup::spacing \brief Gap between items in shadcn units (×4 = px). Defaults to 2 (8px). */
+    property int spacing: 2
+    /*! \qmlproperty int ToggleGroup::orientation \brief Layout direction; see \l Orientation. */
     property int orientation: ToggleGroup.Horizontal
-    property bool multiple: false                 // false → 单选互斥
+    /*! \qmlproperty bool ToggleGroup::multiple \brief If \c false (default) selection is mutually exclusive; if \c true multiple items may be on. */
+    property bool multiple: false
 
     flow: orientation === ToggleGroup.Vertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
     rows: orientation === ToggleGroup.Vertical ? -1 : 1
@@ -24,7 +70,7 @@ GridLayout {
     rowSpacing: spacing * 4
     columnSpacing: spacing * 4
 
-    // 单选互斥:某项被选中时,取消其余项。多选模式不处理。
+    // Single-selection: when an item turns on, turn the others off. No-op in multiple mode.
     function _onItemToggled(item) {
         if (multiple || !item.checked)
             return

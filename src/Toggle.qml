@@ -3,31 +3,68 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import LucideIcons
 
-// shadcn Toggle(base-mira) —— 两态按钮(on/off)。checkable 复用 C.Button 的 checked。
-// 尺寸/变体严格对齐 style-mira.css 的 .cn-toggle-*(紧凑风格)。
-// variant:Default(透明底)/Outline(input 描边);size:Sm/Default/Lg。
-// 选中态(data-[state=on])与 hover 均为 bg-muted;文字/图标恒用 foreground。
+/*!
+    \qmltype Toggle
+    \inqmlmodule Shadcn
+    \inherits Button
+    \brief A two-state (on/off) button.
+
+    Toggle is a checkable button styled after shadcn's base-mira \c .cn-toggle-*
+    rules. It reuses the checked state of the Qt Quick Controls \c Button: the
+    pressed/on state (\c data-[state=on]) and hover both paint a muted background,
+    while the label and optional icon always use the foreground color.
+
+    Use \l variant for the visual style and \l size for the compact size scale.
+
+    \qml
+    Toggle { iconName: "bold"; text: "Bold" }
+    Toggle { variant: Toggle.Outline; size: Toggle.Sm; text: "Italic" }
+    \endqml
+
+    \sa ToggleGroup
+*/
 C.Button {
     id: control
 
+    /*!
+        \qmlproperty enumeration Toggle::variant
+        Visual style:
+        \value Toggle.Default Transparent background (muted on hover/on).
+        \value Toggle.Outline Adds a 1px input-colored border.
+    */
     enum Variant { Default, Outline }
-    enum Size { Sm, Default, Lg }
 
+    /*!
+        \qmlproperty enumeration Toggle::size
+        Compact size scale (height 24 / 28 / 32):
+        \value Toggle.Default 28px, 12px text, 16px icons.
+        \value Toggle.Sm 24px, 10px text, 12px icons.
+        \value Toggle.Lg 32px.
+
+        \note \c Default is listed first so it shares value 0 with \l Variant's
+        \c Default; QML flattens enum values into the type scope, so a colliding
+        name must resolve to the same number in both enums.
+    */
+    enum Size { Default, Sm, Lg }
+
+    /*! \qmlproperty int Toggle::variant \brief The visual style; see \l Variant. Defaults to \c Toggle.Default. */
     property int variant: Toggle.Default
+    /*! \qmlproperty int Toggle::size \brief The size on the compact scale; see \l Size. Defaults to \c Toggle.Default. */
     property int size: Toggle.Default
-    property string iconName: ""   // 前置图标(Lucide kebab-case 名)
+    /*! \qmlproperty string Toggle::iconName \brief Optional leading Lucide icon (kebab-case name). */
+    property string iconName: ""
 
     checkable: true
 
-    // 高度/最小方形边长(mira: sm24 default28 lg32)。
+    // Square min side / height (mira: sm 24, default 28, lg 32).
     readonly property real _dim: size === Toggle.Sm ? 24 : size === Toggle.Lg ? 32 : 28
-    // 图标像素:sm 用 size-3(12),其余 size-4(16)。
+    // Icon px: sm size-3 (12), otherwise size-4 (16).
     readonly property int _iconSize: size === Toggle.Sm ? 12 : 16
-    // 文字:sm text-[0.625rem]=10,其余 text-xs=12。
+    // Text: sm text-[0.625rem] (10), otherwise text-xs (12).
     readonly property int _textSize: size === Toggle.Sm ? 10 : Theme.textXs
-    // rounded-md;sm 为 rounded-[min(radius-md,8px)] —— 二者皆等于 radiusMd(8)。
+    // rounded-md (sm's rounded-[min(radius-md,8px)] also resolves to radiusMd).
     readonly property real _radius: Theme.radiusMd
-    // 水平内边距:lg px-2.5(10),其余 px-2(8);带图标一侧减 2(pl-1.5/pr-1.5)。
+    // Horizontal padding: lg px-2.5 (10), otherwise px-2 (8); the icon side loses 2 (pl-1.5).
     readonly property real _hpad: size === Toggle.Lg ? Theme.space2_5 : Theme.space2
 
     readonly property bool _hasText: text !== ""
@@ -41,7 +78,7 @@ C.Button {
     font.pixelSize: _textSize
     font.weight: Font.Medium
     hoverEnabled: true
-    focusPolicy: Qt.StrongFocus     // 键盘可 Tab 聚焦(Space/Enter 切换由 AbstractButton 自带)
+    focusPolicy: Qt.StrongFocus     // Tab-focusable; Space/Enter toggling comes from AbstractButton
     opacity: enabled ? 1.0 : 0.5
 
     contentItem: Item {
@@ -76,7 +113,7 @@ C.Button {
         radius: control._radius
         border.width: control.variant === Toggle.Outline ? 1 : 0
         border.color: Theme.input
-        // 选中或 hover → bg-muted;否则透明。
+        // Checked or hovered -> bg-muted; otherwise transparent.
         color: (control.checked || control.hovered) ? Theme.muted : Theme.alpha(Theme.muted, 0)
         Behavior on color { ColorAnimation { duration: Theme.durBase } }
 

@@ -37,6 +37,7 @@
 | [#025](#025-datepicker-图标位置错点击本体无法关闭弹层) | DatePicker 图标位置错 + 点击本体无法关闭弹层 | Component/DatePicker | P2 | ✅ |
 | [#026](#026-dialog-footer-无分隔线背景遮罩非高斯模糊) | Dialog footer 无分隔线/背景 + 遮罩非高斯模糊 | Component/Dialog | P3 | ✅ |
 | [#027](#027-drawer-示例完整度低) | Drawer 示例完整度低(缺 Move Goal/方向/响应式) | Component/Drawer | P3 | ✅ |
+| [#028](#028-toggletogglegroup-默认变体误为-outline枚举名冲突) | Toggle/ToggleGroup 默认变体误为 Outline(枚举名冲突) | Component/Toggle · Component/ToggleGroup | P2 | ✅ |
 
 ---
 
@@ -324,3 +325,14 @@
 - **预期行为**: 对齐官网:主 demo 为「Move Goal」(目标步进器 + 活动柱状图),另有方向变体与响应式对话框示例。
 - **实际行为**: 仅一个简单的底部抽屉,功能与官网差距大。
 - **修复**: Basic 重做为忠实的「Move Goal」(圆形 -/+ 步进器 + 大号数值 + 柱状图 + Submit/Cancel,内容 mx-auto max-w-sm 居中)。对齐官网示例集,补齐示例卡至 6 个:Directions(四向)、Swipe Handle(抓手)、Nested(抽屉内开抽屉)、Non Modal(`modal:false`、页面可交互)、Responsive Dialog(宽屏 Dialog/窄屏 Drawer)。官方「Snap Points」因 Qt Quick Controls Drawer 无原生吸附点、不做低保真替代,页面注释说明跳过。
+
+### #028 Toggle/ToggleGroup 默认变体误为 Outline(枚举名冲突)
+
+- **位置**: Component/Toggle · Component/ToggleGroup
+- **严重级**: P2
+- **复现步骤**: 放一个默认 `Toggle { text: "..." }`(不设 variant)。
+- **预期行为**: 默认 variant=Default,透明底、无边框(仅 hover/选中显 muted)。
+- **实际行为**: 默认 Toggle 带了一圈 outline 边框(等同 variant=Outline)。
+- **分析/根因**: QML 会把同一类型下所有 enum 的成员**扁平化**进类型作用域。Toggle 同时声明 `enum Variant { Default, Outline }`(Default=0)与 `enum Size { Sm, Default, Lg }`(Default=1),两个 `Default` **同名不同值**;`Toggle.Default` 被解析为后者(Size.Default=1)。于是 `property int variant: Toggle.Default` 实际取到 1 = Variant.Outline → 默认就成了描边样式。ToggleGroup 同样问题。(Button/ShadItem 幸免:它们两个枚举的 Default 都排第一、同为 0。)
+- **修复**: 把 Toggle/ToggleGroup 的 `enum Size` 重排为 `{ Default, Sm, Lg }`,使 `Default` 在两个枚举里都为 0、冲突消解为同值;命名引用(`Toggle.Sm/Lg`)不受影响。由单测 `tst_Toggle.qml::test_variant_border` 锁定(默认边框=0、Outline 边框=1)。
+- **备注**: 通用教训——同一 QML 类型里**多个 enum 不要出现同名成员**,除非它们数值相同;否则扁平化后按声明顺序覆盖,静默取错值。
