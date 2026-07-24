@@ -34,10 +34,13 @@ jobs:
       # parallel on a 7 GB runner OOM-kills cc1plus. Add swap for headroom.
       - name: Add swap space
         run: |
-          sudo fallocate -l 8G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
+          sudo swapoff -a || true
+          sudo rm -f /mnt/ci-swapfile
+          sudo fallocate -l 10G /mnt/ci-swapfile
+          sudo chmod 600 /mnt/ci-swapfile
+          sudo mkswap /mnt/ci-swapfile
+          sudo swapon /mnt/ci-swapfile
+          free -h
 
       - name: Configure
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
