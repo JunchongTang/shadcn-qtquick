@@ -1,10 +1,24 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Breadcrumb —— 根容器(= <nav> > <ol class="flex flex-wrap items-center gap-1.5">)。
-// 直接放入 BreadcrumbItem / BreadcrumbSeparator 作为子项。
-// base-mira: list 用 text-muted-foreground + gap-1.5 + text-xs/relaxed。各子组件自带默认色。
-// 注:用 RowLayout 保证 items-center 垂直居中(与官方一致);未实现 flex-wrap(预览为单行,足够贴合)。
+/*!
+    \qmltype Breadcrumb
+    \inqmlmodule Shadcn
+    \inherits RowLayout
+    \brief Root container for a breadcrumb trail.
+
+    Maps to shadcn's \c{<nav> > <ol class="flex flex-wrap items-center gap-1.5">}.
+    Place \l BreadcrumbItem and \l BreadcrumbSeparator instances directly as
+    children; each child supplies its own color and font (base-mira applies
+    \c{text-muted-foreground} + \c{text-xs/relaxed} at list level, replicated
+    per-child here since QML has no CSS inheritance).
+
+    A RowLayout is used so children are vertically centered (\c items-center):
+    Layout.alignment defaults to \c{Qt.AlignVCenter | Qt.AlignLeft}.
+
+    \note flex-wrap is not implemented; the trail is rendered on a single row,
+    which is sufficient for the reference previews.
+*/
 RowLayout {
     spacing: Theme.space1_5   // gap-1.5 = 6
 }

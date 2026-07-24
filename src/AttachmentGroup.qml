@@ -1,14 +1,27 @@
 import QtQuick
 
-// shadcn AttachmentGroup —— 把多个 Attachment 横向排布为可滚动的一行。对标 .cn-attachment-group:
-// gap-3(12)、py-1(4)、横向溢出滚动。默认子项进入内部 Row。
-// 近似说明:官方还有 snap 对齐与两侧渐隐(scroll-fade-x / snap-mandatory);这里实现功能性
-// 横向滚动与间距,snap 与边缘渐隐从简省略(纯视觉修饰,不影响可用性)。
+/*!
+    \qmltype AttachmentGroup
+    \inqmlmodule Shadcn
+    \inherits Flickable
+    \brief A horizontally scrollable row of \l Attachment cards.
+
+    AttachmentGroup mirrors \c .cn-attachment-group: gap-3 (12) between cards,
+    py-1 (4) vertical padding, and horizontal overflow scrolling. Declare the
+    cards in the default slot; they are placed in an internal \c Row.
+
+    The web version also snaps and fades the edges (\c scroll-fade-x /
+    \c snap-mandatory); those are purely visual and omitted here.
+
+    \sa Attachment
+*/
 Flickable {
     id: group
 
+    /*! \qmlproperty list<QtObject> AttachmentGroup::content \brief Default slot; the \l Attachment cards laid out in a row. */
     default property alias content: row.data
 
+    /*! \qmlproperty string AttachmentGroup::attachSlot \readonly \brief Slot marker (self-identification). */
     readonly property string attachSlot: "attachment-group"
 
     contentWidth: row.width
@@ -18,11 +31,11 @@ Flickable {
     clip: true
 
     implicitWidth: row.implicitWidth + 8
-    implicitHeight: row.implicitHeight + 8    // py-1 上下各 4
+    implicitHeight: row.implicitHeight + 8    // py-1 (4 top + 4 bottom)
 
     Row {
         id: row
-        x: 4                                  // scroll-px-1 近似
+        x: 4                                  // approximates scroll-px-1
         y: 4                                  // py-1
         spacing: 12                           // gap-3
     }

@@ -5,45 +5,134 @@ import QtQuick.Controls.Basic as C
 import QtQuick.Effects
 import LucideIcons
 
-// shadcn Alert Dialog(base-mira)—— 打断式确认对话框。像素对齐 style-mira.css 的 .cn-alert-dialog-*。
-// 与 Dialog 的差异:居中、无右上角关闭按钮、footer 为 Cancel(outline)+ Action、可选顶部 media 图标、尺寸 default/sm。
-// 文件名 AlertDialog 与基类 Dialog 不同名,但仍别名导入(as C),根用 C.Dialog。
+/*!
+    \qmltype AlertDialog
+    \inqmlmodule Shadcn
+    \inherits Dialog
+    \brief An interrupting confirmation dialog styled after shadcn/ui base-mira.
+
+    AlertDialog is a modal, centered confirmation prompt built on the Qt Quick
+    Controls \c Dialog. Unlike \l Dialog it has no top-right close button and no
+    muted footer bar: the header (optional \l mediaIconName, \c title and
+    \l description) and the footer (a \c Cancel outline button plus an action
+    button) are laid out together inside the padded content surface, matching the
+    base-mira \c .cn-alert-dialog-* rules.
+
+    The action button emits the inherited \c {Dialog::accepted()} signal and then
+    closes; the cancel button just closes. Use \l size to switch between the
+    wider left-aligned \c Default layout and the narrow centered \c Sm layout.
+
+    The file name shadows the base type, so it is imported aliased (\c {as C})
+    and the root is \c C.Dialog.
+
+    \qml
+    Button {
+        text: "Delete"
+        onClicked: dialog.open()
+        AlertDialog {
+            id: dialog
+            size: AlertDialog.Sm
+            mediaIconName: "trash-2"
+            mediaDestructive: true
+            title: "Delete chat?"
+            description: "This will permanently delete this chat conversation."
+            actionText: "Delete"
+            actionVariant: Button.Destructive
+            onAccepted: doDelete()
+        }
+    }
+    \endqml
+
+    \sa Dialog, Button
+*/
 C.Dialog {
     id: control
 
+    /*!
+        \qmlproperty enumeration AlertDialog::size
+        The content layout preset.
+
+        \value AlertDialog.Default Wider surface (max-w-sm, 384) with a
+               left-aligned header and a trailing-aligned footer.
+        \value AlertDialog.Sm Narrow surface (max-w-64, 256) with a centered
+               header and a two-column (equal width) footer.
+
+        The default is \c AlertDialog.Default.
+    */
+    // Default is 0 so it also matches Button.Default (0); keeping shared enum
+    // members at value 0 avoids the enum-flattening resolution pitfall (#028).
     enum Size { Default, Sm }
 
-    // title 继承自基类 Dialog,直接使用。以下为本组件新增。
-    property string description: ""           // header 描述(muted,text-xs/relaxed)
-    property string mediaIconName: ""          // 可选顶部 media 图标(Lucide 名)
-    property bool mediaDestructive: false      // media 用 destructive 配色(bg-destructive/10 + text-destructive)
+    // title is inherited from the base Dialog and used as-is. The rest are new.
+
+    /*!
+        \qmlproperty string AlertDialog::description
+        Optional muted sub-title shown under the title (text-xs, relaxed line
+        height). Hidden when empty.
+    */
+    property string description: ""
+
+    /*!
+        \qmlproperty string AlertDialog::mediaIconName
+        Optional Lucide icon name for the top/leading media badge. When empty no
+        media badge is shown.
+    */
+    property string mediaIconName: ""
+
+    /*!
+        \qmlproperty bool AlertDialog::mediaDestructive
+        Whether the media badge uses the destructive palette
+        (bg-destructive/10 fill + destructive icon) instead of the muted default.
+    */
+    property bool mediaDestructive: false
+
+    /*!
+        \qmlproperty string AlertDialog::cancelText
+        Label of the cancel (outline) button. Clicking it closes the dialog.
+    */
     property string cancelText: qsTr("Cancel")
+
+    /*!
+        \qmlproperty string AlertDialog::actionText
+        Label of the confirming action button.
+    */
     property string actionText: qsTr("Continue")
-    property int actionVariant: Button.Default // Action 按钮变体(Button 枚举)
+
+    /*!
+        \qmlproperty int AlertDialog::actionVariant
+        Variant of the action button, taken from the \l Button variant enum
+        (for example \c Button.Destructive). Defaults to \c Button.Default.
+    */
+    property int actionVariant: Button.Default
+
+    // Backing property for the size preset documented on the Size enum above.
     property int size: AlertDialog.Default
 
-    // 触发信号:Action 点击后先发 accepted 再 close。
-    signal accepted()
+    // Note: the action button emits the inherited Dialog::accepted() signal.
+    // It is not redeclared here (redeclaring an inherited signal triggers a
+    // qt.qml.invalidOverride "Duplicate signal name" warning).
 
     readonly property bool _sm: size === AlertDialog.Sm
     readonly property bool _hasMedia: mediaIconName !== ""
-    // sm 尺寸居中;default 尺寸左对齐(对标 sm:group-data-[size=default] 的 place-items-start)。
+    // sm is centered; default is left-aligned (mirrors the base-mira
+    // sm:group-data-[size=default] place-items-start rule).
     readonly property bool _centered: _sm
 
     modal: true
-    anchors.centerIn: parent                   // 居中于父项
+    anchors.centerIn: parent
     padding: Theme.space4                      // content p-4
-    // 关掉基类因 title 非空而自动生成的标题栏/按钮栏(会带直角默认底色、盖住圆角)。
-    // header/footer 已全部收进 contentItem。
+    // Suppress the base Dialog's auto title/button bars (created because title is
+    // non-empty); they would carry a square default fill and cover the corners.
+    // The header and footer are folded into contentItem instead.
     header: null
     footer: null
-    // content 网格宽度:default 用 max-w-sm(384),sm 用 max-w-64(256)。
+    // Content grid width: default uses max-w-sm (384), sm uses max-w-64 (256).
     implicitWidth: _sm ? 256 : 384
 
-    // 模态遮罩:black/80(对标 cn-alert-dialog-overlay bg-black/80)
+    // Modal scrim: black/80 (mirrors cn-alert-dialog-overlay bg-black/80).
     QQC.Overlay.modal: Rectangle { color: Theme.alpha("#000000", 0.8) }
 
-    // 内容面:popover 底 + ring-1 ring-foreground/10 + rounded-xl + shadow。
+    // Content surface: popover base + ring-1 ring-foreground/10 + rounded-xl + shadow.
     background: Rectangle {
         color: Theme.popover
         radius: Theme.radiusXl
@@ -59,17 +148,17 @@ C.Dialog {
         }
     }
 
-    // 整个 header + footer 收进 contentItem,统一 p-4,块间 gap-3。
+    // Header + footer are folded into contentItem under a shared p-4 with gap-3.
     contentItem: ColumnLayout {
         spacing: Theme.space3     // content gap-3
 
-        // ==== header:default+media(左右并排,media row-span-2)====
+        // ==== Header: default + media (side by side, media spans 2 rows) ====
         RowLayout {
             visible: !control._centered && control._hasMedia
             Layout.fillWidth: true
             spacing: Theme.space4      // gap-x-4
 
-            Rectangle {                // media(size-8 rounded-md)
+            Rectangle {                // media (size-8, rounded-md)
                 Layout.alignment: Qt.AlignTop
                 implicitWidth: 32
                 implicitHeight: 32
@@ -106,16 +195,16 @@ C.Dialog {
             }
         }
 
-        // ==== header:堆叠(sm 居中,或 default 无 media)====
+        // ==== Header: stacked (sm centered, or default without media) ====
         ColumnLayout {
             visible: control._centered || !control._hasMedia
             Layout.fillWidth: true
             spacing: Theme.space1      // gap-1
 
-            Rectangle {                // media(仅居中态出现,mb-2)
+            Rectangle {                // media (centered layout only, mb-2)
                 visible: control._hasMedia
                 Layout.alignment: Qt.AlignHCenter
-                Layout.bottomMargin: Theme.space1   // + gap-1 = mb-2(8)
+                Layout.bottomMargin: Theme.space1   // + gap-1 = mb-2 (8)
                 implicitWidth: 32
                 implicitHeight: 32
                 radius: Theme.radiusMd
@@ -149,18 +238,20 @@ C.Dialog {
             }
         }
 
-        // ==== footer:Cancel(outline)+ Action。default 右对齐;sm 两等分列 ====
+        // ==== Footer: Cancel (outline) + Action. default right-aligned; sm two equal columns ====
         RowLayout {
             Layout.fillWidth: true
             spacing: Theme.space2            // gap-2
             Item { visible: !control._sm; Layout.fillWidth: true }
             Button {
+                objectName: "alertDialogCancel"
                 text: control.cancelText
                 variant: Button.Outline
                 Layout.fillWidth: control._sm
                 onClicked: control.close()
             }
             Button {
+                objectName: "alertDialogAction"
                 text: control.actionText
                 variant: control.actionVariant
                 Layout.fillWidth: control._sm
@@ -169,8 +260,9 @@ C.Dialog {
         }
     }
 
-    // 弹出动效:仅 zoom(scale 0.95→1),面板保持不透明,避免淡入时透出黑遮罩造成"开场黑闪";
-    // 模态遮罩自身的淡入已提供出现感。对标 zoom-in-95。
+    // Enter/exit: zoom only (scale 0.95->1); the surface stays opaque to avoid an
+    // opening flash of the dark scrim showing through while it fades. The modal
+    // scrim's own fade provides the appearance cue. Mirrors zoom-in-95.
     enter: Transition {
         NumberAnimation { property: "scale"; from: 0.95; to: 1; duration: Theme.durBase; easing.type: Easing.OutCubic }
     }

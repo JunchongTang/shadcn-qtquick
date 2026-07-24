@@ -1,8 +1,22 @@
 import QtQuick
 import LucideIcons
 
-// shadcn BreadcrumbSeparator —— 分隔符(= <li class="cn-breadcrumb-separator">,[&>svg]:size-3.5)。
-// 默认 chevron-right;自定义分隔符改 iconName(如 "dot" 圆点)。色随 list = muted-foreground。
+/*!
+    \qmltype BreadcrumbSeparator
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief Visual separator between breadcrumb items.
+
+    Maps to shadcn's \c{<li class="cn-breadcrumb-separator">} whose
+    \c{[&>svg]:size-3.5} sizes the glyph to 14px. Defaults to a chevron-right
+    icon; set \l iconName to use another Lucide glyph (e.g. \c "dot" for the
+    dotted-separator variant). Colored with \c text-muted-foreground to match
+    the list.
+
+    \qmlproperty string BreadcrumbSeparator::iconName
+    Name of the Lucide icon used as the separator glyph. Defaults to
+    \c "chevron-right".
+*/
 Item {
     id: root
 

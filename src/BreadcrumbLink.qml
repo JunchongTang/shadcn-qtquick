@@ -1,7 +1,19 @@
 import QtQuick
 
-// shadcn BreadcrumbLink —— 可点击链接(= <a class="cn-breadcrumb-link">)。
-// base-mira: 默认 text-muted-foreground(继承自 list),hover:text-foreground + transition-colors。
+/*!
+    \qmltype BreadcrumbLink
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief A clickable breadcrumb link.
+
+    Maps to shadcn's \c{<a class="cn-breadcrumb-link">}. base-mira renders it in
+    \c text-muted-foreground (the list's inherited color) and transitions to
+    \c text-foreground on hover (\c transition-colors). Text is \c text-xs with
+    \c relaxed line height. Set the inherited \c text property for the label.
+
+    \qmlsignal BreadcrumbLink::clicked()
+    Emitted when the link is tapped/clicked.
+*/
 Text {
     id: root
 
@@ -10,6 +22,8 @@ Text {
     color: hover.hovered ? Theme.foreground : Theme.mutedForeground
     font.pixelSize: Theme.textXs        // text-xs
     font.family: Theme.fontSans
+    lineHeight: Theme.lineRelaxed       // /relaxed line height
+    lineHeightMode: Text.ProportionalHeight
     verticalAlignment: Text.AlignVCenter
     Behavior on color { ColorAnimation { duration: Theme.durBase } }  // transition-colors
 

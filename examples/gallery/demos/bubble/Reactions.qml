@@ -39,7 +39,7 @@ ColumnLayout {
         align: Bubble.End
         BubbleContent { text: "Tests passed on the first try. All 142 of them. Looking good!" }
         BubbleReactions {
-            side: BubbleReactions.Top
+            side: BubbleReactions.Above
             align: Bubble.Start
             Text { text: "🎉"; font.pixelSize: Theme.textXs }
             Text { text: "👏"; font.pixelSize: Theme.textXs }

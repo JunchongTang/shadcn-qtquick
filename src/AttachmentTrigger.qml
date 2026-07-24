@@ -1,17 +1,32 @@
 import QtQuick
 
-// shadcn AttachmentTrigger —— 使整张附件卡可激活(打开链接/对话框)。对标 .cn-attachment-trigger:
-// absolute inset-0 z-10,覆盖全卡但位于 actions 之下,故操作按钮仍独立可点。
-//
-// 实现:本身是一个「标记」子项(无渲染)。父 Attachment 检测到它后,会在卡片内容之下铺设
-// 一个可聚焦按钮覆盖层,点击/回车时回调本组件的 clicked() 并触发 Attachment.triggered()。
-// label 提供无障碍语义(对标 aria-label)。真实拖放/文件选择逻辑用静态近似,由消费方连接 clicked。
+/*!
+    \qmltype AttachmentTrigger
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief Makes the whole \l Attachment card activatable.
+
+    AttachmentTrigger mirrors \c .cn-attachment-trigger (absolute inset-0 z-10):
+    it covers the whole card but sits below the actions, so action buttons stay
+    independently clickable.
+
+    It is a non-rendering marker child. When the parent \l Attachment detects it,
+    it lays a focusable button overlay below the card content; a click or Enter
+    calls this component's \l clicked signal and emits \l {Attachment::triggered}.
+    \l label carries the accessibility name (mirrors aria-label). Connect
+    \l clicked to run the real open/select logic.
+
+    \sa Attachment
+*/
 Item {
     id: trigger
 
+    /*! \qmlproperty string AttachmentTrigger::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
     readonly property string attachSlot: "attachment-trigger"
+    /*! \qmlproperty string AttachmentTrigger::label \brief Accessibility label (mirrors aria-label). */
     property string label: ""
 
+    /*! \qmlsignal AttachmentTrigger::clicked() \brief Emitted when the card's trigger overlay is activated. */
     signal clicked()
 
     visible: false

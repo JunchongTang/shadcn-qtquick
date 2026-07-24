@@ -2,33 +2,76 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn Badge(base-mira) —— h-5 胶囊(rounded-full)、text-[0.625rem]、6 变体。
-// 支持前/后置图标(iconName/trailingIconName)、可选前/后置内容槽(leading/trailing,
-// 用于放 Spinner 等),以及可覆盖配色(bgColor/fgColor/borderColor,默认按变体)。
+/*!
+    \qmltype Badge
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A small pill-shaped label, styled after shadcn's base-mira badge.
+
+    Badge renders shadcn's \c .cn-badge as a compact \c rounded-full pill:
+    20px tall (\c h-5), 10px medium text (\c text-[0.625rem]) and 6 color
+    variants. It can carry an optional leading and/or trailing Lucide icon
+    (\l iconName / \l trailingIconName, painted at 10px), plus arbitrary
+    content slots (\l leading / \l trailing) for things like a Spinner.
+
+    Per-variant colors come from \l Theme; they may be overridden wholesale
+    through \l bgColor, \l fgColor and \l borderColor for custom-colored badges.
+
+    The \l Variant enum values/names are stable API: other components (for
+    example table cells) select a badge style by name, e.g. \c Badge.Secondary.
+
+    \qml
+    Badge { text: "Badge" }
+    Badge { text: "Secondary"; variant: Badge.Secondary }
+    Badge { iconName: "badge-check"; text: "Verified"; variant: Badge.Outline }
+    \endqml
+*/
 Item {
     id: control
 
+    /*!
+        \qmlproperty enumeration Badge::variant
+        The color style. Values map to shadcn's \c .cn-badge-variant-* rules.
+        \value Badge.Default Primary fill with primary-foreground text.
+        \value Badge.Secondary Secondary fill with secondary-foreground text.
+        \value Badge.Outline 1px border, foreground text, faint input-tinted fill.
+        \value Badge.Destructive Faint destructive fill with destructive text.
+        \value Badge.Ghost Transparent, foreground text.
+        \value Badge.Link Transparent, primary text, underlined.
+
+        \note The member order differs from \c Button.Variant on purpose; each
+        QML type namespaces its own enum, so callers must reference members by
+        name (\c Badge.Ghost), never by numeric value.
+    */
     enum Variant { Default, Secondary, Outline, Destructive, Ghost, Link }
 
+    /*! \qmlproperty int Badge::variant \brief The color style; see \l Variant. Defaults to \c Badge.Default. */
     property int variant: Badge.Default
+    /*! \qmlproperty string Badge::text \brief The label text. Empty hides the label. */
     property string text: ""
-    property string iconName: ""          // 可选前置图标(svg size-2.5)
-    property string trailingIconName: ""  // 可选后置图标
+    /*! \qmlproperty string Badge::iconName \brief Optional leading Lucide icon (kebab-case), painted at 10px. */
+    property string iconName: ""
+    /*! \qmlproperty string Badge::trailingIconName \brief Optional trailing Lucide icon (kebab-case), painted at 10px. */
+    property string trailingIconName: ""
 
-    // 前/后置内容槽(如 Spinner);color 用 fgColor 保持一致。
+    /*! \qmlproperty list<QtObject> Badge::leading \brief Content slot placed before the icon/label (e.g. a Spinner). */
     property alias leading: leadingSlot.data
+    /*! \qmlproperty list<QtObject> Badge::trailing \brief Content slot placed after the label/icon. */
     property alias trailing: trailingSlot.data
 
-    // 配色(默认按变体;可整体覆盖做自定义配色)。
+    /*! \qmlproperty color Badge::bgColor \brief Background fill; defaults per \l variant. */
     property color bgColor: {
         switch (variant) {
         case Badge.Default: return Theme.primary
         case Badge.Secondary: return Theme.secondary
-        case Badge.Outline: return Theme.alpha(Theme.input, 0.2)              // bg-input/20
-        case Badge.Destructive: return Theme.alpha(Theme.destructive, 0.1)   // bg-destructive/10
+        // bg-input/20 (light) or bg-input/30 (dark).
+        case Badge.Outline: return Theme.alpha(Theme.input, Theme.dark ? 0.3 : 0.2)
+        // bg-destructive/10 (light) or bg-destructive/20 (dark).
+        case Badge.Destructive: return Theme.alpha(Theme.destructive, Theme.dark ? 0.2 : 0.1)
         default: return "transparent"  // Ghost / Link
         }
     }
+    /*! \qmlproperty color Badge::fgColor \brief Text/icon color; defaults per \l variant. */
     property color fgColor: {
         switch (variant) {
         case Badge.Default: return Theme.primaryForeground
@@ -38,9 +81,13 @@ Item {
         default: return Theme.foreground  // Outline / Ghost
         }
     }
+    /*! \qmlproperty color Badge::borderColor \brief Border color; only drawn for \c Badge.Outline. */
     property color borderColor: Theme.border
 
-    // has-data-[icon=inline-start]:pl-1.5 / inline-end:pr-1.5,否则 px-2。
+    /*! \qmlproperty Rectangle Badge::background \brief The pill background/border rectangle (read-only). */
+    readonly property alias background: bg
+
+    // has-data-[icon=inline-start]:pl-1.5 / inline-end:pr-1.5, otherwise px-2.
     readonly property bool _hasLeading: iconName !== "" || leadingSlot.children.length > 0
     readonly property bool _hasTrailing: trailingIconName !== "" || trailingSlot.children.length > 0
     readonly property real _padLeft: _hasLeading ? Theme.space1_5 : Theme.space2
@@ -50,8 +97,9 @@ Item {
     implicitWidth: _padLeft + row.implicitWidth + _padRight
 
     Rectangle {
+        id: bg
         anchors.fill: parent
-        radius: Theme.radiusFull                    // rounded-full 胶囊
+        radius: Theme.radiusFull                    // rounded-full pill
         color: control.bgColor
         border.width: control.variant === Badge.Outline ? 1 : 0
         border.color: control.borderColor           // border-border
@@ -64,6 +112,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         spacing: Theme.space1                        // gap-1
 
+        // Leading content slot (e.g. a Spinner); caller sets its color.
         Item {
             id: leadingSlot
             visible: children.length > 0
@@ -90,6 +139,7 @@ Item {
             size: 10
             color: control.fgColor
         }
+        // Trailing content slot.
         Item {
             id: trailingSlot
             visible: children.length > 0

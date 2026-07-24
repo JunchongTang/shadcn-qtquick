@@ -38,6 +38,7 @@
 | [#026](#026-dialog-footer-无分隔线背景遮罩非高斯模糊) | Dialog footer 无分隔线/背景 + 遮罩非高斯模糊 | Component/Dialog | P3 | ✅ |
 | [#027](#027-drawer-示例完整度低) | Drawer 示例完整度低(缺 Move Goal/方向/响应式) | Component/Drawer | P3 | ✅ |
 | [#028](#028-toggletogglegroup-默认变体误为-outline枚举名冲突) | Toggle/ToggleGroup 默认变体误为 Outline(枚举名冲突) | Component/Toggle · Component/ToggleGroup | P2 | ✅ |
+| [#029](#029-bubblereactions-顶部反应渲染到了底部继承-item-枚举冲突) | BubbleReactions 顶部反应渲染到底部(继承 Item 枚举冲突) | Component/Bubble · Component/HoverCard | P2 | ✅ |
 
 ---
 
@@ -336,3 +337,15 @@
 - **分析/根因**: QML 会把同一类型下所有 enum 的成员**扁平化**进类型作用域。Toggle 同时声明 `enum Variant { Default, Outline }`(Default=0)与 `enum Size { Sm, Default, Lg }`(Default=1),两个 `Default` **同名不同值**;`Toggle.Default` 被解析为后者(Size.Default=1)。于是 `property int variant: Toggle.Default` 实际取到 1 = Variant.Outline → 默认就成了描边样式。ToggleGroup 同样问题。(Button/ShadItem 幸免:它们两个枚举的 Default 都排第一、同为 0。)
 - **修复**: 把 Toggle/ToggleGroup 的 `enum Size` 重排为 `{ Default, Sm, Lg }`,使 `Default` 在两个枚举里都为 0、冲突消解为同值;命名引用(`Toggle.Sm/Lg`)不受影响。由单测 `tst_Toggle.qml::test_variant_border` 锁定(默认边框=0、Outline 边框=1)。
 - **备注**: 通用教训——同一 QML 类型里**多个 enum 不要出现同名成员**,除非它们数值相同;否则扁平化后按声明顺序覆盖,静默取错值。
+
+### #029 BubbleReactions 顶部反应渲染到了底部(继承 Item 枚举冲突)
+
+- **位置**: Component/Bubble(BubbleReactions);同类隐患 Component/HoverCard
+- **严重级**: P2
+- **复现步骤**: `BubbleReactions { side: BubbleReactions.Top }`(想让反应贴在气泡顶部)。
+- **预期行为**: 反应 pill 贴气泡上沿、上移 75%(`-0.75*height`)。
+- **实际行为**: 仍渲染在底部(走了 `Bottom` 分支)。
+- **分析/根因**: #028 的**继承版**。BubbleReactions 根类型是 `Item`,而 `Item` 自带 `enum TransformOrigin { TopLeft, Top=1, …, Bottom=7, … }`,其成员被扁平化进类型作用域。本组件又声明 `enum Side { Top, Bottom }`(应为 0/1)。于是 `BubbleReactions.Top` 被解析为 **Item.TransformOrigin.Top = 1**、`BubbleReactions.Bottom = Item.Bottom = 7`;而 y 绑定里的 `BubbleReactions.Top` 与属性默认/外部赋值在不同上下文解析不一致(一处取 Side.Top=0、一处取 Item.Top=1)→ `side === BubbleReactions.Top` 恒 false → 永远走底部分支。单测 `tst_Bubble::test_reactions_position` 捕获(顶部反应 y 实测 32.25,应为 -14.25)。
+- **修复**: 把 `enum Side { Top, Bottom }` 重命名为 `{ Above, Below }`(Item 无 Above/Below,不冲突);同步默认值、y 绑定、QDoc、demo `bubble/Reactions.qml`、`tst_Bubble.qml`。
+- **通用教训**: QML 枚举成员不仅会与**同类型内**其他枚举冲突(#028),还会与**继承来的基类枚举**冲突。Item 派生类型要避免用 `Top/Bottom/Left/Right/Center`(及 `TopLeft…` 等)作枚举成员名——它们与 `Item.TransformOrigin` 撞名。Popup/Drawer/ToolTip 派生类型不含该枚举,安全(故 Sheet/Tooltip/Popover 的 `Side/Align` 不受影响)。
+- **同类待修**: HoverCard(根为 `Item`,`Side{Top,Right,Bottom,Left}` + `Align{…Center}`)存在同一隐患,当前无 demo/测试触发(潜伏);在其批次(Batch 3)一并改名修复。

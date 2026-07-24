@@ -1,22 +1,40 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn BubbleGroup(base-mira)—— 归组连续同源气泡。对标 .cn-bubble-group:
-//   flex flex-col · gap-2(相对独立气泡间的大间距,把同源连发收得更紧凑)。
-// 注意:mira 不对组内气泡做圆角合并——每条仍是 rounded-lg,分组仅收紧竖向间距。
-//   align 请设在各 Bubble 自身上(组不代持)。
-//
-// 用法:
-//   BubbleGroup {
-//       Bubble { align: Bubble.End; BubbleContent { text: "A" } }
-//       Bubble { align: Bubble.End; BubbleContent { text: "B" } }
-//   }
+/*!
+    \qmltype BubbleGroup
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Groups a run of same-author \l Bubble items with tighter spacing.
+
+    BubbleGroup is the QML port of shadcn's \c .cn-bubble-group
+    (\c {flex flex-col gap-2}). It only tightens the vertical spacing between a run
+    of same-author bubbles; base-mira does \e not merge corner radii, so each
+    bubble stays \c rounded-lg. Set \l {Bubble::align}{align} on each child
+    \l Bubble (the group does not carry it).
+
+    \qml
+    BubbleGroup {
+        Bubble { align: Bubble.End; BubbleContent { text: "A" } }
+        Bubble { align: Bubble.End; BubbleContent { text: "B" } }
+    }
+    \endqml
+
+    \sa Bubble
+*/
 ColumnLayout {
     id: group
     spacing: Theme.space2   // gap-2
-    // 标记:供 BubbleContent 识别"我被套在组里",从而把 max-width 基准上溯到真正的会话列
-    // (组自身是 fillWidth 布局,宽度由子项反推,直接读会与子项隐式宽形成绑定环)。
+
+    /*!
+        \qmlproperty bool BubbleGroup::isBubbleGroup
+        \readonly
+        Marker read by \l BubbleContent so it can walk the max-width base up to the
+        real conversation column. The group is a fillWidth layout whose width is
+        derived from its children, so reading it directly would form a binding loop.
+    */
     readonly property bool isBubbleGroup: true
-    // 组本身在外层会话列里默认占满宽度,组内各 Bubble 按各自 align 自对齐。
+
+    // The group fills the outer column width; each child Bubble self-aligns.
     Layout.fillWidth: true
 }

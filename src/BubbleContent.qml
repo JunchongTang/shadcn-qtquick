@@ -1,47 +1,67 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn BubbleContent(base-mira)—— 气泡内容面。对标 .cn-bubble-content + 七种 .cn-bubble-variant-*:
-//   rounded-lg · border(仅 outline 可见)· px-2.5 py-1.5 · text-xs/relaxed · w-fit max-w-full · overflow-hidden。
-//   底色/前景由父 Bubble 的 variant 决定(mira 里 .cn-bubble-variant-* 作用于 *:data-[slot=bubble-content])。
-//
-// 内容:
-//   · text —— 便捷纯文本气泡(最常见)。
-//   · 默认子项 —— 富内容(如 textFormat: Text.MarkdownText 的 Text、Collapsible 等)。
-//
-// 交互(对标 render={<button/>} 的链接/按钮气泡):
-//   · interactive: true 时启用 hover 变色 + 焦点环 + 手型光标,点击发 clicked()。
+/*!
+    \qmltype BubbleContent
+    \inqmlmodule Shadcn
+    \inherits Rectangle
+    \brief The visual body of a \l Bubble.
+
+    BubbleContent is the QML port of shadcn's \c .cn-bubble-content together with
+    the seven \c .cn-bubble-variant-* rules: \c {rounded-lg border px-2.5 py-1.5
+    text-xs/relaxed w-fit max-w-full overflow-hidden}. The background and
+    foreground come from the parent \l Bubble's \l {Bubble::variant}{variant}.
+
+    Provide plain text via \l text, or place rich content (a \c Text with
+    \c textFormat: Text.MarkdownText, a Collapsible, etc.) as default children.
+    Set \l interactive to true for link/button bubbles: it enables a hover color
+    shift, a focus ring, a pointing-hand cursor and the \l clicked signal.
+
+    \qml
+    Bubble {
+        variant: Bubble.Outline
+        BubbleContent { interactive: true; text: "Reply"; onClicked: ... }
+    }
+    \endqml
+
+    \sa Bubble
+*/
 Rectangle {
     id: content
 
+    /*! Convenience plain-text content (shown when non-empty). */
     property string text: ""
+    /*! Enables hover color shift, focus ring, pointing cursor and \l clicked. */
     property bool interactive: false
+    /*! Emitted when an \l interactive content is tapped. */
     signal clicked()
 
-    // 富内容默认槽(追加在便捷 Text 之后)。
+    /*! Default slot for rich content (appended after the convenience Text). */
     default property alias contentItems: inner.data
 
-    // ---- 从父 Bubble 读取上下文(以 maxWidthRatio 判定父类型)----
+    // ---- Context read from the parent Bubble (detected via maxWidthRatio) ----
     readonly property Item _bubble: (parent && parent.maxWidthRatio !== undefined) ? parent : null
     readonly property int _variant: _bubble ? _bubble.variant : Bubble.Default
     readonly property bool _ghost: _variant === Bubble.Ghost
 
     readonly property real _hpad: _ghost ? 0 : Theme.space2_5   // px-2.5
     readonly property real _vpad: _ghost ? 0 : Theme.space1_5   // py-1.5
-    // max-width 基准 = 真正的"会话列"。若气泡被套在 BubbleGroup 里,组自身是 fillWidth 布局、
-    // 其宽度由子项隐式宽反推,直接读会与子项形成绑定环(读到 0);故上溯到组的父项(会话列,显式定宽)。
+    // The max-width base is the real conversation column. When the bubble lives in
+    // a BubbleGroup (a fillWidth layout whose width is derived from its children),
+    // reading the group width would form a binding loop (reads 0); walk up to the
+    // group's parent (the explicitly sized column) instead.
     readonly property Item _column: {
         if (!_bubble || !_bubble.parent) return null
         var p = _bubble.parent
         return (p.isBubbleGroup === true && p.parent) ? p.parent : p
     }
-    // 会话列宽度(max-width 基准);ghost 用 100%,其余 80%。
+    // Conversation column width (max-width base); ghost uses 100%, others 80%.
     readonly property real _containerW: _column ? _column.width : 0
     readonly property real _maxW: _containerW <= 0 ? 100000
                                                    : _containerW * (_ghost ? 1.0 : _bubble.maxWidthRatio)
     readonly property real _innerMaxW: Math.max(0, _maxW - 2 * _hpad)
 
-    // ---- 前景色(按变体)----
+    // ---- Foreground color (by variant) ----
     readonly property color _fg: {
         switch (_variant) {
         case Bubble.Default: return Theme.primaryForeground
@@ -51,8 +71,8 @@ Rectangle {
         }
     }
 
-    // tinted:oklch(from primary 0.93 c*0.4 h)近似——保留 primary 色相,提亮并降饱和。
-    // 明:S≈primary.S*0.9 L≈0.84;暗:S≈primary.S L≈0.12(hover 略深)。
+    // tinted: approximates oklch(from primary 0.93 calc(c*0.4) h) in HSL - keeps
+    // the primary hue, lightens and desaturates. Light L~0.84 / dark L~0.12.
     readonly property color _tinted: Theme.dark
         ? Qt.hsla(Theme.primary.hslHue, Theme.primary.hslSaturation, 0.12, 1)
         : Qt.hsla(Theme.primary.hslHue, Theme.primary.hslSaturation * 0.90, 0.84, 1)
@@ -60,13 +80,13 @@ Rectangle {
         ? Qt.hsla(Theme.primary.hslHue, Theme.primary.hslSaturation, 0.15, 1)
         : Qt.hsla(Theme.primary.hslHue, Theme.primary.hslSaturation * 0.74, 0.76, 1)
 
-    // color-mix(in oklch, base, foreground N%) 的线性近似。
+    // Linear-RGB approximation of color-mix(in oklch, base, over N%).
     function _mix(base, over, t) {
         return Qt.rgba(base.r * (1 - t) + over.r * t,
                        base.g * (1 - t) + over.g * t,
                        base.b * (1 - t) + over.b * t, 1)
     }
-    // 内容面底色(hovered 仅在 interactive 时生效)。
+    // Content background (hover shift applies only when interactive).
     function _bgFor(hovered) {
         var h = hovered && interactive
         switch (_variant) {
@@ -85,13 +105,13 @@ Rectangle {
     implicitHeight: inner.implicitHeight + 2 * _vpad
 
     radius: _ghost ? 0 : Theme.radiusLg
-    clip: true                                          // overflow-hidden:内容永不溢出背景
+    clip: true                                          // overflow-hidden
     color: _bgFor(hover.hovered)
-    border.width: _variant === Bubble.Outline ? 1 : 0   // 其余变体 border-transparent
+    border.width: _variant === Bubble.Outline ? 1 : 0   // other variants: border-transparent
     border.color: Theme.border
     Behavior on color { ColorAnimation { duration: Theme.durBase } }   // [button,a]:transition-colors
 
-    // 完成时把自己注册为父 Bubble 的内容面(驱动容器尺寸)。
+    // Register as the parent Bubble's content on completion (drives its size).
     Component.onCompleted: if (_bubble) _bubble._contentRef = content
 
     ColumnLayout {
@@ -100,7 +120,7 @@ Rectangle {
         y: content._vpad
         spacing: Theme.space1   // gap-1
 
-        // 便捷纯文本(text 非空时显示)。
+        // Convenience plain text (shown when text is non-empty).
         Text {
             visible: content.text !== ""
             text: content.text
@@ -110,16 +130,15 @@ Rectangle {
             lineHeightMode: Text.ProportionalHeight
             wrapMode: Text.Wrap
             Layout.maximumWidth: content._innerMaxW
-            // button 类气泡文本左对齐([button]:text-left)。
-            horizontalAlignment: Text.AlignLeft
+            horizontalAlignment: Text.AlignLeft   // [button]:text-left
         }
     }
 
-    // 交互态:hover / 点击 / 手型。
+    // Interactive state: hover / tap / pointing cursor.
     HoverHandler { id: hover; enabled: content.interactive; cursorShape: Qt.PointingHandCursor }
     TapHandler { enabled: content.interactive; onTapped: content.clicked() }
 
-    // 焦点环([button,a]:focus-visible:border-ring ring-2 ring-ring/30)。
+    // Focus ring ([button,a]:focus-visible:border-ring ring-2 ring-ring/30).
     activeFocusOnTab: interactive
     FocusRing { active: content.interactive && content.activeFocus; targetRadius: content.radius }
 }

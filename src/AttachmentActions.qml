@@ -1,14 +1,31 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn AttachmentActions —— 附件操作位(移除/重试/复制…)。对标 .cn-attachment-actions:
-// shrink-0、items-center、z-20(始终位于 AttachmentTrigger 覆盖层之上,保持独立可点)。
-// 水平朝向:随内容拉伸挤到右侧,按钮相邻;垂直朝向:由父绝对定位到右上、gap-1。
+/*!
+    \qmltype AttachmentActions
+    \inqmlmodule Shadcn
+    \inherits RowLayout
+    \brief The actions slot (remove / retry / copy) of an \l Attachment.
+
+    AttachmentActions mirrors \c .cn-attachment-actions: shrink-0, items-center,
+    z-20 so it always sits above the \l AttachmentTrigger overlay and stays
+    independently clickable. In horizontal orientation the buttons sit adjacent
+    at the right edge; in vertical orientation the parent floats it top-right with
+    gap-1. Populate it with \l AttachmentAction buttons.
+
+    \sa AttachmentAction, Attachment
+*/
 RowLayout {
     id: actions
 
+    /*! \qmlproperty string AttachmentActions::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
     readonly property string attachSlot: "attachment-actions"
-    // 由父 Attachment 注入朝向(垂直 → gap-1)。
+
+    /*!
+        \qmlproperty enumeration AttachmentActions::hostOrientation
+        Orientation injected by the parent \l Attachment; vertical adds gap-1.
+        See \l {Attachment::orientation}.
+    */
     property int hostOrientation: Attachment.Horizontal
 
     z: 20

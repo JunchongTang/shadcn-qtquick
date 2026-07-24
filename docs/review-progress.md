@@ -8,16 +8,16 @@ Legend: ✅ done · 🔶 partial · ⬜ pending · — n/a
 
 | # | Component | Files | A | D | T | F | Notes |
 |---|---|---|---|---|---|---|---|
-| 1 | Accordion | Accordion, AccordionItem | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 2 | Alert | Alert | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 3 | AlertDialog | AlertDialog | ⬜ | ⬜ | ⬜ | ⬜ | fixes #003/#006 already landed |
-| 4 | AspectRatio | AspectRatio | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 5 | Attachment | Attachment(+8 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 6 | Avatar | Avatar | ⬜ | ⬜ | ⬜ | ⬜ | fix #007 landed |
-| 7 | Badge | Badge | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 8 | Breadcrumb | Breadcrumb(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | fix #008 landed |
-| 9 | Bubble | Bubble(+3 parts) | ⬜ | ⬜ | ⬜ | ⬜ | fix #009 landed |
-| 10 | Button | Button | ⬜ | ⬜ | ⬜ | ⬜ | enum-collision checked: safe |
+| 1 | Accordion | Accordion, AccordionItem | ✅ | ✅ | ✅ | 🔶 | flagged P2: no keyboard focus/ring, no title wrap |
+| 2 | Alert | Alert | ✅ | ✅ | ✅ | 🔶 | flagged P2: action slot inline vs absolute |
+| 3 | AlertDialog | AlertDialog | ✅ | ✅ | ✅ | ✅ | fixed P2 duplicate `accepted()` signal; #003/#006 intact |
+| 4 | AspectRatio | AspectRatio | ✅ | ✅ | ✅ | ✅ | fixed P2 divide-by-zero on ratio≤0 |
+| 5 | Attachment | Attachment(+8 parts) | ✅ | ✅ | ✅ | 🔶 | fixed P3 no-op ternary; padding approx flagged |
+| 6 | Avatar | Avatar | ✅ | ✅ | ✅ | 🔶 | fixed P2 fallback font + P3 weight/ring; mix-blend approx |
+| 7 | Badge | Badge | ✅ | ✅ | ✅ | ✅ | fixed 2×P3 dark-mode fills |
+| 8 | Breadcrumb | Breadcrumb(+5 parts) | ✅ | ✅ | ✅ | ✅ | relaxed line-height fix; #008 intact |
+| 9 | Bubble | Bubble(+3 parts) | ✅ | ✅ | ✅ | ✅ | fixed P2 #029 (reactions Top/Bottom inherited-enum collision); #009 intact |
+| 10 | Button | Button | ✅ | ✅ | ✅ | 🔶 | verified vs style-mira; dark-mode color-mix approx flagged |
 | 11 | ButtonGroup | ButtonGroup(+2 parts) | ⬜ | ⬜ | ⬜ | ⬜ | fixes #010–#014 landed |
 | 12 | Calendar | Calendar | ⬜ | ⬜ | ⬜ | ⬜ | fixes #015/#017 landed |
 | 13 | Card | Card(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
@@ -35,7 +35,7 @@ Legend: ✅ done · 🔶 partial · ⬜ pending · — n/a
 | 25 | Field | Field(+9 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
 | 26 | FocusRing | FocusRing | ⬜ | ⬜ | — | ⬜ | internal util |
 | 27 | Form | FormDescription, FormField, FormMessage | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 28 | HoverCard | HoverCard | ⬜ | ⬜ | ⬜ | ⬜ | |
+| 28 | HoverCard | HoverCard | ⬜ | ⬜ | ⬜ | ⬜ | ⚠ latent #029: Item-derived, `Side{Top,Right,Bottom,Left}`+`Align{Center}` collide with Item.TransformOrigin — rename in Batch 3 review |
 | 29 | IconButton | IconButton | ⬜ | ⬜ | ⬜ | ⬜ | enum-collision checked: safe |
 | 30 | Input | Input | ⬜ | ⬜ | ⬜ | ⬜ | |
 | 31 | InputGroup | InputGroup(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |

@@ -2,48 +2,99 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 
-// shadcn Attachment(base-mira) —— 文件/图片附件卡:左侧媒体(缩略图/文件类型图标)+
-// 名称/大小元信息 + 右侧操作(移除/重试…),并按上传生命周期呈现不同外观。
-// 对标 .cn-attachment 与 registry/bases/base/ui/attachment.tsx。
-//
-// 组成:Attachment > AttachmentMedia | AttachmentContent(AttachmentName/AttachmentSize) |
-//        AttachmentActions(AttachmentAction) | AttachmentTrigger(全卡覆盖点击)。
-// 多个附件用 AttachmentGroup 横向排列。
-//
-// 说明:官方 root 属性名为 `state`,但 QtQuick.Item 已内置 string 型 `state`,为避免
-// 冲突,这里改名 `uploadState`(语义完全一致)。子件通过路由注入 hostState/hostSize/
-// hostOrientation。拖放/真实上传逻辑用静态状态近似(见 demos 标注)。
+/*!
+    \qmltype Attachment
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A file/image attachment card with media, metadata and actions.
+
+    Attachment is the base-mira \c .cn-attachment card: a leading media slot
+    (\l AttachmentMedia — thumbnail or file-type icon), a content column
+    (\l AttachmentContent holding \l AttachmentName and \l AttachmentSize), and
+    an optional trailing actions row (\l AttachmentActions of \l AttachmentAction).
+    Its outline reflects the upload lifecycle (\l uploadState): dashed while idle,
+    a destructive border on error, solid otherwise.
+
+    Children are declared in the default slot and routed to the correct layout on
+    completion via each child's \c attachSlot marker. Lay several cards out in a
+    scrollable row with \l AttachmentGroup.
+
+    The web root prop is named \c state, but \c Item already has a built-in string
+    \c state, so it is renamed \l uploadState here (same semantics). Drag-drop and
+    real upload progress are approximated with static states.
+
+    \sa AttachmentGroup, AttachmentMedia, AttachmentContent, AttachmentActions
+*/
 Item {
     id: control
 
-    // 上传生命周期(= 官方 state)。驱动描边样式与标题微光。
+    /*!
+        \qmlproperty enumeration Attachment::uploadState
+        Upload lifecycle (the web \c state); drives the outline style and the
+        title shimmer.
+        \value Attachment.Idle Empty drop target; dashed border.
+        \value Attachment.Uploading Transfer in progress; title shimmers.
+        \value Attachment.Processing Server-side processing; title shimmers.
+        \value Attachment.Error Failure; destructive border and description.
+        \value Attachment.Done Completed (default).
+    */
     enum State { Idle, Uploading, Processing, Error, Done }
+
+    /*!
+        \qmlproperty enumeration Attachment::size
+        Compact size scale controlling padding, gap, radius and media box.
+        \value Attachment.Default px-2 py-1.5, gap-2, rounded-lg, 40px media.
+        \value Attachment.Sm px-1.5 py-1, gap-2.5, 32px media.
+        \value Attachment.Xs px-1.5 py-1, gap-1.5, rounded-md, 28px media.
+    */
     enum Size { Default, Sm, Xs }
+
+    /*!
+        \qmlproperty enumeration Attachment::orientation
+        Card layout direction.
+        \value Attachment.Horizontal media | content | actions (min-w-40).
+        \value Attachment.Vertical media over content; actions float top-right.
+    */
     enum Orientation { Horizontal, Vertical }
 
+    // All enum member names above are unique, so QML's flattening of enum values
+    // into the type scope introduces no collisions (see #028).
+
+    /*! \qmlproperty enumeration Attachment::uploadState \brief Upload lifecycle; see \l State. Defaults to \c Attachment.Done. */
     property int uploadState: Attachment.Done
+    /*! \qmlproperty enumeration Attachment::size \brief Compact size scale; see \l Size. Defaults to \c Attachment.Default. */
     property int size: Attachment.Default
+    /*! \qmlproperty enumeration Attachment::orientation \brief Layout direction; see \l Orientation. Defaults to \c Attachment.Horizontal. */
     property int orientation: Attachment.Horizontal
 
-    // 全卡 AttachmentTrigger 被激活(点击/回车)时触发。
+    /*!
+        \qmlsignal Attachment::triggered()
+        Emitted when the full-card \l AttachmentTrigger overlay is activated
+        (click or Enter).
+    */
     signal triggered()
 
-    // 默认子项进入 sink,onCompleted 后按 attachSlot 路由到布局。
+    /*!
+        \qmlproperty list<QtObject> Attachment::content
+        Default slot. Children are collected in a hidden sink and routed to the
+        layout on completion by their \c attachSlot marker.
+    */
     default property alias content: sink.data
 
     readonly property bool _horizontal: orientation === Attachment.Horizontal
     readonly property bool _idle: uploadState === Attachment.Idle
     readonly property bool _error: uploadState === Attachment.Error
 
-    // 内边距 / 间距 / 圆角(对标 .cn-attachment-size-*)。
-    // default: px-2 py-1.5 gap-2;sm/xs: px-1.5 py-1;sm gap-2.5;xs gap-1.5 rounded-md。
+    // Padding / gap / radius (mirrors .cn-attachment-size-*).
+    // default: px-2 py-1.5 gap-2; sm/xs: px-1.5 py-1; sm gap-2.5; xs gap-1.5 rounded-md.
     readonly property real _padH: size === Attachment.Default ? Theme.space2 : Theme.space1_5
     readonly property real _padV: size === Attachment.Default ? Theme.space1_5 : Theme.space1
     readonly property real _gap: size === Attachment.Default ? Theme.space2
                                : size === Attachment.Sm ? Theme.space2_5 : Theme.space1_5
     readonly property real _radius: size === Attachment.Xs ? Theme.radiusMd : Theme.radiusLg
 
-    // 垂直:固定窄卡 w-24(96)/ 有内容 w-30(120);水平:min-w-40(160)。
+    // Vertical: fixed narrow card w-24 (96) / w-30 (120) with content;
+    // horizontal: min-w-40 (160). Set during _route().
     property bool _hasContent: false
     property bool _hasTrigger: false
 
@@ -56,11 +107,12 @@ Item {
 
     activeFocusOnTab: false
 
-    // 隐藏收集区。
+    // Hidden collection area for the default slot.
     Item { id: sink; visible: false; width: 0; height: 0 }
 
-    // ==== 背景 + 描边 ====
-    // bg-card;含 trigger 且悬停 → bg-muted/50。idle 用虚线,error 用 destructive/30。
+    // ==== Background + border ====
+    // bg-card; with a trigger and hovered -> bg-muted/50. idle uses a dashed
+    // border, error uses destructive/30.
     Rectangle {
         id: bgRect
         anchors.fill: parent
@@ -72,7 +124,8 @@ Item {
         Behavior on color { ColorAnimation { duration: Theme.durBase } }
     }
 
-    // idle 虚线描边(Qt Rectangle 不支持 dash,用 Canvas 近似 border-dashed)。
+    // Idle dashed border (Rectangle has no dash support; a Canvas approximates
+    // border-dashed).
     Canvas {
         id: dashBorder
         anchors.fill: parent
@@ -95,13 +148,14 @@ Item {
         }
         onWidthChanged: requestPaint()
         onHeightChanged: requestPaint()
-        // 主题切换(border 颜色随明暗变化)时重绘。
+        // Repaint on theme change (border color varies with light/dark).
         readonly property color _strokeColor: Theme.border
         on_StrokeColorChanged: requestPaint()
     }
 
-    // ==== 全卡触发覆盖(位于内容之下,以便 actions 保持独立可点)====
-    // 内容里的 Text/Image/Rectangle 不吃鼠标 → 事件穿透到此;actions 为真实按钮,自行拦截。
+    // ==== Full-card trigger overlay (below content so actions stay clickable) ====
+    // Text/Image/Rectangle in the content do not accept the mouse, so events fall
+    // through to this button; actions are real buttons and intercept on their own.
     C.Button {
         id: triggerButton
         anchors.fill: parent
@@ -124,7 +178,7 @@ Item {
         cursorShape: Qt.PointingHandCursor
     }
 
-    // ==== 水平布局:media | content(拉伸) | actions ====
+    // ==== Horizontal layout: media | content (stretch) | actions ====
     RowLayout {
         id: rowFlow
         visible: control._horizontal
@@ -136,7 +190,7 @@ Item {
         spacing: control._gap
     }
 
-    // ==== 垂直布局:media(整宽方形)/ content;actions 绝对定位右上 ====
+    // ==== Vertical layout: media (full-width square) / content; actions float top-right ====
     ColumnLayout {
         id: colFlow
         visible: !control._horizontal
@@ -148,7 +202,8 @@ Item {
         spacing: control._gap
     }
 
-    // 1px 焦点内环(focus-within:ring-1 ring-ring/30 近似:trigger 获焦时)。
+    // 1px focus ring (approximates focus-within:ring-1 ring-ring/30 when the
+    // trigger overlay has focus).
     Rectangle {
         anchors.fill: parent
         anchors.margins: -1
@@ -184,7 +239,7 @@ Item {
         }
         _hasContent = contents.length > 0
 
-        // 注入宿主状态。
+        // Inject host state into the slotted children.
         if (media) {
             if (media.hostSize !== undefined) media.hostSize = Qt.binding(function(){ return control.size })
             if (media.hostOrientation !== undefined) media.hostOrientation = Qt.binding(function(){ return control.orientation })
@@ -211,7 +266,7 @@ Item {
             var cc = contents[m]
             cc.parent = flow
             cc.Layout.fillWidth = true
-            // 第二个及以后的 content 不拉伸(flex-none),对标 Item 家族。
+            // Second and later content columns do not stretch (flex-none).
             if (m > 0 && cc.contentFill !== undefined) {
                 cc.contentFill = false
                 cc.Layout.fillWidth = false
@@ -224,7 +279,7 @@ Item {
                 if (actions.hostOrientation !== undefined)
                     actions.hostOrientation = Attachment.Horizontal
             } else {
-                // 垂直:绝对定位右上(top-3 right-3)、z-20。
+                // Vertical: float top-right (top-3 right-3), z-20.
                 actions.parent = control
                 actions.z = 20
                 actions.anchors.top = control.top

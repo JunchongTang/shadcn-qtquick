@@ -1,32 +1,62 @@
 import QtQuick
 
-// shadcn AspectRatio(base-mira)—— 以给定宽高比约束内容。对标官方 aspect-(--ratio)。
-// ratio = 宽 / 高(默认 16/9;方形 1;竖屏 9/16)。高度由宽度按比例推导 —— 用法上给定
-// 宽度(显式 width 或父级/Layout 决定),高度自动跟随。内容锚满容器(默认属性)。
-//
-// 圆角:radius 圆化容器背景并对内容做矩形裁剪(clip)。内容若为图片/色块,请自行设同值
-// 圆角(对齐官方:AspectRatio 与其中 <img> 都带 rounded-lg),即可与背景无缝衔接。
+/*!
+    \qmltype AspectRatio
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief Constrains content to a fixed width-to-height ratio.
+
+    AspectRatio is the base-mira port of shadcn's \c aspect-(--ratio) utility. It
+    derives its \l height from its current \l width using \l ratio (\c {width / ratio}),
+    so callers size the width (explicitly, or via a parent/Layout) and the height
+    follows automatically. Child content is laid out through the default property
+    and anchored to fill the box.
+
+    \l ratio is width divided by height: \c {16 / 9} (default) is landscape,
+    \c 1 is square, and \c {9 / 16} is portrait.
+
+    Set \l color to paint a background (mirroring \c bg-muted) and \l radius to
+    round it. A non-zero \l radius also clips the content box to a rectangle;
+    because the clip is rectangular, image/color content that should follow the
+    rounded corners must set the same radius itself (matching the official demo,
+    where both the AspectRatio and its inner image carry \c rounded-lg).
+
+    \qml
+    AspectRatio {
+        ratio: 16 / 9
+        radius: 8
+        color: Theme.muted
+        Image { anchors.fill: parent; source: "photo.png"; fillMode: Image.PreserveAspectCrop }
+    }
+    \endqml
+*/
 Item {
     id: control
 
-    property real ratio: 16 / 9           // 宽高比 = 宽 / 高
-    property real radius: 0               // 圆角(圆化背景 + 裁剪内容)
-    property color color: "transparent"  // 背景色(如 bg-muted)
+    /*! \qmlproperty real AspectRatio::ratio \brief Width divided by height. Defaults to \c {16 / 9}. */
+    property real ratio: 16 / 9
+    /*! \qmlproperty real AspectRatio::radius \brief Corner radius of the background; a non-zero value also clips content. Defaults to \c 0. */
+    property real radius: 0
+    /*! \qmlproperty color AspectRatio::color \brief Background fill color (e.g. \c bg-muted). Defaults to transparent. */
+    property color color: "transparent"
 
+    /*! \qmlproperty list<QtObject> AspectRatio::content \brief Default property: children placed in the ratio-constrained box. */
     default property alias content: holder.data
 
     implicitWidth: 320
-    implicitHeight: width / ratio         // 预览布局按实际宽度取高
-    height: width / ratio                 // 高度随宽度按比例推导
+    // Derive height from the current width; guard ratio <= 0 to avoid a
+    // divide-by-zero (Infinity/NaN) height.
+    implicitHeight: ratio > 0 ? width / ratio : 0
+    height: ratio > 0 ? width / ratio : 0
 
-    // 背景(bg-muted + rounded-*)
+    // Background (bg-muted + rounded-*).
     Rectangle {
         anchors.fill: parent
         color: control.color
         radius: control.radius
     }
 
-    // 内容区(锚满并裁剪)
+    // Content box (fills the container, clipped when rounded).
     Item {
         id: holder
         anchors.fill: parent

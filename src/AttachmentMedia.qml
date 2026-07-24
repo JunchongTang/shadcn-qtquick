@@ -2,42 +2,68 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn AttachmentMedia —— 附件媒体位:图标(文件类型)或图片缩略。
-// 对标 .cn-attachment-media:aspect-square、居中裁剪、bg-muted、rounded-md。
-// variant=icon:内置 LucideIcon(iconName),也可放自定义子项如 Spinner;
-// variant=image:填满的封面图(source 或自定义 <img> 子项),object-cover。
-// 尺寸/圆角/图标大小随宿主 size、orientation 派生;error 态转 destructive 处理。
+/*!
+    \qmltype AttachmentMedia
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief The leading media slot of an \l Attachment: file icon or thumbnail.
+
+    AttachmentMedia mirrors \c .cn-attachment-media: an aspect-square, center-cropped,
+    bg-muted, rounded-md box. With \l variant \c Icon it shows a built-in
+    \c LucideIcon (\l iconName), or you can supply a custom centered child such as
+    a Spinner. With \l variant \c Image it shows a cover thumbnail from \l source
+    (or a custom child), cropped to the box radius via \c RoundedImage.
+
+    Box size, radius and icon size derive from the host \l {Attachment::size}{size}
+    and \l {Attachment::orientation}{orientation}; the error state turns destructive.
+
+    \sa Attachment, AttachmentContent
+*/
 Item {
     id: media
 
+    /*!
+        \qmlproperty enumeration AttachmentMedia::variant
+        Content kind.
+        \value AttachmentMedia.Icon File-type icon or custom centered child (default).
+        \value AttachmentMedia.Image Cover thumbnail cropped to the box radius.
+    */
     enum Variant { Icon, Image }
 
+    /*! \qmlproperty enumeration AttachmentMedia::variant \brief Content kind; see \l Variant. Defaults to \c AttachmentMedia.Icon. */
     property int variant: AttachmentMedia.Icon
+    /*! \qmlproperty string AttachmentMedia::iconName \brief Lucide icon name for the \c Icon variant. */
     property string iconName: ""
+    /*! \qmlproperty url AttachmentMedia::source \brief Thumbnail image URL for the \c Image variant. */
     property url source
+    /*! \qmlproperty list<QtObject> AttachmentMedia::content \brief Default slot for a custom centered child (e.g. a Spinner). */
     default property alias content: slot.data
 
-    // 由父 Attachment 注入。
+    /*! \qmlproperty enumeration AttachmentMedia::hostSize \brief Size injected by the parent \l Attachment. See \l {Attachment::size}. */
     property int hostSize: Attachment.Default
+    /*! \qmlproperty enumeration AttachmentMedia::hostOrientation \brief Orientation injected by the parent. See \l {Attachment::orientation}. */
     property int hostOrientation: Attachment.Horizontal
+    /*! \qmlproperty enumeration AttachmentMedia::hostState \brief Upload state injected by the parent. See \l {Attachment::uploadState}. */
     property int hostState: Attachment.Done
 
+    /*! \qmlproperty string AttachmentMedia::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
     readonly property string attachSlot: "attachment-media"
 
     readonly property bool _vertical: hostOrientation === Attachment.Vertical
     readonly property bool _error: hostState === Attachment.Error
     readonly property bool _isImage: variant === AttachmentMedia.Image
 
-    // 方形边长(水平):w-10 40 / w-8 32 / w-7 28;垂直:整宽(由父设 fillWidth)。
+    // Square edge (horizontal): w-10 40 / w-8 32 / w-7 28; vertical: full width
+    // (parent sets fillWidth).
     readonly property real _box: hostSize === Attachment.Sm ? 32
                                : hostSize === Attachment.Xs ? 28 : 40
-    // 图标 svg:默认/sm size-4(16)、xs size-3.5(14);垂直 size-6(24)。
+    // Icon svg: default/sm size-4 (16), xs size-3.5 (14); vertical size-6 (24).
     readonly property int _iconSize: _vertical ? 24 : (hostSize === Attachment.Xs ? 14 : 16)
-    // 图片变体:非 idle/done 时 opacity-60。
+    // Image variant: opacity-60 unless idle/done.
     readonly property bool _dim: _isImage && hostState !== Attachment.Idle
                                           && hostState !== Attachment.Done
 
-    implicitWidth: _vertical ? _box : _box
+    implicitWidth: _box
     implicitHeight: _box
 
     Layout.preferredWidth: _vertical ? -1 : _box
@@ -52,7 +78,8 @@ Item {
         opacity: media._dim ? 0.6 : 1.0
         Behavior on opacity { NumberAnimation { duration: Theme.durBase } }
 
-        // 便捷封面图(variant=image + source)。按盒子圆角真正裁剪(clip 只裁矩形)。
+        // Convenience cover image (variant=image + source), cropped to the box
+        // radius (clip only crops a rectangle).
         RoundedImage {
             anchors.fill: parent
             source: media.source
@@ -60,7 +87,7 @@ Item {
             visible: media._isImage && String(media.source) !== ""
         }
 
-        // 便捷文件类型图标(variant=icon + iconName)。
+        // Convenience file-type icon (variant=icon + iconName).
         LucideIcon {
             anchors.centerIn: parent
             visible: !media._isImage && media.iconName !== "" && slot.children.length === 0
@@ -69,7 +96,7 @@ Item {
             color: media._error ? Theme.destructive : Theme.foreground
         }
 
-        // 自定义子项(如 Spinner):居中。
+        // Custom child (e.g. Spinner): centered.
         Item {
             id: slot
             anchors.centerIn: parent

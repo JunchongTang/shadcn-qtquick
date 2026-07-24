@@ -1,8 +1,17 @@
 import QtQuick
 import LucideIcons
 
-// shadcn BreadcrumbEllipsis —— 折叠省略号(= <span class="cn-breadcrumb-ellipsis">)。
-// base-mira: size-4 容器 + [&>svg]:size-3.5。色随 list = muted-foreground。
+/*!
+    \qmltype BreadcrumbEllipsis
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief Collapsed-trail indicator (an ellipsis glyph).
+
+    Maps to shadcn's \c{<span class="cn-breadcrumb-ellipsis">} with
+    \c{size-4 [&>svg]:size-3.5}: a 16px container holding a 14px ellipsis icon.
+    Colored with \c text-muted-foreground to match the list. Commonly placed
+    inside a dropdown trigger to reveal hidden items.
+*/
 Item {
     implicitWidth: 16                   // size-4
     implicitHeight: 16

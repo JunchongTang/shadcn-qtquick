@@ -1,12 +1,25 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn AttachmentName(= 官方 AttachmentTitle)—— 附件名。text-xs / font-medium / truncate。
-// uploading / processing 时标题微光(shimmer)。此处用不透明度呼吸近似官方的渐变扫光。
+/*!
+    \qmltype AttachmentName
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief The attachment file name (web \c AttachmentTitle).
+
+    AttachmentName renders the file name as text-xs, font-medium, single-line
+    truncated. While the host is \c Uploading or \c Processing the title shimmers;
+    here that is approximated with an opacity breathing loop instead of the web
+    gradient sweep.
+
+    \sa AttachmentContent, AttachmentSize
+*/
 Text {
     id: name
 
+    /*! \qmlproperty string AttachmentName::attachSlot \readonly \brief Slot marker used by \l AttachmentContent forwarding. */
     readonly property string attachSlot: "attachment-name"
+    /*! \qmlproperty enumeration AttachmentName::hostState \brief Upload state injected by the host; drives the shimmer. See \l {Attachment::uploadState}. */
     property int hostState: Attachment.Done
 
     readonly property bool _shimmer: hostState === Attachment.Uploading
@@ -15,10 +28,10 @@ Text {
     color: Theme.foreground
     font.pixelSize: Theme.textXs
     font.weight: Font.Medium
-    elide: Text.ElideRight            // truncate 单行
+    elide: Text.ElideRight            // truncate (single line)
     Layout.fillWidth: true
 
-    // 微光近似(shimmer):进行中时标题做轻微透明度呼吸。
+    // Shimmer approximation: gentle opacity breathing while in progress.
     SequentialAnimation {
         id: shimmerAnim
         running: name._shimmer && name.visible
