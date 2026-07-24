@@ -2,26 +2,57 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn MessageContent(base-mira)—— 包裹 header / 气泡 / footer 的纵向内容列。
-// 自包含:气泡由本组件直接绘制(不依赖 Bubble 组件),通过 text + variant 驱动;
-// 常见附件(图片封面 / 文件卡)以 imageSource / fileName 便捷属性内建绘制。
-// hover 操作按钮由默认子项提供,经内部 MessageActions 落在 footer 行内(默认随 hover 淡显)。
-//
-// 根用 Item 包裹一个具名 ColumnLayout:内部布局子项落在具名列里,
-// 而消费方的默认子项(操作按钮)则经 default alias 路由到 footer 的 MessageActions。
-//
-// align:0=Start(靠左)/1=End(靠右)。放入 Message 内时自动继承父 Message.align;
-// 独立使用时可显式设置。
-//
-// 未实现(基础版诚实跳过):富文本/markdown、代码块、气泡尾巴、反应表情(reactions)、
-// 附件的完整变体与操作、多气泡 BubbleGroup 的精细圆角。
+/*!
+    \qmltype MessageContent
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief The vertical content column of a message: header, bubble, attachments and footer.
+
+    MessageContent is the QML port of shadcn's base-mira \c .cn-message-content
+    (\c {flex w-full min-w-0 flex-col gap-2}). It stacks, top to bottom: an optional
+    \l MessageHeader, an optional image attachment, the bubble (driven by \l text
+    and \l variant), an optional file attachment, and a \l MessageFooter carrying
+    the status text and hover \l actions.
+
+    It is self-contained: the bubble is drawn here directly rather than via \l Bubble.
+    Common attachments (image cover, file card) are built in through the
+    \l imageSource / \l fileName convenience properties. The rounded image cover uses
+    \l RoundedImage so the corners are truly clipped (a plain \c clip would leave
+    square corners).
+
+    The root is an \l Item wrapping a named \c ColumnLayout: the structural parts live
+    in that column, while a consumer's default children (the action buttons) are routed
+    via the \l actions alias into the footer's \l MessageActions.
+
+    \l align follows the ancestor \l Message automatically (via the \c isMessageRow
+    parent-chain probe); set it explicitly when used stand-alone.
+
+    Honest omissions (base tier): rich text / markdown, code blocks, bubble tails,
+    reactions, the full attachment variant/action set, and BubbleGroup's fine-grained
+    corner rounding.
+
+    \sa Message, MessageHeader, MessageFooter, MessageActions, RoundedImage
+*/
 Item {
     id: root
 
-    // 气泡变体(对齐 cn-bubble-variant-*)。
+    /*!
+        \qmlproperty enumeration MessageContent::variant
+        Bubble visual style (mirrors \c cn-bubble-variant-*).
+        \value MessageContent.Default Primary background, primary-foreground text.
+        \value MessageContent.Muted Muted background, default foreground.
+        \value MessageContent.Outline Background fill with a 1px border.
+        \value MessageContent.Destructive Translucent destructive background/foreground.
+        \value MessageContent.Ghost No background/border/padding.
+        \value MessageContent.Secondary Secondary background/foreground.
+    */
     enum Variant { Default, Muted, Outline, Destructive, Ghost, Secondary }
 
-    // 自动继承祖先 Message 的 align;未找到则 Start(0)。
+    /*!
+        In-column alignment side; inherited from the ancestor \l Message when present,
+        otherwise \c Start (0). Values match \l {Message::align}: 0=Start (leading),
+        1=End (trailing).
+    */
     property int align: {
         var p = parent
         while (p) {
@@ -32,26 +63,42 @@ Item {
         return 0
     }
 
+    /*! Sender / meta line shown above the bubble. \sa MessageHeader */
     property string header: ""
+    /*! The bubble body text. */
     property string text: ""
+    /*! The bubble variant. \sa MessageContent::variant */
     property int variant: MessageContent.Muted
-    property bool typing: false                  // 打字机点动画(替代 text)
-    property string footer: ""                   // 底部状态文本
-    property bool footerDestructive: false        // 状态文本用 destructive 色
-    property bool actionsOnHover: true            // 操作按钮:仅悬停显示
-    property url imageSource                       // 图片附件(气泡上方)
-    property string fileName: ""                  // 文件附件标题(气泡下方)
-    property string fileMeta: ""                  // 文件附件副信息
+    /*! When true, show the typing dot animation instead of \l text. */
+    property bool typing: false
+    /*! Footer status text (e.g. "Delivered"). \sa MessageFooter */
+    property string footer: ""
+    /*! When true the footer status text uses the destructive color. */
+    property bool footerDestructive: false
+    /*! When true the hover \l actions are only visible while the message is hovered. */
+    property bool actionsOnHover: true
+    /*! Image attachment shown above the bubble (empty = hidden). */
+    property url imageSource
+    /*! File attachment title shown below the bubble (empty = hidden). */
+    property string fileName: ""
+    /*! File attachment secondary line (size / meta). */
+    property string fileMeta: ""
 
-    // 默认子项 → hover 操作按钮(落入 footer 内的 MessageActions)。
+    /*! \qmlproperty list<QtObject> MessageContent::actions
+        Default children become hover action buttons, routed into the footer's
+        \l MessageActions. */
     default property alias actions: actionsInner.actions
 
+    /*! \internal True when aligned to the trailing edge (align == End). */
     readonly property bool _end: align === 1
+    /*! \internal Layout alignment flag for in-column children. */
     readonly property int _side: _end ? Qt.AlignRight : Qt.AlignLeft
+    /*! \internal True for the ghost variant (no padding/background). */
     readonly property bool _ghost: variant === MessageContent.Ghost
     readonly property int _padH: _ghost ? 0 : Theme.space2_5   // px-2.5
     readonly property int _padV: _ghost ? 0 : Theme.space1_5   // py-1.5
 
+    /*! \internal Bubble background color for the current \l variant. */
     readonly property color _bubbleBg: {
         switch (variant) {
         case MessageContent.Default:     return Theme.primary
@@ -62,6 +109,7 @@ Item {
         default:                         return "transparent" // Ghost
         }
     }
+    /*! \internal Bubble text color for the current \l variant. */
     readonly property color _bubbleFg: {
         switch (variant) {
         case MessageContent.Default:     return Theme.primaryForeground
@@ -84,20 +132,22 @@ Item {
 
         // ==== Header ====
         MessageHeader {
+            objectName: "messageHeader"
             text: root.header
             Layout.alignment: Qt.AlignLeft
         }
 
-        // ==== 图片附件(气泡上方)====
+        // ==== Image attachment (above the bubble) ====
         Rectangle {
             id: imageAttachment
+            objectName: "imageAttachment"
             visible: String(root.imageSource) !== ""
             Layout.alignment: root._side
             implicitWidth: Math.min(220, root.width * 0.8)
             implicitHeight: implicitWidth * 0.66
             radius: Theme.radiusLg
             color: Theme.muted
-            // 按圆角真正裁剪(clip 只裁矩形边界,会留方角)。
+            // Clip to the rounded corners for real (plain clip would leave square corners).
             RoundedImage {
                 anchors.fill: parent
                 source: root.imageSource
@@ -105,9 +155,10 @@ Item {
             }
         }
 
-        // ==== 气泡 ====
+        // ==== Bubble ====
         Rectangle {
             id: bubble
+            objectName: "bubble"
             visible: root.text !== "" || root.typing
             Layout.alignment: root._side
             Layout.maximumWidth: root.width * 0.8
@@ -120,10 +171,12 @@ Item {
 
             Text {
                 id: bubbleText
+                objectName: "bubbleText"
                 visible: !root.typing
                 x: root._padH
                 y: root._padV
-                // 自然宽 vs 80% 上限:未超限单行,超限则换行(高度随换行增长)。
+                // Natural width vs the 80% cap: single line when it fits, otherwise
+                // wrap (height grows with the wrap).
                 width: Math.min(implicitWidth, root.width * 0.8 - root._padH * 2)
                 text: root.text
                 color: root._bubbleFg
@@ -134,9 +187,10 @@ Item {
                 textFormat: Text.PlainText
             }
 
-            // 打字机三点动画(基础视觉状态之一)。三个点交错闪烁。
+            // Typing three-dot animation (one of the base visual states); the dots blink out of phase.
             Row {
                 id: typingRow
+                objectName: "typingRow"
                 visible: root.typing
                 x: root._padH
                 y: root._padV
@@ -175,9 +229,10 @@ Item {
             }
         }
 
-        // ==== 文件附件(气泡下方)====
+        // ==== File attachment (below the bubble) ====
         Rectangle {
             id: fileAttachment
+            objectName: "fileAttachment"
             visible: root.fileName !== ""
             Layout.alignment: root._side
             implicitWidth: fileRow.implicitWidth + Theme.space3 * 2
@@ -219,9 +274,10 @@ Item {
             }
         }
 
-        // ==== Footer(状态文本 + hover 操作)====
+        // ==== Footer (status text + hover actions) ====
         MessageFooter {
             id: footerRow
+            objectName: "messageFooter"
             visible: root.footer !== "" || root.footerDestructive
                      || actionsInner.children.length > 0
             Layout.alignment: root._side
@@ -230,6 +286,7 @@ Item {
 
             MessageActions {
                 id: actionsInner
+                objectName: "messageActions"
                 shown: !root.actionsOnHover || hov.hovered
             }
         }

@@ -1,16 +1,37 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn MessageAvatar(base-mira)—— 消息行的头像槽:min-w-8、rounded-full、贴底。
-// 空占位(无 source/fallback)时是 32px 宽的透明间隔件,用于 MessageGroup 中让
-// 前序消息与末条消息的头像保持对齐(对应官方 `<MessageAvatar />` 空槽用法)。
-// 注:官方 -translate-y-8(有 footer 时头像上移与气泡底对齐)未实现,基础版一律贴底。
+/*!
+    \qmltype MessageAvatar
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief The avatar slot of a message row.
+
+    MessageAvatar is the QML port of shadcn's base-mira \c .cn-message-avatar
+    (\c {min-w-8 shrink-0 self-end rounded-full bg-muted}). It reserves a fixed
+    32px (\c min-w-8) column, bottom-aligned within the row (\c self-end), and
+    fills it with an \l Avatar.
+
+    When neither \l source nor \l fallback is set the slot renders as a 32px-wide
+    transparent spacer. This mirrors the official \c {<MessageAvatar />} empty-slot
+    usage that keeps a run of grouped messages left-aligned with the last message
+    that does carry an avatar.
+
+    \note The official \c -translate-y-8 (avatar lifts to the bubble bottom when a
+    footer is present) is not implemented; the avatar is always bottom-aligned here.
+
+    \sa Message, Avatar
+*/
 Item {
     id: root
 
+    /*! Avatar image source. \sa Avatar::source */
     property url source
+
+    /*! Avatar fallback text (initials) shown when no image is available. */
     property string fallback: ""
 
+    /*! \internal True when the slot is an empty spacer (no image and no fallback). */
     readonly property bool _empty: String(source) === "" && fallback === ""
 
     implicitWidth: Theme.space8      // min-w-8 = 32

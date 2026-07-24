@@ -1,8 +1,24 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn ItemTitle —— 标题行:text-xs/leading-snug/font-medium,line-clamp-1(单行省略)。
-// 便捷 text 属性即内置一段标题文本;也可直接放自定义子项(如彩色 span、徽章)。
+/*!
+    \qmltype ItemTitle
+    \inqmlmodule Shadcn
+    \inherits RowLayout
+    \brief Title line of a \l ShadItem: text-xs, snug leading, medium weight,
+    single line (line-clamp-1).
+
+    The convenience \l text property renders a built-in title label; custom
+    children (a coloured span, a badge, etc.) can be placed directly instead.
+    Children are laid out horizontally with gap-2.
+
+    \qmlproperty string ItemTitle::text
+    Convenience title text. When empty the built-in label is hidden and only
+    custom children show.
+
+    \qmlproperty color ItemTitle::color
+    Colour of the built-in title label.
+*/
 RowLayout {
     id: title
 

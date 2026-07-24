@@ -2,31 +2,60 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Input OTP —— 分段验证码输入(对标 .cn-input-otp / -group / -slot)。
-//
-// 用法:
-//   InputOtp { length: 6 }                         // 单组 6 位
-//   InputOtp { length: 6; groups: [3, 3] }          // 3+3,组间自动加分隔符
-//   InputOtp { length: 6; pattern: "[0-9]" }        // 仅数字(逐字符正则)
-//
-// 属性:
-//   length   位数(总格子数)
-//   groups   各组格子数数组;为空则视作单组 [length];组间显示 InputOtpSeparator
-//   pattern  逐字符校验正则源(空串=接受任意可见字符;如 "[0-9]"、"[a-zA-Z0-9]")
-//   invalid  aria-invalid:边框/环转破坏色
-//   value    输出:已输入字符串(只读语义,内部维护)
-//   complete value.length === length
-//
-// 说明:整件为单一可聚焦控件,键盘输入统一由此处理(输入/退格);当前输入位显 ring + caret。
-// 复杂输入(粘贴多字符、方向键改写中间位、RTL)已简化 —— 仅支持顺序输入与退格。
+/*!
+    \qmltype InputOtp
+    \inqmlmodule Shadcn
+    \inherits FocusScope
+    \brief Segmented one-time-passcode field, matching shadcn/ui base-mira.
+
+    InputOtp maps the base-mira \c {.cn-input-otp} family (container, group, slot,
+    separator) as a single focusable control. It renders \l length cells split into
+    one or more \l groups; each group is a rounded, \c {input/20}-tinted box built
+    from \l InputOtpSlot cells sharing 1px dividers, and adjacent groups are joined
+    by an \l InputOtpSeparator. The current input position shows the focus ring and
+    a blinking caret.
+
+    Keyboard input is handled centrally: a visible character (validated against
+    \l pattern) is appended at the current position, and Backspace/Delete removes
+    the last character. Advanced editing (multi-character paste, arrow-key edits of
+    interior positions, RTL) is intentionally simplified to sequential entry.
+
+    \qml
+    InputOtp { length: 6 }                        // single group of 6
+    InputOtp { length: 6; groups: [3, 3] }        // 3 + 3 with a separator
+    InputOtp { length: 6; pattern: "[0-9]" }      // digits only (per-character)
+    \endqml
+*/
 FocusScope {
     id: control
 
+    /*! \qmlproperty int InputOtp::length
+        \brief Total number of slots (characters). Defaults to \c 6. */
     property int length: 6
+
+    /*! \qmlproperty var InputOtp::groups
+        \brief Array of per-group slot counts (e.g. \c {[3, 3]}); a separator is
+        shown between groups. When empty, a single group of \l length is used. */
     property var groups: []
+
+    /*! \qmlproperty string InputOtp::pattern
+        \brief Per-character validation regexp source; an empty string accepts any
+        visible character. Anchored full-string sources (e.g. \c {"^\\d+$"}) also
+        work since each candidate character is tested individually. */
     property string pattern: ""
+
+    /*! \qmlproperty bool InputOtp::invalid
+        \brief Marks the field as failing validation (maps \c {aria-invalid}); the
+        group border and ring switch to the destructive color. */
     property bool invalid: false
+
+    /*! \qmlproperty string InputOtp::value
+        \brief The characters entered so far. Writable, but the built-in keyboard
+        handling never lets it exceed \l length. */
     property string value: ""
+
+    /*! \qmlproperty bool InputOtp::complete
+        \brief \c true when \l value has exactly \l length characters. */
     readonly property bool complete: value.length === control.length
 
     implicitWidth: row.implicitWidth
@@ -34,13 +63,14 @@ FocusScope {
     activeFocusOnTab: true
     opacity: enabled ? 1 : 0.5          // has-disabled:opacity-50
 
-    // 归一化分组:无 groups → 单组;并夹逼 value 长度不超过 length。
+    // Normalized groups: fall back to a single group of `length`.
     readonly property var _groups: (control.groups && control.groups.length > 0)
                                    ? control.groups : [control.length]
-    // 当前输入位(聚焦时高亮 + caret)。
+    // Current input position (highlighted with ring + caret while focused).
     readonly property int _activeIndex: Math.min(control.value.length, control.length - 1)
 
-    // 构建布局项:交替 group 与 sep,group 携带其全局格子索引数组。
+    // Layout items: alternating group / separator; each group carries the global
+    // indices of the slots it owns.
     readonly property var _items: {
         let res = []
         let start = 0
@@ -63,7 +93,7 @@ FocusScope {
         return new RegExp(control.pattern).test(ch)
     }
 
-    // caret 闪烁(animate-caret-blink,~1s 周期)。
+    // Caret blink (animate-caret-blink, ~1s period).
     property bool _caretOn: true
     Timer {
         interval: 500
@@ -98,7 +128,7 @@ FocusScope {
 
     RowLayout {
         id: row
-        spacing: Theme.space2            // .cn-input-otp gap-2(组/分隔符之间)
+        spacing: Theme.space2            // .cn-input-otp gap-2 (between groups/separators)
 
         Repeater {
             model: control._items
@@ -118,25 +148,26 @@ FocusScope {
                     visible: cell._isSep
                 }
 
-                // ---- 组:圆角边框 + 微填充背景,内含相邻格子 ----
+                // ---- Group: rounded border + faint fill enclosing adjacent slots ----
                 Rectangle {
                     id: grp
                     visible: !cell._isSep
                     implicitWidth: slots.implicitWidth
                     implicitHeight: 28
                     radius: Theme.radiusMd
-                    color: Theme.alpha(Theme.input, 0.2)     // bg-input/20
+                    color: Theme.dark ? Theme.alpha(Theme.input, 0.3)   // dark:bg-input/30
+                                      : Theme.alpha(Theme.input, 0.2)   // bg-input/20
                     border.width: 1
                     border.color: control.invalid ? Theme.destructive : Theme.input
 
-                    // has-aria-invalid:ring(整组破坏色环)
+                    // has-aria-invalid: destructive ring around the whole group.
                     Rectangle {
                         anchors.fill: parent
                         anchors.margins: -Theme.ringWidth
                         radius: grp.radius + Theme.ringWidth
                         color: "transparent"
                         border.width: Theme.ringWidth
-                        border.color: Theme.alpha(Theme.destructive, 0.2)
+                        border.color: Theme.alpha(Theme.destructive, Theme.dark ? 0.4 : 0.2)
                         visible: control.invalid
                     }
 
@@ -147,8 +178,8 @@ FocusScope {
                             model: cell._isSep ? [] : cell.modelData.indices
                             delegate: InputOtpSlot {
                                 id: slotItem
-                                required property var modelData      // 全局格子索引
-                                required property int index          // 组内序号
+                                required property var modelData      // global slot index
+                                required property int index          // position within group
                                 first: index === 0
                                 last: index === (cell.modelData.indices.length - 1)
                                 glyph: (slotItem.modelData < control.value.length)

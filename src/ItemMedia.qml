@@ -2,27 +2,64 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn ItemMedia —— Item 的前置媒体位:图标 / 图片 / 头像等。shrink-0、居中。
-// variant=icon:内置 LucideIcon(iconName,size-4);variant=image:size-8 圆角裁剪盒
-// (xs 场景 size-6),可直接给 source 或放自定义子项;default:透明,承载 Avatar 等子项。
+/*!
+    \qmltype ItemMedia
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief Leading media slot of a \l ShadItem: icon, image or avatar.
+
+    Shrinks to fit (shrink-0) and centres its content. The \c icon variant
+    renders a built-in \l LucideIcon (\l iconName, size-4). The \c image variant
+    is a rounded clipping box (size-8, or size-6 at host size xs) that shows the
+    convenience \l source, or custom children when no source is set. The
+    \c default variant is transparent and hosts arbitrary children such as an
+    Avatar.
+
+    When the parent \l ShadItem contains a description, media is top-aligned and
+    nudged down 0.5 (2px) via \l topShift.
+
+    \qmlproperty int ItemMedia::variant
+    Media kind. One of:
+    \value ItemMedia.Default Transparent host for custom children.
+    \value ItemMedia.Icon    Built-in Lucide icon from \l iconName.
+    \value ItemMedia.Image   Rounded, clipped image box.
+
+    \qmlproperty string ItemMedia::iconName
+    Lucide icon name used by the \c icon variant.
+
+    \qmlproperty url ItemMedia::source
+    Convenience image source used by the \c image variant.
+
+    \qmlproperty color ItemMedia::iconColor
+    Colour of the \c icon variant glyph.
+
+    \qmlproperty int ItemMedia::hostSize
+    Injected by the parent \l ShadItem (0 default / 1 sm / 2 xs); selects the
+    image box side length.
+
+    \qmlproperty bool ItemMedia::topShift
+    Injected by the parent: when true (item has a description) the media
+    top-aligns and shifts down 2px.
+*/
 Item {
     id: media
 
     enum Variant { Default, Icon, Image }
 
     property int variant: ItemMedia.Default
-    property string iconName: ""       // variant=icon 便捷图标
-    property url source                // variant=image 便捷图片
+    property string iconName: ""       // convenience icon for variant=icon
+    property url source                // convenience image for variant=image
     property color iconColor: Theme.foreground
 
-    // 由父 Item 注入:hostSize(0 default / 1 sm / 2 xs)、topShift(有描述时顶对齐下移)。
+    // Injected by the parent ShadItem: hostSize (0 default / 1 sm / 2 xs) and
+    // topShift (top-align when the item has a description).
     property int hostSize: 0
     property bool topShift: false
 
     readonly property string itemSlot: "item-media"
     default property alias content: slot.data
 
-    // image 盒边长:xs → size-6(24),其余 size-8(32)。
+    // Image box side: xs -> size-6 (24), otherwise size-8 (32).
     readonly property int _imgBox: hostSize === 2 ? 24 : 32
     readonly property int _iconSize: 16   // svg size-4
     readonly property bool _isImage: variant === ItemMedia.Image
@@ -34,7 +71,7 @@ Item {
     implicitWidth: _isImage ? _imgBox : _isIcon ? _iconSize : slot.implicitWidth
     implicitHeight: _isImage ? _imgBox : _isIcon ? _iconSize : slot.implicitHeight
 
-    // image 变体:圆角裁剪盒,可用 source 或自定义子项(object-cover)。
+    // image variant: rounded clipping box driven by source or custom children.
     Rectangle {
         id: imageBox
         visible: media._isImage
@@ -61,7 +98,7 @@ Item {
         color: media.iconColor
     }
 
-    // default 变体或自定义子项(Avatar、头像组等)。
+    // default variant or custom children (Avatar, avatar stacks, etc.).
     Item {
         id: slot
         anchors.centerIn: parent

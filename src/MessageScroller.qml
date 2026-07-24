@@ -2,45 +2,95 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn MessageScroller(base-mira · 基础版)—— 聊天转录滚动容器。
-// 结构:Item 外壳包裹 Shadcn ScrollView(细滚动条)+ 悬浮「跳至最新」按钮。
-// 纵向消息列(gap-6),内容增长且已在底部时自动贴底;用户上滑后释放,不再强制下拉。
-// 默认子项即为消息行(通常是 Message),按声明顺序纵向排列。
-//
-// 用法:置于「高度受限」的容器内(fill 父)。
-//   MessageScroller { anchors.fill: parent
-//       Message { … }
-//       Message { … }
-//   }
-//
-// 未实现(高级基建,基础版诚实跳过,均不做):
-//   · 流式跟随(follow live edge)与 autoScroll 的完整语义(仅做「已在底部则贴底」)
-//   · 新回合锚定(scrollAnchor / 顶部锚点 + 上一条 peek)
-//   · 加载历史时的位置保持(preserveScrollOnPrepend,不跳动)
-//   · 打开已存会话的 last-anchor 定位
-//   · 虚拟化 / content-visibility 性能优化
-//   · 命令面板 / scrollToMessage / 可见性追踪等 hooks
-//   · 进场动画、reduced-motion
+/*!
+    \qmltype MessageScroller
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A scroll container for a chat transcript.
+
+    MessageScroller is the QML port of shadcn's base-mira message-scroller. An
+    Item shell wraps a Shadcn \l ScrollView (thin scrollbar) that lays out its
+    default children as a vertical message column (\c gap-6), plus a floating
+    "jump to latest" button that surfaces when the reader has scrolled away from
+    the bottom.
+
+    Its one behavioral guarantee mirrors the reference's \c autoScroll: while the
+    reader is already at the bottom, the viewport pins to the bottom as content
+    grows (a message streams in, a new turn arrives); the moment the reader
+    scrolls up, auto-follow backs off and their position is preserved.
+
+    Default children are the message rows (typically \l Message), stacked in
+    declaration order. Place a MessageScroller inside a height-constrained parent.
+
+    \qml
+    MessageScroller {
+        anchors.fill: parent
+        Message { }
+        Message { }
+    }
+    \endqml
+
+    This base port intentionally omits the reference's advanced infrastructure:
+    full streaming/live-edge semantics beyond "pin when already at bottom",
+    new-turn anchoring (\c scrollAnchor / previous-item peek), position
+    preservation when prepending history (\c preserveScrollOnPrepend),
+    last-anchor restoration for reopened conversations, virtualization,
+    command hooks (\c scrollToMessage) and visibility tracking, and enter
+    animations / reduced-motion.
+
+    \sa Message, ScrollView
+*/
 Item {
     id: root
 
-    // 默认子项 → 消息列。
+    /*!
+        \qmlproperty list<QtObject> MessageScroller::messages
+        \default
+        The message rows, laid out top-to-bottom in the scrollable column.
+        Assigned via the component's default child list.
+    */
     default property alias messages: col.data
 
+    /*!
+        \qmlproperty bool MessageScroller::autoScroll
+        When \c true (default), the viewport follows the bottom edge as content
+        grows, but only while the reader is already at the bottom. Set to
+        \c false to leave the scroll position under the reader's control.
+    */
     property bool autoScroll: true
-    property real messageSpacing: Theme.space6      // cn-message-scroller-content gap-6
-    property real contentPadding: Theme.space4      // 列表四周留白(默认 p-4)
 
+    /*!
+        \qmlproperty real MessageScroller::messageSpacing
+        Vertical gap between message rows. Defaults to \c Theme.space6 (gap-6).
+    */
+    property real messageSpacing: Theme.space6
+
+    /*!
+        \qmlproperty real MessageScroller::contentPadding
+        Inset around the message column. Defaults to \c Theme.space4 (p-4).
+    */
+    property real contentPadding: Theme.space4
+
+    // Internal: whether the viewport is currently pinned to (near) the bottom.
     property bool _atBottom: true
+    // Internal: the ScrollView's backing Flickable, source of scroll geometry.
     readonly property var _flick: view.contentItem
 
     implicitWidth: 360
     implicitHeight: 420
 
+    /*!
+        \qmlmethod void MessageScroller::scrollToEnd()
+        Scrolls the viewport to the bottom so the latest message is visible.
+    */
     function scrollToEnd() {
         if (_flick)
             _flick.contentY = Math.max(0, _flick.contentHeight - _flick.height)
     }
+
+    // Recompute _atBottom from current scroll geometry. The 8px slack is the
+    // reference's scroll-edge threshold; when content fits, the target is
+    // negative so contentY (0) counts as "at bottom".
     function _refreshAtBottom() {
         if (_flick)
             _atBottom = _flick.contentY >= _flick.contentHeight - _flick.height - 8
@@ -52,7 +102,8 @@ Item {
         clip: true
         contentWidth: availableWidth
 
-        // 内容包裹:提供确定的 contentHeight(含四周留白),避免横向滚动。
+        // Content wrapper: supplies a definite contentHeight (including the
+        // surrounding padding) so the viewport never scrolls horizontally.
         Item {
             id: contentWrap
             implicitWidth: view.availableWidth
@@ -74,14 +125,21 @@ Item {
         function onContentYChanged() { root._refreshAtBottom() }
         function onHeightChanged() { root._refreshAtBottom() }
         function onContentHeightChanged() {
+            // While auto-following, keep _atBottom true and let the queued
+            // scrollToEnd (via its contentY change) reconfirm it. Refreshing
+            // here against the stale contentY would flip _atBottom to false for
+            // one frame and flash the jump button. Otherwise, refresh so the
+            // button reflects the new geometry.
             if (root.autoScroll && root._atBottom)
                 Qt.callLater(root.scrollToEnd)
-            root._refreshAtBottom()
+            else
+                root._refreshAtBottom()
         }
     }
     Component.onCompleted: Qt.callLater(scrollToEnd)
 
-    // ==== 跳至最新(未在底部时浮现,不随内容滚动)====
+    // ==== Jump to latest: surfaces when not at the bottom; pinned to the
+    // viewport (does not scroll with content). ====
     Rectangle {
         id: jump
         width: 32

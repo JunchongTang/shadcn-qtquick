@@ -41,6 +41,7 @@
 | [#029](#029-bubblereactions-顶部反应渲染到了底部继承-item-枚举冲突) | BubbleReactions 顶部反应渲染到底部(继承 Item 枚举冲突) | Component/Bubble · Component/HoverCard | P2 | ✅ |
 | [#030](#030-batch-2-审查修复合集组件-1120) | Batch 2 审查修复合集(组件 11–20) | Component/*(Carousel/Checkbox/Combobox/Command/ContextMenu) | P2 | ✅ |
 | [#031](#031-batch-3-审查修复合集组件-2130) | Batch 3 审查修复合集(组件 21–30) | Component/*(Input/HoverCard/FocusRing/Form) | P2 | ✅ |
+| [#032](#032-batch-4-审查修复合集组件-3140) | Batch 4 审查修复合集(组件 31–40) | Component/*(Marker/InputOtp/Menu/Kbd/Menubar/MessageScroller) | P2 | ✅ |
 
 ---
 
@@ -374,3 +375,15 @@
 - **P3 FocusRing 方角半径不一致**(src/FocusRing):方形目标(targetRadius 0)时统一 `radius` 曾算成 `ringWidth`,与逐角解析(返回 0)不一致(Qt 6.7+ 逐角覆盖 radius 故无可见影响,潜在错)。改为 `radius: _ringR(-1)` 保持一致。
 - **P3 Form 描述未左对齐**(Component/Form):`.cn-field-description` 的 `text-left` 未落实 → 加 `horizontalAlignment: Text.AlignLeft`。
 - 其余(Empty/Field/IconButton)无功能缺陷,仅文档化 + 补测 + 少量还原度旗标。
+
+### #032 Batch 4 审查修复合集(组件 31–40)
+
+逐组件审查 Batch 4 的缺陷汇总。测试总数 374→507 全绿,无枚举冲突(InputGroupAddon/Button 用前缀枚举名规避)。
+
+- **P2 Marker stacked 尺寸取错 body**(Component/Marker):`stacked` 模式下 implicitWidth/Height 仍取自横向 RowLayout,而可见内容是纵向 ColumnLayout(更高)→ Item 高度少算、内容溢出。改为按 `stacked` 选活动 body。附带 P3:隐藏行的 shimmer 动画加 `&& !stacked` 守卫。
+- **P2 InputOtp 分隔/边框 token 错**(Component/InputOtp):槽位竖分隔线用 `Theme.border`,base 是 `border-input`→改 `Theme.input`(暗色修正);Separator 图标用 `mutedForeground`,base 无色继承 currentColor=foreground→改 `Theme.foreground`(视觉变化,待真机看)。附带 P3 暗色 alpha 变体。
+- **P2 Menu 禁用项仍高亮**(Component/Menu):`_active = highlighted || hovered`,禁用项 hover 仍画 accent 底/字。改为 `enabled && (...)`。附带补齐缺失的 `inset` API(MenuItem/Checkbox/Radio,pl-7.5=30)。
+- **P3 Kbd 圆角**(Component/Kbd):`rounded-xs` 是字面 2px(不随主题 radius 缩放),原为 4→改 2。
+- **P3×2 Menubar**(Component/Menubar):去未用 import;Trigger 文本 `items-center` 左对齐(原 AlignHCenter)。
+- **P3 MessageScroller 跳转按钮闪烁**(Component/MessageScroller):自动跟随底部时 `onContentHeightChanged` 无条件 `_refreshAtBottom()` 用了旧 contentY,单帧翻成 false 触发按钮淡入。改为仅非跟随分支刷新。
+- 其余(InputGroup/Item/Label/Message)无功能缺陷;InputGroup 标记若干 P2/P3 还原度缺口(kbd 边缘吸附、group-disabled 变暗等)待后续。

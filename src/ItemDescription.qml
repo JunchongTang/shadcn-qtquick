@@ -1,7 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn ItemDescription —— 描述文本:text-muted-foreground text-xs/relaxed,line-clamp-2。
+/*!
+    \qmltype ItemDescription
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief Secondary description text of a \l ShadItem.
+
+    Rendered as muted-foreground, text-xs with relaxed line height, clamped to
+    two lines with a trailing ellipsis (line-clamp-2). Normal weight.
+*/
 Text {
     readonly property string itemSlot: "item-description"
 

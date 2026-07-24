@@ -1,18 +1,37 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn MessageFooter(base-mira)—— 气泡下方的状态/操作行。
-// text-[0.625rem](10px)font-medium text-muted-foreground;随 align 靠边
-// (由父 MessageContent 通过 Layout.alignment 决定)。可含状态文本 + 一组操作按钮。
-// 默认子项追加在文本之后(如 MessageActions)。
-// 注:官方 px-2.5 的水平内边距(使 footer 文本与气泡文本左缘对齐)基础版未精确复刻。
+/*!
+    \qmltype MessageFooter
+    \inqmlmodule Shadcn
+    \inherits RowLayout
+    \brief The status / actions line shown below the bubble.
+
+    MessageFooter is the QML port of shadcn's base-mira \c .cn-message-footer
+    (\c {text-[0.625rem] font-medium text-muted-foreground px-2.5}, plus
+    \c {group-data-[align=end]/message:justify-end}). It lays out an optional status
+    label followed by any default children (typically a \l MessageActions group).
+
+    The row's side is decided by its parent \l MessageContent through
+    \c Layout.alignment, so it hugs the same edge as the bubble.
+
+    \note Fidelity: the base-mira \c px-2.5 horizontal padding (which lines the
+    footer text up with the bubble text) is not reproduced here, and it is not
+    dropped to \c px-0 for the ghost variant.
+
+    \sa MessageContent, MessageActions, MessageHeader
+*/
 RowLayout {
     id: root
 
+    /*! Status text shown before the default children (e.g. "Delivered", "Failed to send"). */
     property string text: ""
+
+    /*! When true the status \l text uses the destructive color instead of muted-foreground. */
     property bool destructive: false
 
-    // 状态文本之后的附加内容(如操作按钮组)。
+    /*! \qmlproperty list<QtObject> MessageFooter::content
+        Default children appended after the status text (e.g. a \l MessageActions group). */
     default property alias content: root.data
 
     spacing: Theme.space2                       // gap-2

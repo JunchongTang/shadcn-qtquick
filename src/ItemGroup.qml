@@ -1,19 +1,28 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn ItemGroup —— 纵向堆叠多个 Item(与 ItemSeparator)。间距随内部 Item 尺寸自适应:
-// 含 xs → gap-2(8);含 sm → gap-2.5(10);否则 gap-4(16)。
+/*!
+    \qmltype ItemGroup
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Vertical stack of \l ShadItem (and \l ItemSeparator) rows.
+
+    Spacing adapts to the size of the contained items: any xs item yields
+    gap-2 (8), otherwise any sm item yields gap-2.5 (10), otherwise gap-4 (16).
+    The spacing is recomputed whenever the children change.
+*/
 ColumnLayout {
     id: group
 
     readonly property string itemSlot: "item-group"
 
     Layout.fillWidth: true
-    spacing: 16   // gap-4 默认;完成后据子项尺寸调整
+    spacing: 16   // gap-4 default; adjusted from child sizes once completed
 
     Component.onCompleted: _computeSpacing()
     onChildrenChanged: Qt.callLater(_computeSpacing)
 
+    // Derive stack spacing from the smallest contained item size.
     function _computeSpacing() {
         var hasSm = false
         var hasXs = false

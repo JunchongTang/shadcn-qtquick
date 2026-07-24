@@ -2,7 +2,28 @@ import QtQuick
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
 
-// shadcn DropdownMenu 的弹出容器。文件名 Menu 与基类 Menu 同名 → 别名导入(as C),根用 C.Menu。
+/*!
+    \qmltype Menu
+    \inqmlmodule Shadcn
+    \inherits Menu
+    \brief Popover container for the shadcn DropdownMenu family.
+
+    Menu is the QML port of shadcn/ui's \c DropdownMenuContent (base-mira
+    style, backed by base-ui's Menu). It is a \l[QtQuickControls]{Menu} (a
+    Popup-derived container) drawn as a rounded popover with a subtle ring and
+    drop shadow. Declare \l MenuItem, \l MenuCheckboxItem, \l MenuRadioItem,
+    \l MenuLabel and \l MenuSeparator children to build the menu; nesting a
+    \l Menu inside an item creates a submenu whose trigger renders a trailing
+    chevron.
+
+    The file name shadows the Controls base type, so the base is imported under
+    the \c C alias and used as the root (\c C.Menu).
+
+    \note Issue #021: the base Menu clamps its width to the background
+    min-width, so \l contentWidth is bound to the widest item's implicitWidth
+    to keep labels from being elided. Issue #002: the earlier hover drag-shadow
+    Behavior has been removed and must not be reintroduced.
+*/
 C.Menu {
     id: control
 
@@ -11,8 +32,10 @@ C.Menu {
     overlap: 0
     modal: false
 
-    // C.Menu 不会自动按最宽项撑宽(其 ListView contentItem 不上报内容宽,菜单宽只取 background 的 min-w),
-    // 故显式把 contentWidth 设为最宽项的 implicitWidth → 文本完整显示、不被省略。
+    // The base Menu does not grow to fit its widest item: its ListView
+    // contentItem reports no content width, so the menu clamps to the
+    // background min-width and elides long labels. Bind contentWidth to the
+    // widest item's implicitWidth so every label is shown in full (#021).
     contentWidth: {
         var w = 0
         for (var i = 0; i < count; i++) {
@@ -23,10 +46,11 @@ C.Menu {
         return w
     }
 
-    // 子菜单触发项(嵌套 Menu)由本 delegate 自动创建 → 复用样式化 MenuItem(带右侧 chevron)。
+    // Submenu trigger items (a nested Menu) are instantiated by this delegate,
+    // reusing the styled MenuItem, which draws the trailing chevron.
     delegate: MenuItem {}
 
-    // 弹出面 popover:rounded-lg + ring-1 ring-foreground/10 + shadow-md。
+    // Popover surface: rounded-lg + ring-1 ring-foreground/10 + shadow-md.
     background: Rectangle {
         implicitWidth: 128           // min-w-32 = 8rem
         color: Theme.popover
@@ -43,7 +67,7 @@ C.Menu {
         }
     }
 
-    // 弹出动效:fade + zoom-95(对标 data-open:fade-in/zoom-in-95)
+    // Open/close animation: fade + zoom-95 (data-open:fade-in / zoom-in-95).
     enter: Transition {
         NumberAnimation { property: "opacity"; from: 0; to: 1; duration: Theme.durFast }
         NumberAnimation { property: "scale"; from: 0.95; to: 1; duration: Theme.durFast }

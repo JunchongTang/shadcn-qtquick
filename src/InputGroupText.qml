@@ -1,8 +1,19 @@
 import QtQuick
 
-// shadcn InputGroupText —— addon 内的文本标注(cn-input-group-text)。
-// text-muted-foreground、text-xs、font-medium(继承 addon 的字重)。放入 InputGroupAddon 内使用。
-// 如需图标+文本组合,把 LucideIcon 与本组件并列放进同一 InputGroupAddon(addon 为横向布局)。
+/*!
+    \qmltype InputGroupText
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief A text label inside an InputGroupAddon (\c .cn-input-group-text),
+    styled after shadcn/ui base-mira.
+
+    InputGroupText renders \c text-muted-foreground at \c text-xs with
+    \c font-medium weight. Place it inside an \l InputGroupAddon. For an
+    icon-plus-text combination, put a LucideIcon and this component side by side
+    in the same InputGroupAddon (the addon lays its children out horizontally).
+
+    \sa InputGroupAddon, InputGroup
+*/
 Text {
     color: Theme.mutedForeground
     font.pixelSize: Theme.textXs

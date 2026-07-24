@@ -3,17 +3,47 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import LucideIcons
 
-// shadcn DropdownMenuItem。文件名 MenuItem 与基类 MenuItem 同名 → 别名导入(as C)。
-// text 继承自 AbstractButton,直接使用,不重复声明(避免遮蔽)。
+/*!
+    \qmltype MenuItem
+    \inqmlmodule Shadcn
+    \inherits MenuItem
+    \brief A selectable row in a \l Menu.
+
+    MenuItem is the QML port of shadcn/ui's \c DropdownMenuItem (base-mira). It
+    is a \l[QtQuickControls]{MenuItem} styled with an optional leading icon, a
+    label, and an optional trailing keyboard shortcut. When used as a submenu
+    trigger (its \c subMenu is set) it draws a trailing chevron and takes its
+    leading icon from the submenu's \c icon.name.
+
+    The file name shadows the Controls base type, so the base is imported under
+    the \c C alias and used as the root (\c C.MenuItem). The inherited \c text
+    (from AbstractButton) is reused directly rather than redeclared.
+
+    \qmlproperty string MenuItem::shortcut
+    Trailing keyboard-shortcut hint, rendered small and muted. Empty hides it.
+
+    \qmlproperty string MenuItem::iconName
+    Name of the leading \l LucideIcon. Empty hides the icon. A separate property
+    is used because AbstractButton's \c icon grouped property is \c FINAL.
+
+    \qmlproperty bool MenuItem::destructive
+    When \c true the item uses the destructive foreground colour and a
+    destructive-tinted highlight (\c {data-variant=destructive}).
+
+    \qmlproperty bool MenuItem::inset
+    When \c true the content is indented to align with items that have a leading
+    icon or indicator (\c {data-inset:pl-7.5}).
+*/
 C.MenuItem {
     id: control
 
-    property string shortcut: ""     // 右侧快捷键提示(text-muted)
-    property string iconName: ""     // 左侧 Lucide 图标(AbstractButton.icon 为 FINAL,故用 iconName)
-    property bool destructive: false // data-[variant=destructive]:text-destructive + focus bg-destructive/10
+    property string shortcut: ""     // trailing keyboard-shortcut hint (muted)
+    property string iconName: ""     // leading Lucide icon (icon is FINAL, hence iconName)
+    property bool destructive: false // data-[variant=destructive]: destructive text + tinted focus bg
+    property bool inset: false       // data-inset: pl-7.5 (30px)
 
     implicitHeight: 28               // min-h-7
-    leftPadding: Theme.space2        // px-2
+    leftPadding: inset ? 30 : Theme.space2   // pl-7.5 when inset, else px-2
     rightPadding: Theme.space2
     topPadding: 0
     bottomPadding: 0
@@ -24,8 +54,9 @@ C.MenuItem {
     indicator: null
     arrow: null
 
-    // 显式按内容算宽:RowLayout + fillWidth Text 的隐式宽算不准,会让 Menu 卡在 min-w 而省略文本。
-    // 据此 C.Menu 能按最宽项自增,文本完整显示。
+    // Width is computed from content: a RowLayout with a fillWidth Text does not
+    // report a usable implicitWidth, which would clamp the Menu to its min-width
+    // and elide the label. This lets Menu grow to the widest item (#021).
     implicitWidth: leftPadding + rightPadding
                    + (_iconName !== "" ? 14 + spacing : 0)
                    + Math.ceil(_labelMetrics.advanceWidth) + 1
@@ -34,8 +65,10 @@ C.MenuItem {
     TextMetrics { id: _labelMetrics; font: control.font; text: control.text }
     TextMetrics { id: _shortcutMetrics; font.pixelSize: 10; font.letterSpacing: 1; text: control.shortcut }
 
-    readonly property bool _active: control.highlighted || control.hovered
-    // 子菜单触发项由 Menu 的 delegate 自动创建(subMenu 非空);图标取自子菜单的 icon.name。
+    // Disabled items never highlight (data-disabled:pointer-events-none).
+    readonly property bool _active: control.enabled && (control.highlighted || control.hovered)
+    // Submenu trigger items are created by Menu's delegate (subMenu is set);
+    // their leading icon comes from the submenu's icon.name.
     readonly property string _iconName: control.subMenu ? control.subMenu.icon.name : control.iconName
     readonly property color _fg: control.destructive
         ? Theme.destructive
@@ -67,7 +100,7 @@ C.MenuItem {
             color: control._active ? Theme.accentForeground : Theme.mutedForeground
             verticalAlignment: Text.AlignVCenter
         }
-        // 子菜单触发项右侧 chevron(sub-trigger: ChevronRightIcon ml-auto)
+        // Submenu trigger chevron (sub-trigger: ChevronRightIcon ml-auto).
         LucideIcon {
             visible: control.subMenu !== null
             name: "chevron-right"

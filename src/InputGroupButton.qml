@@ -1,19 +1,38 @@
 import QtQuick
 
-// shadcn InputGroupButton —— addon 内的小按钮(cn-input-group-button)。
-// 默认 ghost、xs 尺寸;基于库内 Button,复用 variant/图标/焦点环/hover。
-// 四档尺寸映射到 Button 尺寸(mira 数值):
-//   KindXs   → Button.Xs      h20 · 文本
-//   KindSm   → Button.Sm      h24 · 文本
-//   KindIconXs → Button.IconSm 24×24 方形图标(CSS size-6)
-//   KindIconSm → Button.Icon   28×28 方形图标(CSS size-7)
+/*!
+    \qmltype InputGroupButton
+    \inqmlmodule Shadcn
+    \inherits Button
+    \brief A small button placed inside an InputGroupAddon
+    (\c .cn-input-group-button), styled after shadcn/ui base-mira.
+
+    InputGroupButton defaults to the \c Ghost variant at the extra-small size and
+    reuses the library \l Button for its variant, icon slots, focus ring and hover
+    behaviour. Its \l kind maps to the concrete \c Button size (base-mira metrics),
+    and it flags itself so a surrounding InputGroupAddon applies the edge-pull
+    negative margin.
+
+    \sa InputGroupAddon, Button
+*/
 Button {
     id: btn
 
+    /*!
+        \qmlproperty enumeration InputGroupButton::kind
+        \brief Size preset. Defaults to \c InputGroupButton.KindXs.
+        \value InputGroupButton.KindXs Text, maps to Button.Xs (h-5, 20px).
+        \value InputGroupButton.KindSm Text, maps to Button.Sm (h-6, 24px).
+        \value InputGroupButton.KindIconXs Square icon, maps to Button.IconSm (size-6, 24px).
+        \value InputGroupButton.KindIconSm Square icon, maps to Button.Icon (size-7, 28px).
+    */
     enum Kind { KindXs, KindSm, KindIconXs, KindIconSm }
 
+    /*! \qmlproperty enumeration InputGroupButton::kind \brief See \l Kind. */
     property int kind: InputGroupButton.KindXs
-    readonly property bool _igButton: true      // addon 据此对按钮做贴边负边距
+    /*! \qmlproperty bool InputGroupButton::_igButton
+        \brief Marker letting the addon apply the button edge-pull margin. \internal */
+    readonly property bool _igButton: true
 
     variant: Button.Ghost
     size: {

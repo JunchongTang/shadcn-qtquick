@@ -38,16 +38,16 @@ Legend: ✅ done · 🔶 partial · ⬜ pending · — n/a
 | 28 | HoverCard | HoverCard | ✅ | ✅ | ✅ | ✅ | ✅ #029 fixed (Side→*Edge, Align.Center→Middle); +alignOffset |
 | 29 | IconButton | IconButton | ✅ | ✅ | ✅ | 🔶 | no bugs; intentional Ghost default noted |
 | 30 | Input | Input | ✅ | ✅ | ✅ | ✅ | fixed 2×P2 (disabled opacity, border→input token) + 3×P3 dark/ring |
-| 31 | InputGroup | InputGroup(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 32 | InputOtp | InputOtp, InputOtpSeparator, InputOtpSlot | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 33 | Item | ShadItem, Item*(9 parts) | ⬜ | ⬜ | ⬜ | ⬜ | enum-collision checked: safe |
-| 34 | Kbd | Kbd, KbdGroup | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 35 | Label | Label | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 36 | Marker | Marker | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 37 | Menu | Menu(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | fix #002 landed |
-| 38 | Menubar | Menubar, MenubarMenu, MenubarTrigger | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 39 | Message | Message(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 40 | MessageScroller | MessageScroller | ⬜ | ⬜ | ⬜ | ⬜ | |
+| 31 | InputGroup | InputGroup(+5 parts) | ✅ | ✅ | ✅ | 🔶 | no P0/P1; flagged kbd edge-pull, group-disabled dimming |
+| 32 | InputOtp | InputOtp, InputOtpSeparator, InputOtpSlot | ✅ | ✅ | ✅ | 🔶 | 2×P2 (divider/separator token+color) + dark variants |
+| 33 | Item | ShadItem, Item*(9 parts) | ✅ | ✅ | ✅ | 🔶 | no bugs; enum-safe; image-variant child + focus-ring flagged |
+| 34 | Kbd | Kbd, KbdGroup | ✅ | ✅ | ✅ | 🔶 | P3 rounded-xs 2px; text-only limitation flagged |
+| 35 | Label | Label | ✅ | ✅ | ✅ | ✅ | no bugs |
+| 36 | Marker | Marker | ✅ | ✅ | ✅ | 🔶 | P2 stacked sizing + P3 shimmer; shimmer-sweep approx flagged |
+| 37 | Menu | Menu(+5 parts) | ✅ | ✅ | ✅ | 🔶 | P2 disabled-highlight + inset API; #002/#021 intact; radio-exclusivity real-machine |
+| 38 | Menubar | Menubar, MenubarMenu, MenubarTrigger | ✅ | ✅ | ✅ | 🔶 | 2×P3 (unused import, trigger align) |
+| 39 | Message | Message(+5 parts) | ✅ | ✅ | ✅ | 🔶 | no bugs; header self-end / ghost padding flagged |
+| 40 | MessageScroller | MessageScroller | ✅ | ✅ | ✅ | 🔶 | P3 jump-button flicker; advanced anchoring omitted |
 | 41 | NativeSelect | NativeSelect | ⬜ | ⬜ | ⬜ | ⬜ | |
 | 42 | NavigationMenu | NavigationMenu(+4 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
 | 43 | Pagination | Pagination | ⬜ | ⬜ | ⬜ | ⬜ | |

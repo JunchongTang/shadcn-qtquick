@@ -2,50 +2,107 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn Marker(base-mira)—— 会话中的内联标记:状态/系统提示/带边框行/带标签分隔。
-// 严格对齐 style-mira.css 的 .cn-marker / .cn-marker-variant-* / .cn-marker-icon / .cn-marker-content。
-//
-// 令牌对照:
-//   .cn-marker           → gap-2(8) · text-xs/relaxed(12 / 1.625) · text-muted-foreground · min-h-4(16) · text-left
-//                          svg size-3.5(14) · [a] hover:text-foreground · [a] underline underline-offset-3
-//   .cn-marker-variant-separator → before/after h-px flex-1 bg-border · before mr-1(4) · after ml-1(4);内容 flex-none text-center
-//   .cn-marker-variant-border    → border-b border-border · pb-2(8)
-//   .cn-marker-icon      → size-3.5(14)
-//
-// 自包含:图标经 iconName(Lucide)或 spinner(加载态旋转)提供;内容经 text 提供。
-// 交互(官方 render=<a>/<button>):interactive=true → hover 转 foreground + 可点击(clicked());
-//   underline=true → 常驻下划线(链接语义)。
-// shimmer:官方为 background-clip:text 的扫光,QML 无等价能力,此处以不透明度脉冲近似(见 _shimmerAnim),已标注。
+/*!
+    \qmltype Marker
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief An inline conversation marker, styled after shadcn's base-mira marker.
+
+    Marker renders shadcn's \c .cn-marker: a compact inline note used inside a
+    conversation thread for status updates, system notes, bordered rows and
+    labeled separators. It is laid out as a horizontal row of an optional icon
+    plus content, at 12px relaxed text (\c text-xs/relaxed) in the muted
+    foreground color, with a 16px minimum height (\c min-h-4).
+
+    The icon slot is supplied either by a Lucide icon name (\l iconName) or by
+    an animated \l Spinner (\l spinner, for streaming/in-progress markers).
+    Content is supplied through \l text. Both are painted at 14px (\c size-3.5).
+
+    Three layouts are selected by \l variant, mapping to shadcn's
+    \c .cn-marker-variant-* rules. Setting \l stacked mirrors the \c flex-col
+    className, stacking the icon above centered content.
+
+    Interactive markers mirror shadcn's polymorphic \c render prop: set
+    \l interactive to make the row hoverable (text shifts to the foreground
+    color) and clickable (\l clicked), and \l underline for link semantics.
+
+    The shimmer streaming effect (\l shimmer) approximates shadcn's
+    \c background-clip:text sweep, which has no QML equivalent, with an
+    opacity pulse instead.
+
+    \qml
+    Marker { text: "A default marker for inline notes." }
+    Marker { variant: Marker.Separator; text: "Today" }
+    Marker { variant: Marker.Border; iconName: "git-branch"; text: "Switched branch" }
+    Marker { spinner: true; text: "Compacting conversation" }
+    \endqml
+*/
 Item {
     id: root
 
+    /*!
+        \qmlproperty enumeration Marker::variant
+        The marker layout. Values map to shadcn's \c .cn-marker-variant-* rules.
+        \value Marker.Default An inline marker for status, notes and actions.
+        \value Marker.Separator A centered label with divider lines on each side.
+        \value Marker.Border A default marker with a 1px bottom border under the row.
+    */
     enum Variant { Default, Separator, Border }
 
     property int variant: Marker.Default
-    property string text: ""            // MarkerContent 文本
-    property string iconName: ""        // MarkerIcon(Lucide 名),空 = 无图标
-    property bool spinner: false        // 状态标记:以旋转 Spinner 代替静态图标(role="status")
-    property bool shimmer: false        // 流式微光(不透明度脉冲近似)
-    property bool interactive: false    // render=<a>/<button>:hover→foreground + 可点击
-    property bool underline: false      // 链接语义:常驻下划线
-    property bool stacked: false        // className="flex-col":图标在上、内容在下
 
+    /*! \qmlproperty string Marker::text
+        The marker content text (shadcn's \c MarkerContent). */
+    property string text: ""
+
+    /*! \qmlproperty string Marker::iconName
+        Lucide icon name for the decorative icon slot; empty means no icon. */
+    property string iconName: ""
+
+    /*! \qmlproperty bool Marker::spinner
+        When true, the icon slot shows an animated Spinner instead of a static
+        icon, for streaming or in-progress markers (\c role="status"). */
+    property bool spinner: false
+
+    /*! \qmlproperty bool Marker::shimmer
+        When true, the content text pulses (an approximation of shadcn's
+        \c shimmer streaming-text sweep). */
+    property bool shimmer: false
+
+    /*! \qmlproperty bool Marker::interactive
+        When true, the marker behaves as a link/button: it hovers to the
+        foreground color, shows a pointing cursor and emits \l clicked. */
+    property bool interactive: false
+
+    /*! \qmlproperty bool Marker::underline
+        When true, the content text is underlined (link semantics). */
+    property bool underline: false
+
+    /*! \qmlproperty bool Marker::stacked
+        When true, the icon is stacked above centered content (\c flex-col). */
+    property bool stacked: false
+
+    /*! \qmlsignal Marker::clicked()
+        Emitted when an \l interactive marker is tapped. */
     signal clicked()
 
     readonly property bool _isSeparator: variant === Marker.Separator
     readonly property bool _isBorder: variant === Marker.Border
     readonly property bool _hasIcon: iconName !== "" || spinner
-    // svg size-3.5 = 14px(.cn-marker / .cn-marker-icon)
+    // svg size-3.5 = 14px (.cn-marker / .cn-marker-icon)
     readonly property int _iconSize: 14
     readonly property color _textColor: (interactive && _hover.hovered)
                                          ? Theme.foreground : Theme.mutedForeground
 
-    Layout.fillWidth: true              // w-full(在 ColumnLayout 中铺满)
-    implicitWidth: _body.implicitWidth
-    // min-h-4(16);border 变体额外 pb-2(8) + border-b(1)
-    implicitHeight: Math.max(16, _body.implicitHeight + (_isBorder ? Theme.space2 + 1 : 0))
+    Layout.fillWidth: true              // w-full (fills its ColumnLayout parent)
+    // Sizing follows the active layout. min-h-4 (16); the border variant adds
+    // pb-2 (8) + border-b (1) below the row.
+    implicitWidth: root.stacked ? _bodyStacked.implicitWidth : _body.implicitWidth
+    implicitHeight: root.stacked
+                    ? Math.max(16, _bodyStacked.implicitHeight)
+                    : Math.max(16, _body.implicitHeight + (_isBorder ? Theme.space2 + 1 : 0))
 
-    // 交互态:hover 变色 + 指针 + 点击。
+    // Interactive state: hover recolor + pointer + click.
     HoverHandler {
         id: _hover
         enabled: root.interactive
@@ -56,7 +113,7 @@ Item {
         onTapped: root.clicked()
     }
 
-    // ==== 横向布局(default / border / separator)====
+    // ==== Horizontal layout (default / border / separator) ====
     RowLayout {
         id: _body
         visible: !root.stacked
@@ -65,16 +122,16 @@ Item {
         anchors.top: parent.top
         spacing: Theme.space2            // gap-2
 
-        // separator:左侧分隔线(before:h-px flex-1 bg-border · mr-1)
+        // separator: leading divider (before: h-px flex-1 bg-border, mr-1)
         Rectangle {
             visible: root._isSeparator
             Layout.fillWidth: true
             Layout.preferredHeight: 1
-            Layout.rightMargin: Theme.space1   // before:mr-1(4)
+            Layout.rightMargin: Theme.space1   // before:mr-1 (4)
             color: Theme.border
         }
 
-        // 图标槽(Lucide 或 Spinner);separator 时随内容居中
+        // Icon slot (Lucide or Spinner); centers with content in separator mode.
         LucideIcon {
             visible: root._hasIcon && !root.spinner
             Layout.alignment: Qt.AlignVCenter
@@ -89,43 +146,44 @@ Item {
             color: root._textColor
         }
 
-        // 内容:默认左对齐并可换行(min-w-0 wrap-break-word);separator 时 flex-none 居中
+        // Content: left-aligned and wrapping by default (min-w-0 wrap-break-word);
+        // flex-none and centered in separator mode.
         Text {
             id: _contentH
             visible: root.text !== ""
-            Layout.fillWidth: !root._isSeparator     // separator:flex-none(自然宽)
+            Layout.fillWidth: !root._isSeparator     // separator: flex-none (natural width)
             Layout.alignment: Qt.AlignVCenter
             text: root.text
             color: root._textColor
-            font.pixelSize: Theme.textXs             // text-xs(12)
-            font.underline: root.underline           // [a]:underline
-            lineHeight: Theme.lineRelaxed            // /relaxed(1.625)
+            font.pixelSize: Theme.textXs             // text-xs (12)
+            font.underline: root.underline
+            lineHeight: Theme.lineRelaxed            // /relaxed (1.625)
             lineHeightMode: Text.ProportionalHeight
             wrapMode: Text.Wrap
             horizontalAlignment: root._isSeparator ? Text.AlignHCenter : Text.AlignLeft
             Behavior on color { ColorAnimation { duration: Theme.durBase } }
 
+            // Approximates the CSS shimmer sweep (no QML background-clip:text)
+            // with an opacity pulse. Only runs for the visible (row) layout.
             SequentialAnimation on opacity {
-                id: _shimmerAnim
-                running: root.shimmer
+                running: root.shimmer && !root.stacked
                 loops: Animation.Infinite
-                // 近似 CSS shimmer 扫光:QML 无 background-clip:text,以不透明度脉冲近似流式微光。
                 NumberAnimation { from: 1.0; to: 0.4; duration: 1000; easing.type: Easing.InOutSine }
                 NumberAnimation { from: 0.4; to: 1.0; duration: 1000; easing.type: Easing.InOutSine }
             }
         }
 
-        // separator:右侧分隔线(after:h-px flex-1 bg-border · ml-1)
+        // separator: trailing divider (after: h-px flex-1 bg-border, ml-1)
         Rectangle {
             visible: root._isSeparator
             Layout.fillWidth: true
             Layout.preferredHeight: 1
-            Layout.leftMargin: Theme.space1    // after:ml-1(4)
+            Layout.leftMargin: Theme.space1    // after:ml-1 (4)
             color: Theme.border
         }
     }
 
-    // ==== 纵向布局(flex-col:图标在上、内容在下,居中)====
+    // ==== Vertical layout (flex-col: icon above centered content) ====
     ColumnLayout {
         id: _bodyStacked
         visible: root.stacked
@@ -166,7 +224,8 @@ Item {
         }
     }
 
-    // ==== border 变体:底部 1px 边框(border-b border-border),内容与边框间 pb-2(8)====
+    // ==== border variant: 1px bottom border (border-b border-border),
+    // separated from the row by pb-2 (8). ====
     Rectangle {
         visible: root._isBorder
         anchors.left: parent.left

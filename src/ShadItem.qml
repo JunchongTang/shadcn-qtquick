@@ -1,14 +1,47 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Item(base-mira) —— 通用内容行容器:media | content(拉伸) | actions,
-// 可选 header / footer 独占整行(对标 flex-wrap + basis-full)。
-// 变体 default(透明无边)/ outline(描边)/ muted(muted/50 底);尺寸 default / sm / xs。
-// 类型名用 ShadItem(而非 Item):经实测,把名为 Item 的类型注册进 Shadcn 模块会遮蔽
-// QtQuick.Item —— 同模块内所有用裸 `Item {}` 的兄弟文件(Card/Badge/AccordionItem 根等)
-// 及所有先 import QtQuick 后 import Shadcn 的消费文件都会被改指到本类型,破坏全库。
-// 故根用 `import QtQuick as QQ`(QQ.Item),对外暴露类型 ShadItem。
-// asLink=true 时:悬停 bg-muted、指针手型、可点击(clicked),并显示焦点环。
+/*!
+    \qmltype ShadItem
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A generic content row: media | content (stretches) | actions, with
+    optional header and footer rows that each span the full width.
+
+    Port of shadcn/ui \c Item (base-mira). The main row lays out an optional
+    \l ItemMedia, one or more \l ItemContent columns (the first stretches), and
+    an optional \l ItemActions group. \l ItemHeader and \l ItemFooter children
+    are routed out of the main row into full-width rows above / below it
+    (equivalent to the web's \c basis-full wrap behaviour).
+
+    The type is named \c ShadItem rather than \c Item on purpose: registering a
+    type literally named \c Item into the Shadcn module would shadow
+    QtQuick.Item for every sibling and consumer that uses a bare \c Item {},
+    breaking the whole library. The root therefore uses QtQuick.Item directly
+    and exposes the type as \c ShadItem.
+
+    When \l asLink is true the row hovers to \c bg-muted, shows a pointing-hand
+    cursor, emits \l clicked, and paints a keyboard focus ring.
+
+    \qmlproperty int ShadItem::variant
+    Visual variant. One of:
+    \value ShadItem.Default Transparent background, no border.
+    \value ShadItem.Outline Transparent background with a 1px border.
+    \value ShadItem.Muted   Muted/50 background, no border.
+
+    \qmlproperty int ShadItem::size
+    Density preset controlling padding and inner spacing. One of:
+    \value ShadItem.Default px-3 / py-2.5, gap-2.5.
+    \value ShadItem.Sm      Same metrics as Default in base-mira.
+    \value ShadItem.Xs      px-2.5 / py-2, gap-2.5; drives compact media/content.
+
+    \qmlproperty bool ShadItem::asLink
+    When true the row is interactive: hover background, pointing cursor,
+    \l clicked signal, and Tab focus ring.
+
+    \qmlsignal ShadItem::clicked()
+    Emitted when an \l asLink row is tapped.
+*/
 Item {
     id: control
 
@@ -20,14 +53,15 @@ Item {
     property bool asLink: false
     signal clicked()
 
-    // 标识槽位(供 ItemGroup 识别并据子项尺寸决定间距)。
+    // Slot tag so ItemGroup can recognise items and derive its spacing.
     readonly property string itemSlot: "item"
 
-    // 消费方子项(ItemMedia/ItemContent/ItemActions/ItemHeader/ItemFooter)进入主行,
-    // 完成后按 itemSlot 把 header/footer 迁出到独立整行区。
+    // Consumer children (ItemMedia/ItemContent/ItemActions/ItemHeader/ItemFooter)
+    // land in the main row; _route() then migrates header/footer out to their
+    // own full-width rows by inspecting itemSlot.
     default property alias content: mainRow.data
 
-    // 内边距:default/sm px-3 py-2.5;xs px-2.5 py-2。flex gap 统一 gap-2.5(10)。
+    // Padding: default/sm px-3 py-2.5; xs px-2.5 py-2. Flex gap is gap-2.5 (10).
     readonly property real _padH: size === ShadItem.Xs ? Theme.space2_5 : Theme.space3
     readonly property real _padV: size === ShadItem.Xs ? Theme.space2 : Theme.space2_5
     readonly property real _gap: Theme.space2_5
@@ -37,7 +71,7 @@ Item {
 
     activeFocusOnTab: asLink
 
-    // 背景 + 边框(按变体;asLink 悬停变 bg-muted)。
+    // Background + border (per variant; asLink hovers to bg-muted).
     Rectangle {
         id: bg
         anchors.fill: parent
@@ -64,7 +98,7 @@ Item {
         anchors.bottomMargin: control._padV
         spacing: control._gap
 
-        // ---- header 区(basis-full,独占整行,置顶)----
+        // ---- header zone (basis-full, spans a full row, pinned to top) ----
         ColumnLayout {
             id: headerZone
             Layout.fillWidth: true
@@ -72,14 +106,14 @@ Item {
             visible: children.length > 0
         }
 
-        // ---- 主行:media | content(拉伸) | actions ----
+        // ---- main row: media | content (stretches) | actions ----
         RowLayout {
             id: mainRow
             Layout.fillWidth: true
             spacing: control._gap
         }
 
-        // ---- footer 区(basis-full,独占整行,置底)----
+        // ---- footer zone (basis-full, spans a full row, pinned to bottom) ----
         ColumnLayout {
             id: footerZone
             Layout.fillWidth: true
@@ -104,6 +138,9 @@ Item {
     }
 
     Component.onCompleted: _route()
+
+    // Migrate header/footer children into their own rows and configure media /
+    // content children based on the item's size and description presence.
     function _route() {
         var kids = []
         for (var i = 0; i < mainRow.children.length; i++)
@@ -132,7 +169,8 @@ Item {
                 if (c.hostSize !== undefined)
                     c.hostSize = control.size
                 contentCount++
-                // [&+[data-slot=item-content]]:flex-none —— 第二个及以后的 content 不拉伸。
+                // [&+[data-slot=item-content]]:flex-none — the second and later
+                // content columns do not stretch.
                 if (contentCount > 1 && c.contentFill !== undefined)
                     c.contentFill = false
                 if (c.hasDescription)
@@ -140,7 +178,8 @@ Item {
                 break
             }
         }
-        // group-has-data-[slot=item-description]:media 顶对齐 + 下移 0.5(2px)。
+        // group-has-data-[slot=item-description]: media aligns to top and shifts
+        // down 0.5 (2px).
         for (var k = 0; k < medias.length; k++) {
             if (medias[k].topShift !== undefined)
                 medias[k].topShift = hasDesc

@@ -1,7 +1,14 @@
 import QtQuick.Layouts
 
-// shadcn ItemFooter —— 位于内容下方、独占整行(basis-full),两端对齐、gap-2。
-// 由父 Item 迁至 footer 区置底。
+/*!
+    \qmltype ItemFooter
+    \inqmlmodule Shadcn
+    \inherits RowLayout
+    \brief Full-width footer row of a \l ShadItem, placed below the content.
+
+    Spans the whole item (basis-full), justified with gap-2. The parent
+    \l ShadItem migrates it into the footer zone, pinned to the bottom.
+*/
 RowLayout {
     readonly property string itemSlot: "item-footer"
 

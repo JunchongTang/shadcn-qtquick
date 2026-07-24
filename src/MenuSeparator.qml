@@ -1,8 +1,19 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
 
-// shadcn DropdownMenuSeparator:1px 分隔线(bg-border/50),上下留小间距(my-1)。
-// 文件名 MenuSeparator 与基类同名 → 别名导入(as C)。
+/*!
+    \qmltype MenuSeparator
+    \inqmlmodule Shadcn
+    \inherits MenuSeparator
+    \brief A 1px divider between \l Menu groups.
+
+    MenuSeparator is the QML port of shadcn/ui's \c DropdownMenuSeparator
+    (base-mira): a 1px rule tinted \c {bg-border/50} with small vertical margins
+    (\c my-1).
+
+    The file name shadows the Controls base type, so the base is imported under
+    the \c C alias and used as the root (\c C.MenuSeparator).
+*/
 C.MenuSeparator {
     id: control
 

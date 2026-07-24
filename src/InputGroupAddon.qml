@@ -1,20 +1,49 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn InputGroupAddon —— 组内插槽:图标 / 文本(InputGroupText)/ 小按钮(InputGroupButton)/ Kbd / Spinner。
-// 不重复边框:仅提供内边距与横向排布,视觉边框由 InputGroup 统一给出。
-// align 决定定位与内边距:inline-start/inline-end(横向两端)、block-start/block-end(纵向上下)。
-// 点击空白处聚焦组内控件(cursor-text 语义);点在按钮上时按钮优先。
+/*!
+    \qmltype InputGroupAddon
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A slot inside an InputGroup for an icon, text, small button, Kbd or
+    Spinner, styled after shadcn/ui base-mira.
+
+    InputGroupAddon carries no border of its own (\l InputGroup paints the shared
+    outline); it only supplies padding and a horizontal RowLayout for its
+    content. \l align decides both placement and padding: \c InlineStart /
+    \c InlineEnd hug the horizontal ends, while \c BlockStart / \c BlockEnd stack
+    above/below the control. Tapping the empty area focuses the group's control
+    (the \c cursor-text affordance); a child button takes the tap first.
+
+    Enum member names are prefixed (\c InlineStart etc.) to avoid colliding with
+    Item's inherited \c TransformOrigin members (Top/Left/Center/Right/Bottom).
+
+    \sa InputGroup, InputGroupText, InputGroupButton
+*/
 Item {
     id: addon
 
+    /*!
+        \qmlproperty enumeration InputGroupAddon::align
+        \brief Placement of the addon. Defaults to \c InputGroupAddon.InlineStart.
+        \value InputGroupAddon.InlineStart Leading horizontal end (pl-2).
+        \value InputGroupAddon.InlineEnd Trailing horizontal end (pr-2).
+        \value InputGroupAddon.BlockStart Row above the control (full width).
+        \value InputGroupAddon.BlockEnd Row below the control (full width).
+    */
     enum Align { InlineStart, InlineEnd, BlockStart, BlockEnd }
 
+    /*! \qmlproperty enumeration InputGroupAddon::align \brief See \l Align. */
     property int align: InputGroupAddon.InlineStart
-    // border:block addon 画一条分隔线(block-start→下边框,block-end→上边框),对标 .border-b / .border-t。
+
+    /*! \qmlproperty bool InputGroupAddon::border
+        \brief Draws a divider on a block addon (block-start -> bottom border,
+        block-end -> top border), matching \c .border-b / \c .border-t. Defaults
+        to \c false. */
     property bool border: false
 
-    // 供 InputGroup 分拣的对齐字符串
+    /*! \qmlproperty string InputGroupAddon::igAlign
+        \brief Alignment token consumed by InputGroup when sorting children. \readonly */
     readonly property string igAlign: {
         switch (align) {
         case InputGroupAddon.InlineEnd:  return "inline-end"
@@ -23,14 +52,19 @@ Item {
         default:                         return "inline-start"
         }
     }
+    /*! \qmlproperty bool InputGroupAddon::_block \brief True for a block-aligned addon. \internal */
     readonly property bool _block: align === InputGroupAddon.BlockStart
                                 || align === InputGroupAddon.BlockEnd
 
-    property var _group: null   // 由 InputGroup 在重排时注入,用于点击聚焦
+    /*! \qmlproperty InputGroup InputGroupAddon::_group
+        \brief Owning group, injected by InputGroup for tap-to-focus. \internal */
+    property var _group: null
 
     default property alias content: row.data
 
-    // 含按钮时把该侧内边距收紧(对标 has-[>button]:ml/mr-[-0.275rem])
+    /*! \qmlproperty bool InputGroupAddon::_edgePull
+        \brief True when a child button tightens this side's padding
+        (has-[>button]:ml/mr-[-0.275rem]). \internal */
     readonly property bool _edgePull: {
         for (var i = 0; i < row.children.length; i++) {
             var c = row.children[i]
@@ -40,7 +74,7 @@ Item {
         return false
     }
 
-    // 内边距(px-2 / py-2;inline 侧含按钮收紧 8→4)
+    // Padding (px-2 / py-2; an inline side with a button tightens 8 -> 4).
     readonly property real _padL: {
         if (_block) return Theme.space2
         if (align === InputGroupAddon.InlineStart) return _edgePull ? Theme.space1 : Theme.space2
@@ -65,7 +99,7 @@ Item {
     implicitWidth: row.implicitWidth + _padL + _padR
     implicitHeight: row.implicitHeight + _padT + _padB + (_block ? 0 : Theme.space1 * 2)
 
-    // 分隔线(仅 block 且 border 时)
+    // Divider (only for a block addon with border set).
     Rectangle {
         visible: addon.border && addon._block
         width: parent.width
@@ -82,14 +116,15 @@ Item {
         anchors.rightMargin: addon._padR
         anchors.topMargin: addon._padT
         anchors.bottomMargin: addon._padB
-        // inline:垂直居中并贴对应边;block:横向铺满(便于 InputGroupText 用 Layout.fillWidth 把按钮推到右侧)
+        // inline: vertically centered against its end; block: full width (lets an
+        // InputGroupText use Layout.fillWidth to push a trailing button to the right).
         anchors.left: (addon._block || addon.align === InputGroupAddon.InlineStart) ? parent.left : undefined
         anchors.right: (addon._block || addon.align === InputGroupAddon.InlineEnd) ? parent.right : undefined
         anchors.verticalCenter: addon._block ? undefined : parent.verticalCenter
         anchors.top: addon._block ? parent.top : undefined
     }
 
-    // 点击空白聚焦控件(按钮子项会优先抢占)
+    // Tapping empty space focuses the control; a child button preempts this.
     TapHandler {
         gesturePolicy: TapHandler.ReleaseWithinBounds
         onTapped: if (addon._group) addon._group.focusControl()

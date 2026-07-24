@@ -1,9 +1,28 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn MessageHeader(base-mira)—— 气泡上方的发送者名/元信息。
-// text-[0.625rem](10px)font-medium text-muted-foreground、px-2.5;
-// 官方规定 header 始终左对齐(不随 align 翻转),故固定 AlignLeft。
+/*!
+    \qmltype MessageHeader
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief The sender name / meta line shown above the bubble.
+
+    MessageHeader is the QML port of shadcn's base-mira \c .cn-message-header
+    (\c {text-[0.625rem] font-medium text-muted-foreground px-2.5}). It renders a
+    small 10px medium muted-foreground label with \c px-2.5 horizontal padding so
+    the text lines up with the bubble's own text inset.
+
+    The header is hidden when \l text is empty and left-aligned within the content
+    column.
+
+    \note Fidelity: base-mira drops the padding to \c px-0 for the ghost variant
+    (\c {group-has-data-[variant=ghost]/message:px-0}); this port keeps a fixed
+    \c px-2.5. The header stays left-aligned rather than following the row's
+    \c align (base-mira applies \c self-end to content children when
+    \c {align=end}).
+
+    \sa MessageContent, MessageFooter
+*/
 Text {
     id: root
 
