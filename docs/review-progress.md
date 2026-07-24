@@ -28,16 +28,16 @@ Legend: ✅ done · 🔶 partial · ⬜ pending · — n/a
 | 18 | Combobox | Combobox, ComboboxChip | ✅ | ✅ | ✅ | 🔶 | fixed P2 up-arrow off-by-one; #020 intact; autoHighlight flagged |
 | 19 | Command | Command | ✅ | ✅ | ✅ | 🔶 | fixed P2 Enter-key bubbling; check-indicator flagged |
 | 20 | ContextMenu | ContextMenu | ✅ | ✅ | ✅ | 🔶 | fixed P2 handler leak; touch long-press flagged; #021 intact |
-| 21 | DatePicker | DatePicker, DateRangePicker | ✅ | ✅ | ⬜ | 🔶 | #025; toggle needs real-machine check |
-| 22 | Dialog | Dialog | ✅ | ✅ | ⬜ | 🔶 | #026; blur needs real-machine check |
-| 23 | Drawer | Drawer | ✅ | ✅ | ⬜ | 🔶 | #027; examples aligned |
-| 24 | Empty | Empty(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 25 | Field | Field(+9 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 26 | FocusRing | FocusRing | ⬜ | ⬜ | — | ⬜ | internal util |
-| 27 | Form | FormDescription, FormField, FormMessage | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 28 | HoverCard | HoverCard | ⬜ | ⬜ | ⬜ | ⬜ | ⚠ latent #029: Item-derived, `Side{Top,Right,Bottom,Left}`+`Align{Center}` collide with Item.TransformOrigin — rename in Batch 3 review |
-| 29 | IconButton | IconButton | ⬜ | ⬜ | ⬜ | ⬜ | enum-collision checked: safe |
-| 30 | Input | Input | ⬜ | ⬜ | ⬜ | ⬜ | |
+| 21 | DatePicker | DatePicker, DateRangePicker | ✅ | ✅ | ✅ | 🔶 | #025; tests added; toggle needs real-machine check |
+| 22 | Dialog | Dialog | ✅ | ✅ | ✅ | 🔶 | #026; tests added; blur needs real-machine check |
+| 23 | Drawer | Drawer | ✅ | ✅ | ✅ | 🔶 | #027; tests added |
+| 24 | Empty | Empty(+5 parts) | ✅ | ✅ | ✅ | 🔶 | no bugs; rich-text link styling unmodeled |
+| 25 | Field | Field(+9 parts) | ✅ | ✅ | ✅ | 🔶 | no bugs; responsive/vertical-rhythm nuances flagged |
+| 26 | FocusRing | FocusRing | ✅ | ✅ | ✅ | ✅ | fixed P3 square-target radius consistency |
+| 27 | Form | FormDescription, FormField, FormMessage | ✅ | ✅ | ✅ | ✅ | 1×P3 text-left align |
+| 28 | HoverCard | HoverCard | ✅ | ✅ | ✅ | ✅ | ✅ #029 fixed (Side→*Edge, Align.Center→Middle); +alignOffset |
+| 29 | IconButton | IconButton | ✅ | ✅ | ✅ | 🔶 | no bugs; intentional Ghost default noted |
+| 30 | Input | Input | ✅ | ✅ | ✅ | ✅ | fixed 2×P2 (disabled opacity, border→input token) + 3×P3 dark/ring |
 | 31 | InputGroup | InputGroup(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
 | 32 | InputOtp | InputOtp, InputOtpSeparator, InputOtpSlot | ⬜ | ⬜ | ⬜ | ⬜ | |
 | 33 | Item | ShadItem, Item*(9 parts) | ⬜ | ⬜ | ⬜ | ⬜ | enum-collision checked: safe |

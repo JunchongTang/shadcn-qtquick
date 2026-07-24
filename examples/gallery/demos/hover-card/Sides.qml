@@ -10,7 +10,7 @@ Flow {
 
     component SideCard: Button {
         id: trigger
-        property int cardSide: HoverCard.Side.Bottom
+        property int cardSide: HoverCard.Side.BottomEdge
         property string label: ""
         text: label
         variant: Button.Outline
@@ -45,8 +45,8 @@ Flow {
         }
     }
 
-    SideCard { label: "Left";   cardSide: HoverCard.Side.Left }
-    SideCard { label: "Top";    cardSide: HoverCard.Side.Top }
-    SideCard { label: "Bottom"; cardSide: HoverCard.Side.Bottom }
-    SideCard { label: "Right";  cardSide: HoverCard.Side.Right }
+    SideCard { label: "Left";   cardSide: HoverCard.Side.LeftEdge }
+    SideCard { label: "Top";    cardSide: HoverCard.Side.TopEdge }
+    SideCard { label: "Bottom"; cardSide: HoverCard.Side.BottomEdge }
+    SideCard { label: "Right";  cardSide: HoverCard.Side.RightEdge }
 }

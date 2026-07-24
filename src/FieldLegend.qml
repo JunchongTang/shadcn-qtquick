@@ -1,9 +1,18 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn FieldLegend —— FieldSet 的标题(font-medium)。
-//   variant "legend"(默认):text-sm
-//   variant "label"       :text-xs/relaxed(与标签同尺寸,适合嵌套 FieldSet)
+/*!
+    \qmltype FieldLegend
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief The title of a \l FieldSet (font-medium).
+
+    \qmlproperty enumeration FieldLegend::variant
+    Type size of the legend.
+
+    \value FieldLegend.Legend Section title, text-sm (default).
+    \value FieldLegend.Label Label-sized, text-xs/relaxed; suits a nested FieldSet.
+*/
 Text {
     enum Variant { Legend, Label }
 

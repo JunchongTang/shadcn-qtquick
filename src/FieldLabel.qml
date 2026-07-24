@@ -1,11 +1,22 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn FieldLabel —— 字段标签(基于 Shadcn Label:text-xs / medium / 禁用变暗)。
-// leading-snug、可换行;默认占满宽度(横排时 flex-auto 把控件推到右侧)。
-// 选择卡(把 Field 包进 FieldLabel)的边框/圆角/选中背景由 demo 侧的卡片容器还原。
+/*!
+    \qmltype FieldLabel
+    \inqmlmodule Shadcn
+    \inherits Label
+    \brief A field label built on \l Label (text-xs, medium, dims when disabled).
+
+    Uses leading-snug and wraps; fills the available width so that in a
+    horizontal field it pushes the control to the right (flex-auto). For a
+    choice card (a \l Field wrapped inside a FieldLabel) the border, radius and
+    checked background are restored by the demo's card container.
+
+    \qmlproperty bool FieldLabel::invalid
+    When true the label turns destructive to track \l {Field::invalid}.
+*/
 Label {
-    property bool invalid: false        // 随 Field.invalid 转破坏色
+    property bool invalid: false        // turn destructive with Field.invalid
 
     Layout.fillWidth: true
     color: invalid ? Theme.destructive : Theme.foreground

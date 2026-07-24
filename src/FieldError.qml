@@ -1,17 +1,29 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn FieldError —— 校验错误容器(role="alert",text-destructive text-xs)。
-// 用法一:text 直接给单条错误。
-// 用法二:errors 给字符串数组(自动去重);>1 条渲染为项目符号列表。
-// 无内容时自动隐藏(visible=false)。
+/*!
+    \qmltype FieldError
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Validation error container (role="alert", destructive text-xs/relaxed).
+
+    Provide a single message via \l text, or an array of messages via \l errors
+    (duplicates are removed). More than one message renders as a bulleted list.
+    The container hides itself (visible = false) when there is no content.
+
+    \qmlproperty string FieldError::text
+    A single error message. Takes precedence over \l errors when non-empty.
+
+    \qmlproperty var FieldError::errors
+    An array of error message strings; duplicates are removed before display.
+*/
 ColumnLayout {
     id: err
 
     property string text: ""
     property var errors: []
 
-    // 归一化 + 去重后的错误列表。
+    // Normalised, de-duplicated list of messages.
     readonly property var _list: {
         if (text !== "")
             return [text]
@@ -38,7 +50,7 @@ ColumnLayout {
         delegate: Text {
             required property string modelData
             Layout.fillWidth: true
-            // 多条时前置项目符号(对标 list-disc)。
+            // Prefix a bullet when there is more than one message (list-disc).
             text: err._list.length > 1 ? ("•  " + modelData) : modelData
             color: Theme.destructive
             font.pixelSize: Theme.textXs

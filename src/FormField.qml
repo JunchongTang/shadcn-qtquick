@@ -1,34 +1,51 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Field(纵向)—— Label(可带必填 *)+ 控件槽 + 可选描述(muted)+ 可选错误(destructive)。
-// 对标 base-mira registry field.tsx 的 <Field>/<FieldLabel>/<FieldDescription>/<FieldError>,
-// 视觉对齐 style-mira.css:.cn-field gap-2、描述 muted-foreground、错误 destructive、data-invalid→destructive。
-//
-// 结构等价说明:官方 Form 依赖 react-hook-form + zod;QML 无等价库,本组件仅做结构/视觉等价,
-//   不接入 schema 校验。`error` 由使用方赋值(非空即错误态),`invalid` 供控件绑定其 invalid 属性。
-//
-// 用法:
-//   FormField {
-//       id: field
-//       label: "Email"; required: true
-//       description: "We'll never share it."
-//       error: submitted && !valid ? "Enter a valid email." : ""
-//       Input { Layout.fillWidth: true; invalid: field.invalid }
-//   }
+/*!
+    \qmltype FormField
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Vertical form field: label, control slot, description and error.
+
+    Ports shadcn/ui \c Field / \c FieldLabel / \c FieldDescription /
+    \c FieldError from the base-mira registry (\c field.tsx). It reproduces the
+    structure and visuals of a vertical field (\c .cn-field \c gap-2, muted
+    description, destructive error, \c data-invalid -> destructive label) but
+    not the validation engine: upstream relies on react-hook-form + zod, which
+    has no QML equivalent. The caller drives state instead: assign \l error
+    (a non-empty string marks the invalid state) and bind a control's \c invalid
+    property to \l invalid.
+
+    \qml
+    FormField {
+        id: field
+        label: "Email"
+        required: true
+        description: "We'll never share it."
+        error: submitted && !valid ? "Enter a valid email." : ""
+        Input { Layout.fillWidth: true; invalid: field.invalid }
+    }
+    \endqml
+*/
 ColumnLayout {
     id: field
 
+    /*! The label text shown above the control. Hidden when empty. */
     property string label: ""
-    property bool required: false                       // 必填:标签后加破坏色星号
-    property string description: ""                     // 可选 muted 描述
-    property string error: ""                           // 可选 destructive 错误文本(非空时显示)
-    readonly property bool invalid: field.error !== ""  // 供控件 invalid 绑定
-    default property alias controlData: slot.data       // 默认槽:置入 Input/Textarea/Select/…
+    /*! When true, appends a destructive-coloured asterisk after the label. */
+    property bool required: false
+    /*! Optional muted helper text shown below the control. */
+    property string description: ""
+    /*! Optional destructive error text; shown while non-empty and marks the field invalid. */
+    property string error: ""
+    /*! True while \l error is non-empty; bind a control's \c invalid property to this. */
+    readonly property bool invalid: field.error !== ""
+    /*! Default slot: the placed control(s), e.g. Input / Textarea / Select. */
+    default property alias controlData: slot.data
 
     spacing: Theme.space2                               // .cn-field gap-2
 
-    // ---- Label(+ 必填星号);invalid 时随 data-invalid 变破坏色 ----
+    // ---- Label (+ required asterisk); turns destructive when invalid (data-invalid) ----
     RowLayout {
         Layout.fillWidth: true
         spacing: 2
@@ -44,20 +61,20 @@ ColumnLayout {
         }
     }
 
-    // ---- 控件槽(使用方置入控件,并设 Layout.fillWidth)----
+    // ---- Control slot (caller places the control here and sets Layout.fillWidth) ----
     ColumnLayout {
         id: slot
         Layout.fillWidth: true
         spacing: Theme.space2
     }
 
-    // ---- 描述(muted)----
+    // ---- Description (muted) ----
     FormDescription {
         Layout.fillWidth: true
         text: field.description
     }
 
-    // ---- 错误(destructive,error 非空时显示)----
+    // ---- Error (destructive; shown while error is non-empty) ----
     FormMessage {
         Layout.fillWidth: true
         text: field.error

@@ -1,13 +1,25 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn EmptyContent(base-mira) —— 空状态动作/内容区(按钮、输入组、链接等)。
-// 对齐 .cn-empty-content:flex-col items-center max-w-sm w-full gap-2 text-xs/relaxed。
-// 子件需自行设 Layout.alignment: Qt.AlignHCenter(或用居中的 RowLayout)以水平居中。
+/*!
+    \qmltype EmptyContent
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Action/content region of an Empty, matching base-mira EmptyContent.
+
+    Mirrors \c .cn-empty-content (flex-col items-center max-w-sm w-full gap-2
+    text-xs/relaxed): a centered column, constrained to \l maxWidth, with 8px
+    (gap-2) spacing. Holds buttons, input groups, links and similar actions.
+
+    \note Children should set \c{Layout.alignment: Qt.AlignHCenter} (or use a
+    centered RowLayout) to be horizontally centered.
+*/
 ColumnLayout {
     id: control
 
-    property int maxWidth: 384    // max-w-sm,可被消费方覆盖
+    /*! \qmlproperty int EmptyContent::maxWidth
+        Content width cap (max-w-sm = 384); override to change it. */
+    property int maxWidth: 384
 
     Layout.alignment: Qt.AlignHCenter
     Layout.preferredWidth: maxWidth

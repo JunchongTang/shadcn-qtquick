@@ -1,8 +1,17 @@
 import QtQuick
 
-// shadcn FieldError —— 字段校验错误文本(destructive)。对标 base-mira .cn-field-error
-// (text-destructive · text-xs/relaxed)。空文本时自动隐藏。
-// 说明:官方错误来自 react-hook-form + zod;QML 无等价库,此处仅呈现使用方给出的文本。
+/*!
+    \qmltype FormMessage
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief Destructive validation message for a form field.
+
+    Ports shadcn/ui \c FieldError (base-mira \c .cn-field-error:
+    \c text-destructive \c text-xs/relaxed). Upstream the message text is
+    produced by react-hook-form + zod; QML has no equivalent, so this element
+    simply displays the caller-supplied \l text in the destructive colour and
+    hides itself when the text is empty.
+*/
 Text {
     color: Theme.destructive
     font.pixelSize: Theme.textXs          // text-xs

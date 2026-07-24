@@ -1,19 +1,30 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn FieldSeparator —— FieldGroup 内的分节分隔(relative h-5 -my-2)。
-// 一条居中横线;若给了 text,则在中间盖一枚背景色文字片(bg-background px-2 muted text-xs)。
+/*!
+    \qmltype FieldSeparator
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A section divider inside a \l FieldGroup (relative, h-5, -my-2).
+
+    Draws a single centred horizontal rule. When \l text is set, a
+    background-coloured chip is overlaid at the centre to give the "text breaks
+    the line" effect (bg-background, px-2, muted-foreground, text-xs).
+
+    \qmlproperty string FieldSeparator::text
+    Optional label shown at the centre of the divider. Empty means a plain rule.
+*/
 Item {
     id: sep
 
     property string text: ""
 
     Layout.fillWidth: true
-    implicitHeight: 20              // h-5
+    implicitHeight: 20                // h-5
     Layout.topMargin: -Theme.space2   // -my-2
     Layout.bottomMargin: -Theme.space2
 
-    // 贯穿横线(top-1/2)。
+    // Full-width rule at the vertical centre (top-1/2).
     Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
@@ -22,7 +33,8 @@ Item {
         color: Theme.border
     }
 
-    // 居中文字片:用背景色遮住线,营造“文字断线”的效果。
+    // Centred chip: paints over the rule with the background colour so the text
+    // appears to break the line.
     Rectangle {
         anchors.centerIn: parent
         visible: sep.text !== ""

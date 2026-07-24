@@ -1,27 +1,47 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Empty(base-mira) —— 居中空状态容器。
-// 对齐 .cn-empty:flex-col items-center justify-center text-center;gap-4 rounded-xl border-dashed p-6。
-// 默认无边框(border 宽度为 0),outline 时显示虚线边框;surface 可加背景色(对应 bg-* 工具类)。
-// 组合:Empty { EmptyHeader { EmptyMedia; EmptyTitle; EmptyDescription } EmptyContent { ... } }
+/*!
+    \qmltype Empty
+    \inqmlmodule Shadcn
+    \inherits Rectangle
+    \brief Centered empty-state container matching shadcn/ui base-mira Empty.
+
+    Mirrors \c .cn-empty (flex-col items-center justify-center text-center;
+    gap-4 rounded-xl border-dashed p-6). Children stack vertically in a centered
+    ColumnLayout with 16px gap and 24px (p-6) padding on all sides.
+
+    The base-mira border style is dashed but has zero width by default; \l outline
+    turns on the 1px dashed frame (the examples' \c border class). \l surface adds
+    a background fill (the \c bg-* utilities).
+
+    Compose as: Empty { EmptyHeader { EmptyMedia; EmptyTitle; EmptyDescription }
+    EmptyContent { ... } }.
+
+    \note The web element is \c{w-full flex-1}; here the container is
+    content-sized. Rich-text links inside EmptyDescription are not modelled.
+*/
 Rectangle {
     id: control
 
-    // 虚线边框(对应 web 的 `border border-dashed`)。
+    /*! \qmlproperty bool Empty::outline
+        When true, draws the 1px dashed frame (web \c{border border-dashed}). */
     property bool outline: false
-    // 背景色(对应 bg-*,默认透明)。
+
+    /*! \qmlproperty color Empty::surface
+        Background fill (web \c bg-*); transparent by default. */
     property color surface: "transparent"
 
-    // 子件进入居中的内部 ColumnLayout(header / content / 额外动作)。
+    /*! \qmlproperty list<QtObject> Empty::content
+        Default property: items stacked in the centered inner column. */
     default property alias content: inner.data
 
     color: surface
     radius: Theme.radiusXl                                   // rounded-xl = 14
-    implicitWidth: inner.implicitWidth + Theme.space6 * 2    // p-6 左右
-    implicitHeight: inner.implicitHeight + Theme.space6 * 2  // p-6 上下
+    implicitWidth: inner.implicitWidth + Theme.space6 * 2    // p-6 (left + right)
+    implicitHeight: inner.implicitHeight + Theme.space6 * 2  // p-6 (top + bottom)
 
-    // Rectangle 不支持虚线描边,用 Canvas 画圆角虚线框(outline 时)。
+    // Rectangle has no dashed stroke, so paint the rounded dashed frame on a Canvas.
     Canvas {
         id: dashed
         anchors.fill: parent

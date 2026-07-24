@@ -1,12 +1,22 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn EmptyHeader(base-mira) —— 包裹 media / title / description。
-// 对齐 .cn-empty-header:flex-col items-center max-w-sm gap-1。
+/*!
+    \qmltype EmptyHeader
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Header region wrapping media/title/description, matching base-mira EmptyHeader.
+
+    Mirrors \c .cn-empty-header (flex-col items-center max-w-sm gap-1): a centered
+    column constrained to \l maxWidth with 4px (gap-1) spacing. Typically holds an
+    EmptyMedia, an EmptyTitle and an EmptyDescription.
+*/
 ColumnLayout {
     id: control
 
-    // max-w-sm = 24rem = 384;固定内容宽度以便标题/描述居中换行,可被消费方覆盖。
+    /*! \qmlproperty int EmptyHeader::maxWidth
+        Content width cap (max-w-sm = 384) so title/description wrap and center;
+        override to change it. */
     property int maxWidth: 384
 
     Layout.alignment: Qt.AlignHCenter

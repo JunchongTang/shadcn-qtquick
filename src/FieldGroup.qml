@@ -1,8 +1,14 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn FieldGroup —— 堆叠一组 Field 的容器(flex flex-col gap-4)。
-// 需要分隔时在其间放 FieldSeparator。
+/*!
+    \qmltype FieldGroup
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Stacks a set of \l Field items in a column (gap-4).
+
+    Place a \l FieldSeparator between fields when a divider is needed.
+*/
 ColumnLayout {
     Layout.fillWidth: true
     spacing: Theme.space4        // gap-4

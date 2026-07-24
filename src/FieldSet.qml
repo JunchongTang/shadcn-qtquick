@@ -1,8 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn FieldSet —— 语义分组(<fieldset> flex flex-col gap-4)。
-// 通常内含 FieldLegend + FieldDescription + FieldGroup。
+/*!
+    \qmltype FieldSet
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief A semantic grouping (<fieldset>, flex-col, gap-4).
+
+    Typically contains a \l FieldLegend, a \l FieldDescription and a
+    \l FieldGroup.
+*/
 ColumnLayout {
     Layout.fillWidth: true
     spacing: Theme.space4        // gap-4

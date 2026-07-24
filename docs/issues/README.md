@@ -40,6 +40,7 @@
 | [#028](#028-toggletogglegroup-默认变体误为-outline枚举名冲突) | Toggle/ToggleGroup 默认变体误为 Outline(枚举名冲突) | Component/Toggle · Component/ToggleGroup | P2 | ✅ |
 | [#029](#029-bubblereactions-顶部反应渲染到了底部继承-item-枚举冲突) | BubbleReactions 顶部反应渲染到底部(继承 Item 枚举冲突) | Component/Bubble · Component/HoverCard | P2 | ✅ |
 | [#030](#030-batch-2-审查修复合集组件-1120) | Batch 2 审查修复合集(组件 11–20) | Component/*(Carousel/Checkbox/Combobox/Command/ContextMenu) | P2 | ✅ |
+| [#031](#031-batch-3-审查修复合集组件-2130) | Batch 3 审查修复合集(组件 21–30) | Component/*(Input/HoverCard/FocusRing/Form) | P2 | ✅ |
 
 ---
 
@@ -362,3 +363,14 @@
 - **P2 Checkbox 无标签时尺寸错**(Component/Checkbox):基类 `padding:6` + contentItem leftPadding 泄漏进隐式尺寸,无标签复选框渲染成约 36×32、方框挤在 x=0(正是表格全选单元格场景),应为 16×16。改 `padding:0` + 显式隐式尺寸 + 无文本时 leftPadding 归零。附带 2×P3:暗色 invalid 边框/环 token、`focus-visible:border-ring`。
 - **P3 Card 标题字体/注释**(Component/Card):CardTitle 缺 `cn-font-heading` → 加 `font.family: Theme.fontHeading`;修正失实注释。
 - 其余(ButtonGroup/Calendar/Chart/Collapsible)无功能缺陷,仅文档化 + 补测 + 少量 P3 还原度旗标(见 [docs/review-progress.md])。
+
+### #031 Batch 3 审查修复合集(组件 21–30)
+
+逐组件审查 Batch 3 的缺陷汇总。DatePicker/Dialog/Drawer 本批只补单测(它们已在早前会话完成 QDoc + 还原度,见 #025/#026/#027)。测试总数 237→374 全绿。
+
+- **P2 Input 缺 disabled 变暗**(Component/Input):Input 无 `disabled:opacity-50`,禁用态不变暗。加 `opacity: enabled ? 1.0 : 0.5`。
+- **P2 Input 边框 token 错**(Component/Input):静止边框用 `Theme.border`,base 是 `border-input` → 改 `Theme.input`。亮色相同、暗色不同(input `#26ffffff` vs border `#1affffff`),属暗色还原度缺陷。附带 3×P3:暗色填充/invalid 环、invalid+聚焦双环(改为 invalid 时 FocusRing 让位于 destructive 环)、focusPolicy。
+- **#029 HoverCard 收尾**(Component/HoverCard):落实 #029 的同类修复——`enum Side{Top,Right,Bottom,Left}`→`{TopEdge,RightEdge,BottomEdge,LeftEdge}`、`Align{Start,Center,End}`→`{Start,Middle,End}`(Center 撞 Item.TransformOrigin),更新默认值/绑定/QDoc/demo。附带补齐缺失的 `alignOffset`(默认 4,对齐官网)。单测锁定枚举值。
+- **P3 FocusRing 方角半径不一致**(src/FocusRing):方形目标(targetRadius 0)时统一 `radius` 曾算成 `ringWidth`,与逐角解析(返回 0)不一致(Qt 6.7+ 逐角覆盖 radius 故无可见影响,潜在错)。改为 `radius: _ringR(-1)` 保持一致。
+- **P3 Form 描述未左对齐**(Component/Form):`.cn-field-description` 的 `text-left` 未落实 → 加 `horizontalAlignment: Text.AlignLeft`。
+- 其余(Empty/Field/IconButton)无功能缺陷,仅文档化 + 补测 + 少量还原度旗标。
