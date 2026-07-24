@@ -39,6 +39,7 @@
 | [#027](#027-drawer-示例完整度低) | Drawer 示例完整度低(缺 Move Goal/方向/响应式) | Component/Drawer | P3 | ✅ |
 | [#028](#028-toggletogglegroup-默认变体误为-outline枚举名冲突) | Toggle/ToggleGroup 默认变体误为 Outline(枚举名冲突) | Component/Toggle · Component/ToggleGroup | P2 | ✅ |
 | [#029](#029-bubblereactions-顶部反应渲染到了底部继承-item-枚举冲突) | BubbleReactions 顶部反应渲染到底部(继承 Item 枚举冲突) | Component/Bubble · Component/HoverCard | P2 | ✅ |
+| [#030](#030-batch-2-审查修复合集组件-1120) | Batch 2 审查修复合集(组件 11–20) | Component/*(Carousel/Checkbox/Combobox/Command/ContextMenu) | P2 | ✅ |
 
 ---
 
@@ -349,3 +350,15 @@
 - **修复**: 把 `enum Side { Top, Bottom }` 重命名为 `{ Above, Below }`(Item 无 Above/Below,不冲突);同步默认值、y 绑定、QDoc、demo `bubble/Reactions.qml`、`tst_Bubble.qml`。
 - **通用教训**: QML 枚举成员不仅会与**同类型内**其他枚举冲突(#028),还会与**继承来的基类枚举**冲突。Item 派生类型要避免用 `Top/Bottom/Left/Right/Center`(及 `TopLeft…` 等)作枚举成员名——它们与 `Item.TransformOrigin` 撞名。Popup/Drawer/ToolTip 派生类型不含该枚举,安全(故 Sheet/Tooltip/Popover 的 `Side/Align` 不受影响)。
 - **同类待修**: HoverCard(根为 `Item`,`Side{Top,Right,Bottom,Left}` + `Align{…Center}`)存在同一隐患,当前无 demo/测试触发(潜伏);在其批次(Batch 3)一并改名修复。
+
+### #030 Batch 2 审查修复合集(组件 11–20)
+
+逐组件审查(审查+QDoc+单测+还原度)Batch 2 发现并修复的缺陷汇总。全部由新增单测锁定;测试总数 121→237 全绿。
+
+- **P2 Carousel 导航按钮无键盘焦点环**(Component/Carousel):`NavButton` 未设 `focusPolicy`,Tab 到不了、`visualFocus` 永假 → 焦点环从不显示。加 `focusPolicy: Qt.StrongFocus`(对齐 #012/#019 约定)。
+- **P2 Combobox 上箭头越界**(Component/Combobox):无高亮时按 Up 计算 `(-1-1+n)%n=n-2`,落到倒数第二项而非最后一项。`_step` 按方向分别播种起始索引修正。
+- **P2 Command 导航键未消费**(Component/Command):search 框的 `Keys.onDownPressed/UpPressed/Return/Enter` 未 `accepted`,置于 Dialog 内时 Enter 会冒泡触发默认按钮。改为 `event.accepted = true`。
+- **P2 ContextMenu 句柄泄漏**(Component/ContextMenu):`TapHandler` 建在 target 上并捕获 `control`;菜单先于 target 销毁时留下悬挂引用。加 `Component.onDestruction` 清理。
+- **P2 Checkbox 无标签时尺寸错**(Component/Checkbox):基类 `padding:6` + contentItem leftPadding 泄漏进隐式尺寸,无标签复选框渲染成约 36×32、方框挤在 x=0(正是表格全选单元格场景),应为 16×16。改 `padding:0` + 显式隐式尺寸 + 无文本时 leftPadding 归零。附带 2×P3:暗色 invalid 边框/环 token、`focus-visible:border-ring`。
+- **P3 Card 标题字体/注释**(Component/Card):CardTitle 缺 `cn-font-heading` → 加 `font.family: Theme.fontHeading`;修正失实注释。
+- 其余(ButtonGroup/Calendar/Chart/Collapsible)无功能缺陷,仅文档化 + 补测 + 少量 P3 还原度旗标(见 [docs/review-progress.md])。

@@ -1,7 +1,12 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn CardDescription —— text-muted-foreground text-xs/relaxed。
+/*!
+    \qmltype CardDescription
+    \inqmlmodule Shadcn
+    \inherits Text
+    \brief Secondary card text (cn-card-description): text-muted-foreground text-xs/relaxed.
+*/
 Text {
     Layout.fillWidth: true
     color: Theme.mutedForeground

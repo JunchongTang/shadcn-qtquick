@@ -3,67 +3,159 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// shadcn Calendar(base-mira)—— 月历,JS Date 自绘 7×6 天网格。
-// QtQuick 无内置日历(Qt.labs.calendar 已废弃),故手工计算每月首日星期、
-// 补齐上/下月余格。样式对齐 registry/bases/base/ui/calendar.tsx + style-mira .cn-calendar:
-//   - .cn-calendar: p-3、--cell-radius=radius-md(8)、--cell-size=spacing(6)(24px)
-//   - 选中日 = bg-primary/text-primary-foreground(单选)
-//   - 今天    = bg-muted/text-foreground(未选中时)
-//   - 非本月  = text-muted-foreground(showOutsideDays 淡显)
-//   - 禁用日  = opacity 0.5
-//
-// 能力(向后兼容,默认行为 = 单月 + 单选 + Label 标题,与历史版本一致):
-//   · mode = Single(默认)/ Range —— Range 时先后点击选起止;中间日 bg-muted 直角,
-//     起止日 primary 圆角药丸,连接带以 muted 直角横条贯通(对标 mira range_start/middle/end)。
-//   · captionLayout = Label(默认)/ Dropdown —— Dropdown 时月/年改用 NativeSelect 切换
-//     (对标 .cn-calendar-caption-label / captionLayout="dropdown")。
-//   · numberOfMonths = 1(默认)/ >1 —— 并排渲染连续多月,共享一套上/下月导航
-//     (对标 numberOfMonths={2},months 容器 gap-4);导航每次前/后移动 1 个月。
-//     区间高亮以「绝对日期」比较,故跨月自动连续(每列内含首尾外月补格,视觉衔接)。
+/*!
+    \qmltype Calendar
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A month-grid date picker (base-mira style).
+
+    Port of shadcn/ui's Calendar (base-mira). Qt Quick has no built-in
+    calendar (Qt.labs.calendar is deprecated), so this component computes a
+    7x6 day grid per month from JS \c Date values, padding the leading/trailing
+    weeks with the adjacent months' days.
+
+    Styling follows \c {registry/bases/base/ui/calendar.tsx} and the
+    \c {.cn-calendar} tokens:
+    \list
+        \li p-3 padding, \c {--cell-radius} = radius-md (8).
+        \li Selected day: bg-primary / text-primary-foreground (single mode).
+        \li Today: bg-muted / text-foreground when not selected.
+        \li Outside days: text-muted-foreground when \l showOutsideDays is set.
+    \endlist
+
+    The default configuration (single month, single selection, Label caption)
+    is backward compatible with earlier versions and is what DatePicker and
+    DateRangePicker rely on. Range mode paints a muted connector band beneath
+    the span with rounded pills at the endpoints, matching mira's
+    range_start / range_middle / range_end.
+
+    \qml
+    Calendar {
+        displayMonth: new Date(2024, 0, 1)
+        onSelected: (d) => console.log("picked", d)
+    }
+    \endqml
+*/
 Item {
     id: cal
 
+    /*!
+        \qmlproperty enumeration Calendar::mode
+        Selection mode.
+        \value Calendar.Single Single day selection (default); writes \l selectedDate.
+        \value Calendar.Range Two-endpoint range; writes \l rangeStart / \l rangeEnd.
+    */
     enum Mode { Single, Range }
+
+    /*!
+        \qmlproperty enumeration Calendar::captionLayout
+        Month/year caption presentation.
+        \value Calendar.Label Plain centered "Month Year" text (default).
+        \value Calendar.Dropdown Month and year NativeSelect dropdowns.
+    */
     enum CaptionLayout { Label, Dropdown }
 
-    // ==== 公开属性 ====
-    // 选择模式:Single(单选,默认)/ Range(区间)。
+    /*!
+        \qmlproperty int Calendar::mode
+        \brief The selection mode; see \l Mode. Defaults to \c Calendar.Single.
+    */
     property int mode: Calendar.Single
-    // 标题布局:Label(纯文字,默认)/ Dropdown(月/年下拉)。
+
+    /*!
+        \qmlproperty int Calendar::captionLayout
+        \brief The caption presentation; see \l CaptionLayout.
+        Defaults to \c Calendar.Label.
+    */
     property int captionLayout: Calendar.Label
-    // 并排显示的月数(默认 1;>1 时以 displayMonth 为首月连续排布,共享导航)。
+
+    /*!
+        \qmlproperty int Calendar::numberOfMonths
+        \brief How many consecutive months to render side by side.
+        Defaults to 1. When greater than 1 the first column shows
+        \l displayMonth and the shared navigation moves all columns by one
+        month at a time.
+    */
     property int numberOfMonths: 1
 
-    // 当前选中日(Single 模式;未选择时为 undefined)。点击某日即写入。
+    /*!
+        \qmlproperty var Calendar::selectedDate
+        \brief The selected day as a JS \c Date (Single mode).
+        \c undefined until a day is picked.
+    */
     property var selectedDate: undefined
-    // 区间起止(Range 模式;未选择时为 undefined)。始终保证 rangeStart <= rangeEnd。
+
+    /*!
+        \qmlproperty var Calendar::rangeStart
+        \brief Start of the selected range as a JS \c Date (Range mode).
+        Always ordered so \c rangeStart <= \l rangeEnd. \c undefined until set.
+    */
     property var rangeStart: undefined
+
+    /*!
+        \qmlproperty var Calendar::rangeEnd
+        \brief End of the selected range as a JS \c Date (Range mode).
+        \c undefined until the second endpoint is picked.
+    */
     property var rangeEnd: undefined
 
-    // 当前显示的月份(取其 年/月;日无意义)。多月视图时为首月。
+    /*!
+        \qmlproperty date Calendar::displayMonth
+        \brief The month currently shown (only its year/month matter).
+        In multi-month views this is the leading month. Defaults to today.
+    */
     property date displayMonth: new Date()
-    // 是否渲染上/下月补格(对齐 showOutsideDays,默认 true)。
+
+    /*!
+        \qmlproperty bool Calendar::showOutsideDays
+        \brief Whether leading/trailing days from adjacent months are drawn.
+        Defaults to \c true.
+    */
     property bool showOutsideDays: true
-    // 单元格边长(mira 令牌 --cell-size 为 spacing(6)=24;此处放大到 32 提升可读性/点击目标,
-    // 消费方可设回 24 以严格贴合 mira)。表头/导航随之对齐。
+
+    /*!
+        \qmlproperty real Calendar::cellSize
+        \brief The edge length of a day cell in px.
+        The mira token \c {--cell-size} is spacing(6) = 24; this defaults to 32
+        for readability and a larger hit target. Set to 24 to match mira
+        exactly. The weekday header and navigation scale with it.
+    */
     property real cellSize: 32
-    // Dropdown 标题的年份下拉范围(默认 今年-100 .. 今年+10,近似 react-day-picker 默认)。
+
+    /*!
+        \qmlproperty int Calendar::fromYear
+        \brief First year offered by the Dropdown caption's year list.
+        Defaults to this year - 100 (approximating react-day-picker).
+    */
     property int fromYear: (new Date()).getFullYear() - 100
+
+    /*!
+        \qmlproperty int Calendar::toYear
+        \brief Last year offered by the Dropdown caption's year list.
+        Defaults to this year + 10.
+    */
     property int toYear: (new Date()).getFullYear() + 10
 
-    // 选择某日时发出(Single 模式,参数为 JS Date)。
+    /*!
+        \qmlsignal Calendar::selected(var date)
+        Emitted in Single mode when a day is picked. \a date is a JS \c Date.
+    */
     signal selected(var date)
-    // 区间选择完成时发出(Range 模式选定第二个端点后,参数为起止 JS Date)。
+
+    /*!
+        \qmlsignal Calendar::rangeSelected(var start, var end)
+        Emitted in Range mode once the second endpoint completes the range.
+        \a start and \a end are ordered JS \c Date values (start <= end).
+    */
     signal rangeSelected(var start, var end)
 
-    // ==== 内部计算 ====
+    // ==== Internal derived state ====
     readonly property int _year: displayMonth.getFullYear()
     readonly property int _month: displayMonth.getMonth()
     property date _today: new Date()
 
     readonly property real _pad: Theme.space3           // p-3 = 12
     readonly property real _gridW: cellSize * 7
-    readonly property real _monthGap: Theme.space4      // months 容器 gap-4 = 16
+    readonly property real _monthGap: Theme.space4      // months container gap-4 = 16
 
     readonly property var _weekdays: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
     readonly property var _monthNames: [
@@ -74,7 +166,7 @@ Item {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ]
-    // Dropdown 年份模型([fromYear..toYear])。
+    // Year model for the Dropdown caption: [fromYear .. toYear].
     readonly property var _years: {
         const arr = []
         for (let y = fromYear; y <= toYear; y++)
@@ -82,7 +174,8 @@ Item {
         return arr
     }
 
-    // 某年某月的 6 行 × 7 列 = 42 个 JS Date(含上/下月补格)。多月视图逐列各自计算。
+    // 6 rows x 7 columns = 42 JS Dates for a month (with adjacent-month
+    // padding). Each column in a multi-month view computes its own array.
     function _daysFor(year, month) {
         const first = new Date(year, month, 1)
         const startDow = first.getDay()   // 0 = Sunday
@@ -99,21 +192,24 @@ Item {
             && a.getDate() === b.getDate()
     }
 
-    // 以 年*10000+月*100+日 编码用于跨月序比较(判定区间中间/端点顺序)。
+    // Encode as year*10000 + month*100 + day for cross-month ordering
+    // (used to decide range middle/endpoint order).
     function _dayNum(d) {
         return d.getFullYear() * 10000 + d.getMonth() * 100 + d.getDate()
     }
 
-    // 点击某日:Single 写 selectedDate;Range 依次落起点/终点(乱序自动交换)。
-    // reframe=true 时(仅单月视图点到外月补格)把 displayMonth 跳到该月;多月视图不重定位。
+    // Pick a day: Single writes selectedDate; Range fills start then end
+    // (swapping if picked out of order). When reframe is true (single-month
+    // view clicking an outside day) jump displayMonth to that month;
+    // multi-month views do not reframe.
     function _pick(date, reframe) {
         if (mode === Calendar.Range) {
             if (rangeStart === undefined || rangeEnd !== undefined) {
-                // 无起点,或区间已完整 → 从该日重新起一段。
+                // No start yet, or range already complete: begin a new span.
                 rangeStart = date
                 rangeEnd = undefined
             } else {
-                // 已有起点、未定终点 → 落终点(乱序则交换,保证 start<=end)。
+                // Have a start, no end yet: set the end (swap to keep start<=end).
                 if (_dayNum(date) < _dayNum(rangeStart)) {
                     rangeEnd = rangeStart
                     rangeStart = date
@@ -133,7 +229,7 @@ Item {
     implicitWidth: _gridW * numberOfMonths + _monthGap * (numberOfMonths - 1) + _pad * 2
     implicitHeight: monthsRow.implicitHeight + _pad * 2
 
-    // ==== 并排月份(共享导航覆于其上)====
+    // ==== Side-by-side months (shared navigation overlaid on top) ====
     Row {
         id: monthsRow
         x: cal._pad
@@ -143,24 +239,25 @@ Item {
         Repeater {
             model: cal.numberOfMonths
 
-            // ---- 单个月列:caption + 周表头 + 6×7 网格 ----
+            // ---- One month column: caption + weekday header + 6x7 grid ----
             ColumnLayout {
                 id: mcol
                 required property int index
                 width: cal._gridW
                 spacing: Theme.space3
 
-                // 本列月份 = 首月 displayMonth 顺延 index 个月。
+                // This column's month = leading displayMonth + index months.
                 readonly property date _mDate: new Date(cal._year, cal._month + index, 1)
                 readonly property int _mYear: _mDate.getFullYear()
                 readonly property int _mMonth: _mDate.getMonth()
 
-                // ==== 月标题(纯文字 / 下拉;导航由外层共享,故此处不含 chevron)====
+                // ==== Month caption (label / dropdown; chevrons are shared,
+                // so they are not drawn here). ====
                 Item {
                     Layout.fillWidth: true
                     implicitHeight: cal.cellSize
 
-                    // ---- Label 标题(captionLayout = Label,默认)----
+                    // ---- Label caption (captionLayout = Label, default) ----
                     Text {
                         anchors.centerIn: parent
                         visible: cal.captionLayout === Calendar.Label
@@ -170,7 +267,7 @@ Item {
                         font.weight: Font.Medium
                     }
 
-                    // ---- Dropdown 标题(captionLayout = Dropdown):月 / 年 NativeSelect ----
+                    // ---- Dropdown caption (captionLayout = Dropdown): month / year ----
                     Row {
                         anchors.centerIn: parent
                         visible: cal.captionLayout === Calendar.Dropdown
@@ -180,7 +277,8 @@ Item {
                             id: monthSelect
                             model: cal._monthShort
                             Component.onCompleted: currentIndex = mcol._mMonth
-                            // 选月:令本列显示该月,再回推首月 displayMonth(减去本列偏移)。
+                            // Show the chosen month in this column, then back
+                            // out the leading displayMonth (subtract the offset).
                             onActivated: (idx) => {
                                 const t = new Date(mcol._mYear, idx, 1)
                                 cal.displayMonth = new Date(t.getFullYear(), t.getMonth() - mcol.index, 1)
@@ -196,7 +294,8 @@ Item {
                             }
                         }
 
-                        // 导航/外月点击改变 displayMonth 时,回写本列两个下拉的当前项。
+                        // When navigation / outside-day clicks change
+                        // displayMonth, sync this column's two dropdowns.
                         Connections {
                             target: cal
                             function onDisplayMonthChanged() {
@@ -207,7 +306,7 @@ Item {
                     }
                 }
 
-                // ==== 周表头(Su..Sa)====
+                // ==== Weekday header (Su..Sa) ====
                 Row {
                     Layout.fillWidth: true
                     spacing: 0
@@ -227,7 +326,7 @@ Item {
                     }
                 }
 
-                // ==== 6×7 天网格 ====
+                // ==== 6x7 day grid ====
                 Grid {
                     Layout.fillWidth: true
                     columns: 7
@@ -242,17 +341,19 @@ Item {
                             width: cal.cellSize
                             height: cal.cellSize
 
-                            // 本格是否属于本列月份(用于淡显外月补格)。
+                            // Whether this cell belongs to the column's month
+                            // (drives dimming of outside-month padding days).
                             readonly property bool inMonth: modelData.getMonth() === mcol._mMonth
                                                          && modelData.getFullYear() === mcol._mYear
                             readonly property bool isToday: cal._sameDay(modelData, cal._today)
                             readonly property bool shown: inMonth || cal.showOutsideDays
 
-                            // 单选高亮(仅 Single 模式)。
+                            // Single-selection highlight (Single mode only).
                             readonly property bool isSelectedSingle: cal.mode === Calendar.Single
                                                                   && cal._sameDay(modelData, cal.selectedDate)
 
-                            // 区间角色(仅 Range 模式)。_hasSpan:起止均定且跨 ≥2 天,方需连接带。
+                            // Range roles (Range mode only). _hasSpan: both
+                            // endpoints set and >= 2 days apart, so a band is needed.
                             readonly property bool _rangeMode: cal.mode === Calendar.Range
                             readonly property bool _isStart: _rangeMode && cal.rangeStart !== undefined
                                                           && cal._sameDay(modelData, cal.rangeStart)
@@ -265,20 +366,24 @@ Item {
                                                            && cal._dayNum(modelData) > cal._dayNum(cal.rangeStart)
                                                            && cal._dayNum(modelData) < cal._dayNum(cal.rangeEnd)
                             readonly property bool _isEndpoint: _isStart || _isEnd
-                            // 是否属于区间连接带(起/中/止,且确有跨度)。
+                            // In the connector band (start/middle/end, span present).
                             readonly property bool _inSpan: _hasSpan && (_isStart || _isMiddle || _isEnd)
 
-                            // 主色药丸:单选选中日 或 区间端点(bg-primary / text-primary-foreground)。
+                            // Primary pill: single-selected day or a range endpoint
+                            // (bg-primary / text-primary-foreground).
                             readonly property bool _pillPrimary: isSelectedSingle || _isEndpoint
-                            // muted 药丸:今天 / hover(且非端点、非中间日)。
+                            // Muted pill: today / hover (when not an endpoint or middle day).
                             readonly property bool _pillMuted: !_pillPrimary && !_isMiddle
                                                             && (isToday || hover.hovered)
 
-                            // ---- 区间连接带(muted)----
-                            // 起/中/止均整格铺满同一个带,外侧圆角按「区间端点」或「周界」决定:
-                            //   · 左圆角:本格是区间起点,或位于每周行首(周日)——即左侧无同周相邻区间格;
-                            //   · 右圆角:本格是区间终点,或位于每周行末(周六)。
-                            // 这样跨周时每段周内连接带两端都是圆角(对齐官网),端点再叠主色药丸。
+                            // ---- Range connector band (muted) ----
+                            // Start/middle/end all fill the same band; outer
+                            // corners round at range endpoints or week boundaries:
+                            //   * left round: cell is the start, or the week's first
+                            //     day (Sunday) - i.e. no adjacent range cell to the left;
+                            //   * right round: cell is the end, or the week's last day (Saturday).
+                            // Every per-week band segment thus has rounded ends
+                            // (matching the web); endpoints then stack a primary pill.
                             Rectangle {
                                 visible: dayCell._inSpan
                                 anchors.fill: parent
@@ -291,7 +396,7 @@ Item {
                                 bottomRightRadius: _roundR ? Theme.radiusMd : 0
                             }
 
-                            // ---- 每格药丸(圆角 radius-md,覆于连接带之上)----
+                            // ---- Per-cell pill (radius-md, over the band) ----
                             Rectangle {
                                 anchors.fill: parent
                                 radius: Theme.radiusMd   // --cell-radius = radius-md
@@ -299,7 +404,7 @@ Item {
                                 color: dayCell._pillPrimary ? Theme.primary : Theme.muted
                             }
 
-                            // ---- 日期数字 ----
+                            // ---- Day number ----
                             Text {
                                 anchors.centerIn: parent
                                 text: dayCell.modelData.getDate()
@@ -312,7 +417,8 @@ Item {
                             HoverHandler { id: hover; enabled: dayCell.shown }
                             TapHandler {
                                 enabled: dayCell.shown
-                                // 单月点外月补格 → 跳月;多月视图固定不重定位。
+                                // Single-month: clicking an outside day jumps the month;
+                                // multi-month views stay put.
                                 onTapped: cal._pick(dayCell.modelData, !dayCell.inMonth && cal.numberOfMonths === 1)
                             }
                         }
@@ -322,9 +428,11 @@ Item {
         }
     }
 
-    // ==== 共享上/下月导航(覆于首行 caption 之上,首列左端 + 末列右端)====
-    // 每次移动 1 个月(react-day-picker 默认 pagedNavigation=false)。
+    // ==== Shared prev/next navigation (overlaid on the first caption row,
+    // at the first column's left edge and the last column's right edge). ====
+    // Moves one month at a time (react-day-picker default pagedNavigation=false).
     IconButton {
+        objectName: "calPrev"
         variant: IconButton.Ghost
         size: IconButton.Small
         iconName: "chevron-left"
@@ -333,6 +441,7 @@ Item {
         onClicked: cal.displayMonth = new Date(cal._year, cal._month - 1, 1)
     }
     IconButton {
+        objectName: "calNext"
         variant: IconButton.Ghost
         size: IconButton.Small
         iconName: "chevron-right"

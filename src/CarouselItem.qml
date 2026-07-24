@@ -1,15 +1,37 @@
 import QtQuick
 
-// Carousel 单个条目 —— 由使用方填入任意内容(default 内容槽)。
-// 尺寸随所属 Carousel 视口派生:横向 width = 视口宽 × basis;纵向 height = 视口高 × basis。
-// basis 对标 shadcn 的 basis-* 工具类:basis-full=1、basis-1/2=0.5、basis-1/3≈0.333。
-// 条目间隔由所属 ListView 的 spacing 提供(对称、不偏移内容);内容满铺本条目。
-// 注:早前用单侧左内边距(pl)造间隔但缺 -ml 补偿,会把 basis-full 幻灯片整体推向一侧、
-//     导致左右两侧到导航按钮的间隙不对称,故改用 ListView.spacing。
+/*!
+    \qmltype CarouselItem
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A single slide within a \l Carousel.
+
+    Port of shadcn/ui's CarouselItem (base-mira style). Holds arbitrary
+    caller-supplied content (the default property), which fills the slide.
+
+    The slide's extent along the carousel's scroll axis is derived from the
+    parent \l Carousel viewport and \l basis: for a horizontal carousel
+    \c {width = viewport.width * basis} (height fills the viewport); for a
+    vertical carousel \c {height = viewport.height * basis} (width fills).
+    Inter-slide spacing is provided symmetrically by the carousel's ListView,
+    so slides are not offset to one side.
+*/
 Item {
     id: item
 
+    /*!
+        \qmlproperty real CarouselItem::basis
+        Fraction of the carousel viewport this slide occupies along the scroll
+        axis, mirroring the web \c basis-* utilities: \c 1.0 for
+        \c basis-full (default), \c 0.5 for \c basis-1/2, \c 0.333 for
+        \c basis-1/3.
+    */
     property real basis: 1.0
+
+    /*!
+        \qmlproperty list<QtObject> CarouselItem::content
+        Default property. The slide content, stretched to fill the slide.
+    */
     default property alias content: holder.data
 
     readonly property var _view: ListView.view

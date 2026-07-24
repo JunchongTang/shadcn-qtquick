@@ -4,44 +4,108 @@ import QtQuick.Controls.Basic as C
 import QtQuick.Effects
 import LucideIcons
 
-// shadcn Combobox(base-nova)—— 可编辑的自动补全输入框 + 纯列表弹层。
-// 对齐官方:触发器本身就是一个 ComboboxInput(可打字过滤、显光标/焦点环),
-// 弹层里只有条目列表 + 空态,**没有独立搜索框**。
-//
-//   · 单选:ComboboxInput,右侧 chevrons-up-down;可选 showClear 显清除 ×;
-//     打字即过滤;选中回填标签并关闭;再次选中同值清空(setValue(cur===v?"":cur))。
-//   · 多选(multiple):chips 容器 + 内联 ComboboxChipsInput(打字过滤),
-//     下拉项左侧显勾选;切换不关闭;chip 的 × 逐个移除。
-//
-// 模型条目:字符串 | { value,label(可配 textRole/valueRole),disabled? } | { header } | { separator }。
-// 根用 C.Control(容器):拿 hovered/visualFocus/font/enabled/palette 传播;focusPolicy 默认 NoFocus,
-// 不与内部触发器输入框争焦点(焦点始终落在 TextField 上)。
+/*!
+    \qmltype Combobox
+    \inqmlmodule Shadcn
+    \inherits Control
+    \brief An editable autocomplete input paired with a plain popup list.
+
+    Combobox reproduces the shadcn (base-mira) look. The trigger itself is an
+    editable ComboboxInput: the user can type to filter, and the popup contains
+    only the item list plus an empty state (there is no separate search box).
+
+    \list
+    \li Single select: an editable input with a trailing chevron and an optional
+        \l showClear clear button. Typing filters the list; choosing an item fills
+        the label and closes the popup; choosing the current value again clears it.
+    \li Multiple select (\l multiple): a chips container with an inline input that
+        filters as you type. List items show a leading check; toggling does not
+        close the popup; each chip's remove button drops one value.
+    \endlist
+
+    Model entries may be a plain string, an object
+    \c {{ value, label, disabled?, description? }} (keys configurable via
+    \l textRole, \l valueRole and \l descriptionRole), a group header
+    \c {{ header: "..." }}, or a divider \c {{ separator: true }}.
+
+    The root is a \c Control container used only to propagate hovered / visualFocus /
+    font / enabled / palette; its focusPolicy stays NoFocus so focus always rests on
+    the inner trigger input.
+*/
 C.Control {
     id: control
 
+    /*! \qmlproperty var Combobox::model
+        The list of entries. See the type description for the accepted entry shapes. */
     property var model: []
-    property string textRole: "label"
-    property string valueRole: "value"
-    property string placeholder: qsTr("Select...")
-    property string searchPlaceholder: ""     // 兼容旧用法:base-nova 无独立搜索框,已废弃(无操作)
-    property string emptyText: qsTr("No results found.")
-    property string currentValue: ""
-    property bool invalid: false
-    property bool showClear: false            // 单选:显示清除按钮(对标 ComboboxInput showClear)
-    property string leadingIcon: ""           // 单选:输入框左侧前置图标(对标 InputGroupAddon)
-    property string descriptionRole: "description"  // 条目次级说明文字的键(两行条目,对标 ItemDescription)
 
+    /*! \qmlproperty string Combobox::textRole
+        Object key used for an entry's display label. Defaults to \c "label". */
+    property string textRole: "label"
+
+    /*! \qmlproperty string Combobox::valueRole
+        Object key used for an entry's value. Defaults to \c "value". */
+    property string valueRole: "value"
+
+    /*! \qmlproperty string Combobox::placeholder
+        Placeholder text shown in the trigger input when nothing is selected. */
+    property string placeholder: qsTr("Select...")
+
+    /*! \qmlproperty string Combobox::searchPlaceholder
+        \deprecated The base-mira pattern has no separate search box; this is a no-op
+        kept for source compatibility. */
+    property string searchPlaceholder: ""
+
+    /*! \qmlproperty string Combobox::emptyText
+        Message shown in the popup when the filtered list is empty. */
+    property string emptyText: qsTr("No results found.")
+
+    /*! \qmlproperty string Combobox::currentValue
+        Selected value in single-select mode (empty string when nothing is selected). */
+    property string currentValue: ""
+
+    /*! \qmlproperty bool Combobox::invalid
+        When true, renders the destructive border and focus ring (aria-invalid). */
+    property bool invalid: false
+
+    /*! \qmlproperty bool Combobox::showClear
+        Single-select only: show a clear button (in place of the chevron) when a
+        value is selected. Defaults to \c false. */
+    property bool showClear: false
+
+    /*! \qmlproperty string Combobox::leadingIcon
+        Single-select only: name of a Lucide icon shown before the input text
+        (equivalent to an InputGroupAddon). Empty means no icon. */
+    property string leadingIcon: ""
+
+    /*! \qmlproperty string Combobox::descriptionRole
+        Object key for an entry's secondary description line (two-line items,
+        equivalent to ItemDescription). Defaults to \c "description". */
+    property string descriptionRole: "description"
+
+    /*! \qmlproperty bool Combobox::multiple
+        Enable multiple selection (chips container with inline input). Defaults to \c false. */
     property bool multiple: false
+
+    /*! \qmlproperty var Combobox::selectedValues
+        Array of selected values in multiple-select mode. */
     property var selectedValues: []
 
+    /*! \qmlproperty string Combobox::currentText
+        \readonly
+        Label of \l currentValue resolved against \l model (empty when unresolved). */
     readonly property string currentText: _labelForValue(currentValue)
 
+    /*! \qmlsignal Combobox::activated(string value)
+        Emitted when the selection changes. In single-select mode \a value is the new
+        current value (empty when cleared). In multiple-select mode \a value is the
+        toggled or removed value. */
     signal activated(string value)
 
     implicitWidth: 200
     implicitHeight: multiple ? chipsTrigger.implicitHeight : 28
 
-    // ==== 模型工具 ====
+    // ==== Model helpers ====
     function _isObj(it) { return typeof it === "object" && it !== null }
     function _label(it) {
         if (!_isObj(it)) return String(it)
@@ -64,7 +128,8 @@ C.Control {
         return ""
     }
 
-    // ==== 过滤查询:弹层打开且用户已打字时,取对应输入框的文本;否则为空(显示全部)====
+    // ==== Filter query: while the popup is open and the user has typed, use the
+    // matching input's text; otherwise empty (show everything). ====
     property bool _typed: false
     readonly property string _effQuery: {
         if (!pop.opened) return ""
@@ -95,12 +160,15 @@ C.Control {
         return out
     }
 
-    // ==== 键盘高亮 ====
+    // ==== Keyboard highlight ====
     property int _highlight: -1
+    // Move the highlight to the next selectable item in direction dir (+1 down,
+    // -1 up), skipping headers, separators and disabled items, wrapping around.
+    // With nothing highlighted, Down starts at the first item and Up at the last.
     function _step(dir) {
         var n = _rows.length
         if (n === 0) { _highlight = -1; return }
-        var i = _highlight
+        var i = _highlight < 0 ? (dir > 0 ? -1 : 0) : _highlight
         for (var c = 0; c < n; c++) {
             i = (i + dir + n) % n
             if (_rows[i].type === "item" && !_rows[i].disabled) { _highlight = i; return }
@@ -139,18 +207,20 @@ C.Control {
         input.forceActiveFocus()
     }
 
-    // 选中值外部变化时,同步单选输入框显示(未在编辑中时)。
+    // Sync the single-select input display when currentValue changes externally
+    // (only while not being edited).
     onCurrentValueChanged: if (!input.activeFocus) input.text = currentText
     Component.onCompleted: if (!multiple) input.text = currentText
 
-    // ==== 单选触发器:可编辑输入框(ComboboxInput)====
+    // ==== Single-select trigger: editable input (ComboboxInput) ====
     C.TextField {
         id: input
         visible: !control.multiple
         anchors.fill: parent
         enabled: control.enabled
         leftPadding: Theme.space2 + (control.leadingIcon !== "" ? (14 + Theme.space1_5) : 0)
-        // 右侧恒为单个 20px 图标按钮(箭头或清除,二选一,不同时出现)+ 两侧留白。
+        // Right side always holds one 20px icon button (chevron or clear, never
+        // both at once) plus padding on each side.
         rightPadding: Theme.space1 + 20 + Theme.space1
         topPadding: 0; bottomPadding: 0
         font.pixelSize: Theme.textXs
@@ -163,7 +233,8 @@ C.Control {
         opacity: enabled ? 1.0 : 0.5
 
         onActiveFocusChanged: {
-            // 聚焦(点击)只打开弹层,不选中文本(对齐官网:点击不高亮已有文字)。
+            // Focusing (clicking) only opens the popup; it does not select the text
+            // (matches the web: a click does not highlight existing text).
             if (activeFocus) { control._typed = false; pop.open() }
             else if (!pop.opened) input.text = control.currentText
         }
@@ -193,11 +264,11 @@ C.Control {
                 visible: control.invalid
                 z: -1
             }
-            // 文本输入:聚焦即算 focus-visible,故用 activeFocus。
+            // Text input: any focus counts as focus-visible, so use activeFocus.
             FocusRing { active: input.activeFocus && !control.invalid; targetRadius: bg.radius }
         }
 
-        // 左侧前置图标(可选)
+        // Optional leading icon
         LucideIcon {
             visible: control.leadingIcon !== ""
             anchors.left: parent.left
@@ -208,14 +279,14 @@ C.Control {
             color: Theme.mutedForeground
         }
 
-        // 右侧:清除(可选)+ chevron(小方按钮,hover 显 accent 底)
+        // Right side: clear (optional) + chevron (small square button, accent on hover)
         Row {
             anchors.right: parent.right
             anchors.rightMargin: Theme.space1
             anchors.verticalCenter: parent.verticalCenter
             spacing: 0
 
-            // 清除按钮(showClear 且有值时)
+            // Clear button (when showClear is set and a value is selected)
             Rectangle {
                 width: 20; height: 20
                 radius: Theme.radiusSm
@@ -230,7 +301,8 @@ C.Control {
                 TapHandler { onTapped: control._clear() }
             }
 
-            // 下拉箭头(对标官方:向下箭头 + hover 背景)。有清除键时不显示(二选一)。
+            // Dropdown chevron (down arrow + hover background). Hidden when the
+            // clear button is shown (the two are mutually exclusive).
             Rectangle {
                 width: 20; height: 20
                 radius: Theme.radiusSm
@@ -253,10 +325,10 @@ C.Control {
         }
     }
 
-    // ==== 多选触发器:chips 容器 + 内联输入 ====
+    // ==== Multiple-select trigger: chips container + inline input ====
     Item {
         id: chipsTrigger
-        objectName: "cbChipsTrigger"        // 供单测定位
+        objectName: "cbChipsTrigger"        // for unit-test lookup
         visible: control.multiple
         anchors.left: parent.left
         anchors.right: parent.right
@@ -265,7 +337,8 @@ C.Control {
 
         readonly property bool _hasChips: control.selectedValues.length > 0
         readonly property real _padX: _hasChips ? Theme.space1 : Theme.space2
-        // 上下内边距 = 行间距(space1),使多行 chips 的第一行上下对称(此前用 space0_5 与行间距不等)。
+        // Top/bottom padding equals the row spacing (space1) so the first row of a
+        // multi-row chips layout is vertically symmetric.
         implicitHeight: Math.max(28, flow.implicitHeight + 2 * Theme.space1)
         height: implicitHeight
 
@@ -295,7 +368,7 @@ C.Control {
 
         Flow {
             id: flow
-            objectName: "cbChipsFlow"       // 供单测定位
+            objectName: "cbChipsFlow"       // for unit-test lookup
             anchors.verticalCenter: parent.verticalCenter
             x: chipsTrigger._padX
             width: parent.width - 2 * chipsTrigger._padX
@@ -310,12 +383,15 @@ C.Control {
                 }
             }
 
-            // 内联输入(ComboboxChipsInput):打字过滤;空态显 placeholder。
+            // Inline input (ComboboxChipsInput): filters as you type; shows the
+            // placeholder when empty.
             C.TextField {
                 id: chipsInput
-                // 固定宽度,避免用自身 x 计算宽度形成循环绑定 / 误换行(曾致容器虚高两行)。
+                // Fixed width, to avoid a binding loop / spurious wrapping from
+                // deriving width from its own x (which once inflated the container
+                // to two rows).
                 width: 90
-                height: 19                                  // 与 chip 等高,行内对齐
+                height: 19                                  // same height as a chip, for inline alignment
                 padding: 0
                 leftPadding: Theme.space1
                 font.pixelSize: Theme.textXs
@@ -331,7 +407,8 @@ C.Control {
                 Keys.onReturnPressed: control._confirm()
                 Keys.onEnterPressed: control._confirm()
                 Keys.onEscapePressed: pop.close()
-                // 输入为空时按 Backspace/Delete 删除最后一个已选标签(对齐官网键盘移除)。
+                // When the input is empty, Backspace/Delete removes the last
+                // selected chip (matches the web's keyboard removal).
                 Keys.onPressed: function (event) {
                     if ((event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete)
                             && chipsInput.text === "" && control.selectedValues.length > 0) {
@@ -343,7 +420,7 @@ C.Control {
         }
     }
 
-    // ==== 弹层:仅列表 + 空态(无搜索框)====
+    // ==== Popup: list + empty state only (no search box) ====
     C.Popup {
         id: pop
         y: control.height + 4
@@ -352,7 +429,7 @@ C.Control {
         padding: 0
         modal: false
         dim: false
-        focus: false                                   // 不夺焦:键盘由触发器输入框处理
+        focus: false                                   // do not steal focus: the trigger input handles keys
         closePolicy: C.Popup.CloseOnEscape | C.Popup.CloseOnPressOutside
 
         readonly property int _listMax: 260
@@ -361,7 +438,8 @@ C.Control {
         onClosed: {
             control._typed = false
             control._highlight = -1
-            // 关闭(含点击外部/空白处)时让触发器输入框失焦 → 焦点环消失,对齐 web 点外部失焦。
+            // On close (including outside/blank clicks) blur the trigger input so the
+            // focus ring disappears, matching the web's blur-on-outside-click.
             if (!control.multiple) { input.text = control.currentText; input.focus = false }
             else { chipsInput.text = ""; chipsInput.focus = false }
         }
@@ -381,7 +459,8 @@ C.Control {
             }
         }
 
-        // 仅缩放弹入,面板不透明(避免透出黑遮罩;与其它浮层一致)。
+        // Scale-in only; the panel stays opaque (avoids bleeding a dark overlay,
+        // consistent with the other popovers).
         enter: Transition { NumberAnimation { property: "scale"; from: 0.97; to: 1; duration: Theme.durFast; easing.type: Easing.OutCubic } }
         exit: Transition { NumberAnimation { property: "scale"; from: 1; to: 0.97; duration: Theme.durFast } }
 

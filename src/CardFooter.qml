@@ -1,7 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn CardFooter —— 底部操作区,横向排列并垂直居中(flex items-center)。
+/*!
+    \qmltype CardFooter
+    \inqmlmodule Shadcn
+    \inherits RowLayout
+    \brief Card action row (cn-card-footer): flex items-center.
+
+    Actions are laid out horizontally and vertically centred. Horizontal insets
+    come from the enclosing Card.
+*/
 RowLayout {
     Layout.fillWidth: true
     spacing: Theme.space2

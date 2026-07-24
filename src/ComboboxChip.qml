@@ -2,16 +2,33 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn Combobox chip —— 多选模式触发器内的一枚"已选项"标签(小圆角块 + × 移除)。
-// 对齐 .cn-combobox-chip:bg-muted-foreground/10、text-foreground、h-[4.75]=19、gap-1、
-//   px-1.5、rounded-[calc(--radius-sm - 2px)]、text-xs、font-medium、whitespace-nowrap;
-//   有移除键时右内边距归零(has-data-[slot=combobox-chip-remove]:pr-0)。
-// 移除键(.cn-combobox-chip-remove):-ml-1、opacity-50 → hover 时 opacity-100。
+/*!
+    \qmltype ComboboxChip
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A single selected-value tag inside a multiple-select Combobox trigger.
+
+    ComboboxChip renders one "selected item" tag (a small rounded block with an
+    optional trailing remove button), matching the base-mira \c .cn-combobox-chip:
+    \c bg-muted-foreground/10, \c text-foreground, height 19 (h-[4.75]), \c gap-1,
+    \c px-1.5, \c {rounded-[calc(--radius-sm - 2px)]}, \c text-xs, \c font-medium and
+    \c whitespace-nowrap. When the remove button is present the right padding
+    collapses to 0 (\c {has-remove:pr-0}). The remove button (\c .cn-combobox-chip-remove)
+    uses \c -ml-1 and \c opacity-50, going to full opacity on hover.
+*/
 Item {
     id: chip
 
+    /*! \qmlproperty string ComboboxChip::text
+        Label shown in the chip. */
     property string text: ""
+
+    /*! \qmlproperty bool ComboboxChip::removable
+        Whether to show the trailing remove button. Defaults to \c true. */
     property bool removable: true
+
+    /*! \qmlsignal ComboboxChip::removed()
+        Emitted when the remove button is tapped. */
     signal removed()
 
     readonly property real _padLeft: Theme.space1_5                          // px-1.5
@@ -40,7 +57,8 @@ Item {
             font.weight: Font.Medium
         }
 
-        // 移除键(× ):-ml-1 抵消 gap-1,使其贴近标签;opacity 50 → hover 100。
+        // Remove button (x): -ml-1 cancels gap-1 to pull it close to the label;
+        // opacity 50 -> 100 on hover.
         Item {
             visible: chip.removable
             Layout.preferredWidth: 14

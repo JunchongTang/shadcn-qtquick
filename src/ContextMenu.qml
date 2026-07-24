@@ -1,17 +1,55 @@
 import QtQuick
 
-// shadcn ContextMenu(base-mira)—— 右键触发的菜单。
-// 视觉与项类型完全复用 DropdownMenu:本类以 Menu 为根 → 继承其 popover 容器、
-// 子菜单 delegate 与进出场动效(cn-context-menu-* 与 cn-dropdown-menu-* 视觉一致);
-// 仅新增「目标区域右键 → 光标处弹出」的触发行为。
-// 用法:声明于触发区域内(其 parent 即该区域),并令 target 指向该区域 Item。
+/*!
+    \qmltype ContextMenu
+    \inqmlmodule Shadcn
+    \inherits Menu
+    \brief A right-click context menu, styled to match shadcn/ui (base-mira).
+
+    ContextMenu is a thin wrapper over \l Menu. It reuses the Menu popover
+    container, item delegates and enter/exit transitions (so its visuals are
+    identical to DropdownMenu), and adds a single behavior: right-clicking (or
+    trackpad secondary-click) anywhere on a \l target item pops the menu open at
+    the cursor position.
+
+    Declare menu items as children, exactly as for \l Menu, and point \l target
+    at the item whose right-clicks should open the menu:
+
+    \qml
+    Item {
+        id: area
+        width: 320; height: 180
+
+        ContextMenu {
+            target: area
+            MenuItem { text: "Back" }
+            MenuItem { text: "Forward"; enabled: false }
+            MenuItem { text: "Reload" }
+        }
+    }
+    \endqml
+
+    \note Because ContextMenu derives from Menu (which inherits Popup), the
+    per-item width sizing from Menu (content width tracks the widest item) is
+    inherited unchanged.
+*/
 Menu {
     id: control
 
-    // 触发区域:在其上「鼠标右键 / 触摸板辅助点击」即在光标处弹出本菜单。
+    /*!
+        \qmlproperty Item ContextMenu::target
+
+        The item whose right-click (or trackpad secondary-click) opens this
+        menu. A \l TapHandler accepting \c Qt.RightButton is installed on the
+        target; the menu pops up at the click position.
+
+        When changed, the previous handler is destroyed and a new one is
+        created on the new target. Setting it to \c null removes the handler.
+        The default value is \c null.
+    */
     property Item target: null
 
-    // target 变更 → 在其上重建右键 TapHandler。
+    // Rebuild the right-click TapHandler whenever the target changes.
     onTargetChanged: {
         if (control._handler) {
             control._handler.destroy()
@@ -21,14 +59,28 @@ Menu {
             control._handler = control._handlerComp.createObject(control.target)
     }
 
+    // The live TapHandler, parented to target (null when no target is set).
+    // Kept in an explicit property so it is not treated as a menu item.
     property QtObject _handler: null
 
-    // 显式绑定到属性(而非默认属性 contentData),避免被当作菜单项。
+    // Destroy the handler when the menu itself is torn down, so it does not
+    // outlive the menu with a dangling reference when the target survives.
+    Component.onDestruction: {
+        if (control._handler) {
+            control._handler.destroy()
+            control._handler = null
+        }
+    }
+
+    // Assigned to an explicit property (not the default contentData list) so
+    // the Component is not mistaken for a menu item.
     property Component _handlerComp: Component {
         TapHandler {
             acceptedButtons: Qt.RightButton
             onTapped: function(eventPoint) {
-                // 光标点从 target 坐标系映射到菜单 parent 坐标系(通常二者相同 → 恒等)。
+                // Map the click point from the target's coordinate system into
+                // the menu's parent coordinate system, which is what popup(x, y)
+                // expects. When target === menu parent this is an identity map.
                 const p = control.target.mapToItem(control.parent,
                                                     eventPoint.position.x,
                                                     eventPoint.position.y)

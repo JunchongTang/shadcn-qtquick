@@ -1,20 +1,40 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Card(base-mira) —— ring-1 ring-foreground/10 + rounded-lg + bg-card。
-// 布局:py 与区块 px 都等于 --card-spacing(default 16 / sm 12),区块间距同值 →
-// 等价于对内容列施加统一内边距 + 等距垂直间隔。子项用 CardHeader/CardContent/CardFooter,
-// 也可直接放任意内容。full-bleed 图片等边缘特例后续再补。
+/*!
+    \qmltype Card
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief Surface container matching shadcn/ui base-mira Card.
+
+    Renders a card surface: bg-card fill, rounded-lg corners and a 1px
+    foreground/10 ring (ring-1 ring-foreground/10) rather than a plain border.
+
+    Layout mirrors the base-mira model: vertical padding and inter-block gap
+    both equal \l cardSpacing (default 16, small 12). Horizontal insets are
+    applied uniformly here (anchors.margins on the content column) rather than
+    per child, so CardHeader/CardContent/CardFooter only manage their own inner
+    stacking. Children may be CardHeader/CardContent/CardFooter or any Item.
+
+    \note Full-bleed edge cases (e.g. rounded top images with pt-0) and
+    overflow-hidden clipping are not yet modelled.
+*/
 Item {
     id: control
 
     enum Size { Default, Small }
+
+    /*! \qmlproperty enumeration Card::size
+        Size variant. \c Card.Default (16px spacing) or \c Card.Small (12px). */
     property int size: Card.Default
 
-    // --card-spacing: default → spacing(4)=16;sm → spacing(3)=12。
-    // 可写:赋值即覆盖(对标官方任意 [--card-spacing:--spacing(n)]);不赋值时随 size 派生。
+    /*! \qmlproperty real Card::cardSpacing
+        The --card-spacing token: vertical padding and block gap. Derived from
+        \l size when not assigned; assign to override (any [--card-spacing]). */
     property real cardSpacing: size === Card.Small ? Theme.space3 : Theme.space4
 
+    /*! \qmlproperty list<QtObject> Card::content
+        Default property: card body items, stacked vertically. */
     default property alias content: col.data
 
     implicitWidth: col.implicitWidth + cardSpacing * 2
@@ -24,7 +44,8 @@ Item {
         anchors.fill: parent
         color: Theme.card
         radius: Theme.radiusLg
-        // mira 用 1px 前景色描边(ring-1 ring-foreground/10)而非普通 border。
+        // base-mira uses a 1px foreground ring (ring-1 ring-foreground/10)
+        // instead of a solid border.
         border.width: Theme.overlayRingWidth
         border.color: Theme.overlayRing
     }

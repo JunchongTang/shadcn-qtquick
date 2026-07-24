@@ -1,73 +1,146 @@
 import QtQuick
 
-// shadcn Chart(base-mira)——官方基于 Recharts;QML 无 Recharts,故用 Canvas 手绘。
-// 数据驱动:type(Bar/Line/Area/Pie/Radar/Radial)+ chartData(对象数组)+ series([{key,label,color}])。
-// 配色取 Theme.chart1..5;网格(dash 3 3)、坐标 tick 文本、圆角柱、平滑折线/面积、
-// 扇形/环形、极坐标网格(多边形/圆)、雷达多边形、径向扇环、图例(ChartLegend)、悬浮 tooltip(ChartTooltip)。
-//
-// 注:data / scale 为 Item 内建属性,故数据字段命名 chartData、内部刻度命名 _scale。
-//
-// 简化说明(相对官方):
-//  · 笛卡尔 Y 轴统一 0 基线 nice 刻度(Recharts 折线默认自适应域,此处 0 基线以稳妥显示)。
-//  · dashed tooltip 指示器用空心方块近似;shadow-xl 用主题阴影令牌近似。
-//  · 折线 type=natural/monotone 统一走 Catmull-Rom 平滑;linear 走直线。
-//  · Radar 值域用 0 基线 nice 刻度(近似 Recharts auto 域,数据多边形留白外圈)。
-//  · Radial 圆角端帽用 round lineCap 近似 cornerRadius;单值 domain 取值本身(填满轨道),
-//    多环 domain 取 nice 上限(留白);label 变体角度跨度裁剪到 360°(官方用 470° 轻微叠绕)。
+/*!
+    \qmltype Chart
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A data-driven chart, styled after shadcn's base-mira chart family.
+
+    Chart is a Canvas-drawn port of shadcn/ui's chart components (which wrap
+    Recharts). One type covers six shapes selected by \l type: \c Bar, \c Line,
+    \c Area, \c Pie, \c Radar and \c Radial. Data is supplied through \l chartData
+    (an array of row objects) plus, for cartesian and radar charts, a \l series
+    list of \c {{ key, label, color }} descriptors. Series colors default to the
+    theme palette \c Theme.chart1..chart5.
+
+    It renders dashed gridlines, axis tick text, rounded bars, smoothed
+    line/area paths, pie/donut sectors, polar grids and radial arcs, and hosts an
+    embedded \l ChartLegend and a hover \l ChartTooltip.
+
+    Because \c data and \c scale are built-in \l Item properties, the data field
+    is named \l chartData and the internal tick scale \c _scale.
+
+    Simplifications relative to Recharts:
+    \list
+    \li Cartesian Y uses a zero-based "nice" tick scale (Recharts lines default
+        to an auto domain; a zero baseline renders more predictably here).
+    \li Lines use Catmull-Rom smoothing when \l curved is \c true, straight
+        segments otherwise.
+    \li Radar uses the same zero-based nice scale for its radius.
+    \li Radial round caps approximate \c cornerRadius; a single value fills the
+        track while multiple rings use a nice upper bound; the sweep is clamped
+        to 360 degrees (shadcn slightly over-wraps to 470).
+    \endlist
+*/
 Item {
     id: root
 
+    /*!
+        \qmlproperty enumeration Chart::type
+        The chart shape to draw.
+        \value Chart.Bar Grouped or stacked bars (see \l stacked, \l horizontal).
+        \value Chart.Line Smoothed or straight line series.
+        \value Chart.Area Filled area series.
+        \value Chart.Pie Pie or donut (\l innerRadius > 0).
+        \value Chart.Radar Polar radar polygons.
+        \value Chart.Radial Radial (arc) bars.
+    */
     enum Type { Bar, Line, Area, Pie, Radar, Radial }
 
-    // ==== 数据与系列 ====
+    // ==== Data and series ====
+    /*! \qmlproperty int Chart::type \brief The chart shape; see \l Type. Defaults to \c Chart.Bar. */
     property int type: Chart.Bar
-    property var chartData: []               // 笛卡尔:[{ <categoryKey>:..., key1:.., key2:.. }];饼:[{ <nameKey>, <valueKey>, color? }]
-    property var series: []                  // [{ key, label, color? }] —— 笛卡尔用
-    property string categoryKey: "month"     // x 轴分类字段
-    property string nameKey: "name"          // 饼图名称字段
-    property string valueKey: "value"        // 饼图数值字段
+    /*!
+        \qmlproperty list Chart::chartData
+        The rows to plot. Cartesian/radar: \c {{ <categoryKey>: ..., key1: ..., key2: ... }};
+        pie/radial: \c {{ <nameKey>: ..., <valueKey>: ..., color? }}. Defaults to \c [].
+    */
+    property var chartData: []
+    /*!
+        \qmlproperty list Chart::series
+        The cartesian/radar series descriptors, each \c {{ key, label, color? }}
+        where \c key names the field in \l chartData, \c label the display name and
+        \c color an optional override (else the theme palette). Defaults to \c [].
+    */
+    property var series: []
+    /*! \qmlproperty string Chart::categoryKey \brief The x-axis category field. Defaults to \c "month". */
+    property string categoryKey: "month"
+    /*! \qmlproperty string Chart::nameKey \brief The name field for pie/radial rows. Defaults to \c "name". */
+    property string nameKey: "name"
+    /*! \qmlproperty string Chart::valueKey \brief The value field for pie/radial rows. Defaults to \c "value". */
+    property string valueKey: "value"
 
-    // ==== 显示开关 ====
+    // ==== Display toggles ====
+    /*! \qmlproperty bool Chart::showGrid \brief Whether to draw gridlines. Defaults to \c true. */
     property bool showGrid: true
+    /*! \qmlproperty bool Chart::showXAxis \brief Whether to draw x-axis tick labels. Defaults to \c true. */
     property bool showXAxis: true
+    /*! \qmlproperty bool Chart::showYAxis \brief Whether to draw y-axis tick labels. Defaults to \c false. */
     property bool showYAxis: false
+    /*! \qmlproperty bool Chart::showLegend \brief Whether to show the embedded \l ChartLegend. Defaults to \c false. */
     property bool showLegend: false
+    /*! \qmlproperty bool Chart::legendTop \brief Whether the legend sits above the plot. Defaults to \c false (below). */
     property bool legendTop: false
+    /*! \qmlproperty bool Chart::stacked \brief Whether bar/area/radial series stack. Defaults to \c false. */
     property bool stacked: false
-    property bool horizontal: false          // 柱状:水平方向
-    property bool curved: true               // 折线/面积:平滑(natural/monotone)
-    property bool showDots: false            // 折线数据点
-    property bool showBarLabels: false       // 柱顶数值标签
-    property real barRadius: 8               // 柱圆角
-    property real areaFillOpacity: 0.4       // 面积填充不透明度
-    property real innerRadius: 0             // 饼/径向:内半径(px;饼 >0 即环形)
-    property real padAngleDeg: 0             // 饼:扇形间隔角(度)
+    /*! \qmlproperty bool Chart::horizontal \brief Bar charts only: lay bars horizontally. Defaults to \c false. */
+    property bool horizontal: false
+    /*! \qmlproperty bool Chart::curved \brief Line/area: smooth the path. Defaults to \c true. */
+    property bool curved: true
+    /*! \qmlproperty bool Chart::showDots \brief Line/radar: draw a dot at each data point. Defaults to \c false. */
+    property bool showDots: false
+    /*! \qmlproperty bool Chart::showBarLabels \brief Draw value labels on bars / radial rings. Defaults to \c false. */
+    property bool showBarLabels: false
+    /*! \qmlproperty real Chart::barRadius \brief Corner radius of bars in px. Defaults to \c 8. */
+    property real barRadius: 8
+    /*! \qmlproperty real Chart::areaFillOpacity \brief Fill opacity of area series. Defaults to \c 0.4. */
+    property real areaFillOpacity: 0.4
+    /*! \qmlproperty real Chart::innerRadius \brief Pie/radial inner radius in px (pie > 0 makes a donut). Defaults to \c 0. */
+    property real innerRadius: 0
+    /*! \qmlproperty real Chart::padAngleDeg \brief Pie: gap angle between sectors, in degrees. Defaults to \c 0. */
+    property real padAngleDeg: 0
 
-    // ==== 极坐标:雷达(Radar)====
-    property bool polarGridCircle: false     // 网格类型 circle(否则多边形)
-    property bool polarRadialLines: true     // 从圆心到各顶点的辐条
-    property real radarFillOpacity: 0.6       // 雷达多边形填充不透明度(0 即只描边)
+    // ==== Polar: Radar ====
+    /*! \qmlproperty bool Chart::polarGridCircle \brief Radar grid shape: \c true circle, \c false polygon. Defaults to \c false. */
+    property bool polarGridCircle: false
+    /*! \qmlproperty bool Chart::polarRadialLines \brief Radar: draw spokes from center to each vertex. Defaults to \c true. */
+    property bool polarRadialLines: true
+    /*! \qmlproperty real Chart::radarFillOpacity \brief Radar polygon fill opacity (0 = stroke only). Defaults to \c 0.6. */
+    property real radarFillOpacity: 0.6
 
-    // ==== 极坐标:径向柱(Radial)====
-    property real outerRadius: 0             // 径向:外半径(px;0 → 自适应)
-    property real radialStartDeg: 0          // 起始角(屏幕度;0=正上方,顺时针为正)
-    property real radialEndDeg: 360          // 结束角(屏幕度)
-    property bool radialBackground: false    // 每环背后的 muted 轨道
-    property real radialCornerRadius: 0      // >0 用圆角端帽(round lineCap)
-    property string centerText: ""           // 圆心主文本(如总数)
-    property string centerSubtext: ""        // 圆心副文本
+    // ==== Polar: Radial bars ====
+    /*! \qmlproperty real Chart::outerRadius \brief Radial outer radius in px (0 = auto-fit). Defaults to \c 0. */
+    property real outerRadius: 0
+    /*! \qmlproperty real Chart::radialStartDeg \brief Radial start angle in screen degrees (0 = top, clockwise positive). Defaults to \c 0. */
+    property real radialStartDeg: 0
+    /*! \qmlproperty real Chart::radialEndDeg \brief Radial end angle in screen degrees. Defaults to \c 360. */
+    property real radialEndDeg: 360
+    /*! \qmlproperty bool Chart::radialBackground \brief Draw a muted track behind each radial ring. Defaults to \c false. */
+    property bool radialBackground: false
+    /*! \qmlproperty real Chart::radialCornerRadius \brief Radial: > 0 uses round end caps. Defaults to \c 0. */
+    property real radialCornerRadius: 0
+    /*! \qmlproperty string Chart::centerText \brief Radial: primary center text (e.g. a total). Defaults to \c "". */
+    property string centerText: ""
+    /*! \qmlproperty string Chart::centerSubtext \brief Radial: secondary center text. Defaults to \c "". */
+    property string centerSubtext: ""
+    /*! \qmlproperty int Chart::centerValueSize \brief Pixel size of \l centerText. Defaults to \c Theme.text4xl. */
     property int centerValueSize: Theme.text4xl
-    property real centerYOffset: 0           // 圆心文本纵向微调(px)
+    /*! \qmlproperty real Chart::centerYOffset \brief Vertical nudge of the center text in px. Defaults to \c 0. */
+    property real centerYOffset: 0
 
-    // ==== tooltip / cursor ====
+    // ==== Tooltip / cursor ====
+    /*! \qmlproperty bool Chart::tooltipEnabled \brief Whether hovering shows a \l ChartTooltip. Defaults to \c true. */
     property bool tooltipEnabled: true
+    /*! \qmlproperty bool Chart::hideTooltipLabel \brief Hide the tooltip heading line. Defaults to \c false. */
     property bool hideTooltipLabel: false
+    /*! \qmlproperty int Chart::tooltipIndicator \brief Tooltip swatch style; see \l ChartTooltip::Indicator. Defaults to \c ChartTooltip.Dot. */
     property int tooltipIndicator: ChartTooltip.Dot
+    /*! \qmlproperty bool Chart::tooltipCursor \brief Draw a cursor highlight under the hovered point. Defaults to \c true. */
     property bool tooltipCursor: true
 
-    // x tick 格式化(function(value)->string);null 用原值
+    /*! \qmlproperty var Chart::xTickFormatter \brief Optional \c {function(value) -> string} for x tick labels; \c null uses the raw value. */
     property var xTickFormatter: null
-    // tooltip 值格式化(function(value)->string);null 用千分位
+    /*! \qmlproperty var Chart::valueFormatter \brief Optional \c {function(value) -> string} for tooltip values; \c null uses thousands grouping. */
     property var valueFormatter: null
 
     implicitWidth: 320
@@ -77,7 +150,7 @@ Item {
     readonly property bool _cartesian: type === Chart.Bar || type === Chart.Line || type === Chart.Area
     readonly property bool _polar: type === Chart.Radar || type === Chart.Radial
 
-    // ==== 几何(基于绘图区 plotArea 尺寸)====
+    // ==== Geometry (relative to the plotArea size) ====
     readonly property real _padTop: 8
     readonly property real _padRight: 8
     readonly property real _padBottom: _polar ? 8 : (_horizontalBar ? 8 : (showXAxis ? 24 : 8))
@@ -87,7 +160,7 @@ Item {
     readonly property real plotY0: _padTop
     readonly property real plotY1: plotArea.height - _padBottom
 
-    // ==== 颜色 ====
+    // ==== Colors ====
     function seriesColor(i) {
         var arr = [Theme.chart1, Theme.chart2, Theme.chart3, Theme.chart4, Theme.chart5]
         return arr[((i % 5) + 5) % 5]
@@ -106,7 +179,7 @@ Item {
         return a
     }
 
-    // ==== 数值域(nice 刻度)====
+    // ==== Value domain (nice tick scale) ====
     function _niceNum(range, round) {
         if (range <= 0) return 1
         var exp = Math.floor(Math.log(range) / Math.LN10)
@@ -136,12 +209,12 @@ Item {
         return { "max": niceMax, "ticks": ticks }
     }
 
-    // ==== 坐标映射 ====
+    // ==== Coordinate mapping ====
     function catCenterX(i) {
         var n = chartData.length
         if (type === Chart.Line || type === Chart.Area)
             return n > 1 ? plotX0 + i / (n - 1) * (plotX1 - plotX0) : (plotX0 + plotX1) / 2
-        var band = (plotX1 - plotX0) / Math.max(1, n)      // bar
+        var band = (plotX1 - plotX0) / Math.max(1, n)      // bar band
         return plotX0 + (i + 0.5) * band
     }
     function catCenterY(i) {
@@ -152,7 +225,7 @@ Item {
     function valToY(v) { return plotY1 - (v / _scale.max) * (plotY1 - plotY0) }
     function valToX(v) { return plotX0 + (v / _scale.max) * (plotX1 - plotX0) }
 
-    // ==== 图例项 ====
+    // ==== Legend entries ====
     readonly property var legendItems: {
         var a = []
         if (type === Chart.Pie || (type === Chart.Radial && !stacked)) {
@@ -172,9 +245,9 @@ Item {
         return (typeof v === "number") ? v.toLocaleString(Qt.locale("en_US")) : String(v)
     }
 
-    // ==== 悬浮态 ====
+    // ==== Hover state ====
     property int hoverIndex: -1
-    property int hoverSeries: -1            // 饼图用:悬浮扇形
+    property int hoverSeries: -1            // pie/radial: hovered sector/ring
 
     onWidthChanged: cv.requestPaint()
     onHeightChanged: cv.requestPaint()
@@ -198,7 +271,7 @@ Item {
     onShowDotsChanged: cv.requestPaint()
     Connections { target: Theme; function onDarkChanged() { cv.requestPaint() } }
 
-    // ==== 图例(顶部或底部)====
+    // ==== Legend (top or bottom) ====
     ChartLegend {
         id: legend
         visible: root.showLegend
@@ -210,7 +283,7 @@ Item {
         anchors.bottom: root.legendTop ? undefined : parent.bottom
     }
 
-    // ==== 绘图区 ====
+    // ==== Plot area ====
     Item {
         id: plotArea
         anchors.left: parent.left
@@ -238,7 +311,7 @@ Item {
             }
         }
 
-        // ---- x 轴 tick 文本(竖向图)----
+        // ---- x-axis tick labels (vertical charts) ----
         Repeater {
             model: (root._cartesian && root.showXAxis && !root._horizontalBar) ? root.chartData : []
             delegate: Text {
@@ -253,7 +326,7 @@ Item {
             }
         }
 
-        // ---- 分类标签(水平柱:左侧)----
+        // ---- Category labels (horizontal bars: left side) ----
         Repeater {
             model: root._horizontalBar ? root.chartData : []
             delegate: Text {
@@ -268,7 +341,7 @@ Item {
             }
         }
 
-        // ---- y 轴 tick 文本(可选)----
+        // ---- y-axis tick labels (optional) ----
         Repeater {
             model: (root._cartesian && root.showYAxis && !root._horizontalBar) ? root._scale.ticks : []
             delegate: Text {
@@ -282,7 +355,7 @@ Item {
             }
         }
 
-        // ==== 悬浮交互 ====
+        // ==== Hover interaction ====
         MouseArea {
             id: hover
             anchors.fill: parent
@@ -293,7 +366,7 @@ Item {
             onExited: { root.hoverIndex = -1; root.hoverSeries = -1; tip.visible = false }
         }
 
-        // ==== 圆心文本(径向 text/shape/stacked 变体)====
+        // ==== Center text (radial text/shape/stacked variants) ====
         Column {
             visible: root.type === Chart.Radial && (root.centerText !== "" || root.centerSubtext !== "")
             spacing: 2
@@ -329,7 +402,7 @@ Item {
         }
     }
 
-    // ================= 绘制实现 =================
+    // ================= Painting =================
     function _paintGrid(ctx) {
         if (!showGrid) return
         ctx.save()
@@ -486,7 +559,7 @@ Item {
         var s = seriesKeys.length
         if (n === 0 || s === 0) return
 
-        // 堆叠累计基线(自底向上)
+        // Stacked cumulative baseline (bottom-up)
         var cum = []
         for (var c = 0; c < n; c++) cum.push(0)
 
@@ -504,7 +577,7 @@ Item {
 
             var col = colorFor(j)
 
-            // ---- 面积填充 ----
+            // ---- Area fill ----
             if (type === Chart.Area) {
                 ctx.save()
                 ctx.beginPath()
@@ -517,7 +590,7 @@ Item {
                 ctx.restore()
             }
 
-            // ---- 折线 ----
+            // ---- Line ----
             ctx.save()
             ctx.beginPath()
             _smoothPath(ctx, top)
@@ -528,7 +601,7 @@ Item {
             ctx.stroke()
             ctx.restore()
 
-            // ---- 数据点 ----
+            // ---- Data dots ----
             if (showDots) {
                 for (var d = 0; d < top.length; d++) {
                     ctx.beginPath()
@@ -538,7 +611,7 @@ Item {
                 }
             }
 
-            // ---- 悬浮活动点 ----
+            // ---- Active (hovered) point ----
             if (hoverIndex >= 0 && hoverIndex < top.length) {
                 var hp = top[hoverIndex]
                 ctx.beginPath(); ctx.arc(hp.x, hp.y, 4, 0, 2 * Math.PI)
@@ -582,7 +655,7 @@ Item {
             ctx.closePath()
             ctx.fillStyle = pieColor(chartData[k], k)
             ctx.fill()
-            // 扇形间分隔(背景色描边,近似 Recharts 默认)
+            // Sector separators (background-colored stroke, approximating Recharts)
             ctx.lineWidth = 2
             ctx.strokeStyle = Theme.background
             ctx.stroke()
@@ -590,18 +663,18 @@ Item {
         }
     }
 
-    // ================= 极坐标:雷达 =================
+    // ================= Polar: Radar =================
     function _polarCenter() {
         return { "cx": (plotX0 + plotX1) / 2, "cy": (plotY0 + plotY1) / 2,
                  "R": Math.min(plotX1 - plotX0, plotY1 - plotY0) / 2 }
     }
     function _radarGeom() {
         var c = _polarCenter()
-        var R = c.R - 30                         // 留出角标签空间
+        var R = c.R - 30                         // leave room for angle labels
         if (R < 10) R = c.R * 0.72
         return { "cx": c.cx, "cy": c.cy, "R": R }
     }
-    // 类别 i 的画布角(-90° 起,顺时针)
+    // Canvas angle of category i (starting at -90 degrees, clockwise)
     function _radarAngle(i, n) { return -Math.PI / 2 + i * 2 * Math.PI / n }
 
     function _paintRadar(ctx) {
@@ -612,7 +685,7 @@ Item {
         var cx = g.cx, cy = g.cy, R = g.R
         var max = _scale.max
 
-        // ---- 极坐标网格 ----
+        // ---- Polar grid ----
         if (showGrid) {
             ctx.save()
             ctx.strokeStyle = Theme.border
@@ -633,7 +706,7 @@ Item {
                 }
                 ctx.stroke()
             }
-            // 辐条
+            // Spokes
             if (polarRadialLines) {
                 for (var k = 0; k < n; k++) {
                     var ak = _radarAngle(k, n)
@@ -646,7 +719,7 @@ Item {
             ctx.restore()
         }
 
-        // ---- 各系列多边形 ----
+        // ---- Per-series polygons ----
         for (var j = 0; j < s; j++) {
             var col = colorFor(j)
             var pts = []
@@ -679,7 +752,7 @@ Item {
             }
         }
 
-        // ---- 角标签(类别名)----
+        // ---- Angle labels (category names) ----
         ctx.save()
         ctx.fillStyle = Theme.mutedForeground
         ctx.font = Theme.textXs + "px '" + Theme.fontSans + "'"
@@ -697,7 +770,7 @@ Item {
         ctx.restore()
     }
 
-    // ================= 极坐标:径向柱 =================
+    // ================= Polar: Radial bars =================
     function _radialGeom() {
         var c = _polarCenter()
         var oR = outerRadius > 0 ? outerRadius : c.R - 6
@@ -713,7 +786,7 @@ Item {
         var g = _radialGeom()
         var cx = g.cx, cy = g.cy
 
-        // ---- 堆叠:单行多系列沿角度累计(单环)----
+        // ---- Stacked: one row's series accumulate along the angle (single ring) ----
         if (stacked) {
             var row = chartData[0]
             if (!row) return
@@ -738,11 +811,12 @@ Item {
             return
         }
 
-        // ---- 每行一环 ----
+        // ---- One ring per row ----
         var mx = 0
         for (var i0 = 0; i0 < n; i0++) mx = Math.max(mx, Number(chartData[i0][valueKey]) || 0)
         if (mx <= 0) mx = 1
-        // 单值填满轨道(近似 Recharts 单点 auto 域);多环取 nice 上限以留白。
+        // A single value fills the track (approximating Recharts' single-point auto
+        // domain); multiple rings use a nice upper bound to leave headroom.
         var domainMax = mx
         if (n > 1) {
             var step = _niceNum(mx / 4, true)
@@ -751,7 +825,7 @@ Item {
         var band = (g.oR - g.iR) / n
         var thickR = (n > 1) ? band * 0.72 : band
 
-        // 网格圆(circle)——绘于柱之下
+        // Grid circles (circle type) - drawn beneath the bars
         if (showGrid && polarGridCircle) {
             ctx.save()
             ctx.strokeStyle = Theme.border
@@ -769,7 +843,7 @@ Item {
         for (var i = 0; i < n; i++) {
             var ringOuter = g.oR - i * band
             var midr = ringOuter - band / 2
-            // 背景轨道
+            // Background track
             if (radialBackground) {
                 ctx.lineWidth = thickR
                 ctx.strokeStyle = Theme.muted
@@ -781,7 +855,7 @@ Item {
             ctx.strokeStyle = pieColor(chartData[i], i)
             ctx.beginPath(); ctx.arc(cx, cy, midr, g.start, g.start + frac * g.sweep, false); ctx.stroke()
 
-            // 环内标签(nameKey,近似 LabelList insideStart)
+            // In-ring label (nameKey, approximating LabelList insideStart)
             if (showBarLabels) {
                 var lp = _radialLabelPoint(cx, cy, midr, g.start)
                 ctx.save()
@@ -801,7 +875,7 @@ Item {
         return { "x": cx + r * Math.cos(a) + 6, "y": cy + r * Math.sin(a) }
     }
 
-    // ================= 悬浮命中 =================
+    // ================= Hover hit-testing =================
     function _updateHover(mx, my) {
         if (!tooltipEnabled) return
         if (type === Chart.Pie) { _hoverPie(mx, my); return }
@@ -823,7 +897,7 @@ Item {
         hoverIndex = best
         hoverSeries = -1
 
-        // 组装 items
+        // Build tooltip items
         var items = []
         for (var j = 0; j < seriesKeys.length; j++) {
             var val = Number(chartData[best][seriesKeys[j]]) || 0

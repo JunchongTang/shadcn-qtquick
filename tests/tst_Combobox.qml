@@ -147,6 +147,41 @@ Item {
             compare(s, 1)
         }
 
+        // ---- 键盘高亮 _step:下/上移动 + 环绕;空高亮时 Down 到首项、Up 到末项 ----
+        function test_step_navigationAndWrap() {
+            single._highlight = -1
+            single._step(1)                            // Down from none → first item
+            compare(single._highlight, 0)
+            single._step(1)
+            compare(single._highlight, 1)
+            single._step(1)
+            compare(single._highlight, 2)
+            single._step(1)                            // wrap forward → first
+            compare(single._highlight, 0)
+            single._step(-1)                           // wrap backward → last
+            compare(single._highlight, 2)
+            single._highlight = -1
+            single._step(-1)                           // Up from none → last item (fix: was off-by-one)
+            compare(single._highlight, 2)
+            single._highlight = -1
+        }
+
+        // ---- 键盘高亮 _step:跳过 header / separator 等非条目行 ----
+        function test_step_skipsNonItems() {
+            // grouped._rows: [header, item, item, sep, header, item]
+            var rows = grouped._rows
+            compare(rows[0].type, "header")
+            grouped._highlight = -1
+            grouped._step(1)                           // skip leading header → first item
+            compare(rows[grouped._highlight].type, "item")
+            verify(grouped._highlight >= 1)
+            grouped._highlight = -1
+            grouped._step(-1)                          // Up from none → last item
+            compare(grouped._highlight, rows.length - 1)
+            compare(rows[grouped._highlight].type, "item")
+            grouped._highlight = -1
+        }
+
         // ---- 外观:多选 chips 容器内边距对称,且上留白 == 行间距(复现 padding bug)----
         function test_chips_padding_symmetry() {
             multi.selectedValues = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]

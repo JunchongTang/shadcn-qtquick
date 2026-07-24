@@ -1,41 +1,69 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Collapsible(base-mira)—— 由 `expanded` 受控的可折叠面板。
-// 对标 base-ui Collapsible:Root(open) / Trigger / Panel。mira 无专属 .cn-collapsible
-// 样式,组件本身仅提供结构 + 高度动画,视觉由内部放置的 Button/内容自行决定。
-//
-// 组成:
-//   · trigger 槽 —— 常驻的顶部触发区(内含负责开合的控件,通常调用 collapsible.toggle())。
-//   · 默认内容 —— 可折叠面板(Panel),展开/收起时高度动画(参照 AccordionItem 范式)。
-//
-// 用法:
-//   Collapsible {
-//       id: c
-//       trigger: Button { text: "Toggle"; onClicked: c.toggle() }
-//       // 以下为可折叠内容(默认 content 槽)
-//       Text { Layout.fillWidth: true; text: "..." }
-//   }
+/*!
+    \qmltype Collapsible
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A panel whose content expands and collapses with a height animation.
+
+    Collapsible is the base-mira port of shadcn's Collapsible (base-ui
+    \c Root / \c Trigger / \c Panel). base-mira ships no dedicated styling for
+    it: the component provides structure and a height animation only, while the
+    visuals come from whatever Button and content the caller places inside.
+
+    The layout has two parts:
+    \list
+        \li \l trigger — an always-visible header slot. It typically holds the
+            control that opens and closes the panel (which calls \l toggle()).
+        \li default content — the collapsible \e panel. Its height animates
+            between \c 0 (collapsed) and its natural height (expanded), following
+            the same pattern as AccordionItem.
+    \endlist
+
+    Open state is controlled through \l expanded; call \l toggle() from the
+    trigger control to flip it.
+
+    Set \l background and \l radius to paint an optional rounded fill behind the
+    whole (animating) region, mirroring a \c {rounded-md data-open:bg-muted}
+    treatment. Both default to no background.
+
+    \qml
+    Collapsible {
+        id: c
+        trigger: Button { text: "Toggle"; onClicked: c.toggle() }
+        Text { Layout.fillWidth: true; text: "Collapsible content." }
+    }
+    \endqml
+*/
 Item {
     id: root
 
+    /*! \qmlproperty bool Collapsible::expanded \brief Whether the panel is open. Defaults to \c false. */
     property bool expanded: false
-    // trigger 与内容之间、以及内容各子项之间的间距(对标 demo 的 gap-2)。
+    /*! \qmlproperty real Collapsible::gap
+        \brief Spacing between the trigger and the content, and between content
+        items (mirrors the demo's \c gap-2). Defaults to \c Theme.space2. */
     property real gap: Theme.space2
-    // 可选背景(对标 Basic 的 rounded-md data-open:bg-muted)。默认无背景。
+    /*! \qmlproperty color Collapsible::background \brief Optional fill behind the whole region. Defaults to transparent. */
     property color background: "transparent"
+    /*! \qmlproperty real Collapsible::radius \brief Corner radius of \l background. Defaults to \c 0. */
     property real radius: 0
 
+    /*! \qmlproperty list<QtObject> Collapsible::trigger \brief Content of the always-visible header slot. */
     property alias trigger: triggerSlot.data
+    /*! \qmlproperty list<QtObject> Collapsible::content \brief Collapsible panel content (the default property). */
     default property alias content: body.data
 
+    /*! \qmlmethod void Collapsible::toggle() \brief Flips \l expanded between open and closed. */
     function toggle() { expanded = !expanded }
 
-    // 尺寸由子项驱动;宽度需由外部(Layout/显式 width)提供,避免自引用循环。
+    // Size follows the children; width must come from outside (Layout or an
+    // explicit width) to avoid a self-referential loop.
     implicitWidth: Math.max(triggerSlot.implicitWidth, body.implicitWidth)
     implicitHeight: triggerSlot.height + contentClip.height
 
-    // 背景铺满当前(随高度动画)区域。
+    // Fill behind the current (height-animated) region.
     Rectangle {
         anchors.fill: parent
         color: root.background
@@ -43,18 +71,20 @@ Item {
         visible: root.background.a > 0
     }
 
-    // ---- 常驻触发区 ----
+    // Always-visible trigger slot.
     Item {
         id: triggerSlot
+        objectName: "trigger"
         width: root.width
         implicitWidth: childrenRect.width
         implicitHeight: childrenRect.height
         height: childrenRect.height
     }
 
-    // ---- 可折叠面板(高度动画)----
+    // Collapsible panel with an animated height.
     Item {
         id: contentClip
+        objectName: "content"
         anchors.top: triggerSlot.bottom
         width: root.width
         clip: true

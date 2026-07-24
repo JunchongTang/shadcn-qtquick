@@ -2,23 +2,70 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 
-// shadcn ChartTooltipContent(base-mira)—— 图表悬浮提示框。
-// 对标 .cn-chart-tooltip:bg-background border-border/50 rounded-lg px-2.5 py-1.5
-//   text-xs/relaxed shadow-xl gap-1.5 min-w-32。
-// 结构:可选 label(font-medium)+ 若干行 [指示器][名称 muted]⟷[值 mono medium]。
-// items:[{ color, label, value }];indicator:0 dot / 1 line / 2 dashed。
+/*!
+    \qmltype ChartTooltip
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief The hover tooltip for a Chart, styled after shadcn's base-mira ChartTooltipContent.
+
+    ChartTooltip is the floating card shown while hovering a chart data point.
+    It mirrors shadcn's \c .cn-chart-tooltip: a \c bg-background card with a
+    \c border-border/50 hairline, \c rounded-lg corners, \c px-2.5 / \c py-1.5
+    padding, \c text-xs body, \c shadow-xl elevation, \c gap-1.5 row spacing and
+    a \c min-w-32 (128px) minimum width.
+
+    The layout is an optional \l labelText line (\c font-medium) followed by one
+    row per entry in \l items, each row being
+    \c {[indicator] [name (muted)]  <->  [value (mono, medium)]}. \l Chart owns
+    a single instance and feeds it while tracking the pointer.
+
+    \note This is a simplified port: shadcn's \c nestLabel behaviour (folding the
+    label into a single-series row) is not reproduced, and the \c dashed
+    indicator is approximated with a hollow outlined square rather than a
+    zero-width dashed rule.
+*/
 Item {
     id: tip
 
+    /*!
+        \qmlproperty enumeration ChartTooltip::indicator
+        The per-row swatch style, matching shadcn's \c indicator prop.
+        \value ChartTooltip.Dot Filled rounded square (\c size-2.5).
+        \value ChartTooltip.Line Thin filled vertical bar (\c w-1).
+        \value ChartTooltip.Dashed Hollow outlined square (approximates \c border-dashed).
+    */
     enum Indicator { Dot, Line, Dashed }
 
+    /*!
+        \qmlproperty string ChartTooltip::labelText
+        The heading line (typically the category, e.g. the x-axis value). Empty,
+        or when \l showLabel is \c false, hides the heading. Defaults to \c "".
+    */
     property string labelText: ""
+
+    /*!
+        \qmlproperty bool ChartTooltip::showLabel
+        Whether the \l labelText heading is shown. Mirrors the inverse of
+        shadcn's \c hideLabel. Defaults to \c true.
+    */
     property bool showLabel: true
+
+    /*!
+        \qmlproperty list ChartTooltip::items
+        The rows to display, each an object \c {{ color, label, value }}: \c color
+        is the indicator color, \c label the (muted) series name and \c value the
+        pre-formatted display value. Defaults to an empty list.
+    */
     property var items: []
+
+    /*!
+        \qmlproperty int ChartTooltip::indicator
+        The row swatch style; see \l Indicator. Defaults to \c ChartTooltip.Dot.
+    */
     property int indicator: ChartTooltip.Dot
 
-    readonly property real _padX: Theme.space2_5   // px-2.5 = 10
-    readonly property real _padY: Theme.space1_5   // py-1.5 = 6
+    readonly property real _padX: Theme.space2_5   // px-2.5 (10px)
+    readonly property real _padY: Theme.space1_5   // py-1.5 (6px)
 
     implicitWidth: Math.max(128, box.implicitWidth)   // min-w-32
     implicitHeight: box.implicitHeight
@@ -37,7 +84,7 @@ Item {
         layer.effect: MultiEffect {
             autoPaddingEnabled: true
             shadowEnabled: true
-            shadowColor: Theme.alpha("#000000", Theme.dark ? 0.6 : 0.22)  // shadow-xl(近似)
+            shadowColor: Theme.alpha("#000000", Theme.dark ? 0.6 : 0.22)  // shadow-xl (approx)
             shadowBlur: 0.7
             shadowVerticalOffset: 8
         }
@@ -65,14 +112,14 @@ Item {
                     Layout.fillWidth: true
                     spacing: Theme.space2            // gap-2
 
-                    // ---- 指示器 ----
+                    // ---- Indicator swatch ----
                     Item {
                         Layout.alignment: tip.indicator === ChartTooltip.Dot ? Qt.AlignVCenter : Qt.AlignTop
                         Layout.topMargin: tip.indicator === ChartTooltip.Dot ? 0 : 2
                         implicitWidth: tip.indicator === ChartTooltip.Dot ? 10 : (tip.indicator === ChartTooltip.Line ? 4 : 10)
                         implicitHeight: tip.indicator === ChartTooltip.Dot ? 10 : 10
 
-                        // dot / line:实心圆角块;dashed:空心描边方块
+                        // dot / line: filled rounded block; dashed: hollow outlined square
                         Rectangle {
                             anchors.fill: parent
                             radius: 2

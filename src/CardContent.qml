@@ -1,15 +1,26 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn CardContent —— 正文区容器。水平内边距由 Card 统一提供。
-// edgeToEdge:内容铺满到卡片左右边缘(对标官方 -mx-(--card-spacing)),
-// 用负边距抵消 Card 施加的水平统一内边距;内部子项可再自行加回 px 对齐卡片 inset。
+/*!
+    \qmltype CardContent
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief Body region of a Card (cn-card-content).
+
+    Horizontal insets are supplied by the enclosing Card. Content items stack
+    vertically with a small gap.
+*/
 ColumnLayout {
     id: content
 
+    /*! \qmlproperty bool CardContent::edgeToEdge
+        When true the content spans to the card's left/right edges
+        (official -mx-(--card-spacing)): negative margins cancel the Card's
+        uniform horizontal inset. Inner items may re-add their own px. */
     property bool edgeToEdge: false
 
-    // Card 的统一内边距 = 其内容列(此 item 的 parent)anchors.margins(= cardSpacing)。
+    // Card's uniform inset equals its content column's anchors.margins
+    // (== cardSpacing); the parent of this item is that column.
     readonly property real _inset: (parent && parent.anchors) ? parent.anchors.margins : 0
 
     Layout.fillWidth: true

@@ -3,51 +3,99 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import LucideIcons
 
-// shadcn Command(命令面板)—— 顶部搜索框 + 分组的可过滤条目列表 + 空结果提示。
-// 自包含、数据驱动:与本仓 Select.qml 一致用 model 数组描述内容(QML 侧对 cmdk 的等价表达)。
-//
-// 样式权威:style-mira.css 的 .cn-command / -input-wrapper / -input-group / -input-icon /
-//   -input / -list / -empty / -group / -separator / -item / -shortcut(见 registry/styles)。
-//   面板 bg-popover rounded-xl p-1;列表 max-h-72;条目 min-h-7 gap-2 px-2.5 py-1.5 rounded-md;
-//   选中/悬停 data-selected:bg-muted + text-foreground(mira 中 muted===accent 同色);
-//   右侧 shortcut text-[0.625rem] tracking-widest,选中时转 foreground。
-//
-// 数据 API(model):[ { heading?, items: [ { text, icon?, shortcut?, disabled? } ] }, … ]
-//   相邻两个「有可见项」的分组间自动插入分隔线(对齐官方 CommandSeparator 用法)。
-//   过滤:按 text 大小写不敏感子串匹配;某组全部被过滤则该组标题/分隔线一并隐藏。
-//
-// 承载于 Dialog(command-dialog / ⌘K)时,把本组件作为 Dialog 内容,并设 Dialog padding:0、
-//   showCloseButton:false;打开后调用 focusInput() 聚焦搜索框。
+/*!
+    \qmltype Command
+    \inqmlmodule Shadcn
+    \inherits Rectangle
+    \brief A command palette: a search field over a filterable, grouped item list
+           with an empty-state fallback.
+
+    Command is a self-contained, data-driven port of shadcn/ui's cmdk-based
+    \c Command (base-mira). Content is described declaratively through \l model
+    (an array of groups), mirroring the approach used by Select.qml in this
+    repository, rather than via composed child elements.
+
+    Styling authority is style-mira.css: \c{.cn-command} panel is \c bg-popover
+    \c rounded-xl \c p-1; the list is capped at \c max-h-72 (288px); each item is
+    \c min-h-7 with \c gap-2 \c px-2.5 \c py-1.5 \c rounded-md; the selected /
+    hovered row uses \c data-selected:bg-muted with \c text-foreground; the
+    trailing shortcut is \c text-[0.625rem] \c tracking-widest and turns to
+    \c foreground when selected.
+
+    \section2 Data model
+
+    \l model is an array of groups:
+    \c{[ { heading?, items: [ { text, icon?, shortcut?, disabled? } ] }, ... ]}.
+    A separator is inserted automatically between any two groups that still have
+    visible items (matching the official CommandSeparator usage). Filtering is a
+    case-insensitive substring match against each item's \c text; a group whose
+    items are all filtered out hides its heading and its separator too.
+
+    \section2 Hosting in a dialog
+
+    To reproduce command-dialog (Cmd-K), place Command as the content of a Dialog
+    with the dialog's padding set to 0 and its close button hidden, then call
+    \l focusInput() once the dialog opens to focus the search field.
+*/
 Rectangle {
     id: root
 
-    // ==== 公开 API ====
-    property var model: []                                   // 分组数据(见文件头)
-    property string placeholder: qsTr("Type a command or search...")
-    property string emptyText: qsTr("No results found.")
-    property bool showBorder: false                          // 内联用法(max-w-sm rounded-lg border)
-    property alias query: searchField.text                   // 搜索文本(可读写)
-    readonly property int currentIndex: _current             // 当前高亮的行下标(_rows 内)
+    // ==== Public API ====
 
-    // 条目被激活(点击 / 回车)时触发,item 为该行对象 { text, icon, shortcut, disabled }。
+    /*! \qmlproperty var Command::model
+        Grouped content. Array of \c{{ heading?, items: [{ text, icon?,
+        shortcut?, disabled? }] }}. See the type description for details. */
+    property var model: []
+
+    /*! \qmlproperty string Command::placeholder
+        Placeholder text shown in the search field while it is empty. */
+    property string placeholder: qsTr("Type a command or search...")
+
+    /*! \qmlproperty string Command::emptyText
+        Message shown when no item matches the current query. */
+    property string emptyText: qsTr("No results found.")
+
+    /*! \qmlproperty bool Command::showBorder
+        When true, renders as an inline card (border + rounded-lg) instead of a
+        borderless popover panel (rounded-xl). */
+    property bool showBorder: false
+
+    /*! \qmlproperty string Command::query
+        The current search text (readable and writable); editing it re-filters. */
+    property alias query: searchField.text
+
+    /*! \qmlproperty int Command::currentIndex
+        Read-only index, within the flattened visible rows, of the highlighted
+        row, or -1 when nothing is highlighted. */
+    readonly property int currentIndex: _current
+
+    /*! \qmlsignal Command::triggered(var item)
+        Emitted when an item row is activated by click or Enter. \a item is the
+        row object \c{{ text, icon, shortcut, disabled }}. */
     signal triggered(var item)
 
-    function focusInput() { searchField.forceActiveFocus() } // Dialog 打开后聚焦搜索框
-    function reset() { searchField.text = "" }               // 清空搜索
+    /*! \qmlmethod void Command::focusInput()
+        Moves keyboard focus to the search field (call after a hosting dialog
+        opens). */
+    function focusInput() { searchField.forceActiveFocus() }
 
-    // ==== 内部状态 ====
-    property var _rows: []            // 扁平可见行:{ type: "heading"|"item"|"separator", … }
-    property int _current: -1         // 高亮行下标
+    /*! \qmlmethod void Command::reset()
+        Clears the search text, which restores the full item list. */
+    function reset() { searchField.text = "" }
+
+    // ==== Internal state ====
+    property var _rows: []            // Flattened visible rows: { type: "heading"|"item"|"separator", ... }
+    property int _current: -1         // Highlighted row index
 
     color: Theme.popover
-    radius: showBorder ? Theme.radiusLg : Theme.radiusXl     // 内联 rounded-lg / 面板 rounded-xl
+    radius: showBorder ? Theme.radiusLg : Theme.radiusXl     // inline rounded-lg / panel rounded-xl
     border.width: showBorder ? 1 : 0
     border.color: Theme.border
     implicitWidth: 400
     implicitHeight: col.implicitHeight + 2 * Theme.space1     // p-1
     clip: true
 
-    // 过滤 + 重建扁平行模型。
+    // Filter the model and rebuild the flattened row list.
     function _rebuild() {
         var q = String(searchField.text).trim().toLowerCase()
         var rows = []
@@ -64,7 +112,7 @@ Rectangle {
             }
             if (matched.length === 0)
                 continue
-            if (rows.length > 0)                              // 分组间分隔线
+            if (rows.length > 0)                              // separator between groups
                 rows.push({ type: "separator" })
             if (grp.heading)
                 rows.push({ type: "heading", text: String(grp.heading) })
@@ -91,7 +139,8 @@ Rectangle {
         _current = -1
     }
 
-    // 在可选条目间移动高亮(跳过标题/分隔线/禁用项),循环。
+    // Move the highlight between selectable items (skipping headings, separators
+    // and disabled items), wrapping around at either end.
     function _move(dir) {
         var n = _rows.length
         if (n === 0) return
@@ -124,7 +173,8 @@ Rectangle {
         anchors.margins: Theme.space1        // .cn-command p-1
         spacing: 0
 
-        // ==== 搜索框(input-wrapper p-1 pb-0 → 上/左/右各 4;input-group bg-input/20 h-8)====
+        // ==== Search field (input-wrapper p-1 pb-0 -> 4 on top/left/right;
+        //      input-group bg-input/20 h-8) ====
         Rectangle {
             id: inputGroup
             Layout.fillWidth: true
@@ -151,7 +201,7 @@ Rectangle {
                     id: searchField
                     Layout.fillWidth: true
                     padding: 0
-                    background: null                 // 组底色由 inputGroup 提供(outline-hidden)
+                    background: null                 // group background comes from inputGroup (outline-hidden)
                     font.pixelSize: Theme.textXs     // text-xs
                     color: Theme.foreground
                     placeholderText: root.placeholder
@@ -160,15 +210,17 @@ Rectangle {
                     selectedTextColor: Theme.foreground
                     verticalAlignment: TextInput.AlignVCenter
                     onTextChanged: root._rebuild()
-                    Keys.onDownPressed: root._move(1)
-                    Keys.onUpPressed: root._move(-1)
-                    Keys.onReturnPressed: root._activate(root._current)
-                    Keys.onEnterPressed: root._activate(root._current)
+                    // Consume the navigation keys so they do not propagate to a
+                    // hosting dialog (e.g. Enter triggering a default button).
+                    Keys.onDownPressed: (event) => { root._move(1); event.accepted = true }
+                    Keys.onUpPressed: (event) => { root._move(-1); event.accepted = true }
+                    Keys.onReturnPressed: (event) => { root._activate(root._current); event.accepted = true }
+                    Keys.onEnterPressed: (event) => { root._activate(root._current); event.accepted = true }
                 }
             }
         }
 
-        // ==== 列表区(list max-h-72 = 288)/ 空结果提示 ====
+        // ==== List area (list max-h-72 = 288) / empty-state message ====
         Item {
             Layout.fillWidth: true
             Layout.leftMargin: Theme.space1
@@ -178,7 +230,7 @@ Rectangle {
                 ? empty.implicitHeight
                 : Math.min(list.contentHeight, 288)
 
-            // 空结果(cn-command-empty: py-6 text-center text-xs)
+            // Empty state (cn-command-empty: py-6 text-center text-xs)
             Text {
                 id: empty
                 visible: root._rows.length === 0
@@ -200,7 +252,7 @@ Rectangle {
                 clip: true
                 interactive: contentHeight > height
                 boundsBehavior: Flickable.StopAtBounds
-                // .cn-command-list no-scrollbar → 不显示滚动条
+                // .cn-command-list no-scrollbar -> no scroll bar drawn
 
                 delegate: Item {
                     id: rowItem
@@ -213,19 +265,19 @@ Rectangle {
 
                     readonly property bool _selected: root._current === index
 
-                    // ---- 分隔线(cn-command-separator: bg-border/50 -mx-1 my-1 h-px)----
+                    // ---- Separator (cn-command-separator: bg-border/50 -mx-1 my-1 h-px) ----
                     Rectangle {
                         visible: rowItem.modelData.type === "separator"
                         anchors.left: parent.left
                         anchors.right: parent.right
-                        anchors.leftMargin: -Theme.space1        // -mx-1(相对 group p-1)
+                        anchors.leftMargin: -Theme.space1        // -mx-1 (relative to group p-1)
                         anchors.rightMargin: -Theme.space1
                         anchors.verticalCenter: parent.verticalCenter
                         height: 1
                         color: Theme.alpha(Theme.border, 0.5)
                     }
 
-                    // ---- 分组标题(cmdk-group-heading: text-muted-foreground px-2.5 py-1.5 text-xs)----
+                    // ---- Group heading (cmdk-group-heading: text-muted-foreground px-2.5 py-1.5 text-xs) ----
                     Text {
                         visible: rowItem.modelData.type === "heading"
                         anchors.left: parent.left
@@ -240,7 +292,7 @@ Rectangle {
                         elide: Text.ElideRight
                     }
 
-                    // ---- 条目(cn-command-item)----
+                    // ---- Item (cn-command-item) ----
                     Rectangle {
                         visible: rowItem.modelData.type === "item"
                         anchors.fill: parent

@@ -1,14 +1,38 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn ChartLegendContent(base-mira)—— 图表图例行。
-// 对标 flex items-center justify-center gap-4;每项 8×8 rounded-[2px] 色块 + gap-1.5 标签。
-// items:[{ label, color }]。verticalAlign top → pb-3;bottom → pt-3。
+/*!
+    \qmltype ChartLegend
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief The legend row for a Chart, styled after shadcn's base-mira ChartLegendContent.
+
+    ChartLegend lays out one entry per series (or per pie/radial slice) in a
+    centered horizontal row (\c {flex items-center justify-center gap-4}). Each
+    entry is an 8x8 \c rounded-[2px] color swatch (\c size-2) followed by a
+    \c gap-1.5 text label at \c text-xs.
+
+    It is a presentation-only helper driven by \l items; \l Chart builds that
+    list from its series/config and embeds one ChartLegend above or below the
+    plot. \l atTop mirrors shadcn's \c verticalAlign: top adds bottom padding
+    (\c pb-3), bottom adds top padding (\c pt-3).
+*/
 Item {
     id: legend
 
+    /*!
+        \qmlproperty list ChartLegend::items
+        The legend entries, each an object \c {{ label, color }}. \c label is the
+        display text and \c color the swatch fill. Defaults to an empty list.
+    */
     property var items: []
-    property bool atTop: false       // true: 图例在图上方(pb-3);false: 下方(pt-3)
+
+    /*!
+        \qmlproperty bool ChartLegend::atTop
+        Whether the legend sits above the plot. When \c true it uses bottom
+        padding (\c pb-3); when \c false (the default) it uses top padding (\c pt-3).
+    */
+    property bool atTop: false
 
     implicitHeight: visible ? row.implicitHeight + Theme.space3 : 0
     implicitWidth: row.implicitWidth
@@ -28,7 +52,7 @@ Item {
                 required property var modelData
                 spacing: Theme.space1_5           // gap-1.5
                 Rectangle {
-                    Layout.preferredWidth: 8      // size-2
+                    Layout.preferredWidth: 8      // size-2 (8px)
                     Layout.preferredHeight: 8
                     radius: 2                     // rounded-[2px]
                     color: modelData.color

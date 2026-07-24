@@ -1,13 +1,38 @@
 import QtQuick
 
-// shadcn ButtonGroupText —— 组内文本(cn-button-group-text:bg-muted、rounded-md、border、
-// px-2.5、text-xs/relaxed、font-medium)。含 groupPosition,由 ButtonGroup 自动拉直相邻内侧角。
+/*!
+    \qmltype ButtonGroupText
+    \inqmlmodule Shadcn
+    \inherits Rectangle
+    \brief A non-interactive text chip for a ButtonGroup, styled after base-mira
+    \c .cn-button-group-text (\c bg-muted, \c rounded-md, \c border, \c px-2.5,
+    \c text-xs, \c font-medium).
+
+    ButtonGroupText renders a muted, bordered label that sits flush against
+    neighbouring buttons or inputs inside a ButtonGroup. Like Button it exposes
+    \l groupPosition / \l groupVertical, so ButtonGroup can straighten the inner
+    corners adjacent to its neighbours.
+
+    \sa ButtonGroup, Button
+*/
 Rectangle {
     id: control
 
+    /*! \qmlproperty string ButtonGroupText::text \brief The label text. */
     property alias text: label.text
-    // 在 ButtonGroup 中的相邻位置(由 ButtonGroup 自动设置)。
+
+    /*!
+        \qmlproperty int ButtonGroupText::groupPosition
+        \brief Adjacency inside a ButtonGroup; see \c Button.GroupPosition. Set
+        automatically by ButtonGroup. Defaults to \c Button.GroupNone.
+    */
     property int groupPosition: Button.GroupNone
+
+    /*!
+        \qmlproperty bool ButtonGroupText::groupVertical
+        \brief Whether the containing ButtonGroup is vertical. Set automatically
+        by ButtonGroup. Defaults to false.
+    */
     property bool groupVertical: false
 
     implicitHeight: 28
@@ -17,7 +42,10 @@ Rectangle {
     border.width: 1
     border.color: Theme.border
 
-    // 分组时拉直相邻内侧角(逐角推导,机制同 Button)。
+    // Straighten the inner corners adjacent to neighbours when grouped (same
+    // per-corner derivation as Button). None is fully round; Middle is fully
+    // square. Horizontal: First keeps its left corners, Last its right.
+    // Vertical: First keeps its top corners, Last its bottom.
     readonly property bool _n: groupPosition === Button.GroupNone
     readonly property bool _f: groupPosition === Button.GroupFirst
     readonly property bool _l: groupPosition === Button.GroupLast

@@ -18,16 +18,16 @@ Legend: ✅ done · 🔶 partial · ⬜ pending · — n/a
 | 8 | Breadcrumb | Breadcrumb(+5 parts) | ✅ | ✅ | ✅ | ✅ | relaxed line-height fix; #008 intact |
 | 9 | Bubble | Bubble(+3 parts) | ✅ | ✅ | ✅ | ✅ | fixed P2 #029 (reactions Top/Bottom inherited-enum collision); #009 intact |
 | 10 | Button | Button | ✅ | ✅ | ✅ | 🔶 | verified vs style-mira; dark-mode color-mix approx flagged |
-| 11 | ButtonGroup | ButtonGroup(+2 parts) | ⬜ | ⬜ | ⬜ | ⬜ | fixes #010–#014 landed |
-| 12 | Calendar | Calendar | ⬜ | ⬜ | ⬜ | ⬜ | fixes #015/#017 landed |
-| 13 | Card | Card(+5 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 14 | Carousel | Carousel, CarouselItem | ⬜ | ⬜ | ⬜ | ⬜ | fix #018 landed |
-| 15 | Chart | Chart, ChartLegend, ChartTooltip | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 16 | Checkbox | Checkbox | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 17 | Collapsible | Collapsible | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 18 | Combobox | Combobox, ComboboxChip | 🔶 | ⬜ | ✅ | ⬜ | tests exist; fix #020 landed |
-| 19 | Command | Command | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 20 | ContextMenu | ContextMenu | ⬜ | ⬜ | ⬜ | ⬜ | fix #021 landed |
+| 11 | ButtonGroup | ButtonGroup(+2 parts) | ✅ | ✅ | ✅ | 🔶 | no bugs; flagged Grid items-stretch/flex-1 limits |
+| 12 | Calendar | Calendar | ✅ | ✅ | ✅ | ✅ | no bugs; #015/#017 intact |
+| 13 | Card | Card(+5 parts) | ✅ | ✅ | ✅ | 🔶 | 2×P3 (title font); flagged per-child padding, CardAction unmodeled |
+| 14 | Carousel | Carousel, CarouselItem | ✅ | ✅ | ✅ | 🔶 | fixed P2 nav focusPolicy; embla canScrollNext approx flagged |
+| 15 | Chart | Chart, ChartLegend, ChartTooltip | ✅ | ✅ | ✅ | 🔶 | no bugs; Recharts-math simplifications flagged |
+| 16 | Checkbox | Checkbox | ✅ | ✅ | ✅ | ✅ | fixed P2 label-less sizing + 2×P3 dark/focus |
+| 17 | Collapsible | Collapsible | ✅ | ✅ | ✅ | ✅ | no bugs |
+| 18 | Combobox | Combobox, ComboboxChip | ✅ | ✅ | ✅ | 🔶 | fixed P2 up-arrow off-by-one; #020 intact; autoHighlight flagged |
+| 19 | Command | Command | ✅ | ✅ | ✅ | 🔶 | fixed P2 Enter-key bubbling; check-indicator flagged |
+| 20 | ContextMenu | ContextMenu | ✅ | ✅ | ✅ | 🔶 | fixed P2 handler leak; touch long-press flagged; #021 intact |
 | 21 | DatePicker | DatePicker, DateRangePicker | ✅ | ✅ | ⬜ | 🔶 | #025; toggle needs real-machine check |
 | 22 | Dialog | Dialog | ✅ | ✅ | ⬜ | 🔶 | #026; blur needs real-machine check |
 | 23 | Drawer | Drawer | ✅ | ✅ | ⬜ | 🔶 | #027; examples aligned |

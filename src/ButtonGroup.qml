@@ -1,39 +1,71 @@
 import QtQuick
 
-// shadcn Button Group(base-mira)—— 让相邻控件(Button / Input / Select / ButtonGroupText)
-// 首尾相接成一体。对齐 style-mira 的 .cn-button-group:相邻项拉直内侧圆角、共享一条边框。
-//
-// 实现:
-//   · spacing -1 让相邻 1px 边框重合为一条(避免双线);
-//   · 自动为每个含 groupPosition 的子项指派 First/Middle/Last(单项时 None),
-//     子项据此拉直内侧角;含 groupVertical 的子项在纵向时改拉直上/下角。
-//   · orientation 决定横向(单行)或纵向(单列)。用 Grid + 单行/单列约束实现,
-//     以便同一组件同时支持两向(Row/Column 无法二合一)。
-//
-// 说明:
-//   · 「组间留白(nested,gap-2)」请在外层用 Row/Column { spacing: 8 } 套多个 ButtonGroup,
-//     见 demos/button-group/Nested.qml、Demo.qml。
-//   · 带分隔线的分组(Separator / Split)因分隔线会被 spacing:-1 吞掉,改用
-//     spacing:0 的手工组合 + ButtonGroupSeparator,见 demos/button-group/Separator.qml。
+/*!
+    \qmltype ButtonGroup
+    \inqmlmodule Shadcn
+    \inherits Grid
+    \brief Joins adjacent controls into a single seamless bar, styled after
+    shadcn/ui base-mira \c .cn-button-group.
+
+    ButtonGroup lays its children out in a single row (\l orientation
+    \c ButtonGroup.Horizontal) or a single column (\c ButtonGroup.Vertical) and
+    makes their touching 1px borders overlap into one shared edge (via a -1px
+    \c spacing), mirroring the web behaviour where adjacent items collapse their
+    inner border and straighten their inner corners.
+
+    It works with any child that exposes a \c groupPosition property (Button,
+    Input, Select, ButtonGroupText). On layout it assigns each such child a
+    First / Middle / Last position (or \c Button.GroupNone when there is a single
+    item), and children that also expose \c groupVertical are told the group's
+    orientation so they straighten the correct corners.
+
+    A single \c Grid (rather than Row/Column) is used so one component can serve
+    both orientations by constraining the opposite dimension.
+
+    \note Group-to-group spacing (the nested \c gap-2 case) is done by wrapping
+    several ButtonGroups in an outer \c Row / \c Column with a positive spacing.
+    Groups that contain a ButtonGroupSeparator (Separator / Split) cannot use the
+    -1px spacing (it would swallow the separator); build those by hand with a
+    \c spacing:0 layout and set each child's \c groupPosition explicitly.
+
+    \sa Button, ButtonGroupText, ButtonGroupSeparator
+*/
 Grid {
     id: group
 
+    /*!
+        \qmlproperty enumeration ButtonGroup::orientation
+        Layout direction of the group.
+        \value ButtonGroup.Horizontal Single row; inner left/right corners are
+        straightened. Value 0 (default).
+        \value ButtonGroup.Vertical Single column; inner top/bottom corners are
+        straightened.
+    */
     enum Orientation { Horizontal, Vertical }
+
+    /*!
+        \qmlproperty int ButtonGroup::orientation
+        \brief The layout direction; see \l Orientation. Defaults to
+        \c ButtonGroup.Horizontal.
+    */
     property int orientation: ButtonGroup.Horizontal
 
-    // 单行:rows=1、columns 自动(-1);单列:columns=1、rows 自动。
-    // 注意:另一维必须留 -1(自动),不能填大数——Grid 会真的预留那么多行/列,
-    // 叠加 spacing:-1 的负间距会把尺寸塌掉(竖向表现为整组不显示)。
+    // Horizontal: rows=1, columns auto (-1) -> one row. Vertical: columns=1,
+    // rows auto -> one column. The auto dimension MUST stay -1: a fixed large
+    // count makes Grid reserve that many rows/columns, and combined with the
+    // -1px spacing that collapses the whole group (it renders empty vertically).
     rows: orientation === ButtonGroup.Vertical ? -1 : 1
     columns: orientation === ButtonGroup.Vertical ? 1 : -1
-    spacing: -1  // 相邻边框重合(避免双线)
+    spacing: -1  // overlap adjacent 1px borders into one edge (avoid double lines)
 
     onChildrenChanged: Qt.callLater(_assignPositions)
     onOrientationChanged: _assignPositions()
     Component.onCompleted: _assignPositions()
 
-    // 收集含 groupPosition 的子项(Button / Input / Select / ButtonGroupText),
-    // 按首/中/尾指派拉角位置;含 groupVertical 者随组方向设置。
+    // Collect children that expose groupPosition (Button / Input / Select /
+    // ButtonGroupText) and tag each First / Middle / Last (or None when alone)
+    // so it straightens the correct inner corners; children that also expose
+    // groupVertical are told the group's orientation.
     function _assignPositions() {
         let items = []
         for (let i = 0; i < children.length; i++) {
