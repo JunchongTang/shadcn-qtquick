@@ -55,7 +55,10 @@ Item {
     // Item.TransformOrigin members (Top/Left/Center/Right/Bottom), so QML's
     // flattening of enum values into the type scope is safe here (see #029).
 
-    /*! \qmlproperty enumeration Carousel::orientation \brief Scroll axis; see \l Orientation. Defaults to \c Carousel.Horizontal. */
+    /*!
+        \qmlproperty enumeration Carousel::orientation
+        Scroll axis; see \l Orientation. Defaults to \c Carousel.Horizontal.
+    */
     property int orientation: Carousel.Horizontal
 
     /*!
@@ -87,17 +90,29 @@ Item {
 
     readonly property bool _horizontal: orientation === Carousel.Horizontal
 
-    /*! \qmlproperty bool Carousel::canScrollPrev \brief Whether \l scrollPrev() can advance (not on the first slide). Read-only. */
+    /*!
+        \qmlproperty bool Carousel::canScrollPrev
+        Whether \l scrollPrev() can advance (not on the first slide). Read-only.
+    */
     readonly property bool canScrollPrev: view.currentIndex > 0
-    /*! \qmlproperty bool Carousel::canScrollNext \brief Whether \l scrollNext() can advance (not on the last slide). Read-only. */
+    /*!
+        \qmlproperty bool Carousel::canScrollNext
+        Whether \l scrollNext() can advance (not on the last slide). Read-only.
+    */
     readonly property bool canScrollNext: view.currentIndex < view.count - 1
 
     implicitWidth: 320
     implicitHeight: _horizontal ? 200 : 320
 
-    /*! \qmlmethod Carousel::scrollPrev() Snap to the previous slide, if \l canScrollPrev. */
+    /*!
+        \qmlmethod Carousel::scrollPrev()
+        Snap to the previous slide, if \l canScrollPrev.
+    */
     function scrollPrev() { if (canScrollPrev) view.currentIndex-- }
-    /*! \qmlmethod Carousel::scrollNext() Snap to the next slide, if \l canScrollNext. */
+    /*!
+        \qmlmethod Carousel::scrollNext()
+        Snap to the next slide, if \l canScrollNext.
+    */
     function scrollNext() { if (canScrollNext) view.currentIndex++ }
 
     ObjectModel { id: itemsModel }

@@ -60,11 +60,20 @@ Item {
     // All enum member names above are unique, so QML's flattening of enum values
     // into the type scope introduces no collisions (see #028).
 
-    /*! \qmlproperty enumeration Attachment::uploadState \brief Upload lifecycle; see \l State. Defaults to \c Attachment.Done. */
+    /*!
+        \qmlproperty enumeration Attachment::uploadState
+        Upload lifecycle; see \l State. Defaults to \c Attachment.Done.
+    */
     property int uploadState: Attachment.Done
-    /*! \qmlproperty enumeration Attachment::size \brief Compact size scale; see \l Size. Defaults to \c Attachment.Default. */
+    /*!
+        \qmlproperty enumeration Attachment::size
+        Compact size scale; see \l Size. Defaults to \c Attachment.Default.
+    */
     property int size: Attachment.Default
-    /*! \qmlproperty enumeration Attachment::orientation \brief Layout direction; see \l Orientation. Defaults to \c Attachment.Horizontal. */
+    /*!
+        \qmlproperty enumeration Attachment::orientation
+        Layout direction; see \l Orientation. Defaults to \c Attachment.Horizontal.
+    */
     property int orientation: Attachment.Horizontal
 
     /*!

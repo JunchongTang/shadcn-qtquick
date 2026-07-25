@@ -24,16 +24,31 @@ import LucideIcons
 Item {
     id: link
 
-    /*! \qmlproperty string NavigationMenuLink::text \brief The link title. */
+    /*!
+        \qmlproperty string NavigationMenuLink::text
+        The link title.
+    */
     property string text: ""
-    /*! \qmlproperty string NavigationMenuLink::description \brief Optional secondary description (muted, up to two lines). */
+    /*!
+        \qmlproperty string NavigationMenuLink::description
+        Optional secondary description (muted, up to two lines).
+    */
     property string description: ""
-    /*! \qmlproperty string NavigationMenuLink::iconName \brief Optional leading Lucide icon (kebab-case name). */
+    /*!
+        \qmlproperty string NavigationMenuLink::iconName
+        Optional leading Lucide icon (kebab-case name).
+    */
     property string iconName: ""
-    /*! \qmlproperty bool NavigationMenuLink::active \brief The \c data-[active=true] state (persistent muted background). Defaults to \c false. */
+    /*!
+        \qmlproperty bool NavigationMenuLink::active
+        The \c data-[active=true] state (persistent muted background). Defaults to \c false.
+    */
     property bool active: false
 
-    /*! \qmlsignal NavigationMenuLink::triggered() \brief Emitted when the link is clicked. */
+    /*!
+        \qmlsignal NavigationMenuLink::triggered()
+        Emitted when the link is clicked.
+    */
     signal triggered()
 
     Layout.fillWidth: true

@@ -26,11 +26,14 @@ import QtQuick.Layouts
 Item {
     id: control
 
-    /*! \qmlproperty string SidebarGroupLabel::text \brief The caption text. */
+    /*!
+        \qmlproperty string SidebarGroupLabel::text
+        The caption text.
+    */
     property string text: ""
 
     /*! \qmlproperty bool SidebarGroupLabel::collapsed
-        \brief Mirrors the enclosing \l Sidebar's collapsed state (resolved via the parent chain). */
+        Mirrors the enclosing \l Sidebar's collapsed state (resolved via the parent chain). */
     property bool collapsed: {
         var p = parent
         while (p) {

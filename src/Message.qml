@@ -55,7 +55,7 @@ RowLayout {
     /*! The row alignment. \sa Message::align */
     property int align: Message.Start
 
-    /*! \internal Lets descendant content parts find this row and read \l align. */
+    /*! \internal Lets descendant content parts find this row and read align. */
     readonly property bool isMessageRow: true
 
     Layout.fillWidth: true

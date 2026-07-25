@@ -18,12 +18,21 @@ import LucideIcons
 C.Button {
     id: control
 
-    /*! \qmlproperty string AttachmentAction::iconName \brief Lucide icon name (kebab-case) to render at 14px. */
+    /*!
+        \qmlproperty string AttachmentAction::iconName
+        Lucide icon name (kebab-case) to render at 14px.
+    */
     property string iconName: ""
-    /*! \qmlproperty string AttachmentAction::label \brief Accessibility label (mirrors aria-label). */
+    /*!
+        \qmlproperty string AttachmentAction::label
+        Accessibility label (mirrors aria-label).
+    */
     property string label: ""
 
-    /*! \qmlproperty string AttachmentAction::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
+    /*!
+        \qmlproperty string AttachmentAction::attachSlot
+        \readonly Slot marker used by Attachment routing.
+    */
     readonly property string attachSlot: "attachment-action"
 
     implicitWidth: 20                  // icon-xs

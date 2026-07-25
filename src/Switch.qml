@@ -36,11 +36,14 @@ C.Switch {
     */
     enum Size { Default, Sm }
 
-    /*! \qmlproperty int Switch::size \brief The size on the compact scale; see \l Size. Defaults to \c Switch.Default. */
+    /*!
+        \qmlproperty int Switch::size
+        The size on the compact scale; see \l Size. Defaults to \c Switch.Default.
+    */
     property int size: Switch.Default
     /*!
         \qmlproperty bool Switch::invalid
-        \brief Whether the control is in the invalid (\c aria-invalid) state.
+        Whether the control is in the invalid (\c aria-invalid) state.
 
         When \c true the track gains a destructive border and a faint
         destructive ring, matching the reference's

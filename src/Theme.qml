@@ -28,75 +28,32 @@ import QtQuick
     \note This type is registered as a QML singleton; reference tokens directly,
     e.g. \c {Theme.primary} or \c {Theme.space4}.
 
-    \qmlproperty bool Theme::dark
-    Selects the dark palette when \c true and the light palette when \c false
-    (the default). Toggling it re-evaluates every color token.
-
-    \qmlproperty var Theme::lightOverrides
-    \qmlproperty var Theme::darkOverrides
-    Per-mode color override maps of the form \c {{ tokenName: "#rrggbb" }}. A
-    token present here wins over its built-in value for that mode.
-
-    \qmlproperty real Theme::radiusOverride
-    Overrides the base corner radius in pixels when \c {>= 0}; a negative value
-    (the default) keeps the built-in base radius of 10.
-
-    \qmlproperty color Theme::background
-    \qmlproperty color Theme::foreground
-    \qmlproperty color Theme::primary
-    \qmlproperty color Theme::secondary
-    \qmlproperty color Theme::muted
-    \qmlproperty color Theme::accent
-    \qmlproperty color Theme::destructive
-    \qmlproperty color Theme::border
-    \qmlproperty color Theme::input
-    \qmlproperty color Theme::ring
-    The core color tokens (plus their \c *Foreground pairs, \c card, \c popover,
-    the \c chart1..chart5 ramp, and the \c sidebar* family). Each resolves
-    through the active override map before falling back to its built-in value.
-
-    \qmlproperty real Theme::radius
-    \qmlproperty real Theme::radiusSm
-    \qmlproperty real Theme::radiusMd
-    \qmlproperty real Theme::radiusLg
-    \qmlproperty real Theme::radiusXl
-    \qmlproperty real Theme::radiusFull
-    The corner-radius scale derived from the base \l radius (10px). Ratios match
-    base-mira: sm 0.6, md 0.8, lg 1.0, xl 1.4, 2xl 1.8, 3xl 2.2, 4xl 2.6.
-    \l radiusFull is a large pill value for fully rounded shapes.
-
-    \qmlproperty real Theme::ringWidth
-    \qmlproperty real Theme::ringOpacity
-    Focus-ring metrics (base-mira uses \c {ring-2 ring-ring/30}): a 2px stroke of
-    \l ring at 30% opacity.
-
-    \qmlproperty real Theme::space1
-    \qmlproperty real Theme::space2
-    \qmlproperty real Theme::space4
-    \qmlproperty real Theme::space6
-    The spacing scale in pixels (Tailwind spacing = 0.25rem x n = 4px x n).
-    Includes half steps such as \c space0_5, \c space1_5, \c space2_5, \c space3_5.
-
-    \qmlproperty int Theme::textXs
-    \qmlproperty int Theme::textSm
-    \qmlproperty int Theme::textBase
-    \qmlproperty int Theme::textLg
-    The font-size scale in pixels (Tailwind text-xs..text-4xl): 12, 14, 16, 18,
-    20, 24, 30, 36.
-
-    \qmlproperty int Theme::durFast
-    \qmlproperty int Theme::durBase
-    Animation durations in milliseconds: 100 for fast overlay transitions, 150
-    for the default color/state transition.
+    \sa {Shadcn}{Shadcn QML Components}
 */
 QtObject {
     id: theme
 
+    /*!
+        \qmlproperty bool Theme::dark
+        Selects the dark palette when \c true and the light palette when \c false
+        (the default). Toggling it re-evaluates every color token.
+    */
     property bool dark: false
 
     // ==== Customization override layer ==================================
+    /*!
+        \qmlproperty var Theme::lightOverrides
+        \qmlproperty var Theme::darkOverrides
+        Per-mode color override maps of the form \c {{ tokenName: "#rrggbb" }}. A
+        token present here wins over its built-in value for that mode.
+    */
     property var lightOverrides: ({})
     property var darkOverrides: ({})
+    /*!
+        \qmlproperty real Theme::radiusOverride
+        Overrides the base corner radius in pixels when \c {>= 0}; a negative value
+        (the default) keeps the built-in base radius of 10.
+    */
     property real radiusOverride: -1
 
     // Resolve a color token: prefer the active mode's override, else fallback.
@@ -193,6 +150,21 @@ QtObject {
     }
 
     // ==== Color tokens (globals.css :root / .dark, resolved via _resolve) ====
+    /*!
+        \qmlproperty color Theme::background
+        \qmlproperty color Theme::foreground
+        \qmlproperty color Theme::primary
+        \qmlproperty color Theme::secondary
+        \qmlproperty color Theme::muted
+        \qmlproperty color Theme::accent
+        \qmlproperty color Theme::destructive
+        \qmlproperty color Theme::border
+        \qmlproperty color Theme::input
+        \qmlproperty color Theme::ring
+        The core color tokens (plus their \c *Foreground pairs, \c card, \c popover,
+        the \c chart1..chart5 ramp, and the \c sidebar* family). Each resolves
+        through the active override map before falling back to its built-in value.
+    */
     readonly property color background: _resolve("background", dark ? "#0a0a0a" : "#ffffff")
     readonly property color foreground: _resolve("foreground", dark ? "#fafafa" : "#0a0a0a")
     readonly property color card: _resolve("card", dark ? "#171717" : "#ffffff")
@@ -226,6 +198,17 @@ QtObject {
     readonly property color sidebarRing: _resolve("sidebarRing", dark ? "#737373" : "#a1a1a1")
 
     // ==== Corner radii (--radius 0.625rem; radiusOverride >= 0 overrides) ====
+    /*!
+        \qmlproperty real Theme::radius
+        \qmlproperty real Theme::radiusSm
+        \qmlproperty real Theme::radiusMd
+        \qmlproperty real Theme::radiusLg
+        \qmlproperty real Theme::radiusXl
+        \qmlproperty real Theme::radiusFull
+        The corner-radius scale derived from the base \l radius (10px). Ratios match
+        base-mira: sm 0.6, md 0.8, lg 1.0, xl 1.4, 2xl 1.8, 3xl 2.2, 4xl 2.6.
+        \l radiusFull is a large pill value for fully rounded shapes.
+    */
     readonly property real radius: radiusOverride >= 0 ? radiusOverride : 10
     readonly property real radiusSm: radius * 0.6    // 6
     readonly property real radiusMd: radius * 0.8    // 8
@@ -242,6 +225,12 @@ QtObject {
     readonly property string fontHeading: fontSans
 
     // ==== Focus ring (base-mira: ring-2 ring-ring/30 + border->ring) ========
+    /*!
+        \qmlproperty real Theme::ringWidth
+        \qmlproperty real Theme::ringOpacity
+        Focus-ring metrics (base-mira uses \c {ring-2 ring-ring/30}): a 2px stroke of
+        \l ring at 30% opacity.
+    */
     readonly property real ringWidth: 2
     readonly property real ringOpacity: 0.30
 
@@ -253,6 +242,14 @@ QtObject {
     readonly property real shadowOffset: 4
 
     // ==== Spacing (Tailwind spacing = rem x 4 -> px) ========================
+    /*!
+        \qmlproperty real Theme::space1
+        \qmlproperty real Theme::space2
+        \qmlproperty real Theme::space4
+        \qmlproperty real Theme::space6
+        The spacing scale in pixels (Tailwind spacing = 0.25rem x n = 4px x n).
+        Includes half steps such as \c space0_5, \c space1_5, \c space2_5, \c space3_5.
+    */
     readonly property real space0_5: 2
     readonly property real space1: 4
     readonly property real space1_5: 6
@@ -266,6 +263,14 @@ QtObject {
     readonly property real space8: 32
 
     // ==== Font sizes (Tailwind text-xs..4xl) ===============================
+    /*!
+        \qmlproperty int Theme::textXs
+        \qmlproperty int Theme::textSm
+        \qmlproperty int Theme::textBase
+        \qmlproperty int Theme::textLg
+        The font-size scale in pixels (Tailwind text-xs..text-4xl): 12, 14, 16, 18,
+        20, 24, 30, 36.
+    */
     readonly property int textXs: 12
     readonly property int textSm: 14
     readonly property int textBase: 16
@@ -278,6 +283,12 @@ QtObject {
     readonly property real lineRelaxed: 1.625
 
     // ==== Motion ==========================================================
+    /*!
+        \qmlproperty int Theme::durFast
+        \qmlproperty int Theme::durBase
+        Animation durations in milliseconds: 100 for fast overlay transitions, 150
+        for the default color/state transition.
+    */
     readonly property int durFast: 100
     readonly property int durBase: 150
 

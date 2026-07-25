@@ -77,21 +77,45 @@ C.Button {
     */
     enum GroupPosition { GroupNone, GroupFirst, GroupMiddle, GroupLast }
 
-    /*! \qmlproperty int Button::variant \brief The visual style; see \l Variant. Defaults to \c Button.Default. */
+    /*!
+        \qmlproperty int Button::variant
+        The visual style; see \l Variant. Defaults to \c Button.Default.
+    */
     property int variant: Button.Default
-    /*! \qmlproperty int Button::size \brief The size on the compact scale; see \l Size. Defaults to \c Button.Default. */
+    /*!
+        \qmlproperty int Button::size
+        The size on the compact scale; see \l Size. Defaults to \c Button.Default.
+    */
     property int size: Button.Default
-    /*! \qmlproperty string Button::iconName \brief Optional leading Lucide icon (kebab-case name). */
+    /*!
+        \qmlproperty string Button::iconName
+        Optional leading Lucide icon (kebab-case name).
+    */
     property string iconName: ""
-    /*! \qmlproperty string Button::trailingIconName \brief Optional trailing Lucide icon (kebab-case name). */
+    /*!
+        \qmlproperty string Button::trailingIconName
+        Optional trailing Lucide icon (kebab-case name).
+    */
     property string trailingIconName: ""
-    /*! \qmlproperty bool Button::rounded \brief When true, uses a full (pill) radius (rounded-full). */
+    /*!
+        \qmlproperty bool Button::rounded
+        When true, uses a full (pill) radius (rounded-full).
+    */
     property bool rounded: false
-    /*! \qmlproperty bool Button::loading \brief When true, shows a leading Spinner and disables interaction. */
+    /*!
+        \qmlproperty bool Button::loading
+        When true, shows a leading Spinner and disables interaction.
+    */
     property bool loading: false
-    /*! \qmlproperty int Button::groupPosition \brief Adjacency inside a ButtonGroup; see \l GroupPosition. Set by ButtonGroup. */
+    /*!
+        \qmlproperty int Button::groupPosition
+        Adjacency inside a ButtonGroup; see \l GroupPosition. Set by ButtonGroup.
+    */
     property int groupPosition: Button.GroupNone
-    /*! \qmlproperty bool Button::groupVertical \brief Whether the containing ButtonGroup is vertical. Set by ButtonGroup. */
+    /*!
+        \qmlproperty bool Button::groupVertical
+        Whether the containing ButtonGroup is vertical. Set by ButtonGroup.
+    */
     property bool groupVertical: false
 
     // Disable interaction while loading (a consumer setting enabled explicitly

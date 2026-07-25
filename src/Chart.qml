@@ -48,7 +48,10 @@ Item {
     enum Type { Bar, Line, Area, Pie, Radar, Radial }
 
     // ==== Data and series ====
-    /*! \qmlproperty int Chart::type \brief The chart shape; see \l Type. Defaults to \c Chart.Bar. */
+    /*!
+        \qmlproperty int Chart::type
+        The chart shape; see \l Type. Defaults to \c Chart.Bar.
+    */
     property int type: Chart.Bar
     /*!
         \qmlproperty list Chart::chartData
@@ -63,84 +66,189 @@ Item {
         \c color an optional override (else the theme palette). Defaults to \c [].
     */
     property var series: []
-    /*! \qmlproperty string Chart::categoryKey \brief The x-axis category field. Defaults to \c "month". */
+    /*!
+        \qmlproperty string Chart::categoryKey
+        The x-axis category field. Defaults to \c "month".
+    */
     property string categoryKey: "month"
-    /*! \qmlproperty string Chart::nameKey \brief The name field for pie/radial rows. Defaults to \c "name". */
+    /*!
+        \qmlproperty string Chart::nameKey
+        The name field for pie/radial rows. Defaults to \c "name".
+    */
     property string nameKey: "name"
-    /*! \qmlproperty string Chart::valueKey \brief The value field for pie/radial rows. Defaults to \c "value". */
+    /*!
+        \qmlproperty string Chart::valueKey
+        The value field for pie/radial rows. Defaults to \c "value".
+    */
     property string valueKey: "value"
 
     // ==== Display toggles ====
-    /*! \qmlproperty bool Chart::showGrid \brief Whether to draw gridlines. Defaults to \c true. */
+    /*!
+        \qmlproperty bool Chart::showGrid
+        Whether to draw gridlines. Defaults to \c true.
+    */
     property bool showGrid: true
-    /*! \qmlproperty bool Chart::showXAxis \brief Whether to draw x-axis tick labels. Defaults to \c true. */
+    /*!
+        \qmlproperty bool Chart::showXAxis
+        Whether to draw x-axis tick labels. Defaults to \c true.
+    */
     property bool showXAxis: true
-    /*! \qmlproperty bool Chart::showYAxis \brief Whether to draw y-axis tick labels. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::showYAxis
+        Whether to draw y-axis tick labels. Defaults to \c false.
+    */
     property bool showYAxis: false
-    /*! \qmlproperty bool Chart::showLegend \brief Whether to show the embedded \l ChartLegend. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::showLegend
+        Whether to show the embedded \l ChartLegend. Defaults to \c false.
+    */
     property bool showLegend: false
-    /*! \qmlproperty bool Chart::legendTop \brief Whether the legend sits above the plot. Defaults to \c false (below). */
+    /*!
+        \qmlproperty bool Chart::legendTop
+        Whether the legend sits above the plot. Defaults to \c false (below).
+    */
     property bool legendTop: false
-    /*! \qmlproperty bool Chart::stacked \brief Whether bar/area/radial series stack. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::stacked
+        Whether bar/area/radial series stack. Defaults to \c false.
+    */
     property bool stacked: false
-    /*! \qmlproperty bool Chart::horizontal \brief Bar charts only: lay bars horizontally. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::horizontal
+        Bar charts only: lay bars horizontally. Defaults to \c false.
+    */
     property bool horizontal: false
-    /*! \qmlproperty bool Chart::curved \brief Line/area: smooth the path. Defaults to \c true. */
+    /*!
+        \qmlproperty bool Chart::curved
+        Line/area: smooth the path. Defaults to \c true.
+    */
     property bool curved: true
-    /*! \qmlproperty bool Chart::showDots \brief Line/radar: draw a dot at each data point. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::showDots
+        Line/radar: draw a dot at each data point. Defaults to \c false.
+    */
     property bool showDots: false
-    /*! \qmlproperty bool Chart::showBarLabels \brief Draw value labels on bars / radial rings. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::showBarLabels
+        Draw value labels on bars / radial rings. Defaults to \c false.
+    */
     property bool showBarLabels: false
-    /*! \qmlproperty real Chart::barRadius \brief Corner radius of bars in px. Defaults to \c 8. */
+    /*!
+        \qmlproperty real Chart::barRadius
+        Corner radius of bars in px. Defaults to \c 8.
+    */
     property real barRadius: 8
-    /*! \qmlproperty real Chart::areaFillOpacity \brief Fill opacity of area series. Defaults to \c 0.4. */
+    /*!
+        \qmlproperty real Chart::areaFillOpacity
+        Fill opacity of area series. Defaults to \c 0.4.
+    */
     property real areaFillOpacity: 0.4
-    /*! \qmlproperty real Chart::innerRadius \brief Pie/radial inner radius in px (pie > 0 makes a donut). Defaults to \c 0. */
+    /*!
+        \qmlproperty real Chart::innerRadius
+        Pie/radial inner radius in px (pie > 0 makes a donut). Defaults to \c 0.
+    */
     property real innerRadius: 0
-    /*! \qmlproperty real Chart::padAngleDeg \brief Pie: gap angle between sectors, in degrees. Defaults to \c 0. */
+    /*!
+        \qmlproperty real Chart::padAngleDeg
+        Pie: gap angle between sectors, in degrees. Defaults to \c 0.
+    */
     property real padAngleDeg: 0
 
     // ==== Polar: Radar ====
-    /*! \qmlproperty bool Chart::polarGridCircle \brief Radar grid shape: \c true circle, \c false polygon. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::polarGridCircle
+        Radar grid shape: \c true circle, \c false polygon. Defaults to \c false.
+    */
     property bool polarGridCircle: false
-    /*! \qmlproperty bool Chart::polarRadialLines \brief Radar: draw spokes from center to each vertex. Defaults to \c true. */
+    /*!
+        \qmlproperty bool Chart::polarRadialLines
+        Radar: draw spokes from center to each vertex. Defaults to \c true.
+    */
     property bool polarRadialLines: true
-    /*! \qmlproperty real Chart::radarFillOpacity \brief Radar polygon fill opacity (0 = stroke only). Defaults to \c 0.6. */
+    /*!
+        \qmlproperty real Chart::radarFillOpacity
+        Radar polygon fill opacity (0 = stroke only). Defaults to \c 0.6.
+    */
     property real radarFillOpacity: 0.6
 
     // ==== Polar: Radial bars ====
-    /*! \qmlproperty real Chart::outerRadius \brief Radial outer radius in px (0 = auto-fit). Defaults to \c 0. */
+    /*!
+        \qmlproperty real Chart::outerRadius
+        Radial outer radius in px (0 = auto-fit). Defaults to \c 0.
+    */
     property real outerRadius: 0
-    /*! \qmlproperty real Chart::radialStartDeg \brief Radial start angle in screen degrees (0 = top, clockwise positive). Defaults to \c 0. */
+    /*!
+        \qmlproperty real Chart::radialStartDeg
+        Radial start angle in screen degrees (0 = top, clockwise positive). Defaults to \c 0.
+    */
     property real radialStartDeg: 0
-    /*! \qmlproperty real Chart::radialEndDeg \brief Radial end angle in screen degrees. Defaults to \c 360. */
+    /*!
+        \qmlproperty real Chart::radialEndDeg
+        Radial end angle in screen degrees. Defaults to \c 360.
+    */
     property real radialEndDeg: 360
-    /*! \qmlproperty bool Chart::radialBackground \brief Draw a muted track behind each radial ring. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::radialBackground
+        Draw a muted track behind each radial ring. Defaults to \c false.
+    */
     property bool radialBackground: false
-    /*! \qmlproperty real Chart::radialCornerRadius \brief Radial: > 0 uses round end caps. Defaults to \c 0. */
+    /*!
+        \qmlproperty real Chart::radialCornerRadius
+        Radial: > 0 uses round end caps. Defaults to \c 0.
+    */
     property real radialCornerRadius: 0
-    /*! \qmlproperty string Chart::centerText \brief Radial: primary center text (e.g. a total). Defaults to \c "". */
+    /*!
+        \qmlproperty string Chart::centerText
+        Radial: primary center text (e.g. a total). Defaults to \c "".
+    */
     property string centerText: ""
-    /*! \qmlproperty string Chart::centerSubtext \brief Radial: secondary center text. Defaults to \c "". */
+    /*!
+        \qmlproperty string Chart::centerSubtext
+        Radial: secondary center text. Defaults to \c "".
+    */
     property string centerSubtext: ""
-    /*! \qmlproperty int Chart::centerValueSize \brief Pixel size of \l centerText. Defaults to \c Theme.text4xl. */
+    /*!
+        \qmlproperty int Chart::centerValueSize
+        Pixel size of \l centerText. Defaults to \c Theme.text4xl.
+    */
     property int centerValueSize: Theme.text4xl
-    /*! \qmlproperty real Chart::centerYOffset \brief Vertical nudge of the center text in px. Defaults to \c 0. */
+    /*!
+        \qmlproperty real Chart::centerYOffset
+        Vertical nudge of the center text in px. Defaults to \c 0.
+    */
     property real centerYOffset: 0
 
     // ==== Tooltip / cursor ====
-    /*! \qmlproperty bool Chart::tooltipEnabled \brief Whether hovering shows a \l ChartTooltip. Defaults to \c true. */
+    /*!
+        \qmlproperty bool Chart::tooltipEnabled
+        Whether hovering shows a \l ChartTooltip. Defaults to \c true.
+    */
     property bool tooltipEnabled: true
-    /*! \qmlproperty bool Chart::hideTooltipLabel \brief Hide the tooltip heading line. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Chart::hideTooltipLabel
+        Hide the tooltip heading line. Defaults to \c false.
+    */
     property bool hideTooltipLabel: false
-    /*! \qmlproperty int Chart::tooltipIndicator \brief Tooltip swatch style; see \l ChartTooltip::Indicator. Defaults to \c ChartTooltip.Dot. */
+    /*!
+        \qmlproperty int Chart::tooltipIndicator
+        Tooltip swatch style; see \l ChartTooltip::Indicator. Defaults to \c ChartTooltip.Dot.
+    */
     property int tooltipIndicator: ChartTooltip.Dot
-    /*! \qmlproperty bool Chart::tooltipCursor \brief Draw a cursor highlight under the hovered point. Defaults to \c true. */
+    /*!
+        \qmlproperty bool Chart::tooltipCursor
+        Draw a cursor highlight under the hovered point. Defaults to \c true.
+    */
     property bool tooltipCursor: true
 
-    /*! \qmlproperty var Chart::xTickFormatter \brief Optional \c {function(value) -> string} for x tick labels; \c null uses the raw value. */
+    /*!
+        \qmlproperty var Chart::xTickFormatter
+        Optional \c {function(value) -> string} for x tick labels; \c null uses the raw value.
+    */
     property var xTickFormatter: null
-    /*! \qmlproperty var Chart::valueFormatter \brief Optional \c {function(value) -> string} for tooltip values; \c null uses thousands grouping. */
+    /*!
+        \qmlproperty var Chart::valueFormatter
+        Optional \c {function(value) -> string} for tooltip values; \c null uses thousands grouping.
+    */
     property var valueFormatter: null
 
     implicitWidth: 320

@@ -58,7 +58,10 @@ C.Popup {
     */
     enum Align { Start, Center, End }
 
-    /*! \qmlproperty int Popover::align \brief Horizontal alignment; see \l Align. Defaults to \c Popover.Align.Center. */
+    /*!
+        \qmlproperty int Popover::align
+        Horizontal alignment; see \l Align. Defaults to \c Popover.Align.Center.
+    */
     property int align: Popover.Align.Center
 
     /*!

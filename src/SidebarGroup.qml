@@ -21,7 +21,7 @@ Item {
     id: control
 
     /*! \qmlproperty list<QtObject> SidebarGroup::content
-        \brief Default child list, stacked vertically inside the padded column. */
+        Default child list, stacked vertically inside the padded column. */
     default property alias content: inner.data
 
     Layout.fillWidth: true

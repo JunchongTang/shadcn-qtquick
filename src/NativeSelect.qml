@@ -49,11 +49,20 @@ C.ComboBox {
     */
     enum Size { Default, Sm }
 
-    /*! \qmlproperty int NativeSelect::size \brief The size on the compact scale; see \l Size. Defaults to \c NativeSelect.Default. */
+    /*!
+        \qmlproperty int NativeSelect::size
+        The size on the compact scale; see \l Size. Defaults to \c NativeSelect.Default.
+    */
     property int size: NativeSelect.Default
-    /*! \qmlproperty string NativeSelect::placeholder \brief Text shown while nothing is selected (\c currentIndex < 0), matching the \c value="" first option. */
+    /*!
+        \qmlproperty string NativeSelect::placeholder
+        Text shown while nothing is selected (\c currentIndex < 0), matching the \c value="" first option.
+    */
     property string placeholder: ""
-    /*! \qmlproperty bool NativeSelect::invalid \brief When \c true, paints the aria-invalid destructive border and ring. Defaults to \c false. */
+    /*!
+        \qmlproperty bool NativeSelect::invalid
+        When \c true, paints the aria-invalid destructive border and ring. Defaults to \c false.
+    */
     property bool invalid: false
 
     readonly property bool _sm: size === NativeSelect.Sm

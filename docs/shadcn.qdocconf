@@ -1,0 +1,29 @@
+# Qt's global HTML templates + doc macros (the HTML generator needs these).
+# Run with QT_INSTALL_DOCS pointing at the Qt kit's doc dir, e.g.
+#   QT_INSTALL_DOCS=~/Qt/6.8.6/macos/doc qdoc docs/shadcn.qdocconf
+include($QT_INSTALL_DOCS/global/qt-html-templates-offline.qdocconf)
+include($QT_INSTALL_DOCS/global/macros.qdocconf)
+include($QT_INSTALL_DOCS/global/compat.qdocconf)
+
+project     = ShadcnQtQuick
+description  = "shadcn/ui ported to Qt Quick / QML — component library"
+version     = 0.1.0
+
+# Output dir is passed on the command line (see build-docs.sh) to avoid qdoc
+# resolving a relative outputdir against the .qdocconf directory.
+outputformats = HTML
+
+# The QML component sources carry the \qmltype / \qmlproperty documentation;
+# docs/pages holds the \qmlmodule landing page.
+sourcedirs = ../src ../docs/pages
+sources.fileextensions = "*.qml *.qdoc"
+headers.fileextensions = ""
+
+exampledirs = ../examples/gallery
+
+sourceencoding  = UTF-8
+outputencoding  = UTF-8
+naturallanguage = en
+
+# Standalone project: don't fail on links into Qt's own docs that aren't indexed here.
+warninglimit = 0

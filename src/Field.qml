@@ -13,32 +13,35 @@ import QtQuick.Layouts
     change without swapping the base type at runtime. Children are spaced with
     gap-2. In the error state (\l invalid) the child label/title bindings may
     turn destructive; \l FieldError is always destructive.
-
-    \qmlproperty enumeration Field::orientation
-    Arrangement of the field's children.
-
-    \value Field.Vertical Stack children in one column (default); children fill width.
-    \value Field.Horizontal Place children in one row, vertically centred.
-    \value Field.Responsive Container-query adaptive on the web; simplified to
-           horizontal here (the gallery is wide enough to always use a row).
-
-    \qmlproperty bool Field::invalid
-    When true the field is in the error state.
-
-    \qmlproperty bool Field::horizontal
-    \readonly
-    True when \l orientation is Horizontal or Responsive.
 */
 GridLayout {
     id: field
 
     enum Orientation { Vertical, Horizontal, Responsive }
 
+    /*!
+        \qmlproperty enumeration Field::orientation
+        Arrangement of the field's children.
+
+        \value Field.Vertical Stack children in one column (default); children fill width.
+        \value Field.Horizontal Place children in one row, vertically centred.
+        \value Field.Responsive Container-query adaptive on the web; simplified to
+               horizontal here (the gallery is wide enough to always use a row).
+    */
     property int orientation: Field.Vertical
+    /*!
+        \qmlproperty bool Field::invalid
+        When true the field is in the error state.
+    */
     // Error state: bound children (FieldLabel/FieldTitle/FieldDescription) may
     // turn destructive; FieldError is always destructive.
     property bool invalid: false
 
+    /*!
+        \qmlproperty bool Field::horizontal
+        \readonly
+        True when \l orientation is Horizontal or Responsive.
+    */
     // Responsive is simplified to a row (see the type brief).
     readonly property bool horizontal: orientation === Field.Horizontal
                                        || orientation === Field.Responsive

@@ -39,7 +39,7 @@ C.TextArea {
     id: control
 
     /*! \qmlproperty bool Textarea::invalid
-        \brief Marks the field as failing validation (maps \c {aria-invalid}).
+        Marks the field as failing validation (maps \c {aria-invalid}).
         When \c true the border and ring switch to the destructive color, and
         the destructive ring is shown regardless of focus. Defaults to \c false. */
     property bool invalid: false

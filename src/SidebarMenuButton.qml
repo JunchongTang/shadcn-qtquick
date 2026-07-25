@@ -35,17 +35,29 @@ import LucideIcons
 Item {
     id: control
 
-    /*! \qmlproperty string SidebarMenuButton::text \brief The label text (hidden when collapsed). */
+    /*!
+        \qmlproperty string SidebarMenuButton::text
+        The label text (hidden when collapsed).
+    */
     property string text: ""
-    /*! \qmlproperty string SidebarMenuButton::iconName \brief Leading Lucide icon (kebab-case name). */
+    /*!
+        \qmlproperty string SidebarMenuButton::iconName
+        Leading Lucide icon (kebab-case name).
+    */
     property string iconName: ""
-    /*! \qmlproperty bool SidebarMenuButton::active \brief Whether this entry is the active one; paints the accent background. */
+    /*!
+        \qmlproperty bool SidebarMenuButton::active
+        Whether this entry is the active one; paints the accent background.
+    */
     property bool active: false
-    /*! \qmlsignal SidebarMenuButton::clicked() \brief Emitted when the entry is tapped. */
+    /*!
+        \qmlsignal SidebarMenuButton::clicked()
+        Emitted when the entry is tapped.
+    */
     signal clicked()
 
     /*! \qmlproperty bool SidebarMenuButton::collapsed
-        \brief Mirrors the enclosing \l Sidebar's collapsed state (resolved via the parent chain). */
+        Mirrors the enclosing \l Sidebar's collapsed state (resolved via the parent chain). */
     property bool collapsed: {
         var p = parent
         while (p) {
@@ -64,9 +76,15 @@ Item {
         NumberAnimation { duration: 200; easing.type: Easing.Linear }
     }
 
-    /*! \qmlproperty bool SidebarMenuButton::_hovered \brief \c true while the pointer hovers the entry. */
+    /*!
+        \qmlproperty bool SidebarMenuButton::_hovered
+        \c true while the pointer hovers the entry.
+    */
     readonly property bool _hovered: hover.hovered
-    /*! \qmlproperty color SidebarMenuButton::_fg \brief Foreground color: accent when active/hovered, otherwise sidebar foreground. */
+    /*!
+        \qmlproperty color SidebarMenuButton::_fg
+        Foreground color: accent when active/hovered, otherwise sidebar foreground.
+    */
     readonly property color _fg: (control.active || control._hovered)
         ? Theme.sidebarAccentForeground
         : Theme.sidebarForeground

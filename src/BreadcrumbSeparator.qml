@@ -12,14 +12,15 @@ import LucideIcons
     icon; set \l iconName to use another Lucide glyph (e.g. \c "dot" for the
     dotted-separator variant). Colored with \c text-muted-foreground to match
     the list.
-
-    \qmlproperty string BreadcrumbSeparator::iconName
-    Name of the Lucide icon used as the separator glyph. Defaults to
-    \c "chevron-right".
 */
 Item {
     id: root
 
+    /*!
+        \qmlproperty string BreadcrumbSeparator::iconName
+        Name of the Lucide icon used as the separator glyph. Defaults to
+        \c "chevron-right".
+    */
     property string iconName: "chevron-right"
 
     implicitWidth: 14                   // svg size-3.5

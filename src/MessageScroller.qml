@@ -45,7 +45,7 @@ Item {
 
     /*!
         \qmlproperty list<QtObject> MessageScroller::messages
-        \default
+        \qmldefault
         The message rows, laid out top-to-bottom in the scrollable column.
         Assigned via the component's default child list.
     */

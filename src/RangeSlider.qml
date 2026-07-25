@@ -28,16 +28,25 @@ import QtQuick.Controls.Basic as C
 C.RangeSlider {
     id: control
 
-    /*! \qmlproperty real RangeSlider::from \brief Range minimum. Defaults to \c 0. */
+    /*!
+        \qmlproperty real RangeSlider::from
+        Range minimum. Defaults to \c 0.
+    */
     from: 0
-    /*! \qmlproperty real RangeSlider::to \brief Range maximum. Defaults to \c 100. */
+    /*!
+        \qmlproperty real RangeSlider::to
+        Range maximum. Defaults to \c 100.
+    */
     to: 100
-    /*! \qmlproperty real RangeSlider::stepSize \brief Keyboard/drag increment. Defaults to \c 1. */
+    /*!
+        \qmlproperty real RangeSlider::stepSize
+        Keyboard/drag increment. Defaults to \c 1.
+    */
     stepSize: 1
 
     /*!
         \qmlproperty real RangeSlider::first.value
-        \brief Value of the lower (first) thumb.
+        Value of the lower (first) thumb.
 
         Defaults to \l from so a bare RangeSlider spans the full range, matching
         shadcn's base \c <Slider>, which falls back to \c {[min, max]}. (Qt's own
@@ -47,13 +56,13 @@ C.RangeSlider {
     first.value: from
     /*!
         \qmlproperty real RangeSlider::second.value
-        \brief Value of the upper (second) thumb. Defaults to \l to; see \l first.value.
+        Value of the upper (second) thumb. Defaults to \l to; see \l first.value.
     */
     second.value: to
 
     /*!
         \qmlproperty enumeration RangeSlider::orientation
-        \brief Layout direction.
+        Layout direction.
         \value Qt.Horizontal Track runs left-to-right (the default); higher values to the right.
         \value Qt.Vertical Track runs bottom-to-top; higher values upward.
     */

@@ -18,19 +18,21 @@ import LucideIcons
     The file name has no base-type clash, but the class is a
     \l[QtQuickControls]{MenuItem}; the base is imported under the \c C alias for
     consistency with the rest of the Menu family.
-
-    \qmlproperty string MenuCheckboxItem::iconName
-    Optional leading \l LucideIcon (e.g. the checkboxes-with-icons example).
-    Empty hides the icon.
-
-    \qmlproperty bool MenuCheckboxItem::inset
-    When \c true the content is indented to align with items that have a leading
-    icon (\c {data-inset}).
 */
 C.MenuItem {
     id: control
 
+    /*!
+        \qmlproperty string MenuCheckboxItem::iconName
+        Optional leading \l LucideIcon (e.g. the checkboxes-with-icons example).
+        Empty hides the icon.
+    */
     property string iconName: ""     // optional leading icon (e.g. checkboxes-icons example)
+    /*!
+        \qmlproperty bool MenuCheckboxItem::inset
+        When \c true the content is indented to align with items that have a leading
+        icon (\c {data-inset}).
+    */
     property bool inset: false       // data-inset: pl-7.5 (30px)
 
     checkable: true

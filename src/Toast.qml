@@ -46,16 +46,31 @@ Rectangle {
     */
     enum Type { Default, Success, Info, Warning, Error, Loading }
 
-    /*! \qmlproperty int Toast::type \brief The notification kind; see \l Type. Defaults to \c Toast.Default. */
+    /*!
+        \qmlproperty int Toast::type
+        The notification kind; see \l Type. Defaults to \c Toast.Default.
+    */
     property int type: Toast.Default
-    /*! \qmlproperty string Toast::title \brief The primary message line. */
+    /*!
+        \qmlproperty string Toast::title
+        The primary message line.
+    */
     property string title: ""
-    /*! \qmlproperty string Toast::description \brief Optional secondary line in muted text. */
+    /*!
+        \qmlproperty string Toast::description
+        Optional secondary line in muted text.
+    */
     property string description: ""
-    /*! \qmlproperty string Toast::actionText \brief When non-empty, shows a trailing action button with this label. */
+    /*!
+        \qmlproperty string Toast::actionText
+        When non-empty, shows a trailing action button with this label.
+    */
     property string actionText: ""
 
-    /*! \qmlsignal Toast::actionTriggered() \brief Emitted when the action button is clicked. */
+    /*!
+        \qmlsignal Toast::actionTriggered()
+        Emitted when the action button is clicked.
+    */
     signal actionTriggered()
 
     // type -> Lucide icon name (Default has no icon).

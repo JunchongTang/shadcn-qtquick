@@ -14,9 +14,6 @@ import QtQuick
     the full width. The line height matches Tailwind's \c text-3xl default
     (36px / 30px = 1.2).
 
-    \qmlproperty string TypographyH2::text
-    The heading text.
-
     \qml
     TypographyH2 { width: 400; text: "The People of the Kingdom" }
     \endqml
@@ -24,6 +21,10 @@ import QtQuick
 Item {
     id: root
 
+    /*!
+        \qmlproperty string TypographyH2::text
+        The heading text.
+    */
     // Heading text, forwarded to the inner label.
     property alias text: label.text
 

@@ -62,28 +62,52 @@ Rectangle {
     */
     enum Variant { Default, Destructive }
 
-    /*! \qmlproperty int Alert::variant \brief The visual style; see \l Variant. Defaults to \c Alert.Default. */
+    /*!
+        \qmlproperty int Alert::variant
+        The visual style; see \l Variant. Defaults to \c Alert.Default.
+    */
     property int variant: Alert.Default
-    /*! \qmlproperty string Alert::title \brief Title text; the title row is hidden when empty. */
+    /*!
+        \qmlproperty string Alert::title
+        Title text; the title row is hidden when empty.
+    */
     property string title: ""
-    /*! \qmlproperty string Alert::description \brief Description text; the description row is hidden when empty. */
+    /*!
+        \qmlproperty string Alert::description
+        Description text; the description row is hidden when empty.
+    */
     property string description: ""
-    /*! \qmlproperty string Alert::iconName \brief Optional leading Lucide icon (kebab-case name); the icon is hidden when empty. */
+    /*!
+        \qmlproperty string Alert::iconName
+        Optional leading Lucide icon (kebab-case name); the icon is hidden when empty.
+    */
     property string iconName: ""
 
-    /*! \qmlproperty color Alert::surface \brief Background fill. Defaults to the card token. */
+    /*!
+        \qmlproperty color Alert::surface
+        Background fill. Defaults to the card token.
+    */
     property color surface: Theme.card
-    /*! \qmlproperty color Alert::stroke \brief Border color. Defaults to the border token. */
+    /*!
+        \qmlproperty color Alert::stroke
+        Border color. Defaults to the border token.
+    */
     property color stroke: Theme.border
-    /*! \qmlproperty color Alert::titleColor \brief Title and icon color. Defaults per \l variant (card-foreground / destructive). */
+    /*!
+        \qmlproperty color Alert::titleColor
+        Title and icon color. Defaults per \l variant (card-foreground / destructive).
+    */
     property color titleColor: variant === Alert.Destructive ? Theme.destructive : Theme.cardForeground
-    /*! \qmlproperty color Alert::descColor \brief Description color. Defaults per \l variant (muted-foreground / destructive at 90%). */
+    /*!
+        \qmlproperty color Alert::descColor
+        Description color. Defaults per \l variant (muted-foreground / destructive at 90%).
+    */
     property color descColor: variant === Alert.Destructive
                               ? Theme.alpha(Theme.destructive, 0.9) : Theme.mutedForeground
 
     /*!
         \qmlproperty list<QtObject> Alert::action
-        \default
+        \qmldefault
         Trailing action slot. Child items (typically a \l Button) are placed at
         the right of the alert, top-aligned. The slot is hidden when empty.
     */

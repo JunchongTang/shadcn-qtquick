@@ -17,43 +17,49 @@ import LucideIcons
 
     When the parent \l ShadItem contains a description, media is top-aligned and
     nudged down 0.5 (2px) via \l topShift.
-
-    \qmlproperty int ItemMedia::variant
-    Media kind. One of:
-    \value ItemMedia.Default Transparent host for custom children.
-    \value ItemMedia.Icon    Built-in Lucide icon from \l iconName.
-    \value ItemMedia.Image   Rounded, clipped image box.
-
-    \qmlproperty string ItemMedia::iconName
-    Lucide icon name used by the \c icon variant.
-
-    \qmlproperty url ItemMedia::source
-    Convenience image source used by the \c image variant.
-
-    \qmlproperty color ItemMedia::iconColor
-    Colour of the \c icon variant glyph.
-
-    \qmlproperty int ItemMedia::hostSize
-    Injected by the parent \l ShadItem (0 default / 1 sm / 2 xs); selects the
-    image box side length.
-
-    \qmlproperty bool ItemMedia::topShift
-    Injected by the parent: when true (item has a description) the media
-    top-aligns and shifts down 2px.
 */
 Item {
     id: media
 
     enum Variant { Default, Icon, Image }
 
+    /*!
+        \qmlproperty int ItemMedia::variant
+        Media kind. One of:
+        \value ItemMedia.Default Transparent host for custom children.
+        \value ItemMedia.Icon    Built-in Lucide icon from \l iconName.
+        \value ItemMedia.Image   Rounded, clipped image box.
+    */
     property int variant: ItemMedia.Default
+    /*!
+        \qmlproperty string ItemMedia::iconName
+        Lucide icon name used by the \c icon variant.
+    */
     property string iconName: ""       // convenience icon for variant=icon
+    /*!
+        \qmlproperty url ItemMedia::source
+        Convenience image source used by the \c image variant.
+    */
     property url source                // convenience image for variant=image
+    /*!
+        \qmlproperty color ItemMedia::iconColor
+        Colour of the \c icon variant glyph.
+    */
     property color iconColor: Theme.foreground
 
+    /*!
+        \qmlproperty int ItemMedia::hostSize
+        Injected by the parent \l ShadItem (0 default / 1 sm / 2 xs); selects the
+        image box side length.
+    */
     // Injected by the parent ShadItem: hostSize (0 default / 1 sm / 2 xs) and
     // topShift (top-align when the item has a description).
     property int hostSize: 0
+    /*!
+        \qmlproperty bool ItemMedia::topShift
+        Injected by the parent: when true (item has a description) the media
+        top-aligns and shifts down 2px.
+    */
     property bool topShift: false
 
     readonly property string itemSlot: "item-media"

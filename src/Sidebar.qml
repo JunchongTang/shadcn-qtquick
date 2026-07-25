@@ -41,20 +41,20 @@ Rectangle {
     id: root
 
     /*! \qmlproperty list<QtObject> Sidebar::content
-        \brief Default child list; children stack vertically (Header / Content / Footer). */
+        Default child list; children stack vertically (Header / Content / Footer). */
     default property alias content: col.data
 
     /*! \qmlproperty bool Sidebar::collapsed
-        \brief Whether the sidebar is collapsed to the icon rail. Defaults to \c false (expanded). */
+        Whether the sidebar is collapsed to the icon rail. Defaults to \c false (expanded). */
     property bool collapsed: false
     /*! \qmlproperty int Sidebar::expandedWidth
-        \brief Width when expanded (\c --sidebar-width, 16rem). Defaults to 256. */
+        Width when expanded (\c --sidebar-width, 16rem). Defaults to 256. */
     property int expandedWidth: 256
     /*! \qmlproperty int Sidebar::iconWidth
-        \brief Width when collapsed to the icon rail (\c --sidebar-width-icon, 3rem). Defaults to 48. */
+        Width when collapsed to the icon rail (\c --sidebar-width-icon, 3rem). Defaults to 48. */
     property int iconWidth: 48
     /*! \qmlproperty bool Sidebar::_isSidebarRoot
-        \brief Marker read by descendants (via the parent chain) to locate the sidebar root. Always \c true. */
+        Marker read by descendants (via the parent chain) to locate the sidebar root. Always \c true. */
     readonly property bool _isSidebarRoot: true
 
     implicitWidth: collapsed ? iconWidth : expandedWidth

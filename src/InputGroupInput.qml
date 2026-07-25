@@ -19,9 +19,15 @@ import QtQuick.Controls.Basic as C
 C.TextField {
     id: control
 
-    /*! \qmlproperty bool InputGroupInput::_igControl \brief Marks this as an InputGroup control. \internal */
+    /*!
+        \qmlproperty bool InputGroupInput::_igControl
+        Marks this as an InputGroup control. \internal
+    */
     readonly property bool _igControl: true
-    /*! \qmlproperty string InputGroupInput::_igType \brief Control kind ("input") used for auto orientation. \internal */
+    /*!
+        \qmlproperty string InputGroupInput::_igType
+        Control kind ("input") used for auto orientation. \internal
+    */
     readonly property string _igType: "input"
 
     implicitHeight: 28                 // h-7 (matches the group height)

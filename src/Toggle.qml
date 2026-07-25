@@ -47,11 +47,20 @@ C.Button {
     */
     enum Size { Default, Sm, Lg }
 
-    /*! \qmlproperty int Toggle::variant \brief The visual style; see \l Variant. Defaults to \c Toggle.Default. */
+    /*!
+        \qmlproperty int Toggle::variant
+        The visual style; see \l Variant. Defaults to \c Toggle.Default.
+    */
     property int variant: Toggle.Default
-    /*! \qmlproperty int Toggle::size \brief The size on the compact scale; see \l Size. Defaults to \c Toggle.Default. */
+    /*!
+        \qmlproperty int Toggle::size
+        The size on the compact scale; see \l Size. Defaults to \c Toggle.Default.
+    */
     property int size: Toggle.Default
-    /*! \qmlproperty string Toggle::iconName \brief Optional leading Lucide icon (kebab-case name). */
+    /*!
+        \qmlproperty string Toggle::iconName
+        Optional leading Lucide icon (kebab-case name).
+    */
     property string iconName: ""
 
     checkable: true

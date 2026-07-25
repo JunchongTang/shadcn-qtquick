@@ -27,21 +27,36 @@ import QtQuick
 Item {
     id: item
 
-    /*! \qmlproperty string NavigationMenuItem::text \brief The trigger header label. */
+    /*!
+        \qmlproperty string NavigationMenuItem::text
+        The trigger header label.
+    */
     property string text: ""
-    /*! \qmlproperty bool NavigationMenuItem::asLink \brief When \c true the whole item is a plain clickable link with no dropdown. Defaults to \c false. */
+    /*!
+        \qmlproperty bool NavigationMenuItem::asLink
+        When \c true the whole item is a plain clickable link with no dropdown. Defaults to \c false.
+    */
     property bool asLink: false
-    /*! \qmlproperty int NavigationMenuItem::columns \brief Dropdown grid column count (the components example uses 2). Defaults to \c 1. */
+    /*!
+        \qmlproperty int NavigationMenuItem::columns
+        Dropdown grid column count (the components example uses 2). Defaults to \c 1.
+    */
     property int columns: 1
-    /*! \qmlproperty real NavigationMenuItem::contentWidth \brief Dropdown panel width (w-96 default). Defaults to \c 384. */
+    /*!
+        \qmlproperty real NavigationMenuItem::contentWidth
+        Dropdown panel width (w-96 default). Defaults to \c 384.
+    */
     property real contentWidth: 384
 
-    /*! \qmlsignal NavigationMenuItem::triggered() \brief Emitted when a plain-link item, or one of its child links, is activated. */
+    /*!
+        \qmlsignal NavigationMenuItem::triggered()
+        Emitted when a plain-link item, or one of its child links, is activated.
+    */
     signal triggered()
 
     /*!
         \qmlproperty list<QtObject> NavigationMenuItem::content
-        \brief Default content slot; declared NavigationMenuLink children are
+        Default content slot; declared NavigationMenuLink children are
         routed into the dropdown panel's internal grid. This is the component's
         default property.
     */

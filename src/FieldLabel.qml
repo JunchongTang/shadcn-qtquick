@@ -11,11 +11,12 @@ import QtQuick.Layouts
     horizontal field it pushes the control to the right (flex-auto). For a
     choice card (a \l Field wrapped inside a FieldLabel) the border, radius and
     checked background are restored by the demo's card container.
-
-    \qmlproperty bool FieldLabel::invalid
-    When true the label turns destructive to track \l {Field::invalid}.
 */
 Label {
+    /*!
+        \qmlproperty bool FieldLabel::invalid
+        When true the label turns destructive to track \l {Field::invalid}.
+    */
     property bool invalid: false        // turn destructive with Field.invalid
 
     Layout.fillWidth: true

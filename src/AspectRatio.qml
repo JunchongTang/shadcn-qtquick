@@ -33,14 +33,26 @@ import QtQuick
 Item {
     id: control
 
-    /*! \qmlproperty real AspectRatio::ratio \brief Width divided by height. Defaults to \c {16 / 9}. */
+    /*!
+        \qmlproperty real AspectRatio::ratio
+        Width divided by height. Defaults to \c {16 / 9}.
+    */
     property real ratio: 16 / 9
-    /*! \qmlproperty real AspectRatio::radius \brief Corner radius of the background; a non-zero value also clips content. Defaults to \c 0. */
+    /*!
+        \qmlproperty real AspectRatio::radius
+        Corner radius of the background; a non-zero value also clips content. Defaults to \c 0.
+    */
     property real radius: 0
-    /*! \qmlproperty color AspectRatio::color \brief Background fill color (e.g. \c bg-muted). Defaults to transparent. */
+    /*!
+        \qmlproperty color AspectRatio::color
+        Background fill color (e.g. \c bg-muted). Defaults to transparent.
+    */
     property color color: "transparent"
 
-    /*! \qmlproperty list<QtObject> AspectRatio::content \brief Default property: children placed in the ratio-constrained box. */
+    /*!
+        \qmlproperty list<QtObject> AspectRatio::content
+        Default property: children placed in the ratio-constrained box.
+    */
     default property alias content: holder.data
 
     implicitWidth: 320

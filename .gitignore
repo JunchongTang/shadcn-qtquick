@@ -8,3 +8,7 @@ compile_commands.json
 # 上游 shadcn/ui 源码,仅作本地对齐参照,不纳入版本库
 /reference/
 .cache
+# Generated API documentation (regenerate with docs/build-docs.sh)
+/docs/api/
+# ...but the doc build script itself is tracked (overrides the *build-* rule above)
+!/docs/build-docs.sh

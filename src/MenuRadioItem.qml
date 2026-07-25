@@ -16,14 +16,6 @@ import LucideIcons
     the same \l Menu behave as one group (equivalent to
     \c DropdownMenuRadioGroup).
 
-    \qmlproperty string MenuRadioItem::iconName
-    Optional leading \l LucideIcon (e.g. the radio-with-icons example). Empty
-    hides the icon.
-
-    \qmlproperty bool MenuRadioItem::inset
-    When \c true the content is indented to align with items that have a leading
-    icon (\c {data-inset}).
-
     \note Exclusive selection relies on AbstractButton auto-exclusive grouping
     among sibling items; verify on a real target that toggling one item clears
     the others.
@@ -31,7 +23,17 @@ import LucideIcons
 C.MenuItem {
     id: control
 
+    /*!
+        \qmlproperty string MenuRadioItem::iconName
+        Optional leading \l LucideIcon (e.g. the radio-with-icons example). Empty
+        hides the icon.
+    */
     property string iconName: ""     // optional leading icon (e.g. radio-icons example)
+    /*!
+        \qmlproperty bool MenuRadioItem::inset
+        When \c true the content is indented to align with items that have a leading
+        icon (\c {data-inset}).
+    */
     property bool inset: false       // data-inset: pl-7.5 (30px)
 
     checkable: true

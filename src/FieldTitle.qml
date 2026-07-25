@@ -11,11 +11,12 @@ import QtQuick.Layouts
     Unlike \l FieldLabel this is not a <label> and is not bound to a control; it
     is used for the title row of choice cards, switches and similar. Dims to
     opacity 0.5 when disabled.
-
-    \qmlproperty bool FieldTitle::invalid
-    When true the title turns destructive to track \l {Field::invalid}.
 */
 Text {
+    /*!
+        \qmlproperty bool FieldTitle::invalid
+        When true the title turns destructive to track \l {Field::invalid}.
+    */
     property bool invalid: false        // turn destructive with Field.invalid
 
     Layout.fillWidth: true

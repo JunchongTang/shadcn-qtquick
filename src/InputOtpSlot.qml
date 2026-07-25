@@ -23,35 +23,35 @@ Item {
     id: slot
 
     /*! \qmlproperty string InputOtpSlot::glyph
-        \brief The character shown in this cell (empty when unfilled). */
+        The character shown in this cell (empty when unfilled). */
     property string glyph: ""
 
     /*! \qmlproperty bool InputOtpSlot::active
-        \brief Whether this is the current input position (maps \c {data-active}).
+        Whether this is the current input position (maps \c {data-active}).
         When \c true the cell shows the ring and \c border-ring outline. */
     property bool active: false
 
     /*! \qmlproperty bool InputOtpSlot::first
-        \brief Whether this is the first slot in its group; rounds the left corners
+        Whether this is the first slot in its group; rounds the left corners
         (maps \c {first:rounded-l-md}). Defaults to \c false. */
     property bool first: false
 
     /*! \qmlproperty bool InputOtpSlot::last
-        \brief Whether this is the last slot in its group; rounds the right corners
+        Whether this is the last slot in its group; rounds the right corners
         (maps \c {last:rounded-r-md}). Defaults to \c false. */
     property bool last: false
 
     /*! \qmlproperty bool InputOtpSlot::invalid
-        \brief Marks the cell as failing validation (maps \c {aria-invalid}); the
+        Marks the cell as failing validation (maps \c {aria-invalid}); the
         divider, border and ring switch to \c Theme.destructive. */
     property bool invalid: false
 
     /*! \qmlproperty bool InputOtpSlot::showCaret
-        \brief Whether the blinking caret may be drawn (only while empty). */
+        Whether the blinking caret may be drawn (only while empty). */
     property bool showCaret: false
 
     /*! \qmlproperty bool InputOtpSlot::caretOn
-        \brief Current on/off phase of the blinking caret. */
+        Current on/off phase of the blinking caret. */
     property bool caretOn: true
 
     implicitWidth: 28                   // size-7

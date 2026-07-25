@@ -16,7 +16,10 @@ import QtQuick
 IconButton {
     id: control
 
-    /*! \qmlproperty var SidebarTrigger::sidebar \brief The target \l Sidebar to toggle (must be bound by the caller). */
+    /*!
+        \qmlproperty var SidebarTrigger::sidebar
+        The target \l Sidebar to toggle (must be bound by the caller).
+    */
     property var sidebar: null
 
     variant: IconButton.Ghost

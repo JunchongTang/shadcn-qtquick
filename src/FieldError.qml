@@ -10,17 +10,19 @@ import QtQuick.Layouts
     Provide a single message via \l text, or an array of messages via \l errors
     (duplicates are removed). More than one message renders as a bulleted list.
     The container hides itself (visible = false) when there is no content.
-
-    \qmlproperty string FieldError::text
-    A single error message. Takes precedence over \l errors when non-empty.
-
-    \qmlproperty var FieldError::errors
-    An array of error message strings; duplicates are removed before display.
 */
 ColumnLayout {
     id: err
 
+    /*!
+        \qmlproperty string FieldError::text
+        A single error message. Takes precedence over \l errors when non-empty.
+    */
     property string text: ""
+    /*!
+        \qmlproperty var FieldError::errors
+        An array of error message strings; duplicates are removed before display.
+    */
     property var errors: []
 
     // Normalised, de-duplicated list of messages.

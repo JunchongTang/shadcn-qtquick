@@ -42,17 +42,35 @@ import QtQuick
 Rectangle {
     id: root
 
-    /*! \qmlproperty bool FocusRing::active \brief Shows the ring while \c true; hides it otherwise. Defaults to \c false. */
+    /*!
+        \qmlproperty bool FocusRing::active
+        Shows the ring while \c true; hides it otherwise. Defaults to \c false.
+    */
     property bool active: false
-    /*! \qmlproperty real FocusRing::targetRadius \brief Radius of the target background; each ring corner becomes this plus \c Theme.ringWidth. Defaults to \c Theme.radiusMd. */
+    /*!
+        \qmlproperty real FocusRing::targetRadius
+        Radius of the target background; each ring corner becomes this plus \c Theme.ringWidth. Defaults to \c Theme.radiusMd.
+    */
     property real targetRadius: Theme.radiusMd
-    /*! \qmlproperty real FocusRing::targetTopLeft \brief Per-corner target radius for the top-left corner; \c -1 uses \l targetRadius. Defaults to \c -1. */
+    /*!
+        \qmlproperty real FocusRing::targetTopLeft
+        Per-corner target radius for the top-left corner; \c -1 uses \l targetRadius. Defaults to \c -1.
+    */
     property real targetTopLeft: -1
-    /*! \qmlproperty real FocusRing::targetTopRight \brief Per-corner target radius for the top-right corner; \c -1 uses \l targetRadius. Defaults to \c -1. */
+    /*!
+        \qmlproperty real FocusRing::targetTopRight
+        Per-corner target radius for the top-right corner; \c -1 uses \l targetRadius. Defaults to \c -1.
+    */
     property real targetTopRight: -1
-    /*! \qmlproperty real FocusRing::targetBottomLeft \brief Per-corner target radius for the bottom-left corner; \c -1 uses \l targetRadius. Defaults to \c -1. */
+    /*!
+        \qmlproperty real FocusRing::targetBottomLeft
+        Per-corner target radius for the bottom-left corner; \c -1 uses \l targetRadius. Defaults to \c -1.
+    */
     property real targetBottomLeft: -1
-    /*! \qmlproperty real FocusRing::targetBottomRight \brief Per-corner target radius for the bottom-right corner; \c -1 uses \l targetRadius. Defaults to \c -1. */
+    /*!
+        \qmlproperty real FocusRing::targetBottomRight
+        Per-corner target radius for the bottom-right corner; \c -1 uses \l targetRadius. Defaults to \c -1.
+    */
     property real targetBottomRight: -1
 
     // Resolve one corner's ring radius. A negative corner falls back to

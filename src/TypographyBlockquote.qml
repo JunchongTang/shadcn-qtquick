@@ -12,9 +12,6 @@ import QtQuick
     \l {Theme::foreground}{foreground}). Outer spacing (\c mt-6) is left to
     the surrounding layout.
 
-    \qmlproperty string TypographyBlockquote::text
-    The quotation text.
-
     \qml
     TypographyBlockquote {
         width: 400
@@ -25,6 +22,10 @@ import QtQuick
 Item {
     id: root
 
+    /*!
+        \qmlproperty string TypographyBlockquote::text
+        The quotation text.
+    */
     // Quotation text, forwarded to the inner label.
     property alias text: quote.text
 

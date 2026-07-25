@@ -58,11 +58,20 @@ C.ComboBox {
     */
     enum Size { Default, Sm }
 
-    /*! \qmlproperty int Select::size \brief The size on the compact scale; see \l Size. Defaults to \c Select.Default. */
+    /*!
+        \qmlproperty int Select::size
+        The size on the compact scale; see \l Size. Defaults to \c Select.Default.
+    */
     property int size: Select.Default
-    /*! \qmlproperty string Select::placeholder \brief Text shown while nothing is selected (\c currentIndex < 0); rendered in the muted color (data-placeholder:text-muted-foreground). */
+    /*!
+        \qmlproperty string Select::placeholder
+        Text shown while nothing is selected (\c currentIndex < 0); rendered in the muted color (data-placeholder:text-muted-foreground).
+    */
     property string placeholder: ""
-    /*! \qmlproperty bool Select::invalid \brief When \c true, paints the aria-invalid destructive border and ring. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Select::invalid
+        When \c true, paints the aria-invalid destructive border and ring. Defaults to \c false.
+    */
     property bool invalid: false
     /*!
         \qmlproperty bool Select::alignItemWithTrigger
@@ -79,7 +88,10 @@ C.ComboBox {
         straightened; see \l {Button::GroupPosition}. Set automatically by ButtonGroup.
     */
     property int groupPosition: Button.GroupNone
-    /*! \qmlproperty bool Select::groupVertical \brief Whether the containing ButtonGroup is vertical. Set by ButtonGroup. */
+    /*!
+        \qmlproperty bool Select::groupVertical
+        Whether the containing ButtonGroup is vertical. Set by ButtonGroup.
+    */
     property bool groupVertical: false
 
     readonly property bool _sm: size === Select.Sm

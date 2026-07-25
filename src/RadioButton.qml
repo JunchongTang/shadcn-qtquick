@@ -24,20 +24,15 @@ import QtQuick.Controls.Basic as C
     \note The filename \c RadioButton matches the base type \c RadioButton, so no
     import alias is required at the call site.
 
-    \qmlproperty bool RadioButton::invalid
-    \brief Whether the control is in the invalid (\c aria-invalid) state.
-
-    When \c true and the radio is unselected, the border turns destructive and a
-    faint destructive ring is drawn. A selected radio keeps the primary border
-    even when invalid, matching the reference's
-    \c aria-invalid:aria-checked:border-primary.
-
     \sa RadioGroup
 */
 C.RadioButton {
     id: control
 
-    /*! \qmlproperty bool RadioButton::invalid \brief aria-invalid -> destructive border + ring. Defaults to \c false. */
+    /*!
+        \qmlproperty bool RadioButton::invalid
+        aria-invalid -> destructive border + ring. Defaults to \c false.
+    */
     property bool invalid: false
 
     spacing: Theme.space2

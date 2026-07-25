@@ -62,11 +62,20 @@ C.Button {
     */
     enum Size { Small, Medium, Large }
 
-    /*! \qmlproperty int IconButton::variant \brief The visual style; see \l Variant. Defaults to \c IconButton.Ghost. */
+    /*!
+        \qmlproperty int IconButton::variant
+        The visual style; see \l Variant. Defaults to \c IconButton.Ghost.
+    */
     property int variant: IconButton.Ghost
-    /*! \qmlproperty int IconButton::size \brief The square size; see \l Size. Defaults to \c IconButton.Medium. */
+    /*!
+        \qmlproperty int IconButton::size
+        The square size; see \l Size. Defaults to \c IconButton.Medium.
+    */
     property int size: IconButton.Medium
-    /*! \qmlproperty string IconButton::iconName \brief The Lucide icon to draw (kebab-case name). Named \c iconName because \c Button.icon is FINAL and cannot be shadowed. */
+    /*!
+        \qmlproperty string IconButton::iconName
+        The Lucide icon to draw (kebab-case name). Named \c iconName because \c Button.icon is FINAL and cannot be shadowed.
+    */
     property string iconName: ""
 
     // Square side: icon-sm 24 / icon 28 / icon-lg 32.

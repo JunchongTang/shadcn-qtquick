@@ -30,32 +30,32 @@ FocusScope {
     id: control
 
     /*! \qmlproperty int InputOtp::length
-        \brief Total number of slots (characters). Defaults to \c 6. */
+        Total number of slots (characters). Defaults to \c 6. */
     property int length: 6
 
     /*! \qmlproperty var InputOtp::groups
-        \brief Array of per-group slot counts (e.g. \c {[3, 3]}); a separator is
+        Array of per-group slot counts (e.g. \c {[3, 3]}); a separator is
         shown between groups. When empty, a single group of \l length is used. */
     property var groups: []
 
     /*! \qmlproperty string InputOtp::pattern
-        \brief Per-character validation regexp source; an empty string accepts any
+        Per-character validation regexp source; an empty string accepts any
         visible character. Anchored full-string sources (e.g. \c {"^\\d+$"}) also
         work since each candidate character is tested individually. */
     property string pattern: ""
 
     /*! \qmlproperty bool InputOtp::invalid
-        \brief Marks the field as failing validation (maps \c {aria-invalid}); the
+        Marks the field as failing validation (maps \c {aria-invalid}); the
         group border and ring switch to the destructive color. */
     property bool invalid: false
 
     /*! \qmlproperty string InputOtp::value
-        \brief The characters entered so far. Writable, but the built-in keyboard
+        The characters entered so far. Writable, but the built-in keyboard
         handling never lets it exceed \l length. */
     property string value: ""
 
     /*! \qmlproperty bool InputOtp::complete
-        \brief \c true when \l value has exactly \l length characters. */
+        \c true when \l value has exactly \l length characters. */
     readonly property bool complete: value.length === control.length
 
     implicitWidth: row.implicitWidth

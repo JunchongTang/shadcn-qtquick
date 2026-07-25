@@ -47,7 +47,10 @@ Rectangle {
     */
     enum Orientation { Horizontal, Vertical }
 
-    /*! \qmlproperty int Separator::orientation \brief The divider axis; see \l Orientation. Defaults to \c Separator.Horizontal. */
+    /*!
+        \qmlproperty int Separator::orientation
+        The divider axis; see \l Orientation. Defaults to \c Separator.Horizontal.
+    */
     property int orientation: Separator.Horizontal
 
     // bg-border: the divider is filled with the border token (no border/radius).

@@ -18,17 +18,18 @@ import LucideIcons
 
     \note The filename \c Checkbox differs from the base type \c CheckBox only in
     case, so no import alias is required at the call site.
-
-    \qmlproperty bool Checkbox::invalid
-    \brief Whether the control is in the invalid (\c aria-invalid) state.
-
-    When \c true and the box is unchecked, the border turns destructive and a
-    faint destructive ring is drawn. A checked box keeps the primary border even
-    when invalid, matching the reference's \c aria-invalid:aria-checked:border-primary.
 */
 C.CheckBox {
     id: control
 
+    /*!
+        \qmlproperty bool Checkbox::invalid
+        Whether the control is in the invalid (\c aria-invalid) state.
+
+        When \c true and the box is unchecked, the border turns destructive and a
+        faint destructive ring is drawn. A checked box keeps the primary border even
+        when invalid, matching the reference's \c aria-invalid:aria-checked:border-primary.
+    */
     property bool invalid: false        // aria-invalid -> destructive border + ring
 
     padding: 0                          // shadcn size-4 box has no surrounding padding

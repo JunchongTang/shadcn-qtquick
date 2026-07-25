@@ -20,7 +20,7 @@ Button {
 
     /*!
         \qmlproperty enumeration InputGroupButton::kind
-        \brief Size preset. Defaults to \c InputGroupButton.KindXs.
+        Size preset. Defaults to \c InputGroupButton.KindXs.
         \value InputGroupButton.KindXs Text, maps to Button.Xs (h-5, 20px).
         \value InputGroupButton.KindSm Text, maps to Button.Sm (h-6, 24px).
         \value InputGroupButton.KindIconXs Square icon, maps to Button.IconSm (size-6, 24px).
@@ -28,10 +28,13 @@ Button {
     */
     enum Kind { KindXs, KindSm, KindIconXs, KindIconSm }
 
-    /*! \qmlproperty enumeration InputGroupButton::kind \brief See \l Kind. */
+    /*!
+        \qmlproperty enumeration InputGroupButton::kind
+        See \l Kind.
+    */
     property int kind: InputGroupButton.KindXs
     /*! \qmlproperty bool InputGroupButton::_igButton
-        \brief Marker letting the addon apply the button edge-pull margin. \internal */
+        Marker letting the addon apply the button edge-pull margin. \internal */
     readonly property bool _igButton: true
 
     variant: Button.Ghost

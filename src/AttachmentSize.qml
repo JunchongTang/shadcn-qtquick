@@ -17,9 +17,15 @@ import QtQuick.Layouts
 Text {
     id: meta
 
-    /*! \qmlproperty string AttachmentSize::attachSlot \readonly \brief Slot marker used by \l AttachmentContent forwarding. */
+    /*!
+        \qmlproperty string AttachmentSize::attachSlot
+        \readonly Slot marker used by AttachmentContent forwarding.
+    */
     readonly property string attachSlot: "attachment-size"
-    /*! \qmlproperty enumeration AttachmentSize::hostState \brief Upload state injected by the host; error turns the text destructive. See \l {Attachment::uploadState}. */
+    /*!
+        \qmlproperty enumeration AttachmentSize::hostState
+        Upload state injected by the host; error turns the text destructive. See \l {Attachment::uploadState}.
+    */
     property int hostState: Attachment.Done
 
     readonly property bool _error: hostState === Attachment.Error

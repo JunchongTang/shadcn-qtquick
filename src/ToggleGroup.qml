@@ -53,15 +53,30 @@ GridLayout {
     */
     enum Orientation { Horizontal, Vertical }
 
-    /*! \qmlproperty int ToggleGroup::variant \brief Variant propagated to items; see \l Variant. */
+    /*!
+        \qmlproperty int ToggleGroup::variant
+        Variant propagated to items; see \l Variant.
+    */
     property int variant: ToggleGroup.Default
-    /*! \qmlproperty int ToggleGroup::size \brief Size propagated to items; see \l Size. */
+    /*!
+        \qmlproperty int ToggleGroup::size
+        Size propagated to items; see \l Size.
+    */
     property int size: ToggleGroup.Default
-    /*! \qmlproperty int ToggleGroup::spacing \brief Gap between items in shadcn units (×4 = px). Defaults to 2 (8px). */
+    /*!
+        \qmlproperty int ToggleGroup::spacing
+        Gap between items in shadcn units (×4 = px). Defaults to 2 (8px).
+    */
     property int spacing: 2
-    /*! \qmlproperty int ToggleGroup::orientation \brief Layout direction; see \l Orientation. */
+    /*!
+        \qmlproperty int ToggleGroup::orientation
+        Layout direction; see \l Orientation.
+    */
     property int orientation: ToggleGroup.Horizontal
-    /*! \qmlproperty bool ToggleGroup::multiple \brief If \c false (default) selection is mutually exclusive; if \c true multiple items may be on. */
+    /*!
+        \qmlproperty bool ToggleGroup::multiple
+        If \c false (default) selection is mutually exclusive; if \c true multiple items may be on.
+    */
     property bool multiple: false
 
     flow: orientation === ToggleGroup.Vertical ? GridLayout.TopToBottom : GridLayout.LeftToRight

@@ -31,14 +31,14 @@ Rectangle {
 
     /*!
         \qmlproperty int ButtonGroupSeparator::orientation
-        \brief The divider direction; see \l Orientation. Defaults to
+        The divider direction; see \l Orientation. Defaults to
         \c ButtonGroupSeparator.Vertical.
     */
     property int orientation: ButtonGroupSeparator.Vertical
 
     /*!
         \qmlproperty real ButtonGroupSeparator::length
-        \brief The length of the line along its running direction (height when
+        The length of the line along its running direction (height when
         vertical, width when horizontal). Defaults to 24; override to match
         adjacent buttons of a different size.
     */

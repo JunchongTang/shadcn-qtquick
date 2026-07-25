@@ -62,7 +62,10 @@ ToolTip {
     */
     enum Side { TopEdge, RightEdge, BottomEdge, LeftEdge }
 
-    /*! \qmlproperty int Tooltip::side \brief Placement edge; see \l Side. Defaults to \c Tooltip.Side.TopEdge. */
+    /*!
+        \qmlproperty int Tooltip::side
+        Placement edge; see \l Side. Defaults to \c Tooltip.Side.TopEdge.
+    */
     property int side: Tooltip.Side.TopEdge
 
     /*!

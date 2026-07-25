@@ -21,7 +21,7 @@ Item {
     id: root
 
     /*! \qmlproperty string InputOtpSeparator::iconName
-        \brief Name of the \l LucideIcon shown as the separator glyph.
+        Name of the \l LucideIcon shown as the separator glyph.
         Defaults to \c "minus" (the base-mira \c MinusIcon). */
     property string iconName: "minus"
 

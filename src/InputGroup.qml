@@ -41,28 +41,28 @@ FocusScope {
     id: root
 
     /*! \qmlproperty bool InputGroup::invalid
-        \brief aria-invalid: paints the destructive border plus ring. Defaults to \c false. */
+        aria-invalid: paints the destructive border plus ring. Defaults to \c false. */
     property bool invalid: false
 
     /*! \qmlproperty bool InputGroup::_hasBlock
-        \brief True while a block-aligned addon is present. Set by \c _rebuild(). \internal */
+        True while a block-aligned addon is present. Set by \c _rebuild(). \internal */
     property bool _hasBlock: false
     /*! \qmlproperty bool InputGroup::_hasTextarea
-        \brief True while the control is a textarea. Set by \c _rebuild(). \internal */
+        True while the control is a textarea. Set by \c _rebuild(). \internal */
     property bool _hasTextarea: false
     /*! \qmlproperty bool InputGroup::_autoVertical
-        \brief Vertical layout is implied by a block addon or a textarea control. \internal */
+        Vertical layout is implied by a block addon or a textarea control. \internal */
     readonly property bool _autoVertical: _hasBlock || _hasTextarea
     /*! \qmlproperty bool InputGroup::vertical
-        \brief Stacks the group vertically. Defaults to \l _autoVertical; assign to override. */
+        Stacks the group vertically. Defaults to \l _autoVertical; assign to override. */
     property bool vertical: _autoVertical
 
     /*! \qmlproperty Item InputGroup::_firstControl
-        \brief The first inner control, focused when an addon is tapped. \internal */
+        The first inner control, focused when an addon is tapped. \internal */
     property var _firstControl: null
 
     /*! \qmlproperty Item InputGroup::background
-        \brief The shared border/background/focus-ring rectangle. \readonly */
+        The shared border/background/focus-ring rectangle. \readonly */
     readonly property alias background: bg
 
     default property alias _content: stash.data

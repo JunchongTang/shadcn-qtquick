@@ -28,16 +28,25 @@ import QtQuick.Controls.Basic as C
 C.Slider {
     id: control
 
-    /*! \qmlproperty real Slider::from \brief Range minimum. Defaults to \c 0. */
+    /*!
+        \qmlproperty real Slider::from
+        Range minimum. Defaults to \c 0.
+    */
     from: 0
-    /*! \qmlproperty real Slider::to \brief Range maximum. Defaults to \c 100. */
+    /*!
+        \qmlproperty real Slider::to
+        Range maximum. Defaults to \c 100.
+    */
     to: 100
-    /*! \qmlproperty real Slider::stepSize \brief Keyboard/drag increment. Defaults to \c 1. */
+    /*!
+        \qmlproperty real Slider::stepSize
+        Keyboard/drag increment. Defaults to \c 1.
+    */
     stepSize: 1
 
     /*!
         \qmlproperty real Slider::value
-        \brief The currently selected value, clamped to \l from .. \l to.
+        The currently selected value, clamped to \l from .. \l to.
 
         A bare Slider defaults to \l from (\c 0), i.e. an empty indicator with the
         thumb at the start of the track; this matches Qt's own default and is the
@@ -46,7 +55,7 @@ C.Slider {
 
     /*!
         \qmlproperty enumeration Slider::orientation
-        \brief Layout direction.
+        Layout direction.
         \value Qt.Horizontal Track runs left-to-right (the default); higher values to the right.
         \value Qt.Vertical Track runs bottom-to-top; higher values upward.
     */

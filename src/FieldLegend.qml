@@ -6,16 +6,17 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits Text
     \brief The title of a \l FieldSet (font-medium).
-
-    \qmlproperty enumeration FieldLegend::variant
-    Type size of the legend.
-
-    \value FieldLegend.Legend Section title, text-sm (default).
-    \value FieldLegend.Label Label-sized, text-xs/relaxed; suits a nested FieldSet.
 */
 Text {
     enum Variant { Legend, Label }
 
+    /*!
+        \qmlproperty enumeration FieldLegend::variant
+        Type size of the legend.
+
+        \value FieldLegend.Legend Section title, text-sm (default).
+        \value FieldLegend.Label Label-sized, text-xs/relaxed; suits a nested FieldSet.
+    */
     property int variant: FieldLegend.Legend
 
     Layout.fillWidth: true

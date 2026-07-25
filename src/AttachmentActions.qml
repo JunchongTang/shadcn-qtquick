@@ -18,7 +18,10 @@ import QtQuick.Layouts
 RowLayout {
     id: actions
 
-    /*! \qmlproperty string AttachmentActions::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
+    /*!
+        \qmlproperty string AttachmentActions::attachSlot
+        \readonly Slot marker used by Attachment routing.
+    */
     readonly property string attachSlot: "attachment-actions"
 
     /*!

@@ -13,9 +13,6 @@ import QtQuick
     \c font-mono \c text-sm (14px) \c font-semibold text in the
     \l {Theme::foreground}{foreground} color.
 
-    \qmlproperty string TypographyInlineCode::text
-    The code text.
-
     \qml
     TypographyInlineCode { text: "@radix-ui/react-alert-dialog" }
     \endqml
@@ -23,6 +20,10 @@ import QtQuick
 Rectangle {
     id: root
 
+    /*!
+        \qmlproperty string TypographyInlineCode::text
+        The code text.
+    */
     // Code text, forwarded to the inner label.
     property alias text: codeText.text
 

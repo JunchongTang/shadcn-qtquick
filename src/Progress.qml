@@ -25,26 +25,26 @@ Item {
 
     /*!
         \qmlproperty real Progress::value
-        \brief The current progress, expressed on the \l from .. \l to scale.
+        The current progress, expressed on the \l from .. \l to scale.
         Defaults to \c 0. Values outside the range are clamped for display.
     */
     property real value: 0
 
     /*!
         \qmlproperty real Progress::from
-        \brief The value that maps to an empty (0%) bar. Defaults to \c 0.
+        The value that maps to an empty (0%) bar. Defaults to \c 0.
     */
     property real from: 0
 
     /*!
         \qmlproperty real Progress::to
-        \brief The value that maps to a full (100%) bar. Defaults to \c 100.
+        The value that maps to a full (100%) bar. Defaults to \c 100.
     */
     property real to: 100
 
     /*!
         \qmlproperty bool Progress::indeterminate
-        \brief When \c true the task's progress is unknown; the indicator loops a
+        When \c true the task's progress is unknown; the indicator loops a
         sliding animation and \l value is ignored. Defaults to \c false.
     */
     property bool indeterminate: false

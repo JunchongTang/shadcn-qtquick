@@ -33,13 +33,13 @@ C.TextField {
     id: control
 
     /*! \qmlproperty bool Input::invalid
-        \brief Marks the field as failing validation (maps \c {aria-invalid}).
+        Marks the field as failing validation (maps \c {aria-invalid}).
         When \c true the border and ring switch to the destructive color.
         Defaults to \c false. */
     property bool invalid: false
 
     /*! \qmlproperty enumeration Input::groupPosition
-        \brief Adjacency of this field inside a \l ButtonGroup; reuses
+        Adjacency of this field inside a \l ButtonGroup; reuses
         \l {Button::}{Button.GroupPosition}. Set automatically by ButtonGroup to
         straighten the corners shared with neighbours.
 
@@ -50,7 +50,7 @@ C.TextField {
     property int groupPosition: Button.GroupNone
 
     /*! \qmlproperty bool Input::groupVertical
-        \brief Whether the containing \l ButtonGroup is vertical. Set by ButtonGroup.
+        Whether the containing \l ButtonGroup is vertical. Set by ButtonGroup.
         Defaults to \c false. */
     property bool groupVertical: false
 

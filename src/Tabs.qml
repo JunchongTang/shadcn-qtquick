@@ -53,11 +53,20 @@ C.TabBar {
     */
     enum Orientation { Horizontal, Vertical }
 
-    /*! \qmlproperty int Tabs::variant \brief The visual style; see \l Variant. Defaults to \c Tabs.Default. */
+    /*!
+        \qmlproperty int Tabs::variant
+        The visual style; see \l Variant. Defaults to \c Tabs.Default.
+    */
     property int variant: Tabs.Default
-    /*! \qmlproperty bool Tabs::vertical \brief Stacks triggers in a column when \c true. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Tabs::vertical
+        Stacks triggers in a column when \c true. Defaults to \c false.
+    */
     property bool vertical: false
-    /*! \qmlproperty int Tabs::orientation \brief Read-only enum reflection of \l vertical; see \l Orientation. */
+    /*!
+        \qmlproperty int Tabs::orientation
+        Read-only enum reflection of \l vertical; see \l Orientation.
+    */
     readonly property int orientation: vertical ? Tabs.Vertical : Tabs.Horizontal
 
     /*! \internal Convenience: true for the Line variant. */

@@ -23,7 +23,10 @@ import QtQuick
 Item {
     id: control
 
-    /*! \qmlproperty var SidebarRail::sidebar \brief The target \l Sidebar to toggle (must be bound by the caller). */
+    /*!
+        \qmlproperty var SidebarRail::sidebar
+        The target \l Sidebar to toggle (must be bound by the caller).
+    */
     property var sidebar: null
 
     implicitWidth: 16                // w-4

@@ -25,7 +25,7 @@ Item {
 
     /*!
         \qmlproperty enumeration InputGroupAddon::align
-        \brief Placement of the addon. Defaults to \c InputGroupAddon.InlineStart.
+        Placement of the addon. Defaults to \c InputGroupAddon.InlineStart.
         \value InputGroupAddon.InlineStart Leading horizontal end (pl-2).
         \value InputGroupAddon.InlineEnd Trailing horizontal end (pr-2).
         \value InputGroupAddon.BlockStart Row above the control (full width).
@@ -33,17 +33,20 @@ Item {
     */
     enum Align { InlineStart, InlineEnd, BlockStart, BlockEnd }
 
-    /*! \qmlproperty enumeration InputGroupAddon::align \brief See \l Align. */
+    /*!
+        \qmlproperty enumeration InputGroupAddon::align
+        See \l Align.
+    */
     property int align: InputGroupAddon.InlineStart
 
     /*! \qmlproperty bool InputGroupAddon::border
-        \brief Draws a divider on a block addon (block-start -> bottom border,
+        Draws a divider on a block addon (block-start -> bottom border,
         block-end -> top border), matching \c .border-b / \c .border-t. Defaults
         to \c false. */
     property bool border: false
 
     /*! \qmlproperty string InputGroupAddon::igAlign
-        \brief Alignment token consumed by InputGroup when sorting children. \readonly */
+        Alignment token consumed by InputGroup when sorting children. \readonly */
     readonly property string igAlign: {
         switch (align) {
         case InputGroupAddon.InlineEnd:  return "inline-end"
@@ -52,18 +55,21 @@ Item {
         default:                         return "inline-start"
         }
     }
-    /*! \qmlproperty bool InputGroupAddon::_block \brief True for a block-aligned addon. \internal */
+    /*!
+        \qmlproperty bool InputGroupAddon::_block
+        True for a block-aligned addon. \internal
+    */
     readonly property bool _block: align === InputGroupAddon.BlockStart
                                 || align === InputGroupAddon.BlockEnd
 
     /*! \qmlproperty InputGroup InputGroupAddon::_group
-        \brief Owning group, injected by InputGroup for tap-to-focus. \internal */
+        Owning group, injected by InputGroup for tap-to-focus. \internal */
     property var _group: null
 
     default property alias content: row.data
 
     /*! \qmlproperty bool InputGroupAddon::_edgePull
-        \brief True when a child button tightens this side's padding
+        True when a child button tightens this side's padding
         (has-[>button]:ml/mr-[-0.275rem]). \internal */
     readonly property bool _edgePull: {
         for (var i = 0; i < row.children.length; i++) {

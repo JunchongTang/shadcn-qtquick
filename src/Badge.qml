@@ -45,21 +45,42 @@ Item {
     */
     enum Variant { Default, Secondary, Outline, Destructive, Ghost, Link }
 
-    /*! \qmlproperty int Badge::variant \brief The color style; see \l Variant. Defaults to \c Badge.Default. */
+    /*!
+        \qmlproperty int Badge::variant
+        The color style; see \l Variant. Defaults to \c Badge.Default.
+    */
     property int variant: Badge.Default
-    /*! \qmlproperty string Badge::text \brief The label text. Empty hides the label. */
+    /*!
+        \qmlproperty string Badge::text
+        The label text. Empty hides the label.
+    */
     property string text: ""
-    /*! \qmlproperty string Badge::iconName \brief Optional leading Lucide icon (kebab-case), painted at 10px. */
+    /*!
+        \qmlproperty string Badge::iconName
+        Optional leading Lucide icon (kebab-case), painted at 10px.
+    */
     property string iconName: ""
-    /*! \qmlproperty string Badge::trailingIconName \brief Optional trailing Lucide icon (kebab-case), painted at 10px. */
+    /*!
+        \qmlproperty string Badge::trailingIconName
+        Optional trailing Lucide icon (kebab-case), painted at 10px.
+    */
     property string trailingIconName: ""
 
-    /*! \qmlproperty list<QtObject> Badge::leading \brief Content slot placed before the icon/label (e.g. a Spinner). */
+    /*!
+        \qmlproperty list<QtObject> Badge::leading
+        Content slot placed before the icon/label (e.g. a Spinner).
+    */
     property alias leading: leadingSlot.data
-    /*! \qmlproperty list<QtObject> Badge::trailing \brief Content slot placed after the label/icon. */
+    /*!
+        \qmlproperty list<QtObject> Badge::trailing
+        Content slot placed after the label/icon.
+    */
     property alias trailing: trailingSlot.data
 
-    /*! \qmlproperty color Badge::bgColor \brief Background fill; defaults per \l variant. */
+    /*!
+        \qmlproperty color Badge::bgColor
+        Background fill; defaults per \l variant.
+    */
     property color bgColor: {
         switch (variant) {
         case Badge.Default: return Theme.primary
@@ -71,7 +92,10 @@ Item {
         default: return "transparent"  // Ghost / Link
         }
     }
-    /*! \qmlproperty color Badge::fgColor \brief Text/icon color; defaults per \l variant. */
+    /*!
+        \qmlproperty color Badge::fgColor
+        Text/icon color; defaults per \l variant.
+    */
     property color fgColor: {
         switch (variant) {
         case Badge.Default: return Theme.primaryForeground
@@ -81,10 +105,16 @@ Item {
         default: return Theme.foreground  // Outline / Ghost
         }
     }
-    /*! \qmlproperty color Badge::borderColor \brief Border color; only drawn for \c Badge.Outline. */
+    /*!
+        \qmlproperty color Badge::borderColor
+        Border color; only drawn for \c Badge.Outline.
+    */
     property color borderColor: Theme.border
 
-    /*! \qmlproperty Rectangle Badge::background \brief The pill background/border rectangle (read-only). */
+    /*!
+        \qmlproperty Rectangle Badge::background
+        The pill background/border rectangle (read-only).
+    */
     readonly property alias background: bg
 
     // has-data-[icon=inline-start]:pl-1.5 / inline-end:pr-1.5, otherwise px-2.

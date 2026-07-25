@@ -19,12 +19,6 @@ import QtQuick.Layouts
     are distributed evenly. Outer spacing (\c my-6) is left to the surrounding
     layout.
 
-    \qmlproperty list<string> TypographyTable::headers
-    The header cell labels, one column per entry.
-
-    \qmlproperty list<var> TypographyTable::rows
-    The body rows; each entry is an array of cell strings.
-
     \qml
     TypographyTable {
         headers: ["King's Treasury", "People's happiness"]
@@ -35,9 +29,15 @@ import QtQuick.Layouts
 ColumnLayout {
     id: root
 
-    // Header cell labels (one column each).
+    /*!
+        \qmlproperty list<string> TypographyTable::headers
+        The header cell labels, one column per entry.
+    */
     property var headers: []
-    // Body rows; each entry is an array of cell strings.
+    /*!
+        \qmlproperty list<var> TypographyTable::rows
+        The body rows; each entry is an array of cell strings.
+    */
     property var rows: []
 
     Layout.fillWidth: true

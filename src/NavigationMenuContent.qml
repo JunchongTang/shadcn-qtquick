@@ -25,14 +25,20 @@ import QtQuick.Effects
 C.Popup {
     id: content
 
-    /*! \qmlproperty int NavigationMenuContent::columns \brief Number of grid columns for the links (1 = vertical stack). Defaults to \c 1. */
+    /*!
+        \qmlproperty int NavigationMenuContent::columns
+        Number of grid columns for the links (1 = vertical stack). Defaults to \c 1.
+    */
     property int columns: 1
-    /*! \qmlproperty int NavigationMenuContent::sideOffset \brief Vertical gap between the trigger and the panel (side=bottom). Defaults to \c 8. */
+    /*!
+        \qmlproperty int NavigationMenuContent::sideOffset
+        Vertical gap between the trigger and the panel (side=bottom). Defaults to \c 8.
+    */
     property int sideOffset: 8
 
     /*!
         \qmlproperty list<QtObject> NavigationMenuContent::links
-        \brief Default content slot; declared NavigationMenuLink children go
+        Default content slot; declared NavigationMenuLink children go
         straight into the internal grid. This is the component's default
         property.
     */
@@ -40,7 +46,7 @@ C.Popup {
 
     /*!
         \qmlproperty bool NavigationMenuContent::hovered
-        \brief Whether the pointer is over the panel; the host item reads this to
+        Whether the pointer is over the panel; the host item reads this to
         keep the panel open while it is hovered. Read-only.
     */
     property alias hovered: panelHover.hovered

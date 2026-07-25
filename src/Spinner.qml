@@ -27,13 +27,13 @@ LucideIcon {
 
     /*!
         \qmlproperty int Spinner::size
-        \brief The glyph size in pixels; also the item's implicit width/height.
+        The glyph size in pixels; also the item's implicit width/height.
         Defaults to 16 (\c size-4). Inherited from \l LucideIcon.
     */
 
     /*!
         \qmlproperty color Spinner::color
-        \brief The glyph color. Defaults to \c Theme.foreground (the reference's
+        The glyph color. Defaults to \c Theme.foreground (the reference's
         \c currentColor). Inherited from \l LucideIcon.
     */
 

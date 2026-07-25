@@ -51,7 +51,10 @@ Item {
         \value HoverCard.Side.LeftEdge To the left of the trigger. Value 3.
     */
     enum Side { TopEdge, RightEdge, BottomEdge, LeftEdge }
-    /*! \qmlproperty int HoverCard::side \brief Placement side; see \l Side. Defaults to \c HoverCard.Side.BottomEdge. */
+    /*!
+        \qmlproperty int HoverCard::side
+        Placement side; see \l Side. Defaults to \c HoverCard.Side.BottomEdge.
+    */
     property int side: HoverCard.Side.BottomEdge
 
     /*!
@@ -64,10 +67,16 @@ Item {
         \value HoverCard.Align.End Align to the trailing edge. Value 2.
     */
     enum Align { Start, Middle, End }
-    /*! \qmlproperty int HoverCard::align \brief Cross-axis alignment; see \l Align. Defaults to \c HoverCard.Align.Middle. */
+    /*!
+        \qmlproperty int HoverCard::align
+        Cross-axis alignment; see \l Align. Defaults to \c HoverCard.Align.Middle.
+    */
     property int align: HoverCard.Align.Middle
 
-    /*! \qmlproperty int HoverCard::sideOffset \brief Gap between card and trigger along the side axis. Defaults to \c 4. */
+    /*!
+        \qmlproperty int HoverCard::sideOffset
+        Gap between card and trigger along the side axis. Defaults to \c 4.
+    */
     property int sideOffset: 4
 
     /*!
@@ -78,17 +87,32 @@ Item {
     */
     property int alignOffset: 4
 
-    /*! \qmlproperty int HoverCard::delay \brief Milliseconds the pointer must rest on the trigger before opening. Defaults to \c 600. */
+    /*!
+        \qmlproperty int HoverCard::delay
+        Milliseconds the pointer must rest on the trigger before opening. Defaults to \c 600.
+    */
     property int delay: 600
-    /*! \qmlproperty int HoverCard::closeDelay \brief Milliseconds after the pointer leaves before closing. Defaults to \c 300. */
+    /*!
+        \qmlproperty int HoverCard::closeDelay
+        Milliseconds after the pointer leaves before closing. Defaults to \c 300.
+    */
     property int closeDelay: 300
 
-    /*! \qmlproperty int HoverCard::cardWidth \brief Card width in px (\c {w-72} = 288). Override per instance. Defaults to \c 288. */
+    /*!
+        \qmlproperty int HoverCard::cardWidth
+        Card width in px (\c {w-72} = 288). Override per instance. Defaults to \c 288.
+    */
     property int cardWidth: 288
 
-    /*! \qmlproperty real HoverCard::availableWidth \brief Content width available inside the card (width minus horizontal padding). Read-only. */
+    /*!
+        \qmlproperty real HoverCard::availableWidth
+        Content width available inside the card (width minus horizontal padding). Read-only.
+    */
     readonly property alias availableWidth: popup.availableWidth
-    /*! \qmlproperty bool HoverCard::opened \brief Whether the card is currently open. Read-only. */
+    /*!
+        \qmlproperty bool HoverCard::opened
+        Whether the card is currently open. Read-only.
+    */
     readonly property alias opened: popup.opened
     /*!
         \qmlproperty list<QtObject> HoverCard::content

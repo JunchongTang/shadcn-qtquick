@@ -18,9 +18,15 @@ import QtQuick.Controls.Basic as C
 C.TextArea {
     id: control
 
-    /*! \qmlproperty bool InputGroupTextarea::_igControl \brief Marks this as an InputGroup control. \internal */
+    /*!
+        \qmlproperty bool InputGroupTextarea::_igControl
+        Marks this as an InputGroup control. \internal
+    */
     readonly property bool _igControl: true
-    /*! \qmlproperty string InputGroupTextarea::_igType \brief Control kind ("textarea"); switches the group to vertical. \internal */
+    /*!
+        \qmlproperty string InputGroupTextarea::_igType
+        Control kind ("textarea"); switches the group to vertical. \internal
+    */
     readonly property string _igType: "textarea"
 
     implicitHeight: 64                 // min-h-16

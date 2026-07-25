@@ -18,10 +18,16 @@ import QtQuick
 Flickable {
     id: group
 
-    /*! \qmlproperty list<QtObject> AttachmentGroup::content \brief Default slot; the \l Attachment cards laid out in a row. */
+    /*!
+        \qmlproperty list<QtObject> AttachmentGroup::content
+        Default slot; the \l Attachment cards laid out in a row.
+    */
     default property alias content: row.data
 
-    /*! \qmlproperty string AttachmentGroup::attachSlot \readonly \brief Slot marker (self-identification). */
+    /*!
+        \qmlproperty string AttachmentGroup::attachSlot
+        \readonly Slot marker (self-identification).
+    */
     readonly property string attachSlot: "attachment-group"
 
     contentWidth: row.width

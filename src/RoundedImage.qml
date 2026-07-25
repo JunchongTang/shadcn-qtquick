@@ -61,21 +61,21 @@ Item {
     id: root
 
     /*! \qmlproperty url RoundedImage::source
-        \brief The image URL, forwarded to the internal \l Image. */
+        The image URL, forwarded to the internal \l Image. */
     property url source
 
     /*! \qmlproperty real RoundedImage::radius
-        \brief Corner radius of the clip mask, in pixels. \c 0 (the default) leaves the
+        Corner radius of the clip mask, in pixels. \c 0 (the default) leaves the
         image rectangular; \c {height / 2} on a square item yields a circle. */
     property real radius: 0
 
     /*! \qmlproperty int RoundedImage::fillMode
-        \brief How the image fills the item; accepts \c Image.FillMode values and is
+        How the image fills the item; accepts \c Image.FillMode values and is
         forwarded to the internal \l Image. Defaults to \c Image.PreserveAspectCrop. */
     property int fillMode: Image.PreserveAspectCrop
 
     /*! \qmlproperty enumeration RoundedImage::status
-        \brief Read-only load status aliased from the internal \l Image
+        Read-only load status aliased from the internal \l Image
         (\c Image.Null, \c Loading, \c Ready or \c Error). */
     readonly property alias status: img.status
 

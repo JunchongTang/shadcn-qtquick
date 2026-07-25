@@ -98,7 +98,7 @@ Item {
     readonly property int _padH: _ghost ? 0 : Theme.space2_5   // px-2.5
     readonly property int _padV: _ghost ? 0 : Theme.space1_5   // py-1.5
 
-    /*! \internal Bubble background color for the current \l variant. */
+    /*! \internal Bubble background color for the current variant. */
     readonly property color _bubbleBg: {
         switch (variant) {
         case MessageContent.Default:     return Theme.primary
@@ -109,7 +109,7 @@ Item {
         default:                         return "transparent" // Ghost
         }
     }
-    /*! \internal Bubble text color for the current \l variant. */
+    /*! \internal Bubble text color for the current variant. */
     readonly property color _bubbleFg: {
         switch (variant) {
         case MessageContent.Default:     return Theme.primaryForeground

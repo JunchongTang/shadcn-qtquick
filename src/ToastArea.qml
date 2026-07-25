@@ -47,13 +47,25 @@ Item {
     */
     enum Position { TopStart, TopCenter, TopEnd, BottomStart, BottomCenter, BottomEnd }
 
-    /*! \qmlproperty int ToastArea::position \brief The anchoring corner; see \l Position. Defaults to \c ToastArea.BottomEnd. */
+    /*!
+        \qmlproperty int ToastArea::position
+        The anchoring corner; see \l Position. Defaults to \c ToastArea.BottomEnd.
+    */
     property int position: ToastArea.BottomEnd
-    /*! \qmlproperty int ToastArea::duration \brief Default dwell time in milliseconds before auto-dismiss; \c opts.duration overrides per toast. Defaults to 4000. */
+    /*!
+        \qmlproperty int ToastArea::duration
+        Default dwell time in milliseconds before auto-dismiss; \c opts.duration overrides per toast. Defaults to 4000.
+    */
     property int duration: 4000
-    /*! \qmlproperty int ToastArea::gap \brief Spacing between stacked toasts. Defaults to \l Theme::space2. */
+    /*!
+        \qmlproperty int ToastArea::gap
+        Spacing between stacked toasts. Defaults to \l Theme::space2.
+    */
     property int gap: Theme.space2
-    /*! \qmlproperty int ToastArea::edgeMargin \brief Padding between the stack and the anchored edges. Defaults to \l Theme::space4. */
+    /*!
+        \qmlproperty int ToastArea::edgeMargin
+        Padding between the stack and the anchored edges. Defaults to \l Theme::space4.
+    */
     property int edgeMargin: Theme.space4
 
     /*!
@@ -94,18 +106,36 @@ Item {
         })
         return uid
     }
-    /*! \qmlmethod int ToastArea::success(string text, var opts) \brief Shows a \c Toast.Success toast; see \l show. */
+    /*!
+        \qmlmethod int ToastArea::success(string text, var opts)
+        Shows a \c Toast.Success toast; forwards \a text and \a opts to \l show.
+    */
     function success(text, opts) { opts = opts || {}; opts.type = Toast.Success; return show(text, opts) }
-    /*! \qmlmethod int ToastArea::info(string text, var opts) \brief Shows a \c Toast.Info toast; see \l show. */
+    /*!
+        \qmlmethod int ToastArea::info(string text, var opts)
+        Shows a \c Toast.Info toast; forwards \a text and \a opts to \l show.
+    */
     function info(text, opts)    { opts = opts || {}; opts.type = Toast.Info;    return show(text, opts) }
-    /*! \qmlmethod int ToastArea::warning(string text, var opts) \brief Shows a \c Toast.Warning toast; see \l show. */
+    /*!
+        \qmlmethod int ToastArea::warning(string text, var opts)
+        Shows a \c Toast.Warning toast; forwards \a text and \a opts to \l show.
+    */
     function warning(text, opts) { opts = opts || {}; opts.type = Toast.Warning; return show(text, opts) }
-    /*! \qmlmethod int ToastArea::error(string text, var opts) \brief Shows a \c Toast.Error toast; see \l show. */
+    /*!
+        \qmlmethod int ToastArea::error(string text, var opts)
+        Shows a \c Toast.Error toast; forwards \a text and \a opts to \l show.
+    */
     function error(text, opts)   { opts = opts || {}; opts.type = Toast.Error;   return show(text, opts) }
-    /*! \qmlmethod int ToastArea::loading(string text, var opts) \brief Shows a \c Toast.Loading toast; see \l show. */
+    /*!
+        \qmlmethod int ToastArea::loading(string text, var opts)
+        Shows a \c Toast.Loading toast; forwards \a text and \a opts to \l show.
+    */
     function loading(text, opts) { opts = opts || {}; opts.type = Toast.Loading; return show(text, opts) }
 
-    /*! \qmlmethod void ToastArea::dismissAll() \brief Immediately clears all toasts. */
+    /*!
+        \qmlmethod void ToastArea::dismissAll()
+        Immediately clears all toasts.
+    */
     function dismissAll() { toastModel.clear() }
 
     // Remove by uid (called after the exit animation finishes).

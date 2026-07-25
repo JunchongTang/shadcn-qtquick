@@ -10,18 +10,20 @@ import QtQuick
     small muted caption (\c {px-2 py-1.5 text-xs text-muted-foreground}) that
     titles a group of items. It is a plain \l Item rather than a MenuItem, so it
     is not focusable and keyboard navigation skips over it.
-
-    \qmlproperty string MenuLabel::text
-    The caption text.
-
-    \qmlproperty bool MenuLabel::inset
-    When \c true the text is indented to align with items that have a leading
-    icon (\c {data-inset:pl-7.5}).
 */
 Item {
     id: control
 
+    /*!
+        \qmlproperty string MenuLabel::text
+        The caption text.
+    */
     property string text: ""
+    /*!
+        \qmlproperty bool MenuLabel::inset
+        When \c true the text is indented to align with items that have a leading
+        icon (\c {data-inset:pl-7.5}).
+    */
     property bool inset: false       // data-inset: pl-7.5
 
     implicitWidth: label.x + label.implicitWidth + Theme.space2

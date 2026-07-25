@@ -21,12 +21,21 @@ import QtQuick
 Item {
     id: trigger
 
-    /*! \qmlproperty string AttachmentTrigger::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
+    /*!
+        \qmlproperty string AttachmentTrigger::attachSlot
+        \readonly Slot marker used by Attachment routing.
+    */
     readonly property string attachSlot: "attachment-trigger"
-    /*! \qmlproperty string AttachmentTrigger::label \brief Accessibility label (mirrors aria-label). */
+    /*!
+        \qmlproperty string AttachmentTrigger::label
+        Accessibility label (mirrors aria-label).
+    */
     property string label: ""
 
-    /*! \qmlsignal AttachmentTrigger::clicked() \brief Emitted when the card's trigger overlay is activated. */
+    /*!
+        \qmlsignal AttachmentTrigger::clicked()
+        Emitted when the card's trigger overlay is activated.
+    */
     signal clicked()
 
     visible: false

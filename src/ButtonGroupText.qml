@@ -18,19 +18,22 @@ import QtQuick
 Rectangle {
     id: control
 
-    /*! \qmlproperty string ButtonGroupText::text \brief The label text. */
+    /*!
+        \qmlproperty string ButtonGroupText::text
+        The label text.
+    */
     property alias text: label.text
 
     /*!
         \qmlproperty int ButtonGroupText::groupPosition
-        \brief Adjacency inside a ButtonGroup; see \c Button.GroupPosition. Set
+        Adjacency inside a ButtonGroup; see \c Button.GroupPosition. Set
         automatically by ButtonGroup. Defaults to \c Button.GroupNone.
     */
     property int groupPosition: Button.GroupNone
 
     /*!
         \qmlproperty bool ButtonGroupText::groupVertical
-        \brief Whether the containing ButtonGroup is vertical. Set automatically
+        Whether the containing ButtonGroup is vertical. Set automatically
         by ButtonGroup. Defaults to false.
     */
     property bool groupVertical: false

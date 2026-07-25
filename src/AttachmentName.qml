@@ -17,9 +17,15 @@ import QtQuick.Layouts
 Text {
     id: name
 
-    /*! \qmlproperty string AttachmentName::attachSlot \readonly \brief Slot marker used by \l AttachmentContent forwarding. */
+    /*!
+        \qmlproperty string AttachmentName::attachSlot
+        \readonly Slot marker used by AttachmentContent forwarding.
+    */
     readonly property string attachSlot: "attachment-name"
-    /*! \qmlproperty enumeration AttachmentName::hostState \brief Upload state injected by the host; drives the shimmer. See \l {Attachment::uploadState}. */
+    /*!
+        \qmlproperty enumeration AttachmentName::hostState
+        Upload state injected by the host; drives the shimmer. See \l {Attachment::uploadState}.
+    */
     property int hostState: Attachment.Done
 
     readonly property bool _shimmer: hostState === Attachment.Uploading

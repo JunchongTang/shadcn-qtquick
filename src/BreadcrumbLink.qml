@@ -10,13 +10,14 @@ import QtQuick
     \c text-muted-foreground (the list's inherited color) and transitions to
     \c text-foreground on hover (\c transition-colors). Text is \c text-xs with
     \c relaxed line height. Set the inherited \c text property for the label.
-
-    \qmlsignal BreadcrumbLink::clicked()
-    Emitted when the link is tapped/clicked.
 */
 Text {
     id: root
 
+    /*!
+        \qmlsignal BreadcrumbLink::clicked()
+        Emitted when the link is tapped/clicked.
+    */
     signal clicked()
 
     color: hover.hovered ? Theme.foreground : Theme.mutedForeground

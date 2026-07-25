@@ -57,20 +57,20 @@ Item {
 
     /*!
         \qmlproperty int Calendar::mode
-        \brief The selection mode; see \l Mode. Defaults to \c Calendar.Single.
+        The selection mode; see \l Mode. Defaults to \c Calendar.Single.
     */
     property int mode: Calendar.Single
 
     /*!
         \qmlproperty int Calendar::captionLayout
-        \brief The caption presentation; see \l CaptionLayout.
+        The caption presentation; see \l CaptionLayout.
         Defaults to \c Calendar.Label.
     */
     property int captionLayout: Calendar.Label
 
     /*!
         \qmlproperty int Calendar::numberOfMonths
-        \brief How many consecutive months to render side by side.
+        How many consecutive months to render side by side.
         Defaults to 1. When greater than 1 the first column shows
         \l displayMonth and the shared navigation moves all columns by one
         month at a time.
@@ -79,42 +79,42 @@ Item {
 
     /*!
         \qmlproperty var Calendar::selectedDate
-        \brief The selected day as a JS \c Date (Single mode).
+        The selected day as a JS \c Date (Single mode).
         \c undefined until a day is picked.
     */
     property var selectedDate: undefined
 
     /*!
         \qmlproperty var Calendar::rangeStart
-        \brief Start of the selected range as a JS \c Date (Range mode).
+        Start of the selected range as a JS \c Date (Range mode).
         Always ordered so \c rangeStart <= \l rangeEnd. \c undefined until set.
     */
     property var rangeStart: undefined
 
     /*!
         \qmlproperty var Calendar::rangeEnd
-        \brief End of the selected range as a JS \c Date (Range mode).
+        End of the selected range as a JS \c Date (Range mode).
         \c undefined until the second endpoint is picked.
     */
     property var rangeEnd: undefined
 
     /*!
         \qmlproperty date Calendar::displayMonth
-        \brief The month currently shown (only its year/month matter).
+        The month currently shown (only its year/month matter).
         In multi-month views this is the leading month. Defaults to today.
     */
     property date displayMonth: new Date()
 
     /*!
         \qmlproperty bool Calendar::showOutsideDays
-        \brief Whether leading/trailing days from adjacent months are drawn.
+        Whether leading/trailing days from adjacent months are drawn.
         Defaults to \c true.
     */
     property bool showOutsideDays: true
 
     /*!
         \qmlproperty real Calendar::cellSize
-        \brief The edge length of a day cell in px.
+        The edge length of a day cell in px.
         The mira token \c {--cell-size} is spacing(6) = 24; this defaults to 32
         for readability and a larger hit target. Set to 24 to match mira
         exactly. The weekday header and navigation scale with it.
@@ -123,14 +123,14 @@ Item {
 
     /*!
         \qmlproperty int Calendar::fromYear
-        \brief First year offered by the Dropdown caption's year list.
+        First year offered by the Dropdown caption's year list.
         Defaults to this year - 100 (approximating react-day-picker).
     */
     property int fromYear: (new Date()).getFullYear() - 100
 
     /*!
         \qmlproperty int Calendar::toYear
-        \brief Last year offered by the Dropdown caption's year list.
+        Last year offered by the Dropdown caption's year list.
         Defaults to this year + 10.
     */
     property int toYear: (new Date()).getFullYear() + 10

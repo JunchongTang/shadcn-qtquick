@@ -17,14 +17,26 @@ import QtQuick.Layouts
 ColumnLayout {
     id: content
 
-    /*! \qmlproperty string AttachmentContent::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
+    /*!
+        \qmlproperty string AttachmentContent::attachSlot
+        \readonly Slot marker used by Attachment routing.
+    */
     readonly property string attachSlot: "attachment-content"
 
-    /*! \qmlproperty enumeration AttachmentContent::hostSize \brief Size injected by the parent \l Attachment. See \l {Attachment::size}. */
+    /*!
+        \qmlproperty enumeration AttachmentContent::hostSize
+        Size injected by the parent \l Attachment. See \l {Attachment::size}.
+    */
     property int hostSize: Attachment.Default
-    /*! \qmlproperty enumeration AttachmentContent::hostState \brief Upload state injected by the parent, forwarded to children. See \l {Attachment::uploadState}. */
+    /*!
+        \qmlproperty enumeration AttachmentContent::hostState
+        Upload state injected by the parent, forwarded to children. See \l {Attachment::uploadState}.
+    */
     property int hostState: Attachment.Done
-    /*! \qmlproperty bool AttachmentContent::contentFill \brief Whether this column stretches to fill the row; cleared for secondary columns. */
+    /*!
+        \qmlproperty bool AttachmentContent::contentFill
+        Whether this column stretches to fill the row; cleared for secondary columns.
+    */
     property bool contentFill: true
 
     Layout.alignment: Qt.AlignVCenter

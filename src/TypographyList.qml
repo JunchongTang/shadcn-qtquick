@@ -13,9 +13,6 @@ import QtQuick.Layouts
     (\c text-base) \l {Theme::foreground}{foreground} text. Outer spacing
     (\c my-6) is left to the surrounding layout.
 
-    \qmlproperty list<string> TypographyList::items
-    The list item strings, one bullet per entry.
-
     \qml
     TypographyList {
         items: ["1st level of puns", "2nd level of jokes"]
@@ -25,7 +22,10 @@ import QtQuick.Layouts
 ColumnLayout {
     id: root
 
-    // List item strings; one bullet row is created per entry.
+    /*!
+        \qmlproperty list<string> TypographyList::items
+        The list item strings, one bullet per entry.
+    */
     property var items: []
 
     Layout.fillWidth: true

@@ -1,0 +1,19 @@
+/*!
+    \qmlmodule Shadcn
+    \title Shadcn QML Components
+    \brief shadcn/ui (base-mira style) ported to Qt Quick / QML.
+
+    A reusable Qt Quick component library that mirrors the shadcn/ui component
+    set in the compact base-mira style. Import the module and use the components
+    directly:
+
+    \qml
+    import QtQuick
+    import Shadcn
+
+    Button { text: "Click me"; onClicked: dialog.open() }
+    \endqml
+
+    The pages below document each component's public API (properties, signals,
+    methods and enums).
+*/

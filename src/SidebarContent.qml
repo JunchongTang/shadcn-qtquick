@@ -18,7 +18,7 @@ ScrollView {
     id: sc
 
     /*! \qmlproperty list<QtObject> SidebarContent::content
-        \brief Default child list placed in the scrolling column (typically \l SidebarGroup items). */
+        Default child list placed in the scrolling column (typically \l SidebarGroup items). */
     default property alias content: inner.data
 
     Layout.fillWidth: true

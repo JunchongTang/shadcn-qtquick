@@ -11,19 +11,21 @@ import QtQuick.Layouts
     The convenience \l text property renders a built-in title label; custom
     children (a coloured span, a badge, etc.) can be placed directly instead.
     Children are laid out horizontally with gap-2.
-
-    \qmlproperty string ItemTitle::text
-    Convenience title text. When empty the built-in label is hidden and only
-    custom children show.
-
-    \qmlproperty color ItemTitle::color
-    Colour of the built-in title label.
 */
 RowLayout {
     id: title
 
     readonly property string itemSlot: "item-title"
+    /*!
+        \qmlproperty string ItemTitle::text
+        Convenience title text. When empty the built-in label is hidden and only
+        custom children show.
+    */
     property string text: ""
+    /*!
+        \qmlproperty color ItemTitle::color
+        Colour of the built-in title label.
+    */
     property color color: Theme.foreground
 
     Layout.fillWidth: true

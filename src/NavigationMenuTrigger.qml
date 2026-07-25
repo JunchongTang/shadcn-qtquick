@@ -25,18 +25,36 @@ import LucideIcons
 Item {
     id: trigger
 
-    /*! \qmlproperty string NavigationMenuTrigger::text \brief The header label. */
+    /*!
+        \qmlproperty string NavigationMenuTrigger::text
+        The header label.
+    */
     property string text: ""
-    /*! \qmlproperty bool NavigationMenuTrigger::showChevron \brief Whether the trailing chevron is shown; pass \c false for a plain link item. Defaults to \c true. */
+    /*!
+        \qmlproperty bool NavigationMenuTrigger::showChevron
+        Whether the trailing chevron is shown; pass \c false for a plain link item. Defaults to \c true.
+    */
     property bool showChevron: true
-    /*! \qmlproperty bool NavigationMenuTrigger::open \brief Whether the associated panel is expanded (drives chevron rotation and background). Defaults to \c false. */
+    /*!
+        \qmlproperty bool NavigationMenuTrigger::open
+        Whether the associated panel is expanded (drives chevron rotation and background). Defaults to \c false.
+    */
     property bool open: false
 
-    /*! \qmlsignal NavigationMenuTrigger::entered() \brief Emitted when the pointer enters the trigger. */
+    /*!
+        \qmlsignal NavigationMenuTrigger::entered()
+        Emitted when the pointer enters the trigger.
+    */
     signal entered()
-    /*! \qmlsignal NavigationMenuTrigger::exited() \brief Emitted when the pointer leaves the trigger. */
+    /*!
+        \qmlsignal NavigationMenuTrigger::exited()
+        Emitted when the pointer leaves the trigger.
+    */
     signal exited()
-    /*! \qmlsignal NavigationMenuTrigger::clicked() \brief Emitted when the trigger is clicked. */
+    /*!
+        \qmlsignal NavigationMenuTrigger::clicked()
+        Emitted when the trigger is clicked.
+    */
     signal clicked()
 
     // px-2.5 horizontal / py-1.5 vertical padding.

@@ -18,28 +18,32 @@ import LucideIcons
     The file name shadows the Controls base type, so the base is imported under
     the \c C alias and used as the root (\c C.MenuItem). The inherited \c text
     (from AbstractButton) is reused directly rather than redeclared.
-
-    \qmlproperty string MenuItem::shortcut
-    Trailing keyboard-shortcut hint, rendered small and muted. Empty hides it.
-
-    \qmlproperty string MenuItem::iconName
-    Name of the leading \l LucideIcon. Empty hides the icon. A separate property
-    is used because AbstractButton's \c icon grouped property is \c FINAL.
-
-    \qmlproperty bool MenuItem::destructive
-    When \c true the item uses the destructive foreground colour and a
-    destructive-tinted highlight (\c {data-variant=destructive}).
-
-    \qmlproperty bool MenuItem::inset
-    When \c true the content is indented to align with items that have a leading
-    icon or indicator (\c {data-inset:pl-7.5}).
 */
 C.MenuItem {
     id: control
 
+    /*!
+        \qmlproperty string MenuItem::shortcut
+        Trailing keyboard-shortcut hint, rendered small and muted. Empty hides it.
+    */
     property string shortcut: ""     // trailing keyboard-shortcut hint (muted)
+    /*!
+        \qmlproperty string MenuItem::iconName
+        Name of the leading \l LucideIcon. Empty hides the icon. A separate property
+        is used because AbstractButton's \c icon grouped property is \c FINAL.
+    */
     property string iconName: ""     // leading Lucide icon (icon is FINAL, hence iconName)
+    /*!
+        \qmlproperty bool MenuItem::destructive
+        When \c true the item uses the destructive foreground colour and a
+        destructive-tinted highlight (\c {data-variant=destructive}).
+    */
     property bool destructive: false // data-[variant=destructive]: destructive text + tinted focus bg
+    /*!
+        \qmlproperty bool MenuItem::inset
+        When \c true the content is indented to align with items that have a leading
+        icon or indicator (\c {data-inset:pl-7.5}).
+    */
     property bool inset: false       // data-inset: pl-7.5 (30px)
 
     implicitHeight: 28               // min-h-7

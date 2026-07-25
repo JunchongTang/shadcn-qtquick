@@ -34,7 +34,10 @@ import LucideIcons
 C.TabButton {
     id: control
 
-    /*! \qmlproperty string TabButton::iconName \brief Optional leading Lucide icon (kebab-case name). */
+    /*!
+        \qmlproperty string TabButton::iconName
+        Optional leading Lucide icon (kebab-case name).
+    */
     property string iconName: ""
 
     // Variant/orientation are read from the enclosing Tabs (TabBar) so a bare

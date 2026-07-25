@@ -45,7 +45,7 @@ Grid {
 
     /*!
         \qmlproperty int ButtonGroup::orientation
-        \brief The layout direction; see \l Orientation. Defaults to
+        The layout direction; see \l Orientation. Defaults to
         \c ButtonGroup.Horizontal.
     */
     property int orientation: ButtonGroup.Horizontal

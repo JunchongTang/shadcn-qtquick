@@ -22,25 +22,6 @@ import QtQuick.Layouts
 
     When \l asLink is true the row hovers to \c bg-muted, shows a pointing-hand
     cursor, emits \l clicked, and paints a keyboard focus ring.
-
-    \qmlproperty int ShadItem::variant
-    Visual variant. One of:
-    \value ShadItem.Default Transparent background, no border.
-    \value ShadItem.Outline Transparent background with a 1px border.
-    \value ShadItem.Muted   Muted/50 background, no border.
-
-    \qmlproperty int ShadItem::size
-    Density preset controlling padding and inner spacing. One of:
-    \value ShadItem.Default px-3 / py-2.5, gap-2.5.
-    \value ShadItem.Sm      Same metrics as Default in base-mira.
-    \value ShadItem.Xs      px-2.5 / py-2, gap-2.5; drives compact media/content.
-
-    \qmlproperty bool ShadItem::asLink
-    When true the row is interactive: hover background, pointing cursor,
-    \l clicked signal, and Tab focus ring.
-
-    \qmlsignal ShadItem::clicked()
-    Emitted when an \l asLink row is tapped.
 */
 Item {
     id: control
@@ -48,9 +29,32 @@ Item {
     enum Variant { Default, Outline, Muted }
     enum Size { Default, Sm, Xs }
 
+    /*!
+        \qmlproperty int ShadItem::variant
+        Visual variant. One of:
+        \value ShadItem.Default Transparent background, no border.
+        \value ShadItem.Outline Transparent background with a 1px border.
+        \value ShadItem.Muted   Muted/50 background, no border.
+    */
     property int variant: ShadItem.Default
+    /*!
+        \qmlproperty int ShadItem::size
+        Density preset controlling padding and inner spacing. One of:
+        \value ShadItem.Default px-3 / py-2.5, gap-2.5.
+        \value ShadItem.Sm      Same metrics as Default in base-mira.
+        \value ShadItem.Xs      px-2.5 / py-2, gap-2.5; drives compact media/content.
+    */
     property int size: ShadItem.Default
+    /*!
+        \qmlproperty bool ShadItem::asLink
+        When true the row is interactive: hover background, pointing cursor,
+        \l clicked signal, and Tab focus ring.
+    */
     property bool asLink: false
+    /*!
+        \qmlsignal ShadItem::clicked()
+        Emitted when an \l asLink row is tapped.
+    */
     signal clicked()
 
     // Slot tag so ItemGroup can recognise items and derive its spacing.

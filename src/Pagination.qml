@@ -43,28 +43,40 @@ RowLayout {
 
     /*!
         \qmlproperty int Pagination::count
-        \brief The total number of pages. Clamped to at least 1. Defaults to 1.
+        The total number of pages. Clamped to at least 1. Defaults to 1.
     */
     property int count: 1
     /*!
         \qmlproperty int Pagination::page
-        \brief The current page, 1-based. Clamped to \c [1, count] when navigated
+        The current page, 1-based. Clamped to \c [1, count] when navigated
         via \l pageRequested. Defaults to 1.
     */
     property int page: 1
     /*!
         \qmlproperty int Pagination::siblingCount
-        \brief How many page numbers to show on each side of the current page
+        How many page numbers to show on each side of the current page
         before collapsing into an ellipsis. Defaults to 1.
     */
     property int siblingCount: 1
-    /*! \qmlproperty bool Pagination::showPrevNext \brief Whether to show the Previous / Next buttons. Defaults to true. */
+    /*!
+        \qmlproperty bool Pagination::showPrevNext
+        Whether to show the Previous / Next buttons. Defaults to true.
+    */
     property bool showPrevNext: true
-    /*! \qmlproperty bool Pagination::showPages \brief Whether to show the numbered pages (false = Prev/Next only). Defaults to true. */
+    /*!
+        \qmlproperty bool Pagination::showPages
+        Whether to show the numbered pages (false = Prev/Next only). Defaults to true.
+    */
     property bool showPages: true
-    /*! \qmlproperty string Pagination::previousText \brief Label of the Previous button. */
+    /*!
+        \qmlproperty string Pagination::previousText
+        Label of the Previous button.
+    */
     property string previousText: qsTr("Previous")
-    /*! \qmlproperty string Pagination::nextText \brief Label of the Next button. */
+    /*!
+        \qmlproperty string Pagination::nextText
+        Label of the Next button.
+    */
     property string nextText: qsTr("Next")
 
     /*!

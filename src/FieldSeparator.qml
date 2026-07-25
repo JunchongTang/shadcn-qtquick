@@ -10,13 +10,14 @@ import QtQuick.Layouts
     Draws a single centred horizontal rule. When \l text is set, a
     background-coloured chip is overlaid at the centre to give the "text breaks
     the line" effect (bg-background, px-2, muted-foreground, text-xs).
-
-    \qmlproperty string FieldSeparator::text
-    Optional label shown at the centre of the divider. Empty means a plain rule.
 */
 Item {
     id: sep
 
+    /*!
+        \qmlproperty string FieldSeparator::text
+        Optional label shown at the centre of the divider. Empty means a plain rule.
+    */
     property string text: ""
 
     Layout.fillWidth: true

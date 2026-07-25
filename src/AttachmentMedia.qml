@@ -30,23 +30,47 @@ Item {
     */
     enum Variant { Icon, Image }
 
-    /*! \qmlproperty enumeration AttachmentMedia::variant \brief Content kind; see \l Variant. Defaults to \c AttachmentMedia.Icon. */
+    /*!
+        \qmlproperty enumeration AttachmentMedia::variant
+        Content kind; see \l Variant. Defaults to \c AttachmentMedia.Icon.
+    */
     property int variant: AttachmentMedia.Icon
-    /*! \qmlproperty string AttachmentMedia::iconName \brief Lucide icon name for the \c Icon variant. */
+    /*!
+        \qmlproperty string AttachmentMedia::iconName
+        Lucide icon name for the \c Icon variant.
+    */
     property string iconName: ""
-    /*! \qmlproperty url AttachmentMedia::source \brief Thumbnail image URL for the \c Image variant. */
+    /*!
+        \qmlproperty url AttachmentMedia::source
+        Thumbnail image URL for the \c Image variant.
+    */
     property url source
-    /*! \qmlproperty list<QtObject> AttachmentMedia::content \brief Default slot for a custom centered child (e.g. a Spinner). */
+    /*!
+        \qmlproperty list<QtObject> AttachmentMedia::content
+        Default slot for a custom centered child (e.g. a Spinner).
+    */
     default property alias content: slot.data
 
-    /*! \qmlproperty enumeration AttachmentMedia::hostSize \brief Size injected by the parent \l Attachment. See \l {Attachment::size}. */
+    /*!
+        \qmlproperty enumeration AttachmentMedia::hostSize
+        Size injected by the parent \l Attachment. See \l {Attachment::size}.
+    */
     property int hostSize: Attachment.Default
-    /*! \qmlproperty enumeration AttachmentMedia::hostOrientation \brief Orientation injected by the parent. See \l {Attachment::orientation}. */
+    /*!
+        \qmlproperty enumeration AttachmentMedia::hostOrientation
+        Orientation injected by the parent. See \l {Attachment::orientation}.
+    */
     property int hostOrientation: Attachment.Horizontal
-    /*! \qmlproperty enumeration AttachmentMedia::hostState \brief Upload state injected by the parent. See \l {Attachment::uploadState}. */
+    /*!
+        \qmlproperty enumeration AttachmentMedia::hostState
+        Upload state injected by the parent. See \l {Attachment::uploadState}.
+    */
     property int hostState: Attachment.Done
 
-    /*! \qmlproperty string AttachmentMedia::attachSlot \readonly \brief Slot marker used by \l Attachment routing. */
+    /*!
+        \qmlproperty string AttachmentMedia::attachSlot
+        \readonly Slot marker used by Attachment routing.
+    */
     readonly property string attachSlot: "attachment-media"
 
     readonly property bool _vertical: hostOrientation === Attachment.Vertical

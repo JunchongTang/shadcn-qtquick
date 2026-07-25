@@ -39,23 +39,41 @@ import QtQuick.Layouts
 Item {
     id: root
 
-    /*! \qmlproperty bool Collapsible::expanded \brief Whether the panel is open. Defaults to \c false. */
+    /*!
+        \qmlproperty bool Collapsible::expanded
+        Whether the panel is open. Defaults to \c false.
+    */
     property bool expanded: false
     /*! \qmlproperty real Collapsible::gap
-        \brief Spacing between the trigger and the content, and between content
+        Spacing between the trigger and the content, and between content
         items (mirrors the demo's \c gap-2). Defaults to \c Theme.space2. */
     property real gap: Theme.space2
-    /*! \qmlproperty color Collapsible::background \brief Optional fill behind the whole region. Defaults to transparent. */
+    /*!
+        \qmlproperty color Collapsible::background
+        Optional fill behind the whole region. Defaults to transparent.
+    */
     property color background: "transparent"
-    /*! \qmlproperty real Collapsible::radius \brief Corner radius of \l background. Defaults to \c 0. */
+    /*!
+        \qmlproperty real Collapsible::radius
+        Corner radius of \l background. Defaults to \c 0.
+    */
     property real radius: 0
 
-    /*! \qmlproperty list<QtObject> Collapsible::trigger \brief Content of the always-visible header slot. */
+    /*!
+        \qmlproperty list<QtObject> Collapsible::trigger
+        Content of the always-visible header slot.
+    */
     property alias trigger: triggerSlot.data
-    /*! \qmlproperty list<QtObject> Collapsible::content \brief Collapsible panel content (the default property). */
+    /*!
+        \qmlproperty list<QtObject> Collapsible::content
+        Collapsible panel content (the default property).
+    */
     default property alias content: body.data
 
-    /*! \qmlmethod void Collapsible::toggle() \brief Flips \l expanded between open and closed. */
+    /*!
+        \qmlmethod void Collapsible::toggle()
+        Flips \l expanded between open and closed.
+    */
     function toggle() { expanded = !expanded }
 
     // Size follows the children; width must come from outside (Layout or an
