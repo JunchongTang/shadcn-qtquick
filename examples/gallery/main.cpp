@@ -1,4 +1,5 @@
 #include <QFile>
+#include <QFileInfo>
 #include <QGuiApplication>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -7,12 +8,27 @@
 #include <QQuickWindow>
 #include <QStyleHints>
 #include <QTimer>
+#include <QUrl>
 #include <QImage>
+#include <QtWebView/QtWebView>
 
 #include "shooter.h"
 
+// Absolute path of the generated API docs, baked in by CMake (overridable at
+// runtime via the SHADCN_DOCS_DIR environment variable).
+#ifndef SHADCN_DOCS_DIR
+#define SHADCN_DOCS_DIR ""
+#endif
+
 int main(int argc, char *argv[])
 {
+    // Force QtWebView's native backend (WKWebView on macOS) before any Qt init.
+    // The default prefers the WebEngine backend, which fails to load when Qt
+    // WebEngine isn't installed and then reports "No WebView plug-in found!"
+    // instead of falling back. Must be set before QGuiApplication. (Overridable.)
+    if (qEnvironmentVariableIsEmpty("QT_WEBVIEW_PLUGIN"))
+        qputenv("QT_WEBVIEW_PLUGIN", "native");
+
     QGuiApplication app(argc, argv);
 
     // 让 Tab 在所有控件间移动(不止文本框)。macOS 默认按系统「键盘导航」开关设为
@@ -38,9 +54,20 @@ int main(int argc, char *argv[])
         return app.exec();
     }
 
+    // Native web view (WKWebView on macOS) for the embedded API-docs pane.
+    QtWebView::initialize();
+
     // 无头验证:SHADCN_DARK 让 gallery 以暗色启动。
     engine.rootContext()->setContextProperty(
         "appStartDark", !qEnvironmentVariableIsEmpty("SHADCN_DARK"));
+
+    // Locate the generated API docs (docs/build-docs.sh output). The gallery's
+    // per-component "API" tab loads pages from here; when absent the tab hides.
+    const QString docsDir = qEnvironmentVariable("SHADCN_DOCS_DIR", QStringLiteral(SHADCN_DOCS_DIR));
+    QString docsBaseUrl;
+    if (!docsDir.isEmpty() && QFileInfo::exists(docsDir + QStringLiteral("/shadcn-qmlmodule.html")))
+        docsBaseUrl = QUrl::fromLocalFile(docsDir + QStringLiteral("/")).toString();
+    engine.rootContext()->setContextProperty("docsBaseUrl", docsBaseUrl);
 
     engine.loadFromModule("Gallery", "Gallery");
     if (engine.rootObjects().isEmpty())

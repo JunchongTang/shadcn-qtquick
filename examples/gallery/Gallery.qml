@@ -109,6 +109,18 @@ Window {
         win.currentPage = item.page
     }
 
+    // Map a nav id to its generated qdoc page (qml-shadcn-<type>.html). Most ids
+    // map by dropping hyphens; a few point at a differently-named primary type.
+    // Returns "" when the entry has no API page (e.g. the theme customizer).
+    function apiFile(id) {
+        var override = {
+            "data-table": "table", "item": "shaditem", "sonner": "toast",
+            "dropdown-menu": "menu", "theme-customizer": ""
+        }
+        var slug = (id in override) ? override[id] : id.replace(/-/g, "")
+        return slug === "" ? "" : "qml-shadcn-" + slug + ".html"
+    }
+
     // 供示例卡「复制路径」调用:弹一条 toast 显示已复制的路径,短暂停留后自动消失。
     function notifyCopied(path) {
         toaster.success(qsTr("Copied to clipboard"), { "description": path, "duration": 2000 })
@@ -179,32 +191,90 @@ Window {
                 onItemClicked: (item) => win.select(item)
             }
 
-            // ==== 右侧内容区 ====
-            ScrollView {
-                id: contentScroll
+            // ==== 右侧内容区:Preview(示例卡片)/ API(内嵌 qdoc 文档)切换 ====
+            Item {
+                id: contentArea
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                clip: true
-                // 内容宽度锁定到视口可用宽 → 永不产生横向滚动,页面随窗口宽度自适应收缩。
-                contentWidth: availableWidth
 
-                Item {
-                    // 随视口宽度自适应;窄屏时减小左右留白,内容最大宽 760。
-                    width: contentScroll.availableWidth
-                    implicitHeight: pageLoader.implicitHeight + 2 * pageLoader.y
+                property bool showApi: false
+                readonly property string apiHtml: win.apiFile(win.currentId)
+                // 仅当文档已生成(docsBaseUrl 非空)且该组件有对应页时,才提供 API 切换。
+                readonly property bool apiAvail: (typeof docsBaseUrl !== "undefined")
+                                                 && docsBaseUrl !== "" && apiHtml !== ""
+                onApiAvailChanged: if (!apiAvail) showApi = false
+                // 切换组件时回到 Preview。
+                Connections { target: win; function onCurrentIdChanged() { contentArea.showApi = false } }
 
-                    Loader {
-                        id: pageLoader
-                        readonly property int pad: parent.width < 560 ? 16 : 40
-                        x: pad
-                        y: pad
-                        // 填满视口可用宽(不再封顶 760),使卡片随窗口变宽而变宽。
-                        width: Math.max(0, parent.width - 2 * pad)
-                        source: win.currentPage !== "" ? win.currentPage : "PagePlaceholder.qml"
-                        // 把标题/描述传给页面骨架
-                        onLoaded: {
-                            if (item && item.hasOwnProperty("componentLabel"))
-                                item.componentLabel = win.currentLabel
+                // ---- Preview:示例卡片(原内容区)----
+                ScrollView {
+                    id: contentScroll
+                    anchors.fill: parent
+                    visible: !contentArea.showApi
+                    clip: true
+                    // 内容宽度锁定到视口可用宽 → 永不产生横向滚动,页面随窗口宽度自适应收缩。
+                    contentWidth: availableWidth
+
+                    Item {
+                        width: contentScroll.availableWidth
+                        implicitHeight: pageLoader.implicitHeight + 2 * pageLoader.y
+
+                        Loader {
+                            id: pageLoader
+                            readonly property int pad: parent.width < 560 ? 16 : 40
+                            x: pad
+                            y: pad
+                            // 填满视口可用宽(不再封顶 760),使卡片随窗口变宽而变宽。
+                            width: Math.max(0, parent.width - 2 * pad)
+                            source: win.currentPage !== "" ? win.currentPage : "PagePlaceholder.qml"
+                            // 把标题/描述传给页面骨架
+                            onLoaded: {
+                                if (item && item.hasOwnProperty("componentLabel"))
+                                    item.componentLabel = win.currentLabel
+                            }
+                        }
+                    }
+                }
+
+                // ---- API:内嵌 qdoc 文档(懒加载,仅在切到 API 时实例化)----
+                Loader {
+                    anchors.fill: parent
+                    active: contentArea.showApi
+                    visible: contentArea.showApi
+                    source: Qt.resolvedUrl("ApiDocsView.qml")
+                    onLoaded: item.pageUrl = docsBaseUrl + contentArea.apiHtml
+                }
+
+                // ---- 右上角 Preview | API 分段切换 ----
+                Rectangle {
+                    visible: contentArea.apiAvail
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.topMargin: 12
+                    anchors.rightMargin: 16
+                    z: 10
+                    radius: Theme.radiusMd
+                    color: Theme.background
+                    border.width: 1
+                    border.color: Theme.border
+                    implicitWidth: segRow.implicitWidth + 6
+                    implicitHeight: segRow.implicitHeight + 6
+
+                    RowLayout {
+                        id: segRow
+                        anchors.centerIn: parent
+                        spacing: 2
+                        Button {
+                            text: qsTr("Preview")
+                            size: Button.Sm
+                            variant: contentArea.showApi ? Button.Ghost : Button.Secondary
+                            onClicked: contentArea.showApi = false
+                        }
+                        Button {
+                            text: qsTr("API")
+                            size: Button.Sm
+                            variant: contentArea.showApi ? Button.Secondary : Button.Ghost
+                            onClicked: contentArea.showApi = true
                         }
                     }
                 }

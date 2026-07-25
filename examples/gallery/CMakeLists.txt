@@ -1,3 +1,5 @@
+find_package(Qt6 REQUIRED COMPONENTS WebView)
+
 qt_add_executable(shadcn_gallery main.cpp)
 
 qt_add_qml_module(shadcn_gallery
@@ -12,6 +14,7 @@ qt_add_qml_module(shadcn_gallery
         Gallery.qml
         DocsSidebar.qml
         ExampleCard.qml
+        ApiDocsView.qml
         PageScaffold.qml
         PagePlaceholder.qml
         demos/accordion/PageAccordion.qml
@@ -480,10 +483,17 @@ qt_add_resources(shadcn_gallery "gallery_demos"
 )
 
 # STATIC 模块的 backing lib + plugin 均可链接;LucideIcons 供 gallery 直接/间接用。
+# Qt6::WebView backs the embedded API-docs pane (ApiDocsView.qml).
 target_link_libraries(shadcn_gallery PRIVATE
     Qt6::Quick
+    Qt6::WebView
     shadcn_ui
     shadcn_uiplugin
     LucideIcons
     LucideIconsplugin
 )
+
+# Bake in the generated API-docs location so the "API" tab can load it via
+# file:// (overridable at runtime with SHADCN_DOCS_DIR).
+target_compile_definitions(shadcn_gallery PRIVATE
+    SHADCN_DOCS_DIR="${CMAKE_SOURCE_DIR}/docs/api/html")
