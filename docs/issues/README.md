@@ -42,6 +42,7 @@
 | [#030](#030-batch-2-审查修复合集组件-1120) | Batch 2 审查修复合集(组件 11–20) | Component/*(Carousel/Checkbox/Combobox/Command/ContextMenu) | P2 | ✅ |
 | [#031](#031-batch-3-审查修复合集组件-2130) | Batch 3 审查修复合集(组件 21–30) | Component/*(Input/HoverCard/FocusRing/Form) | P2 | ✅ |
 | [#032](#032-batch-4-审查修复合集组件-3140) | Batch 4 审查修复合集(组件 31–40) | Component/*(Marker/InputOtp/Menu/Kbd/Menubar/MessageScroller) | P2 | ✅ |
+| [#033](#033-batch-5-审查修复合集组件-4150) | Batch 5 审查修复合集(组件 41–50) | Component/*(RangeSlider/RadioGroup/Progress/NavigationMenu/NativeSelect) | P1 | ✅ |
 
 ---
 
@@ -387,3 +388,15 @@
 - **P3×2 Menubar**(Component/Menubar):去未用 import;Trigger 文本 `items-center` 左对齐(原 AlignHCenter)。
 - **P3 MessageScroller 跳转按钮闪烁**(Component/MessageScroller):自动跟随底部时 `onContentHeightChanged` 无条件 `_refreshAtBottom()` 用了旧 contentY,单帧翻成 false 触发按钮淡入。改为仅非跟随分支刷新。
 - 其余(InputGroup/Item/Label/Message)无功能缺陷;InputGroup 标记若干 P2/P3 还原度缺口(kbd 边缘吸附、group-disabled 变暗等)待后续。
+
+### #033 Batch 5 审查修复合集(组件 41–50)
+
+逐组件审查 Batch 5 的缺陷汇总。测试总数 507→624 全绿(集成一次通过,无测试返工)。无枚举冲突(Popover Popup 派生、Resizable 用 Qt 命名空间枚举)。
+
+- **P1 RangeSlider 默认区间坍塌**(Component/RangeSlider):Qt `RangeSlider` 默认 `first.value=0.0 / second.value=1.0`,叠加 `from:0 to:100`→裸 `RangeSlider {}` 两个把手都堆在最左、区间只有 1% 宽不可见。改为 `first.value: from` / `second.value: to`(满量程回退,实例覆盖仍生效)。
+- **P2 RangeSlider 键盘聚焦两把手同时亮**(Component/RangeSlider):两把手的 FocusRing 都绑控件级 `visualFocus`→Tab 时两个都显环。改为各把手 `control.visualFocus && <本把手>.activeFocus`。
+- **P2×3 RadioGroup**(Component/RadioGroup):invalid+checked 边框顺序错(应 checked→primary 优先)、缺 `focus-visible:border-ring`、无标签时不收缩到 16px(与 Checkbox 同类修复);附带暗色 token 补齐。
+- **P2 Progress 无量程支持**(Component/Progress):硬编码 0..100,补 `from`/`to` + 防除零 + `indeterminate` 态。
+- **P2 NavigationMenu Trigger 缺 h-9**(Component/NavigationMenu):触发器高度只按内容算(~28),base 规定 `h-9`(36)。加最小高度 36。
+- **P3 NativeSelect 暗色 invalid 边框**(Component/NativeSelect):暗色应 `destructive/50`,原用满色。
+- 其余(Popover/Pagination/Resizable/RoundedImage/ScrollArea)无功能缺陷,仅文档化 + 补测 + 少量 P3 还原度旗标。

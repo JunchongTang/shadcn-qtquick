@@ -2,31 +2,55 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn NavigationMenuTrigger(base-mira)—— 导航项的可点击触发头。
-// = <NavigationMenuTrigger class="rounded-lg px-2.5 py-1.5 text-xs/relaxed font-medium
-//   hover:bg-muted data-popup-open:bg-muted/50 data-popup-open:hover:bg-muted">
-//   {children} <ChevronDownIcon class="ml-1 size-3 group-data-open:rotate-180" />。
-//
-// 由 NavigationMenuItem 内部实例化;也可单独作为「触发头样式」的链接使用。
-// entered/exited/clicked 上抛给宿主 Item 做 hover 开合协调。
+/*!
+    \qmltype NavigationMenuTrigger
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief Clickable header of a navigation item, with an optional chevron.
+
+    NavigationMenuTrigger renders the top-bar header of a NavigationMenuItem,
+    styled after base-mira's \c .cn-navigation-menu-trigger: \c h-9,
+    \c rounded-lg, \c px-2.5 \c py-1.5, \c text-xs/relaxed, \c font-medium. Hover
+    paints a muted background; while the panel is open the background is
+    \c bg-muted/50 (\c data-popup-open:bg-muted/50), and hovering an open trigger
+    upgrades it to a solid \c bg-muted. The trailing \c chevron-down rotates 180
+    degrees when open (\c group-data-open:rotate-180).
+
+    It is instantiated inside NavigationMenuItem; it can also be reused
+    standalone as a trigger-styled link. The \l entered, \l exited and \l clicked
+    signals are forwarded to the host item so it can coordinate hover open/close.
+
+    \sa NavigationMenuItem, NavigationMenu
+*/
 Item {
     id: trigger
 
+    /*! \qmlproperty string NavigationMenuTrigger::text \brief The header label. */
     property string text: ""
-    property bool showChevron: true   // 纯链接项传 false 隐藏 chevron
-    property bool open: false         // 面板是否展开(chevron 旋转 + 底色)
+    /*! \qmlproperty bool NavigationMenuTrigger::showChevron \brief Whether the trailing chevron is shown; pass \c false for a plain link item. Defaults to \c true. */
+    property bool showChevron: true
+    /*! \qmlproperty bool NavigationMenuTrigger::open \brief Whether the associated panel is expanded (drives chevron rotation and background). Defaults to \c false. */
+    property bool open: false
 
+    /*! \qmlsignal NavigationMenuTrigger::entered() \brief Emitted when the pointer enters the trigger. */
     signal entered()
+    /*! \qmlsignal NavigationMenuTrigger::exited() \brief Emitted when the pointer leaves the trigger. */
     signal exited()
+    /*! \qmlsignal NavigationMenuTrigger::clicked() \brief Emitted when the trigger is clicked. */
     signal clicked()
 
-    readonly property real _hpad: Theme.space2_5   // px-2.5
-    readonly property real _vpad: Theme.space1_5   // py-1.5
+    // px-2.5 horizontal / py-1.5 vertical padding.
+    readonly property real _hpad: Theme.space2_5
+    readonly property real _vpad: Theme.space1_5
+    // Minimum trigger height (Tailwind h-9 in the trigger cva).
+    readonly property real _minHeight: 36
 
     implicitWidth: row.implicitWidth + _hpad * 2
-    implicitHeight: row.implicitHeight + _vpad * 2
+    // h-9: enforce the 36px header height mandated by the trigger cva, while
+    // still growing if the label ever needs more room.
+    implicitHeight: Math.max(row.implicitHeight + _vpad * 2, _minHeight)
 
-    // data-popup-open:bg-muted/50 · (open|hover):bg-muted
+    // data-popup-open:bg-muted/50 . (open|hover):bg-muted . otherwise transparent.
     Rectangle {
         anchors.fill: parent
         radius: Theme.radiusLg
@@ -56,7 +80,7 @@ Item {
             size: 12                      // size-3
             color: Theme.foreground
             Layout.preferredWidth: visible ? 12 : 0
-            // group-data-open:rotate-180,transition duration-300
+            // group-data-open:rotate-180, transition duration-300.
             rotation: trigger.open ? 180 : 0
             Behavior on rotation { NumberAnimation { duration: 300 } }
         }

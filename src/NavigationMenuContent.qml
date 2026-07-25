@@ -3,31 +3,56 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
 
-// shadcn NavigationMenuContent(base-mira)—— 导航项展开的下拉内容面板。
-// 视觉对齐 .cn-navigation-menu-popup(rounded-xl + ring-1 ring-foreground/10 + shadow)
-// 与 .cn-navigation-menu-content(p-1.5)。QtQuick.Controls 无 Popover 类型,基于 C.Popup 实现
-//(与 Popover.qml 同源)。链接以 GridLayout 排布,columns=1 纵向堆叠、>1 为网格。
-//
-// 由 NavigationMenuItem 内部实例化;放入的 NavigationMenuLink 子项经默认属性进入内部网格。
+/*!
+    \qmltype NavigationMenuContent
+    \inqmlmodule Shadcn
+    \inherits Popup
+    \brief Dropdown panel expanded from a navigation item.
+
+    NavigationMenuContent is the popover surface shown below an open
+    NavigationMenuItem. It matches base-mira's \c .cn-navigation-menu-popup
+    (\c rounded-xl, \c ring-1 \c ring-foreground/10, shadow) and
+    \c .cn-navigation-menu-content (\c p-1.5). Qt Quick Controls has no dedicated
+    Popover type, so this is built on \c C.Popup (same approach as Popover.qml).
+    Declared NavigationMenuLink children are laid out in an internal GridLayout:
+    \l columns = 1 stacks them vertically, \c > 1 forms a grid.
+
+    It is instantiated inside NavigationMenuItem; NavigationMenuLink children
+    reach the internal grid through the default property alias.
+
+    \sa NavigationMenuItem, NavigationMenuLink
+*/
 C.Popup {
     id: content
 
+    /*! \qmlproperty int NavigationMenuContent::columns \brief Number of grid columns for the links (1 = vertical stack). Defaults to \c 1. */
     property int columns: 1
-    property int sideOffset: 8   // side=bottom sideOffset 8
+    /*! \qmlproperty int NavigationMenuContent::sideOffset \brief Vertical gap between the trigger and the panel (side=bottom). Defaults to \c 8. */
+    property int sideOffset: 8
 
-    // 默认内容槽:声明的 NavigationMenuLink 直接进入内部网格。
+    /*!
+        \qmlproperty list<QtObject> NavigationMenuContent::links
+        \brief Default content slot; declared NavigationMenuLink children go
+        straight into the internal grid. This is the component's default
+        property.
+    */
     default property alias links: grid.data
-    // 供宿主 Item 感知面板是否被 hover(维持展开)。
+
+    /*!
+        \qmlproperty bool NavigationMenuContent::hovered
+        \brief Whether the pointer is over the panel; the host item reads this to
+        keep the panel open while it is hovered. Read-only.
+    */
     property alias hovered: panelHover.hovered
 
-    width: 384                   // 默认 w-96;由 Item 覆盖
+    width: 384                   // default w-96; overridden by the item
     padding: Theme.space1_5      // p-1.5
     font.pixelSize: Theme.textXs
     modal: false
     dim: false
     closePolicy: C.Popup.CloseOnEscape | C.Popup.CloseOnPressOutside
 
-    // 定位:触发头(parent)正下方,align=start。
+    // Position: directly below the trigger (parent), align=start.
     y: (parent ? parent.height : 0) + sideOffset
     x: 0
 
@@ -52,11 +77,11 @@ C.Popup {
         rowSpacing: Theme.space2      // gap-2
         columnSpacing: Theme.space2
 
-        // 覆盖整个面板的 hover 探测(不拦截链接点击)。
+        // Whole-panel hover probe (does not intercept link clicks).
         HoverHandler { id: panelHover }
     }
 
-    // 展开:fade + zoom(data-starting-style:scale-90 opacity-0)。收起对称。
+    // Open: fade + zoom (data-starting-style: scale-90 opacity-0). Close is symmetric.
     enter: Transition {
         NumberAnimation { property: "opacity"; from: 0; to: 1; duration: Theme.durBase }
         NumberAnimation { property: "scale"; from: 0.9; to: 1; duration: Theme.durBase }

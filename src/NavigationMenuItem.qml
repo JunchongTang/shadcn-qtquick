@@ -1,27 +1,56 @@
 import QtQuick
 
-// shadcn NavigationMenuItem(base-mira)—— 导航条中的单个项。两种形态:
-//   1) 带下拉:设 text 作触发头(含 chevron),放入 NavigationMenuLink 子项作为下拉内容;
-//   2) 纯链接:设 asLink:true,整项即一个可点链接(如官方 "Docs"),点击发 triggered()。
-//
-// hover 协调:进入触发头即请求本容器(parent = NavigationMenu)展开本项;在项间移动会即时切换。
-// 离开触发头与面板后经 150ms 宽限计时关闭 —— 用以「桥接」触发头与面板之间 8px 的空隙
-//(官方以 CSS ::before 伪元素补齐,这里简化为宽限计时,是刻意简化点)。
+/*!
+    \qmltype NavigationMenuItem
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A single entry in a NavigationMenu, either a dropdown or a plain link.
+
+    NavigationMenuItem has two shapes, matching base-mira's usage:
+    \list
+    \li Dropdown: set \l text as the trigger header (with a chevron) and declare
+        NavigationMenuLink children as the dropdown contents.
+    \li Plain link: set \l asLink to \c true so the whole item is a clickable
+        link (like the upstream "Docs" entry); clicking emits \l triggered.
+    \endlist
+
+    Hover coordination: entering the trigger asks the parent NavigationMenu to
+    open this item; moving between items switches immediately. After the pointer
+    leaves both the trigger and the panel, a 150ms grace timer closes the item.
+
+    \note The grace timer bridges the 8px gap between the trigger and the panel.
+    Upstream fills that gap with a CSS \c ::before pseudo-element; this is a
+    deliberate simplification.
+
+    \sa NavigationMenu, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink
+*/
 Item {
     id: item
 
+    /*! \qmlproperty string NavigationMenuItem::text \brief The trigger header label. */
     property string text: ""
-    property bool asLink: false        // true = 纯链接项,无下拉
-    property int columns: 1            // 下拉网格列数(components 示例用 2)
-    property real contentWidth: 384    // 下拉面板宽度(w-96 默认)
+    /*! \qmlproperty bool NavigationMenuItem::asLink \brief When \c true the whole item is a plain clickable link with no dropdown. Defaults to \c false. */
+    property bool asLink: false
+    /*! \qmlproperty int NavigationMenuItem::columns \brief Dropdown grid column count (the components example uses 2). Defaults to \c 1. */
+    property int columns: 1
+    /*! \qmlproperty real NavigationMenuItem::contentWidth \brief Dropdown panel width (w-96 default). Defaults to \c 384. */
+    property real contentWidth: 384
 
-    signal triggered()                 // 纯链接项或子链接点击后上抛
+    /*! \qmlsignal NavigationMenuItem::triggered() \brief Emitted when a plain-link item, or one of its child links, is activated. */
+    signal triggered()
 
-    // 默认内容槽:NavigationMenuLink 子项 → 下拉面板内部网格。
+    /*!
+        \qmlproperty list<QtObject> NavigationMenuItem::content
+        \brief Default content slot; declared NavigationMenuLink children are
+        routed into the dropdown panel's internal grid. This is the component's
+        default property.
+    */
     default property alias content: panel.links
 
+    /*! \internal Whether this item owns a dropdown panel (i.e. is not a plain link). */
     readonly property bool _hasContent: !asLink
-    readonly property var _menu: item.parent   // 所属 NavigationMenu(RowLayout)
+    /*! \internal The owning NavigationMenu (this item's RowLayout parent). */
+    readonly property var _menu: item.parent
 
     implicitWidth: trigger.implicitWidth
     implicitHeight: trigger.implicitHeight
@@ -56,21 +85,21 @@ Item {
         columns: item.columns
         width: item.contentWidth
 
-        // hover 面板时取消关闭;离开时启动宽限计时。
+        // Cancel the close timer while the panel is hovered; restart on leave.
         onHoveredChanged: hovered ? closeTimer.stop() : closeTimer.restart()
 
-        // 面板自身因 Esc / 点击外部关闭时,同步复位容器的 openItem。
+        // When the panel closes itself (Esc / press-outside), reset the container.
         onClosed: if (item._menu && item._menu.openItem === item) item._menu.requestClose(item)
     }
 
-    // 关闭宽限计时(桥接触发头↔面板的空隙)。
+    // Close grace timer (bridges the trigger <-> panel gap).
     Timer {
         id: closeTimer
         interval: 150
         onTriggered: if (item._menu) item._menu.requestClose(item)
     }
 
-    // 依据容器的当前展开项驱动面板开合。
+    // Drive the panel open/close from the container's current open item.
     Connections {
         target: item._menu
         function onOpenItemChanged() {
@@ -83,7 +112,8 @@ Item {
         }
     }
 
-    // 子链接点击后关闭整菜单(链接为静态声明,创建完成时一次性接线)。
+    // Close the whole menu after a child link is clicked. Links are declared
+    // statically, so wiring happens once on completion.
     Component.onCompleted: {
         for (let i = 0; i < panel.links.length; ++i) {
             let obj = panel.links[i]

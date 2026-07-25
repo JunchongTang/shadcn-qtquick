@@ -2,31 +2,50 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn NavigationMenuLink(base-mira)—— 下拉面板内的单条链接(也可独立使用)。
-// = <NavigationMenuLink class="flex items-center gap-1.5 rounded-md p-2 text-xs/relaxed
-//   hover:bg-muted data-[active=true]:bg-muted/50">。
-//
-// 三种形态自适应:纯标题 / 标题 + 图标(size-4) / 标题 + 描述(muted,line-clamp-2)。
-// 点击发出 triggered();在面板内点击后由 NavigationMenuContent 关闭菜单。
+/*!
+    \qmltype NavigationMenuLink
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A single link row inside a navigation dropdown panel.
+
+    NavigationMenuLink matches base-mira's \c .cn-navigation-menu-link:
+    \c flex \c items-center \c gap-1.5, \c p-2, \c text-xs/relaxed,
+    \c hover:bg-muted, and \c data-[active=true]:bg-muted/50. Inside a
+    NavigationMenuContent panel it uses \c rounded-md
+    (\c in-data-[slot=navigation-menu-content]:rounded-md).
+
+    Three layouts adapt automatically: title only; title + leading icon
+    (\c size-4); or title + muted description (\c line-clamp-2, two lines).
+    Clicking emits \l triggered; when clicked inside a panel the host
+    NavigationMenuItem closes the menu.
+
+    \sa NavigationMenuContent, NavigationMenuItem
+*/
 Item {
     id: link
 
-    property string text: ""          // 标题
-    property string description: ""   // 次要描述(muted 双行)
-    property string iconName: ""      // 前置 Lucide 图标
-    property bool active: false       // data-[active=true]
+    /*! \qmlproperty string NavigationMenuLink::text \brief The link title. */
+    property string text: ""
+    /*! \qmlproperty string NavigationMenuLink::description \brief Optional secondary description (muted, up to two lines). */
+    property string description: ""
+    /*! \qmlproperty string NavigationMenuLink::iconName \brief Optional leading Lucide icon (kebab-case name). */
+    property string iconName: ""
+    /*! \qmlproperty bool NavigationMenuLink::active \brief The \c data-[active=true] state (persistent muted background). Defaults to \c false. */
+    property bool active: false
 
+    /*! \qmlsignal NavigationMenuLink::triggered() \brief Emitted when the link is clicked. */
     signal triggered()
 
     Layout.fillWidth: true
     implicitWidth: 180
     implicitHeight: col.implicitHeight + Theme.space2 * 2   // p-2
 
+    /*! \internal Whether the pointer is over the link. */
     readonly property bool _hovered: hover.hovered
 
     Rectangle {
         anchors.fill: parent
-        radius: Theme.radiusMd   // in-content:rounded-md
+        radius: Theme.radiusMd   // in-content: rounded-md
         color: {
             if (link.active)
                 return link._hovered ? Theme.muted : Theme.alpha(Theme.muted, 0.5)
@@ -41,7 +60,7 @@ Item {
         width: parent.width - Theme.space2 * 2
         spacing: link.description !== "" ? Theme.space1 : 0
 
-        // 标题行(图标 + 文本)
+        // Title row (icon + text).
         RowLayout {
             Layout.fillWidth: true
             spacing: Theme.space1_5   // gap-1.5
@@ -65,7 +84,7 @@ Item {
             }
         }
 
-        // 描述(可选,双行截断)
+        // Description (optional, two-line clamp).
         Text {
             visible: link.description !== ""
             Layout.fillWidth: true
