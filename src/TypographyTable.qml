@@ -2,26 +2,56 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn Typography table —— markdown 风格表格(非 data-table)。
-// th/td: border px-4(16) py-2(8) text-left;th font-bold;tr even:bg-muted。
-// even 计数按各自 <tbody> 内 nth-child:表头(奇)无底纹;正文行 index 1 → 偶(muted)。
-// headers: 字符串数组;rows: 字符串数组的数组。列等宽分配。
+/*!
+    \qmltype TypographyTable
+    \inqmlmodule Shadcn
+    \inherits ColumnLayout
+    \brief A markdown-style prose table, styled after shadcn's base-mira
+    \c table.
+
+    TypographyTable renders shadcn's markdown \c table prose style (not the
+    interactive data table): every cell has a 1px \l {Theme::border}{border}
+    with \c px-4 (16px) / \c py-2 (8px) padding and left-aligned 16px text;
+    header cells are \c font-bold. Body rows follow the \c even:bg-muted rule,
+    which is scoped per \c tbody: because the header lives in its own \c thead
+    it is never shaded, and inside the body the second row (\c nth-child(2),
+    zero-based index 1) gets the \l {Theme::muted}{muted} background. Columns
+    are distributed evenly. Outer spacing (\c my-6) is left to the surrounding
+    layout.
+
+    \qmlproperty list<string> TypographyTable::headers
+    The header cell labels, one column per entry.
+
+    \qmlproperty list<var> TypographyTable::rows
+    The body rows; each entry is an array of cell strings.
+
+    \qml
+    TypographyTable {
+        headers: ["King's Treasury", "People's happiness"]
+        rows: [["Empty", "Overflowing"], ["Modest", "Satisfied"]]
+    }
+    \endqml
+*/
 ColumnLayout {
     id: root
+
+    // Header cell labels (one column each).
     property var headers: []
+    // Body rows; each entry is an array of cell strings.
     property var rows: []
 
     Layout.fillWidth: true
     spacing: 0
 
+    // A single bordered cell with px-4 / py-2 padding.
     component Cell: Rectangle {
         property string content: ""
         property bool header: false
         property color fill: "transparent"
 
         Layout.fillWidth: true
-        Layout.preferredWidth: 1          // 等宽列
-        implicitHeight: cellText.implicitHeight + 16   // py-2 上下各 8
+        Layout.preferredWidth: 1          // equal-width columns
+        implicitHeight: cellText.implicitHeight + 16   // py-2: 8px top + 8px bottom
         color: fill
         border.width: 1
         border.color: Theme.border
@@ -37,14 +67,14 @@ ColumnLayout {
             color: Theme.foreground
             font.family: Theme.fontSans
             font.pixelSize: Theme.textBase
-            font.weight: parent.header ? Font.Bold : Font.Normal
-            horizontalAlignment: Text.AlignLeft
+            font.weight: parent.header ? Font.Bold : Font.Normal   // th font-bold
+            horizontalAlignment: Text.AlignLeft                    // text-left
             wrapMode: Text.Wrap
             textFormat: Text.PlainText
         }
     }
 
-    // 表头
+    // Header row (thead): never shaded.
     RowLayout {
         Layout.fillWidth: true
         spacing: 0
@@ -58,7 +88,7 @@ ColumnLayout {
         }
     }
 
-    // 表体
+    // Body rows (tbody): even:bg-muted, scoped to the body (index 1, 3, ...).
     Repeater {
         model: root.rows
         delegate: RowLayout {

@@ -44,6 +44,7 @@
 | [#032](#032-batch-4-审查修复合集组件-3140) | Batch 4 审查修复合集(组件 31–40) | Component/*(Marker/InputOtp/Menu/Kbd/Menubar/MessageScroller) | P2 | ✅ |
 | [#033](#033-batch-5-审查修复合集组件-4150) | Batch 5 审查修复合集(组件 41–50) | Component/*(RangeSlider/RadioGroup/Progress/NavigationMenu/NativeSelect) | P1 | ✅ |
 | [#034](#034-batch-6-审查修复合集组件-5160) | Batch 6 审查修复合集(组件 51–60,含 Sheet #029) | Component/*(Sheet/Select/Switch/Skeleton/Sidebar/Tabs) | P2 | ✅ |
+| [#035](#035-batch-7-审查修复合集组件-6167,含-toasttooltip-029) | Batch 7 审查修复合集(组件 61–67,含 Toast/Tooltip #029) | Component/*(Textarea/Toast/Tooltip/Sidebar/Theme/Typography) | P1 | ✅ |
 
 ---
 
@@ -415,3 +416,14 @@
 - **P2 Tabs 非激活标签色**(Component/Tabs):亮色应 `foreground/60`,原用 muted-foreground。
 - **P3**:ScrollView 失实注释、Spinner 转速 800→1000ms(1s)、Slider objectName 补测;NativeSelect QDoc 关于 Select 箭头的失实交叉引用一并更正。
 - 其余(Separator)无缺陷。**通用**:a11y `Accessible.role` 全库缺失(Separator/Spinner 等标记),留作专项。
+
+### #035 Batch 7 审查修复合集(组件 61–67,含 Toast/Tooltip #029)
+
+逐组件审查的最后一批(Table/Toggle 早已完成)。测试总数 735→801 全绿,**全 67 组件审查完成**。
+
+- **P1 Tooltip Side 枚举冲突(#029)**(Component/Tooltip):`ToolTip` 派生仍暴露 `Item.TransformOrigin`,`Tooltip.Top=1/Right=5/Bottom=7/Left=3`,非限定 `Tooltip.Top` 恒错、旧枚举实为死代码(靠绑定与调用端同用扁平值侥幸)。重命名 `Side`→`{TopEdge,RightEdge,BottomEdge,LeftEdge}` + 全限定引用;并补齐缺失的 **arrow 箭头**(size-2.5 旋转 45°)与 zoom 入场。**连带 P0**:`SidebarMenuButton.qml` 的 `side: Tooltip.Right` 改名后会解析成 TransformOrigin.Right→标签 tooltip 错位,已同步修为 `Tooltip.Side.RightEdge`。
+- **P1 Toast Position 枚举冲突(#029)**(Component/Toast):`ToastArea.Position{TopLeft…BottomRight}` 撞 `Item.TransformOrigin`(`BottomRight`→8 而非 5)。重命名为 `{TopStart,TopCenter,TopEnd,BottomStart,BottomCenter,BottomEnd}`,同步 Gallery(`BottomRight`→`BottomEnd`)。
+- **P1×2 Textarea**(Component/Textarea):静止边框 `border`→`input`;补 `disabled:opacity-50`(原无)。附带暗色变体、invalid 时 FocusRing 让位、focusPolicy、min-h-16 可增高。
+- **P3 Typography**(Component/Typography):`TypographyList` 非限定 `modelData` 加 id 限定;其余无缺陷(表格 border-collapse 双线为 QML 限制,旗标)。
+- **Theme**:token 全部核对无误(未改);base-mira 琥珀色板在本 checkout 无源可比,留验。
+- **通用教训沉淀**:#029 类冲突再中两例(Toast/Tooltip)——**任何**类型(即便 Popup/Drawer/ToolTip 派生)的枚举都不能用 `Top/Bottom/Left/Right/Center`(撞 `Item.TransformOrigin`,值 0–8);必用渲染探针验证。单测里 `Animation.Infinite` 解析为 undefined(比 `-1`)、`var c=Theme.color` 是活句柄(用 `.toString()` 快照)、`letterSpacing` 走 1/64 定点(fuzzyCompare 容差≥0.02)、QuickTest 按**字母序**跑用例(勿依赖跨用例状态)。

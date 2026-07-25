@@ -9,24 +9,24 @@ Flow {
         id: leftBtn
         text: "Left"
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Left; visible: leftBtn.hovered }
+        Tooltip { text: "Add to library"; side: Tooltip.Side.LeftEdge; visible: leftBtn.hovered }
     }
     Button {
         id: topBtn
         text: "Top"
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Top; visible: topBtn.hovered }
+        Tooltip { text: "Add to library"; side: Tooltip.Side.TopEdge; visible: topBtn.hovered }
     }
     Button {
         id: bottomBtn
         text: "Bottom"
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Bottom; visible: bottomBtn.hovered }
+        Tooltip { text: "Add to library"; side: Tooltip.Side.BottomEdge; visible: bottomBtn.hovered }
     }
     Button {
         id: rightBtn
         text: "Right"
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Right; visible: rightBtn.hovered }
+        Tooltip { text: "Add to library"; side: Tooltip.Side.RightEdge; visible: rightBtn.hovered }
     }
 }

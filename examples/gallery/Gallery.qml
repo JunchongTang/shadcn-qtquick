@@ -235,7 +235,7 @@ Window {
     ToastArea {
         id: toaster
         anchors.fill: parent
-        position: ToastArea.BottomRight
+        position: ToastArea.BottomEnd
         z: 1000
     }
 }

@@ -1,36 +1,134 @@
 pragma Singleton
 import QtQuick
 
-// shadcn 设计令牌(base-mira · neutral · amber),与前端 prototype/app/globals.css 一一对应。
-// oklch → sRGB 精确转换。切换明/暗只需设 Theme.dark。
-//
-// 主题定制(加法层,不改任何令牌名/默认值):
-//   · lightOverrides / darkOverrides —— { tokenName: "#rrggbb", ... },覆盖对应模式的颜色令牌。
-//   · radiusOverride —— >=0 时覆盖基础圆角(px);<0 用默认 10。
-//   颜色令牌一律经 _resolve() 求值:先查当前模式的 override,未命中则回退内置值。
-//   定制器通过 setToken()/setRadius()/resetTheme() 修改;因 var 需整体重赋才触发绑定,已封装。
+/*!
+    \qmltype Theme
+    \inqmlmodule Shadcn
+    \inherits QtObject
+    \brief Application-wide design-token singleton for the shadcn (base-mira) port.
+
+    Theme is the single source of truth for every design token used across the
+    library: colors, radii, spacing, typography sizes, focus-ring metrics,
+    overlay elevation, and animation durations. Every component reads its
+    appearance from this singleton, so the token names and default values are a
+    stable public contract and must not be renamed.
+
+    The values mirror shadcn/ui's base-mira style (neutral surfaces, amber
+    primary), with oklch source colors converted to sRGB. Light and dark
+    palettes are selected by the single \l dark flag.
+
+    An additive customization layer sits on top of the built-in defaults:
+    \l lightOverrides / \l darkOverrides override individual color tokens per
+    mode, and \l radiusOverride overrides the base corner radius. Every color
+    token is resolved through the override map first and falls back to its
+    built-in value when no override is present. Because overrides are stored in
+    \c var maps, they are reassigned wholesale (see \l setToken) so bindings
+    re-evaluate.
+
+    \note This type is registered as a QML singleton; reference tokens directly,
+    e.g. \c {Theme.primary} or \c {Theme.space4}.
+
+    \qmlproperty bool Theme::dark
+    Selects the dark palette when \c true and the light palette when \c false
+    (the default). Toggling it re-evaluates every color token.
+
+    \qmlproperty var Theme::lightOverrides
+    \qmlproperty var Theme::darkOverrides
+    Per-mode color override maps of the form \c {{ tokenName: "#rrggbb" }}. A
+    token present here wins over its built-in value for that mode.
+
+    \qmlproperty real Theme::radiusOverride
+    Overrides the base corner radius in pixels when \c {>= 0}; a negative value
+    (the default) keeps the built-in base radius of 10.
+
+    \qmlproperty color Theme::background
+    \qmlproperty color Theme::foreground
+    \qmlproperty color Theme::primary
+    \qmlproperty color Theme::secondary
+    \qmlproperty color Theme::muted
+    \qmlproperty color Theme::accent
+    \qmlproperty color Theme::destructive
+    \qmlproperty color Theme::border
+    \qmlproperty color Theme::input
+    \qmlproperty color Theme::ring
+    The core color tokens (plus their \c *Foreground pairs, \c card, \c popover,
+    the \c chart1..chart5 ramp, and the \c sidebar* family). Each resolves
+    through the active override map before falling back to its built-in value.
+
+    \qmlproperty real Theme::radius
+    \qmlproperty real Theme::radiusSm
+    \qmlproperty real Theme::radiusMd
+    \qmlproperty real Theme::radiusLg
+    \qmlproperty real Theme::radiusXl
+    \qmlproperty real Theme::radiusFull
+    The corner-radius scale derived from the base \l radius (10px). Ratios match
+    base-mira: sm 0.6, md 0.8, lg 1.0, xl 1.4, 2xl 1.8, 3xl 2.2, 4xl 2.6.
+    \l radiusFull is a large pill value for fully rounded shapes.
+
+    \qmlproperty real Theme::ringWidth
+    \qmlproperty real Theme::ringOpacity
+    Focus-ring metrics (base-mira uses \c {ring-2 ring-ring/30}): a 2px stroke of
+    \l ring at 30% opacity.
+
+    \qmlproperty real Theme::space1
+    \qmlproperty real Theme::space2
+    \qmlproperty real Theme::space4
+    \qmlproperty real Theme::space6
+    The spacing scale in pixels (Tailwind spacing = 0.25rem x n = 4px x n).
+    Includes half steps such as \c space0_5, \c space1_5, \c space2_5, \c space3_5.
+
+    \qmlproperty int Theme::textXs
+    \qmlproperty int Theme::textSm
+    \qmlproperty int Theme::textBase
+    \qmlproperty int Theme::textLg
+    The font-size scale in pixels (Tailwind text-xs..text-4xl): 12, 14, 16, 18,
+    20, 24, 30, 36.
+
+    \qmlproperty int Theme::durFast
+    \qmlproperty int Theme::durBase
+    Animation durations in milliseconds: 100 for fast overlay transitions, 150
+    for the default color/state transition.
+*/
 QtObject {
     id: theme
 
     property bool dark: false
 
-    // ==== 定制覆盖层 ====================================================
+    // ==== Customization override layer ==================================
     property var lightOverrides: ({})
     property var darkOverrides: ({})
     property real radiusOverride: -1
 
+    // Resolve a color token: prefer the active mode's override, else fallback.
     function _resolve(name, fallback) {
         var o = dark ? darkOverrides : lightOverrides
         return (o && o[name] !== undefined) ? o[name] : fallback
     }
-    // 设置某令牌在指定模式的覆盖值(整体重赋以触发绑定刷新)。
+
+    /*!
+        \qmlmethod void Theme::setToken(string name, color value, bool forDark)
+        Sets the override \a value for color token \a name. Targets the dark
+        palette when \a forDark is \c true, otherwise the light palette. The
+        override map is reassigned wholesale so dependent bindings refresh.
+    */
     function setToken(name, value, forDark) {
         if (forDark) { let d = Object.assign({}, darkOverrides); d[name] = value; darkOverrides = d }
         else         { let l = Object.assign({}, lightOverrides); l[name] = value; lightOverrides = l }
     }
+
+    /*!
+        \qmlmethod void Theme::setRadius(real px)
+        Overrides the base corner radius with \a px pixels.
+    */
     function setRadius(px) { radiusOverride = px }
+
+    /*!
+        \qmlmethod void Theme::resetTheme()
+        Clears all color overrides and restores the default base radius.
+    */
     function resetTheme() { lightOverrides = ({}); darkOverrides = ({}); radiusOverride = -1 }
-    // 可枚举的颜色令牌名(定制器遍历用)。
+
+    // Enumerable color-token names (used by customizers to iterate tokens).
     readonly property var colorTokenNames: [
         "background","foreground","card","cardForeground","popover","popoverForeground",
         "primary","primaryForeground","secondary","secondaryForeground","muted","mutedForeground",
@@ -39,7 +137,12 @@ QtObject {
         "sidebar","sidebarForeground","sidebarPrimary","sidebarPrimaryForeground",
         "sidebarAccent","sidebarAccentForeground","sidebarBorder","sidebarRing"
     ]
-    // 当前模式某令牌的解析值(定制器取色/回显用)。
+
+    /*!
+        \qmlmethod color Theme::tokenColor(string name)
+        Returns the resolved value of color token \a name in the active mode.
+        Used by customizers to read or echo a token's current color.
+    */
     function tokenColor(name) {
         switch (name) {
         case "background": return background; case "foreground": return foreground
@@ -60,7 +163,12 @@ QtObject {
         }
         return "#000000"
     }
-    // 导出配置(JSON):当前 radius + 明暗覆盖。开发者可存为品牌主题。
+
+    /*!
+        \qmlmethod string Theme::exportJson()
+        Serializes the current customization (base radius plus light/dark
+        overrides) to a JSON string that can be persisted as a brand theme.
+    */
     function exportJson() {
         return JSON.stringify({
             radius: (radiusOverride >= 0 ? radiusOverride : 10),
@@ -68,7 +176,12 @@ QtObject {
             dark: darkOverrides
         }, null, 2)
     }
-    // 导入配置(JSON 字符串)。
+
+    /*!
+        \qmlmethod bool Theme::importJson(string text)
+        Loads a customization from the JSON string \a text (as produced by
+        \l exportJson). Returns \c true on success, \c false on a parse error.
+    */
     function importJson(text) {
         try {
             let cfg = JSON.parse(text)
@@ -79,7 +192,7 @@ QtObject {
         } catch (e) { return false }
     }
 
-    // ==== 颜色令牌(globals.css :root / .dark 全量;经 _resolve 支持覆盖)========
+    // ==== Color tokens (globals.css :root / .dark, resolved via _resolve) ====
     readonly property color background: _resolve("background", dark ? "#0a0a0a" : "#ffffff")
     readonly property color foreground: _resolve("foreground", dark ? "#fafafa" : "#0a0a0a")
     readonly property color card: _resolve("card", dark ? "#171717" : "#ffffff")
@@ -112,7 +225,7 @@ QtObject {
     readonly property color sidebarBorder: _resolve("sidebarBorder", dark ? "#1affffff" : "#e5e5e5")
     readonly property color sidebarRing: _resolve("sidebarRing", dark ? "#737373" : "#a1a1a1")
 
-    // ==== 圆角(--radius 0.625rem;radiusOverride>=0 时覆盖)===================
+    // ==== Corner radii (--radius 0.625rem; radiusOverride >= 0 overrides) ====
     readonly property real radius: radiusOverride >= 0 ? radiusOverride : 10
     readonly property real radiusSm: radius * 0.6    // 6
     readonly property real radiusMd: radius * 0.8    // 8
@@ -121,25 +234,25 @@ QtObject {
     readonly property real radius2xl: radius * 1.8   // 18
     readonly property real radius3xl: radius * 2.2   // 22
     readonly property real radius4xl: radius * 2.6   // 26
-    readonly property real radiusFull: 9999          // 胶囊(rounded-full)
+    readonly property real radiusFull: 9999          // pill (rounded-full)
 
-    // ==== 字体 ============================================================
+    // ==== Typography ======================================================
     readonly property string fontSans: "Inter"
     readonly property string fontMono: "Geist Mono"
     readonly property string fontHeading: fontSans
 
-    // ==== 焦点环(base-mira: ring-2 ring-ring/30 + border→ring)==============
+    // ==== Focus ring (base-mira: ring-2 ring-ring/30 + border->ring) ========
     readonly property real ringWidth: 2
     readonly property real ringOpacity: 0.30
 
-    // ==== 浮层立体感(ring-1 ring-foreground/10 + shadow-md)=================
+    // ==== Overlay elevation (ring-1 ring-foreground/10 + shadow-md) =========
     readonly property color overlayRing: alpha(foreground, 0.10)
     readonly property real overlayRingWidth: 1
     readonly property color shadowColor: alpha("#000000", dark ? 0.5 : 0.12)
     readonly property real shadowBlur: 0.5
     readonly property real shadowOffset: 4
 
-    // ==== 间距(Tailwind spacing = rem × 4 → px)============================
+    // ==== Spacing (Tailwind spacing = rem x 4 -> px) ========================
     readonly property real space0_5: 2
     readonly property real space1: 4
     readonly property real space1_5: 6
@@ -152,7 +265,7 @@ QtObject {
     readonly property real space6: 24
     readonly property real space8: 32
 
-    // ==== 字号(Tailwind text-xs..4xl)=====================================
+    // ==== Font sizes (Tailwind text-xs..4xl) ===============================
     readonly property int textXs: 12
     readonly property int textSm: 14
     readonly property int textBase: 16
@@ -161,13 +274,17 @@ QtObject {
     readonly property int text2xl: 24
     readonly property int text3xl: 30
     readonly property int text4xl: 36
-    // 行高
+    // Line height
     readonly property real lineRelaxed: 1.625
 
-    // ==== 动效 ============================================================
+    // ==== Motion ==========================================================
     readonly property int durFast: 100
     readonly property int durBase: 150
 
-    // 令牌色 × 不透明度(对标 CSS 的 color/NN)。
+    /*!
+        \qmlmethod color Theme::alpha(color c, real a)
+        Returns color \a c with its alpha replaced by \a a (0..1), mirroring
+        CSS's \c color/NN opacity syntax. RGB channels are preserved.
+    */
     function alpha(c, a) { return Qt.rgba(c.r, c.g, c.b, a) }
 }

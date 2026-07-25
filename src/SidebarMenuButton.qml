@@ -114,7 +114,7 @@ Item {
     // Collapsed state: reveal the label via a right-side tooltip on hover.
     Tooltip {
         text: control.text
-        side: Tooltip.Right
+        side: Tooltip.Side.RightEdge
         visible: control.collapsed && control._hovered && control.text !== ""
     }
 }

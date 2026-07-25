@@ -69,12 +69,12 @@ Legend: ✅ done · 🔶 partial · ⬜ pending · — n/a
 | 59 | Switch | Switch | ✅ | ✅ | ✅ | ✅ | 2×P2 thumb slide + dark-mode |
 | 60 | Tabs | Tabs, TabButton | ✅ | ✅ | ✅ | 🔶 | P2 inactive label color; #005 intact |
 | 61 | Table | Table, TableColumn | ✅ | ✅ | ✅ | ✅ | #023/#024 |
-| 62 | Textarea | Textarea | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 63 | Theme | Theme | ⬜ | ⬜ | — | — | singleton / design tokens |
-| 64 | Toast | Toast, ToastArea | ⬜ | ⬜ | ⬜ | ⬜ | |
+| 62 | Textarea | Textarea | ✅ | ✅ | ✅ | 🔶 | 2×P1 (border token, disabled opacity) + dark/focus |
+| 63 | Theme | Theme | ✅ | ✅ | ✅ | 🔶 | tokens verified; amber palette unverifiable vs ref |
+| 64 | Toast | Toast, ToastArea | ✅ | ✅ | ✅ | ✅ | P1 #029 Position enum (→Start/End); QDoc + tests |
 | 65 | Toggle | Toggle, ToggleGroup, ToggleGroupItem | ✅ | ✅ | ✅ | ✅ | #028 |
-| 66 | Tooltip | Tooltip | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 67 | Typography | Typography*(13 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
+| 66 | Tooltip | Tooltip | ✅ | ✅ | ✅ | ✅ | P1 #029 Side enum (→*Edge) + P2 added arrow; fixed SidebarMenuButton consumer |
+| 67 | Typography | Typography*(13 parts) | ✅ | ✅ | ✅ | 🔶 | no bugs; table border-collapse flagged |
 
 ## Batches (10 components each)
 
