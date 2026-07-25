@@ -5,7 +5,7 @@ import Shadcn
 // 子菜单触发项的图标经「嵌套 Menu 的 icon.name」传入(delegate 读取 subMenu.icon.name)。
 Button {
     id: trigger
-    text: "Complex Menu"
+    text: qsTr("Complex Menu")
     variant: Button.Outline
     trailingIconName: "chevron-down"
     onClicked: menu.popup(0, trigger.height + 4)
@@ -15,71 +15,71 @@ Button {
         implicitWidth: 176           // w-44
 
         // ---- File ----
-        MenuLabel { text: "File" }
-        MenuItem { text: "New File"; iconName: "file"; shortcut: "⌘N" }
-        MenuItem { text: "New Folder"; iconName: "folder"; shortcut: "⇧⌘N" }
+        MenuLabel { text: qsTr("File") }
+        MenuItem { text: qsTr("New File"); iconName: "file"; shortcut: "⌘N" }
+        MenuItem { text: qsTr("New Folder"); iconName: "folder"; shortcut: "⇧⌘N" }
 
         Menu {
-            title: "Open Recent"
+            title: qsTr("Open Recent")
             icon.name: "folder-open"
 
-            MenuLabel { text: "Recent Projects" }
-            MenuItem { text: "Project Alpha"; iconName: "file-code" }
-            MenuItem { text: "Project Beta"; iconName: "file-code" }
+            MenuLabel { text: qsTr("Recent Projects") }
+            MenuItem { text: qsTr("Project Alpha"); iconName: "file-code" }
+            MenuItem { text: qsTr("Project Beta"); iconName: "file-code" }
 
             Menu {
-                title: "More Projects"
+                title: qsTr("More Projects")
                 icon.name: "more-horizontal"
-                MenuItem { text: "Project Gamma"; iconName: "file-code" }
-                MenuItem { text: "Project Delta"; iconName: "file-code" }
+                MenuItem { text: qsTr("Project Gamma"); iconName: "file-code" }
+                MenuItem { text: qsTr("Project Delta"); iconName: "file-code" }
             }
 
             MenuSeparator {}
-            MenuItem { text: "Browse..."; iconName: "folder-search" }
+            MenuItem { text: qsTr("Browse..."); iconName: "folder-search" }
         }
 
         MenuSeparator {}
-        MenuItem { text: "Save"; iconName: "save"; shortcut: "⌘S" }
-        MenuItem { text: "Export"; iconName: "download"; shortcut: "⇧⌘E" }
+        MenuItem { text: qsTr("Save"); iconName: "save"; shortcut: "⌘S" }
+        MenuItem { text: qsTr("Export"); iconName: "download"; shortcut: "⇧⌘E" }
 
         MenuSeparator {}
 
         // ---- View ----
-        MenuLabel { text: "View" }
-        MenuCheckboxItem { text: "Show Sidebar"; iconName: "eye"; checked: true }
-        MenuCheckboxItem { text: "Show Status Bar"; iconName: "layout" }
+        MenuLabel { text: qsTr("View") }
+        MenuCheckboxItem { text: qsTr("Show Sidebar"); iconName: "eye"; checked: true }
+        MenuCheckboxItem { text: qsTr("Show Status Bar"); iconName: "layout" }
 
         Menu {
-            title: "Theme"
+            title: qsTr("Theme")
             icon.name: "palette"
 
-            MenuLabel { text: "Appearance" }
-            MenuRadioItem { text: "Light"; iconName: "sun"; checked: true }
-            MenuRadioItem { text: "Dark"; iconName: "moon" }
-            MenuRadioItem { text: "System"; iconName: "monitor" }
+            MenuLabel { text: qsTr("Appearance") }
+            MenuRadioItem { text: qsTr("Light"); iconName: "sun"; checked: true }
+            MenuRadioItem { text: qsTr("Dark"); iconName: "moon" }
+            MenuRadioItem { text: qsTr("System"); iconName: "monitor" }
         }
 
         MenuSeparator {}
 
         // ---- Account ----
-        MenuLabel { text: "Account" }
-        MenuItem { text: "Profile"; iconName: "user"; shortcut: "⇧⌘P" }
-        MenuItem { text: "Billing"; iconName: "credit-card" }
+        MenuLabel { text: qsTr("Account") }
+        MenuItem { text: qsTr("Profile"); iconName: "user"; shortcut: "⇧⌘P" }
+        MenuItem { text: qsTr("Billing"); iconName: "credit-card" }
 
         Menu {
-            title: "Settings"
+            title: qsTr("Settings")
             icon.name: "settings"
 
-            MenuLabel { text: "Preferences" }
-            MenuItem { text: "Keyboard Shortcuts"; iconName: "keyboard" }
-            MenuItem { text: "Language"; iconName: "languages" }
+            MenuLabel { text: qsTr("Preferences") }
+            MenuItem { text: qsTr("Keyboard Shortcuts"); iconName: "keyboard" }
+            MenuItem { text: qsTr("Language"); iconName: "languages" }
         }
 
         MenuSeparator {}
-        MenuItem { text: "Help & Support"; iconName: "circle-help" }
-        MenuItem { text: "Documentation"; iconName: "file-text" }
+        MenuItem { text: qsTr("Help & Support"); iconName: "circle-help" }
+        MenuItem { text: qsTr("Documentation"); iconName: "file-text" }
 
         MenuSeparator {}
-        MenuItem { text: "Sign Out"; iconName: "log-out"; shortcut: "⇧⌘Q"; destructive: true }
+        MenuItem { text: qsTr("Sign Out"); iconName: "log-out"; shortcut: "⇧⌘Q"; destructive: true }
     }
 }

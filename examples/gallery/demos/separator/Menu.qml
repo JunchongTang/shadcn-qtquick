@@ -9,13 +9,13 @@ RowLayout {
     ColumnLayout {
         spacing: 4
         Text {
-            text: "Settings"
+            text: qsTr("Settings")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
             font.weight: Font.Medium
         }
         Text {
-            text: "Manage preferences"
+            text: qsTr("Manage preferences")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
         }
@@ -26,13 +26,13 @@ RowLayout {
     ColumnLayout {
         spacing: 4
         Text {
-            text: "Account"
+            text: qsTr("Account")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
             font.weight: Font.Medium
         }
         Text {
-            text: "Profile & security"
+            text: qsTr("Profile & security")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
         }
@@ -43,13 +43,13 @@ RowLayout {
     ColumnLayout {
         spacing: 4
         Text {
-            text: "Help"
+            text: qsTr("Help")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
             font.weight: Font.Medium
         }
         Text {
-            text: "Support & docs"
+            text: qsTr("Support & docs")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
         }

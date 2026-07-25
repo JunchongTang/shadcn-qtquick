@@ -9,19 +9,19 @@ ColumnLayout {
 
     Marker {
         iconName: "git-branch"
-        text: "Switched to a new branch"
+        text: qsTr("Switched to a new branch")
     }
     Marker {
         spinner: true               // role="status"
         shimmer: true
-        text: "Thinking..."
+        text: qsTr("Thinking...")
     }
     Marker {
         variant: Marker.Separator
-        text: "Conversation compacted"
+        text: qsTr("Conversation compacted")
     }
     Marker {
         iconName: "search"
-        text: "Explored 4 files"
+        text: qsTr("Explored 4 files")
     }
 }

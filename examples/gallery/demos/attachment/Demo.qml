@@ -41,11 +41,11 @@ ColumnLayout {
             Spinner {}
         }
         AttachmentContent {
-            AttachmentName { text: "sales-dashboard.pdf" }
-            AttachmentSize { text: "Uploading · 64%" }
+            AttachmentName { text: qsTr("sales-dashboard.pdf") }
+            AttachmentSize { text: qsTr("Uploading · 64%") }
         }
         AttachmentActions {
-            AttachmentAction { iconName: "x"; label: "Cancel upload" }
+            AttachmentAction { iconName: "x"; label: qsTr("Cancel upload") }
         }
     }
 
@@ -55,11 +55,11 @@ ColumnLayout {
 
         AttachmentMedia { iconName: "file-code" }
         AttachmentContent {
-            AttachmentName { text: "message-renderer.tsx" }
-            AttachmentSize { text: "TypeScript · 12 KB" }
+            AttachmentName { text: qsTr("message-renderer.tsx") }
+            AttachmentSize { text: qsTr("TypeScript · 12 KB") }
         }
         AttachmentActions {
-            AttachmentAction { iconName: "x"; label: "Remove message-renderer.tsx" }
+            AttachmentAction { iconName: "x"; label: qsTr("Remove message-renderer.tsx") }
         }
     }
 }

@@ -4,7 +4,7 @@ import Shadcn
 // 官方 breadcrumb-demo:Home / 省略号下拉 / Components / Breadcrumb。
 Breadcrumb {
     BreadcrumbItem {
-        BreadcrumbLink { text: "Home" }
+        BreadcrumbLink { text: qsTr("Home") }
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
@@ -17,18 +17,18 @@ Breadcrumb {
 
             Menu {
                 id: menu
-                MenuItem { text: "Documentation" }
-                MenuItem { text: "Themes" }
-                MenuItem { text: "GitHub" }
+                MenuItem { text: qsTr("Documentation") }
+                MenuItem { text: qsTr("Themes") }
+                MenuItem { text: qsTr("GitHub") }
             }
         }
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
-        BreadcrumbLink { text: "Components" }
+        BreadcrumbLink { text: qsTr("Components") }
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
-        BreadcrumbPage { text: "Breadcrumb" }
+        BreadcrumbPage { text: qsTr("Breadcrumb") }
     }
 }

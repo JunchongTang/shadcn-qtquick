@@ -27,7 +27,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -35,19 +35,19 @@ Item {
     ContextMenu {
         target: area
 
-        MenuLabel { text: "File" }
-        MenuItem { text: "New File"; shortcut: "⌘N" }
-        MenuItem { text: "Open File"; shortcut: "⌘O" }
-        MenuItem { text: "Save"; shortcut: "⌘S" }
+        MenuLabel { text: qsTr("File") }
+        MenuItem { text: qsTr("New File"); shortcut: "⌘N" }
+        MenuItem { text: qsTr("Open File"); shortcut: "⌘O" }
+        MenuItem { text: qsTr("Save"); shortcut: "⌘S" }
         MenuSeparator {}
-        MenuLabel { text: "Edit" }
-        MenuItem { text: "Undo"; shortcut: "⌘Z" }
-        MenuItem { text: "Redo"; shortcut: "⇧⌘Z" }
+        MenuLabel { text: qsTr("Edit") }
+        MenuItem { text: qsTr("Undo"); shortcut: "⌘Z" }
+        MenuItem { text: qsTr("Redo"); shortcut: "⇧⌘Z" }
         MenuSeparator {}
-        MenuItem { text: "Cut"; shortcut: "⌘X" }
-        MenuItem { text: "Copy"; shortcut: "⌘C" }
-        MenuItem { text: "Paste"; shortcut: "⌘V" }
+        MenuItem { text: qsTr("Cut"); shortcut: "⌘X" }
+        MenuItem { text: qsTr("Copy"); shortcut: "⌘C" }
+        MenuItem { text: qsTr("Paste"); shortcut: "⌘V" }
         MenuSeparator {}
-        MenuItem { text: "Delete"; destructive: true; shortcut: "⌫" }
+        MenuItem { text: qsTr("Delete"); destructive: true; shortcut: "⌫" }
     }
 }

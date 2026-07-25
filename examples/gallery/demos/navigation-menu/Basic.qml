@@ -8,57 +8,57 @@ NavigationMenu {
 
     // 带下拉:单列、带描述的链接(w-96)。
     NavigationMenuItem {
-        text: "Getting started"
+        text: qsTr("Getting started")
         contentWidth: 384
         NavigationMenuLink {
-            text: "Introduction"
-            description: "Re-usable components built with Tailwind CSS."
+            text: qsTr("Introduction")
+            description: qsTr("Re-usable components built with Tailwind CSS.")
         }
         NavigationMenuLink {
-            text: "Installation"
-            description: "How to install dependencies and structure your app."
+            text: qsTr("Installation")
+            description: qsTr("How to install dependencies and structure your app.")
         }
         NavigationMenuLink {
-            text: "Typography"
-            description: "Styles for headings, paragraphs, lists...etc"
+            text: qsTr("Typography")
+            description: qsTr("Styles for headings, paragraphs, lists...etc")
         }
     }
 
     // 带下拉:两列网格、带描述(w-[560])。
     NavigationMenuItem {
-        text: "Components"
+        text: qsTr("Components")
         columns: 2
         contentWidth: 560
         NavigationMenuLink {
-            text: "Alert Dialog"
-            description: "A modal dialog that interrupts the user with important content."
+            text: qsTr("Alert Dialog")
+            description: qsTr("A modal dialog that interrupts the user with important content.")
         }
         NavigationMenuLink {
-            text: "Hover Card"
-            description: "For sighted users to preview content available behind a link."
+            text: qsTr("Hover Card")
+            description: qsTr("For sighted users to preview content available behind a link.")
         }
         NavigationMenuLink {
-            text: "Progress"
-            description: "Displays an indicator showing the completion progress of a task."
+            text: qsTr("Progress")
+            description: qsTr("Displays an indicator showing the completion progress of a task.")
         }
         NavigationMenuLink {
-            text: "Tabs"
-            description: "Layered sections of content displayed one at a time."
+            text: qsTr("Tabs")
+            description: qsTr("Layered sections of content displayed one at a time.")
         }
     }
 
     // 带下拉:图标 + 文本的窄列表(w-[200])。
     NavigationMenuItem {
-        text: "With Icon"
+        text: qsTr("With Icon")
         contentWidth: 200
-        NavigationMenuLink { text: "Backlog"; iconName: "circle-alert" }
-        NavigationMenuLink { text: "To Do"; iconName: "circle-dashed" }
-        NavigationMenuLink { text: "Done"; iconName: "circle-check" }
+        NavigationMenuLink { text: qsTr("Backlog"); iconName: "circle-alert" }
+        NavigationMenuLink { text: qsTr("To Do"); iconName: "circle-dashed" }
+        NavigationMenuLink { text: qsTr("Done"); iconName: "circle-check" }
     }
 
     // 纯链接项(触发头样式,直接可点)。
     NavigationMenuItem {
-        text: "Docs"
+        text: qsTr("Docs")
         asLink: true
         onTriggered: console.log("navigate: /docs")
     }

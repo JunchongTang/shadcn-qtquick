@@ -9,7 +9,7 @@ ColumnLayout {
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Searching..." }
+        InputGroupInput { placeholderText: qsTr("Searching...") }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
             Spinner { size: 14; color: Theme.mutedForeground }
@@ -18,7 +18,7 @@ ColumnLayout {
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Processing..." }
+        InputGroupInput { placeholderText: qsTr("Processing...") }
         InputGroupAddon {
             Spinner { size: 14; color: Theme.mutedForeground }
         }
@@ -26,10 +26,10 @@ ColumnLayout {
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Saving changes..." }
+        InputGroupInput { placeholderText: qsTr("Saving changes...") }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
-            InputGroupText { text: "Saving..." }
+            InputGroupText { text: qsTr("Saving...") }
             Spinner { size: 14; color: Theme.mutedForeground }
         }
     }

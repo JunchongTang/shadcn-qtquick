@@ -1,32 +1,32 @@
 import QtQuick
 
 PageScaffold {
-    description: "Use to show a placeholder while content is loading."
+    description: qsTr("Use to show a placeholder while content is loading.")
 
     ExampleCard {
-        title: "Skeleton"
+        title: qsTr("Skeleton")
         source: "qrc:/demos/skeleton/Demo.qml"
     }
     ExampleCard {
-        title: "Avatar"
+        title: qsTr("Avatar")
         source: "qrc:/demos/skeleton/Avatar.qml"
     }
     ExampleCard {
-        title: "Card"
+        title: qsTr("Card")
         source: "qrc:/demos/skeleton/Card.qml"
         previewMinHeight: 260
     }
     ExampleCard {
-        title: "Text"
+        title: qsTr("Text")
         source: "qrc:/demos/skeleton/Text.qml"
     }
     ExampleCard {
-        title: "Form"
+        title: qsTr("Form")
         source: "qrc:/demos/skeleton/Form.qml"
         previewMinHeight: 260
     }
     ExampleCard {
-        title: "Table"
+        title: qsTr("Table")
         source: "qrc:/demos/skeleton/Table.qml"
     }
 }

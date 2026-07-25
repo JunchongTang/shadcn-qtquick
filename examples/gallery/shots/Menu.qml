@@ -10,19 +10,19 @@ Rectangle {
         id: trigger
         x: 24
         y: 24
-        text: "Open Menu"
+        text: qsTr("Open Menu")
         variant: Button.Outline
         trailingIconName: "chevron-down"
 
         Menu {
             id: menu
-            MenuItem { text: "Profile"; shortcut: "⇧⌘P"; iconName: "user" }
-            MenuItem { text: "Settings"; shortcut: "⌘,"; iconName: "settings" }
-            MenuItem { text: "Keyboard shortcuts"; shortcut: "⌘K" }
+            MenuItem { text: qsTr("Profile"); shortcut: "⇧⌘P"; iconName: "user" }
+            MenuItem { text: qsTr("Settings"); shortcut: "⌘,"; iconName: "settings" }
+            MenuItem { text: qsTr("Keyboard shortcuts"); shortcut: "⌘K" }
             MenuSeparator {}
-            MenuItem { text: "New Team"; iconName: "users" }
+            MenuItem { text: qsTr("New Team"); iconName: "users" }
             MenuSeparator {}
-            MenuItem { text: "Log out"; shortcut: "⇧⌘Q"; iconName: "log-out" }
+            MenuItem { text: qsTr("Log out"); shortcut: "⇧⌘Q"; iconName: "log-out" }
         }
     }
 

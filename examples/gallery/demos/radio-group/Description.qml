@@ -26,7 +26,7 @@ ColumnLayout {
         }
     }
 
-    OptionRow { label: "Default"; description: "Standard spacing for most use cases." }
-    OptionRow { label: "Comfortable"; description: "More space between elements."; value: true }
-    OptionRow { label: "Compact"; description: "Minimal spacing for dense layouts." }
+    OptionRow { label: qsTr("Default"); description: qsTr("Standard spacing for most use cases.") }
+    OptionRow { label: qsTr("Comfortable"); description: qsTr("More space between elements."); value: true }
+    OptionRow { label: qsTr("Compact"); description: qsTr("Minimal spacing for dense layouts.") }
 }

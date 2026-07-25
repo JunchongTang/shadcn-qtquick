@@ -7,66 +7,66 @@ Menubar {
     id: menubar
 
     MenubarMenu {
-        title: "File"
+        title: qsTr("File")
 
-        MenuItem { text: "New Tab"; shortcut: "⌘T" }
-        MenuItem { text: "New Window"; shortcut: "⌘N" }
-        MenuItem { text: "New Incognito Window"; enabled: false }
+        MenuItem { text: qsTr("New Tab"); shortcut: "⌘T" }
+        MenuItem { text: qsTr("New Window"); shortcut: "⌘N" }
+        MenuItem { text: qsTr("New Incognito Window"); enabled: false }
         MenuSeparator {}
         Menu {
-            title: "Share"
-            MenuItem { text: "Email link" }
-            MenuItem { text: "Messages" }
-            MenuItem { text: "Notes" }
+            title: qsTr("Share")
+            MenuItem { text: qsTr("Email link") }
+            MenuItem { text: qsTr("Messages") }
+            MenuItem { text: qsTr("Notes") }
         }
         MenuSeparator {}
-        MenuItem { text: "Print..."; shortcut: "⌘P" }
+        MenuItem { text: qsTr("Print..."); shortcut: "⌘P" }
     }
 
     MenubarMenu {
-        title: "Edit"
+        title: qsTr("Edit")
 
-        MenuItem { text: "Undo"; shortcut: "⌘Z" }
-        MenuItem { text: "Redo"; shortcut: "⇧⌘Z" }
+        MenuItem { text: qsTr("Undo"); shortcut: "⌘Z" }
+        MenuItem { text: qsTr("Redo"); shortcut: "⇧⌘Z" }
         MenuSeparator {}
         Menu {
-            title: "Find"
-            MenuItem { text: "Search the web" }
+            title: qsTr("Find")
+            MenuItem { text: qsTr("Search the web") }
             MenuSeparator {}
-            MenuItem { text: "Find..." }
-            MenuItem { text: "Find Next" }
-            MenuItem { text: "Find Previous" }
+            MenuItem { text: qsTr("Find...") }
+            MenuItem { text: qsTr("Find Next") }
+            MenuItem { text: qsTr("Find Previous") }
         }
         MenuSeparator {}
-        MenuItem { text: "Cut" }
-        MenuItem { text: "Copy" }
-        MenuItem { text: "Paste" }
+        MenuItem { text: qsTr("Cut") }
+        MenuItem { text: qsTr("Copy") }
+        MenuItem { text: qsTr("Paste") }
     }
 
     MenubarMenu {
-        title: "View"
+        title: qsTr("View")
         menuWidth: 176               // w-44
 
-        MenuCheckboxItem { text: "Bookmarks Bar" }
-        MenuCheckboxItem { text: "Full URLs"; checked: true }
+        MenuCheckboxItem { text: qsTr("Bookmarks Bar") }
+        MenuCheckboxItem { text: qsTr("Full URLs"); checked: true }
         MenuSeparator {}
-        MenuItem { text: "Reload"; shortcut: "⌘R" }
-        MenuItem { text: "Force Reload"; shortcut: "⇧⌘R"; enabled: false }
+        MenuItem { text: qsTr("Reload"); shortcut: "⌘R" }
+        MenuItem { text: qsTr("Force Reload"); shortcut: "⇧⌘R"; enabled: false }
         MenuSeparator {}
-        MenuItem { text: "Toggle Fullscreen" }
+        MenuItem { text: qsTr("Toggle Fullscreen") }
         MenuSeparator {}
-        MenuItem { text: "Hide Sidebar" }
+        MenuItem { text: qsTr("Hide Sidebar") }
     }
 
     MenubarMenu {
-        title: "Profiles"
+        title: qsTr("Profiles")
 
-        MenuRadioItem { text: "Andy" }
-        MenuRadioItem { text: "Benoit"; checked: true }
-        MenuRadioItem { text: "Luis" }
+        MenuRadioItem { text: qsTr("Andy") }
+        MenuRadioItem { text: qsTr("Benoit"); checked: true }
+        MenuRadioItem { text: qsTr("Luis") }
         MenuSeparator {}
-        MenuItem { text: "Edit..." }
+        MenuItem { text: qsTr("Edit...") }
         MenuSeparator {}
-        MenuItem { text: "Add Profile..." }
+        MenuItem { text: qsTr("Add Profile...") }
     }
 }

@@ -6,16 +6,16 @@ Select {
     width: 200
     textRole: "text"
     currentIndex: -1
-    placeholder: "Select a fruit"
+    placeholder: qsTr("Select a fruit")
     model: [
-        { header: "Fruits" },
-        { text: "Apple" },
-        { text: "Banana" },
-        { text: "Blueberry" },
+        { header: qsTr("Fruits") },
+        { text: qsTr("Apple") },
+        { text: qsTr("Banana") },
+        { text: qsTr("Blueberry") },
         { separator: true },
-        { header: "Vegetables" },
-        { text: "Carrot" },
-        { text: "Broccoli" },
-        { text: "Spinach" }
+        { header: qsTr("Vegetables") },
+        { text: qsTr("Carrot") },
+        { text: qsTr("Broccoli") },
+        { text: qsTr("Spinach") }
     ]
 }

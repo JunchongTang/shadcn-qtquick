@@ -51,7 +51,7 @@ Rectangle {
                         spacing: 0
                         Text {
                             Layout.fillWidth: true
-                            text: "Acme Inc"
+                            text: qsTr("Acme Inc")
                             color: Theme.sidebarForeground
                             font.pixelSize: Theme.textSm
                             font.weight: Font.Medium
@@ -59,7 +59,7 @@ Rectangle {
                         }
                         Text {
                             Layout.fillWidth: true
-                            text: "Enterprise"
+                            text: qsTr("Enterprise")
                             color: Theme.mutedForeground
                             font.pixelSize: Theme.textXs
                             elide: Text.ElideRight
@@ -72,32 +72,32 @@ Rectangle {
 
             SidebarContent {
                 SidebarGroup {
-                    SidebarGroupLabel { text: "Platform" }
+                    SidebarGroupLabel { text: qsTr("Platform") }
                     SidebarMenu {
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Playground"; iconName: "square-terminal"
+                                text: qsTr("Playground"); iconName: "square-terminal"
                                 active: shell.current === "playground"
                                 onClicked: shell.current = "playground"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Models"; iconName: "bot"
+                                text: qsTr("Models"); iconName: "bot"
                                 active: shell.current === "models"
                                 onClicked: shell.current = "models"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Documentation"; iconName: "book-open"
+                                text: qsTr("Documentation"); iconName: "book-open"
                                 active: shell.current === "data-fetching"
                                 onClicked: shell.current = "data-fetching"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Settings"; iconName: "settings-2"
+                                text: qsTr("Settings"); iconName: "settings-2"
                                 active: shell.current === "settings"
                                 onClicked: shell.current = "settings"
                             }
@@ -106,25 +106,25 @@ Rectangle {
                 }
 
                 SidebarGroup {
-                    SidebarGroupLabel { text: "Projects" }
+                    SidebarGroupLabel { text: qsTr("Projects") }
                     SidebarMenu {
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Design Engineering"; iconName: "frame"
+                                text: qsTr("Design Engineering"); iconName: "frame"
                                 active: shell.current === "design"
                                 onClicked: shell.current = "design"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Sales & Marketing"; iconName: "chart-pie"
+                                text: qsTr("Sales & Marketing"); iconName: "chart-pie"
                                 active: shell.current === "sales"
                                 onClicked: shell.current = "sales"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Travel"; iconName: "map"
+                                text: qsTr("Travel"); iconName: "map"
                                 active: shell.current === "travel"
                                 onClicked: shell.current = "travel"
                             }
@@ -139,7 +139,7 @@ Rectangle {
                 SidebarMenu {
                     SidebarMenuItem {
                         SidebarMenuButton {
-                            text: "shadcn"; iconName: "user"
+                            text: qsTr("shadcn"); iconName: "user"
                         }
                     }
                 }
@@ -176,7 +176,7 @@ Rectangle {
 
                         Text {
                             Layout.fillWidth: true
-                            text: "Data Fetching"
+                            text: qsTr("Data Fetching")
                             color: Theme.foreground
                             font.pixelSize: Theme.textSm
                             font.weight: Font.Medium

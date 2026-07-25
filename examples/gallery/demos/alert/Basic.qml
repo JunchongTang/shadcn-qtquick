@@ -4,6 +4,6 @@ import Shadcn
 Alert {
     width: 420
     iconName: "circle-check"
-    title: "Account updated successfully"
-    description: "Your profile information has been saved. Changes will be reflected immediately."
+    title: qsTr("Account updated successfully")
+    description: qsTr("Your profile information has been saved. Changes will be reflected immediately.")
 }

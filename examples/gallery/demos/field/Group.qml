@@ -24,27 +24,27 @@ FieldGroup {
     }
 
     FieldSet {
-        FieldLabel { text: "Responses" }
+        FieldLabel { text: qsTr("Responses") }
         FieldDescription {
-            text: "Get notified when ChatGPT responds to requests that take time, like research or image generation."
+            text: qsTr("Get notified when ChatGPT responds to requests that take time, like research or image generation.")
         }
         FieldGroup {
             spacing: Theme.space3
-            OptionRow { label: "Push notifications"; checked: true; rowEnabled: false }
+            OptionRow { label: qsTr("Push notifications"); checked: true; rowEnabled: false }
         }
     }
 
     FieldSeparator {}
 
     FieldSet {
-        FieldLabel { text: "Tasks" }
+        FieldLabel { text: qsTr("Tasks") }
         FieldDescription {
-            text: "Get notified when tasks you've created have updates."
+            text: qsTr("Get notified when tasks you've created have updates.")
         }
         FieldGroup {
             spacing: Theme.space3
-            OptionRow { label: "Push notifications" }
-            OptionRow { label: "Email notifications" }
+            OptionRow { label: qsTr("Push notifications") }
+            OptionRow { label: qsTr("Email notifications") }
         }
     }
 }

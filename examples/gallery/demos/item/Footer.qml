@@ -12,17 +12,17 @@ ColumnLayout {
 
         // ItemTitle/ItemDescription 自带 Layout.fillWidth → 自然把右侧元素挤到行尾(justify-between)。
         ItemHeader {
-            ItemTitle { text: "Starter Plan" }
-            Badge { text: "Popular" }
+            ItemTitle { text: qsTr("Starter Plan") }
+            Badge { text: qsTr("Popular") }
         }
         ItemContent {
             ItemDescription {
-                text: "Everything you need to launch a small project and grow."
+                text: qsTr("Everything you need to launch a small project and grow.")
             }
         }
         ItemFooter {
-            ItemDescription { text: "$9 / month"; maximumLineCount: 1 }
-            Button { text: "Upgrade"; size: Button.Sm }
+            ItemDescription { text: qsTr("$9 / month"); maximumLineCount: 1 }
+            Button { text: qsTr("Upgrade"); size: Button.Sm }
         }
     }
 }

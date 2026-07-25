@@ -10,21 +10,21 @@ ColumnLayout {
 
     Bubble {
         variant: Bubble.Muted
-        BubbleContent { text: "Can you tell me what's the issue?" }
+        BubbleContent { text: qsTr("Can you tell me what's the issue?") }
     }
 
     BubbleGroup {
         Bubble {
             align: Bubble.End
-            BubbleContent { text: "You tell me!" }
+            BubbleContent { text: qsTr("You tell me!") }
         }
         Bubble {
             align: Bubble.End
-            BubbleContent { text: "It worked yesterday. You broke it!" }
+            BubbleContent { text: qsTr("It worked yesterday. You broke it!") }
         }
         Bubble {
             align: Bubble.End
-            BubbleContent { text: "Find the bug and fix it." }
+            BubbleContent { text: qsTr("Find the bug and fix it.") }
             BubbleReactions {
                 align: Bubble.Start
                 Text { text: "👀"; font.pixelSize: Theme.textXs }
@@ -35,7 +35,7 @@ ColumnLayout {
     Bubble {
         variant: Bubble.Muted
         BubbleContent {
-            text: "Want me to diff yesterday's you against today's you? It's a bit embarrassing."
+            text: qsTr("Want me to diff yesterday's you against today's you? It's a bit embarrassing.")
         }
     }
 }

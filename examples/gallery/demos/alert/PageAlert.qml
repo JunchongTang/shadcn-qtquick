@@ -1,25 +1,25 @@
 import QtQuick
 
 PageScaffold {
-    description: "Displays a callout for user attention."
+    description: qsTr("Displays a callout for user attention.")
 
     ExampleCard {
-        title: "Basic"
+        title: qsTr("Basic")
         source: "qrc:/demos/alert/Basic.qml"
     }
     ExampleCard {
-        title: "Destructive"
-        description: "Use the destructive variant for errors and failures."
+        title: qsTr("Destructive")
+        description: qsTr("Use the destructive variant for errors and failures.")
         source: "qrc:/demos/alert/Destructive.qml"
     }
     ExampleCard {
-        title: "Action"
-        description: "Add a trailing action such as a button."
+        title: qsTr("Action")
+        description: qsTr("Add a trailing action such as a button.")
         source: "qrc:/demos/alert/Action.qml"
     }
     ExampleCard {
-        title: "Custom Colors"
-        description: "Override the surface, stroke and text colors for custom palettes."
+        title: qsTr("Custom Colors")
+        description: qsTr("Override the surface, stroke and text colors for custom palettes.")
         source: "qrc:/demos/alert/Colors.qml"
     }
 }

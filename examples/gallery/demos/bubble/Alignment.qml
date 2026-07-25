@@ -10,13 +10,13 @@ ColumnLayout {
     Bubble {
         variant: Bubble.Muted
         BubbleContent {
-            text: "This bubble is aligned to the start. This is the default alignment."
+            text: qsTr("This bubble is aligned to the start. This is the default alignment.")
         }
     }
     Bubble {
         align: Bubble.End
         BubbleContent {
-            text: "This bubble is aligned to the end. Use this for user messages."
+            text: qsTr("This bubble is aligned to the end. Use this for user messages.")
         }
     }
 }

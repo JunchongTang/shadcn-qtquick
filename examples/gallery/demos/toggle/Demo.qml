@@ -5,5 +5,5 @@ Toggle {
     variant: Toggle.Outline
     size: Toggle.Sm
     iconName: "bookmark"
-    text: "Bookmark"
+    text: qsTr("Bookmark")
 }

@@ -9,6 +9,6 @@ RowLayout {
     Kbd { text: "⌘" }
     Kbd { text: "⇧" }
     Kbd { text: "⏎" }        // Enter
-    Kbd { text: "Esc" }
+    Kbd { text: qsTr("Esc") }
     Kbd { text: "↑" }
 }

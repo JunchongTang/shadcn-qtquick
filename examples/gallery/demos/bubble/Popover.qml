@@ -10,12 +10,12 @@ ColumnLayout {
 
     Bubble {
         align: Bubble.End
-        BubbleContent { text: "Run the build script." }
+        BubbleContent { text: qsTr("Run the build script.") }
     }
 
     Bubble {
         variant: Bubble.Destructive
-        BubbleContent { text: "Failed to run the command." }
+        BubbleContent { text: qsTr("Failed to run the command.") }
         BubbleReactions {
             padded: false
             Button {
@@ -35,7 +35,7 @@ ColumnLayout {
                         spacing: 6
                         Text {
                             Layout.fillWidth: true
-                            text: "Command failed with exit code 1"
+                            text: qsTr("Command failed with exit code 1")
                             color: Theme.foreground
                             font.pixelSize: Theme.textSm
                             font.weight: Font.Medium
@@ -43,7 +43,7 @@ ColumnLayout {
                         }
                         Text {
                             Layout.fillWidth: true
-                            text: "ENOENT: no such file or directory, open pnpm-lock.yaml"
+                            text: qsTr("ENOENT: no such file or directory, open pnpm-lock.yaml")
                             color: Theme.mutedForeground
                             font.pixelSize: Theme.textSm
                             wrapMode: Text.Wrap

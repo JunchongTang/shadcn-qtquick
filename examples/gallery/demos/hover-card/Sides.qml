@@ -27,14 +27,14 @@ Flow {
                 width: hc.availableWidth
                 spacing: 4
                 Text {
-                    text: "Hover Card"
+                    text: qsTr("Hover Card")
                     color: Theme.foreground
                     font.pixelSize: Theme.textXs
                     font.weight: Font.Medium
                 }
                 Text {
                     Layout.fillWidth: true
-                    text: "This hover card appears on the " + trigger.label.toLowerCase() + " side of the trigger."
+                    text: qsTr("This hover card appears on the ") + trigger.label.toLowerCase() + " side of the trigger."
                     color: Theme.mutedForeground
                     font.pixelSize: Theme.textXs
                     lineHeight: Theme.lineRelaxed
@@ -45,8 +45,8 @@ Flow {
         }
     }
 
-    SideCard { label: "Left";   cardSide: HoverCard.Side.LeftEdge }
-    SideCard { label: "Top";    cardSide: HoverCard.Side.TopEdge }
-    SideCard { label: "Bottom"; cardSide: HoverCard.Side.BottomEdge }
-    SideCard { label: "Right";  cardSide: HoverCard.Side.RightEdge }
+    SideCard { label: qsTr("Left");   cardSide: HoverCard.Side.LeftEdge }
+    SideCard { label: qsTr("Top");    cardSide: HoverCard.Side.TopEdge }
+    SideCard { label: qsTr("Bottom"); cardSide: HoverCard.Side.BottomEdge }
+    SideCard { label: qsTr("Right");  cardSide: HoverCard.Side.RightEdge }
 }

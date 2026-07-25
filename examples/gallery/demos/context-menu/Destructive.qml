@@ -27,7 +27,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -35,9 +35,9 @@ Item {
     ContextMenu {
         target: area
 
-        MenuItem { text: "Edit"; iconName: "pencil" }
-        MenuItem { text: "Share"; iconName: "share" }
+        MenuItem { text: qsTr("Edit"); iconName: "pencil" }
+        MenuItem { text: qsTr("Share"); iconName: "share" }
         MenuSeparator {}
-        MenuItem { text: "Delete"; iconName: "trash-2"; destructive: true }
+        MenuItem { text: qsTr("Delete"); iconName: "trash-2"; destructive: true }
     }
 }

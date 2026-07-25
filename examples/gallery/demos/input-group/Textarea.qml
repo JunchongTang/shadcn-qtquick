@@ -9,7 +9,7 @@ InputGroup {
 
     InputGroupTextarea {
         implicitHeight: 180
-        placeholderText: "console.log('Hello, world!');"
+        placeholderText: qsTr("console.log('Hello, world!');")
         font.family: Theme.fontMono
     }
 
@@ -19,7 +19,7 @@ InputGroup {
         border: true
         LucideIcon { name: "braces"; size: 14; color: Theme.mutedForeground }
         InputGroupText {
-            text: "script.js"
+            text: qsTr("script.js")
             font.family: Theme.fontMono
             Layout.fillWidth: true
         }
@@ -31,11 +31,11 @@ InputGroup {
     InputGroupAddon {
         align: InputGroupAddon.BlockEnd
         border: true
-        InputGroupText { text: "Line 1, Column 1"; Layout.fillWidth: true }
+        InputGroupText { text: qsTr("Line 1, Column 1"); Layout.fillWidth: true }
         InputGroupButton {
             kind: InputGroupButton.KindSm
             variant: Button.Default
-            text: "Run"
+            text: qsTr("Run")
             trailingIconName: "corner-down-left"
         }
     }

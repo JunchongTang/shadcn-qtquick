@@ -12,13 +12,13 @@ Item {
 
     Button {
         id: disabledBtn
-        text: "Disabled"
+        text: qsTr("Disabled")
         variant: Button.Outline
         enabled: false
     }
 
     Tooltip {
-        text: "This feature is currently unavailable"
+        text: qsTr("This feature is currently unavailable")
         visible: hh.hovered
     }
 }

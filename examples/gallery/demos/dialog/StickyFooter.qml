@@ -4,7 +4,7 @@ import Shadcn
 
 // Sticky Footer —— 长内容在 ScrollView 里滚动,footer 用 footer 槽固定底部(对标 dialog-sticky-footer)。
 Button {
-    text: "Sticky Footer"
+    text: qsTr("Sticky Footer")
     variant: Button.Outline
     onClicked: dialog.open()
 

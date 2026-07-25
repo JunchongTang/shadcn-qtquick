@@ -11,9 +11,9 @@ ColumnLayout {
 
         Repeater {
             model: [
-                { name: "v0-1.5-sm",   description: "Everyday tasks and UI generation.", seed: "101" },
-                { name: "v0-1.5-lg",   description: "Advanced thinking or reasoning.",   seed: "102" },
-                { name: "v0-2.0-mini", description: "Open Source model for everyone.",   seed: "103" }
+                { name: "v0-1.5-sm",   description: qsTr("Everyday tasks and UI generation."), seed: "101" },
+                { name: "v0-1.5-lg",   description: qsTr("Advanced thinking or reasoning."),   seed: "102" },
+                { name: "v0-2.0-mini", description: qsTr("Open Source model for everyone."),   seed: "103" }
             ]
             delegate: ShadItem {
                 required property var modelData

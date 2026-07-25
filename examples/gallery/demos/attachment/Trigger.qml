@@ -12,20 +12,20 @@ ColumnLayout {
 
         AttachmentMedia { iconName: "file-search" }
         AttachmentContent {
-            AttachmentName { text: "research-summary.pdf" }
-            AttachmentSize { text: "Open preview dialog" }
+            AttachmentName { text: qsTr("research-summary.pdf") }
+            AttachmentSize { text: qsTr("Open preview dialog") }
         }
         AttachmentActions {
-            AttachmentAction { iconName: "copy"; label: "Copy link" }
-            AttachmentAction { iconName: "x"; label: "Remove research-summary.pdf" }
+            AttachmentAction { iconName: "copy"; label: qsTr("Copy link") }
+            AttachmentAction { iconName: "x"; label: qsTr("Remove research-summary.pdf") }
         }
-        AttachmentTrigger { label: "Preview research-summary.pdf" }
+        AttachmentTrigger { label: qsTr("Preview research-summary.pdf") }
         onTriggered: previewDialog.open()
     }
 
     Dialog {
         id: previewDialog
-        title: "research-summary.pdf"
-        description: "The attachment trigger fills the card and opens the dialog, while the actions stay independently clickable above it."
+        title: qsTr("research-summary.pdf")
+        description: qsTr("The attachment trigger fills the card and opens the dialog, while the actions stay independently clickable above it.")
     }
 }

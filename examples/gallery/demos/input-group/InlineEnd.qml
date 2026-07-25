@@ -8,12 +8,12 @@ ColumnLayout {
     width: 320
     spacing: 6
 
-    Label { text: "Input"; Layout.fillWidth: true }
+    Label { text: qsTr("Input"); Layout.fillWidth: true }
 
     InputGroup {
         Layout.fillWidth: true
         InputGroupInput {
-            placeholderText: "Enter password"
+            placeholderText: qsTr("Enter password")
             echoMode: TextInput.Password
         }
         InputGroupAddon {
@@ -24,7 +24,7 @@ ColumnLayout {
 
     Text {
         Layout.fillWidth: true
-        text: "Icon positioned at the end."
+        text: qsTr("Icon positioned at the end.")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textXs
         lineHeight: Theme.lineRelaxed

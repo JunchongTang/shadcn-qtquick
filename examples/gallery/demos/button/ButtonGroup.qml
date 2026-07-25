@@ -10,11 +10,11 @@ RowLayout {
         Button { variant: Button.Outline; size: Button.Icon; iconName: "arrow-left" }
     }
     ButtonGroup {
-        Button { variant: Button.Outline; text: "Archive" }
-        Button { variant: Button.Outline; text: "Report" }
+        Button { variant: Button.Outline; text: qsTr("Archive") }
+        Button { variant: Button.Outline; text: qsTr("Report") }
     }
     ButtonGroup {
-        Button { variant: Button.Outline; text: "Snooze" }
+        Button { variant: Button.Outline; text: qsTr("Snooze") }
         Button { variant: Button.Outline; size: Button.Icon; iconName: "more-horizontal" }
     }
 }

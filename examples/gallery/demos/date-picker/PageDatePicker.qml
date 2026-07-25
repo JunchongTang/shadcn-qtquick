@@ -1,29 +1,29 @@
 import QtQuick
 
 PageScaffold {
-    description: "A date picker component built from a Popover and a Calendar."
+    description: qsTr("A date picker component built from a Popover and a Calendar.")
 
     ExampleCard {
-        title: "Date Picker"
-        description: "An outline trigger (placeholder + trailing chevron) that opens a single-date calendar; picking a day fills the formatted date and closes the popover."
+        title: qsTr("Date Picker")
+        description: qsTr("An outline trigger (placeholder + trailing chevron) that opens a single-date calendar; picking a day fills the formatted date and closes the popover.")
         source: "qrc:/demos/date-picker/Demo.qml"
         previewMinHeight: 360
     }
     ExampleCard {
-        title: "With Field Label"
-        description: "A date picker wrapped in a labelled field (equivalent to the official Field + FieldLabel basic example)."
+        title: qsTr("With Field Label")
+        description: qsTr("A date picker wrapped in a labelled field (equivalent to the official Field + FieldLabel basic example).")
         source: "qrc:/demos/date-picker/Field.qml"
         previewMinHeight: 380
     }
     ExampleCard {
-        title: "Range Picker"
-        description: "A DateRangePicker: an outline trigger opens a two-month range calendar; picking start then end fills the \"start - end\" text and closes the popover."
+        title: qsTr("Range Picker")
+        description: qsTr("A DateRangePicker: an outline trigger opens a two-month range calendar; picking start then end fills the \"start - end\" text and closes the popover.")
         source: "qrc:/demos/date-picker/Range.qml"
         previewMinHeight: 380
     }
     ExampleCard {
-        title: "With Presets"
-        description: "A composition that injects quick presets (Today, Tomorrow, In 3 days, In a week) above the calendar inside the popover."
+        title: qsTr("With Presets")
+        description: qsTr("A composition that injects quick presets (Today, Tomorrow, In 3 days, In a week) above the calendar inside the popover.")
         source: "qrc:/demos/date-picker/Presets.qml"
         previewMinHeight: 460
     }

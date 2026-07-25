@@ -10,11 +10,11 @@ ColumnLayout {
 
     Marker {
         shimmer: true
-        text: "Thinking..."
+        text: qsTr("Thinking...")
     }
     Marker {
         variant: Marker.Separator
         shimmer: true
-        text: "Reading 4 files"
+        text: qsTr("Reading 4 files")
     }
 }

@@ -9,10 +9,10 @@ RowLayout {
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 2
-        Label { text: "Accept terms and conditions" }
+        Label { text: qsTr("Accept terms and conditions") }
         Text {
             Layout.fillWidth: true
-            text: "You must accept the terms and conditions to continue."
+            text: qsTr("You must accept the terms and conditions to continue.")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             lineHeight: Theme.lineRelaxed

@@ -6,17 +6,17 @@ Card {
     width: 300
     size: Card.Small
     CardHeader {
-        CardTitle { text: "Notifications" }
-        CardDescription { text: "You have 3 unread messages." }
+        CardTitle { text: qsTr("Notifications") }
+        CardDescription { text: qsTr("You have 3 unread messages.") }
     }
     CardContent {
         RowLayout {
             Layout.fillWidth: true
             spacing: 8
-            Badge { text: "New" }
+            Badge { text: qsTr("New") }
             Text {
                 Layout.fillWidth: true
-                text: "Your call has been confirmed."
+                text: qsTr("Your call has been confirmed.")
                 color: Theme.foreground
                 font.pixelSize: Theme.textXs
                 wrapMode: Text.Wrap

@@ -10,8 +10,8 @@ ColumnLayout {
         Layout.fillWidth: true
         ItemMedia { variant: ItemMedia.Icon; iconName: "inbox" }
         ItemContent {
-            ItemTitle { text: "Default Variant" }
-            ItemDescription { text: "Transparent background with no border." }
+            ItemTitle { text: qsTr("Default Variant") }
+            ItemDescription { text: qsTr("Transparent background with no border.") }
         }
     }
 
@@ -20,8 +20,8 @@ ColumnLayout {
         variant: ShadItem.Outline
         ItemMedia { variant: ItemMedia.Icon; iconName: "inbox" }
         ItemContent {
-            ItemTitle { text: "Outline Variant" }
-            ItemDescription { text: "Outlined style with a visible border." }
+            ItemTitle { text: qsTr("Outline Variant") }
+            ItemDescription { text: qsTr("Outlined style with a visible border.") }
         }
     }
 
@@ -30,8 +30,8 @@ ColumnLayout {
         variant: ShadItem.Muted
         ItemMedia { variant: ItemMedia.Icon; iconName: "inbox" }
         ItemContent {
-            ItemTitle { text: "Muted Variant" }
-            ItemDescription { text: "Muted background for secondary content." }
+            ItemTitle { text: qsTr("Muted Variant") }
+            ItemDescription { text: qsTr("Muted background for secondary content.") }
         }
     }
 }

@@ -5,6 +5,6 @@ import Shadcn
 NativeSelect {
     width: 180
     currentIndex: -1
-    placeholder: "Select status"
-    model: ["Todo", "In Progress", "Done", "Cancelled"]
+    placeholder: qsTr("Select status")
+    model: [qsTr("Todo"), qsTr("In Progress"), qsTr("Done"), qsTr("Cancelled")]
 }

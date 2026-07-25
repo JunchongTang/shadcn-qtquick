@@ -31,16 +31,16 @@ Empty {
                 }
             }
         }
-        EmptyTitle { text: "No Team Members" }
+        EmptyTitle { text: qsTr("No Team Members") }
         EmptyDescription {
-            text: "Invite your team to collaborate on this project."
+            text: qsTr("Invite your team to collaborate on this project.")
         }
     }
 
     EmptyContent {
         Button {
             Layout.alignment: Qt.AlignHCenter
-            text: "Invite Members"
+            text: qsTr("Invite Members")
             size: Button.Sm
             iconName: "plus"
         }

@@ -18,30 +18,30 @@ Rectangle {
 
         Message {
             MessageAvatar { fallback: "R" }
-            MessageContent { variant: MessageContent.Muted; text: "Morning! Did the nightly build pass?" }
+            MessageContent { variant: MessageContent.Muted; text: qsTr("Morning! Did the nightly build pass?") }
         }
         Message {
             align: Message.End
             MessageAvatar { fallback: "ME" }
-            MessageContent { variant: MessageContent.Default; text: "Checking now, one sec." }
+            MessageContent { variant: MessageContent.Default; text: qsTr("Checking now, one sec.") }
         }
         Message {
             MessageAvatar { fallback: "R" }
-            MessageContent { variant: MessageContent.Muted; text: "Cool. The dependency step was flaky yesterday." }
+            MessageContent { variant: MessageContent.Muted; text: qsTr("Cool. The dependency step was flaky yesterday.") }
         }
         Message {
             align: Message.End
             MessageAvatar { fallback: "ME" }
-            MessageContent { variant: MessageContent.Default; text: "Green across the board. Even the slow integration suite." }
+            MessageContent { variant: MessageContent.Default; text: qsTr("Green across the board. Even the slow integration suite.") }
         }
         Message {
             MessageAvatar { fallback: "R" }
-            MessageContent { variant: MessageContent.Muted; text: "Nice. Let's tag a release then." }
+            MessageContent { variant: MessageContent.Muted; text: qsTr("Nice. Let's tag a release then.") }
         }
         Message {
             align: Message.End
             MessageAvatar { fallback: "ME" }
-            MessageContent { variant: MessageContent.Default; text: "On it. Cutting v1.4.0."; footer: "Delivered" }
+            MessageContent { variant: MessageContent.Default; text: qsTr("On it. Cutting v1.4.0."); footer: "Delivered" }
         }
         Message {
             MessageAvatar { fallback: "R" }

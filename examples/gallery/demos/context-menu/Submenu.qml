@@ -27,7 +27,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -35,18 +35,18 @@ Item {
     ContextMenu {
         target: area
 
-        MenuItem { text: "Copy"; shortcut: "⌘C" }
-        MenuItem { text: "Cut"; shortcut: "⌘X" }
+        MenuItem { text: qsTr("Copy"); shortcut: "⌘C" }
+        MenuItem { text: qsTr("Cut"); shortcut: "⌘X" }
 
         Menu {
-            title: "More Tools"
-            MenuItem { text: "Save Page..." }
-            MenuItem { text: "Create Shortcut..." }
-            MenuItem { text: "Name Window..." }
+            title: qsTr("More Tools")
+            MenuItem { text: qsTr("Save Page...") }
+            MenuItem { text: qsTr("Create Shortcut...") }
+            MenuItem { text: qsTr("Name Window...") }
             MenuSeparator {}
-            MenuItem { text: "Developer Tools" }
+            MenuItem { text: qsTr("Developer Tools") }
             MenuSeparator {}
-            MenuItem { text: "Delete"; destructive: true }
+            MenuItem { text: qsTr("Delete"); destructive: true }
         }
     }
 }

@@ -92,10 +92,10 @@ C.AbstractButton {
                 spacing: Theme.space1
                 Repeater {
                     model: [
-                        { label: "Today", days: 0 },
-                        { label: "Tomorrow", days: 1 },
-                        { label: "In 3 days", days: 3 },
-                        { label: "In a week", days: 7 }
+                        { label: qsTr("Today"), days: 0 },
+                        { label: qsTr("Tomorrow"), days: 1 },
+                        { label: qsTr("In 3 days"), days: 3 },
+                        { label: qsTr("In a week"), days: 7 }
                     ]
                     delegate: Button {
                         required property var modelData

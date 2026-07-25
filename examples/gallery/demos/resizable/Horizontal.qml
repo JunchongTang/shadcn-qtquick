@@ -13,7 +13,7 @@ Resizable {
         SplitView.minimumWidth: 60
         Text {
             anchors.centerIn: parent
-            text: "One"
+            text: qsTr("One")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
             font.weight: Font.DemiBold
@@ -24,7 +24,7 @@ Resizable {
         SplitView.minimumWidth: 60
         Text {
             anchors.centerIn: parent
-            text: "Two"
+            text: qsTr("Two")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
             font.weight: Font.DemiBold

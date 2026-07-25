@@ -31,7 +31,7 @@ ColumnLayout {
                     AttachmentSize { text: modelData.meta }
                 }
                 AttachmentActions {
-                    AttachmentAction { iconName: "x"; label: "Remove " + modelData.name }
+                    AttachmentAction { iconName: "x"; label: qsTr("Remove ") + modelData.name }
                 }
             }
         }

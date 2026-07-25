@@ -36,7 +36,7 @@ ScrollArea {
 
                 Text {
                     width: 150
-                    text: "Photo by " + modelData.artist
+                    text: qsTr("Photo by ") + modelData.artist
                     color: Theme.mutedForeground
                     font.pixelSize: Theme.textXs
                     wrapMode: Text.Wrap

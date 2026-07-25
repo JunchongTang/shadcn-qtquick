@@ -3,7 +3,7 @@ import Shadcn
 
 Button {
     id: trigger
-    text: "Open"
+    text: qsTr("Open")
     variant: Button.Outline
     trailingIconName: "chevron-down"
     onClicked: menu.popup(0, trigger.height + 4)
@@ -11,11 +11,11 @@ Button {
     Menu {
         id: menu
 
-        MenuLabel { text: "My Account" }
-        MenuItem { text: "Profile"; shortcut: "⇧⌘P" }
-        MenuItem { text: "Billing"; shortcut: "⌘B" }
-        MenuItem { text: "Settings"; shortcut: "⌘S" }
+        MenuLabel { text: qsTr("My Account") }
+        MenuItem { text: qsTr("Profile"); shortcut: "⇧⌘P" }
+        MenuItem { text: qsTr("Billing"); shortcut: "⌘B" }
+        MenuItem { text: qsTr("Settings"); shortcut: "⌘S" }
         MenuSeparator {}
-        MenuItem { text: "Log out"; shortcut: "⇧⌘Q" }
+        MenuItem { text: qsTr("Log out"); shortcut: "⇧⌘Q" }
     }
 }

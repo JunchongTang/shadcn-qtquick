@@ -9,11 +9,11 @@ ColumnLayout {
 
     Message {
         MessageAvatar { fallback: "R" }
-        MessageContent { variant: MessageContent.Muted; text: "Aligned to the start of the conversation." }
+        MessageContent { variant: MessageContent.Muted; text: qsTr("Aligned to the start of the conversation.") }
     }
     Message {
         align: Message.End
         MessageAvatar { fallback: "ME" }
-        MessageContent { variant: MessageContent.Default; text: "Aligned to the end of the conversation." }
+        MessageContent { variant: MessageContent.Default; text: qsTr("Aligned to the end of the conversation.") }
     }
 }

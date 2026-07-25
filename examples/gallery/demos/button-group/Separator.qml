@@ -9,14 +9,14 @@ Row {
     Button {
         variant: Button.Secondary
         size: Button.Sm
-        text: "Copy"
+        text: qsTr("Copy")
         groupPosition: Button.GroupFirst
     }
     ButtonGroupSeparator { length: 24 }   // sm 按钮高 24
     Button {
         variant: Button.Secondary
         size: Button.Sm
-        text: "Paste"
+        text: qsTr("Paste")
         groupPosition: Button.GroupLast
     }
 }

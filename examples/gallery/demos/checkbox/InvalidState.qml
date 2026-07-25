@@ -6,6 +6,6 @@ import Shadcn
 ColumnLayout {
     width: 240
     spacing: 12
-    Checkbox { text: "Accept terms and conditions"; invalid: true }
-    Checkbox { text: "Accept terms and conditions"; invalid: true; checked: true }
+    Checkbox { text: qsTr("Accept terms and conditions"); invalid: true }
+    Checkbox { text: qsTr("Accept terms and conditions"); invalid: true; checked: true }
 }

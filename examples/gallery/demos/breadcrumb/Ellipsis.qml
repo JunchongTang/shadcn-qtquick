@@ -4,7 +4,7 @@ import Shadcn
 // 官方 breadcrumb-ellipsis(Collapsed):用 BreadcrumbEllipsis 表示折叠的中间层级。
 Breadcrumb {
     BreadcrumbItem {
-        BreadcrumbLink { text: "Home" }
+        BreadcrumbLink { text: qsTr("Home") }
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
@@ -12,10 +12,10 @@ Breadcrumb {
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
-        BreadcrumbLink { text: "Components" }
+        BreadcrumbLink { text: qsTr("Components") }
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
-        BreadcrumbPage { text: "Breadcrumb" }
+        BreadcrumbPage { text: qsTr("Breadcrumb") }
     }
 }

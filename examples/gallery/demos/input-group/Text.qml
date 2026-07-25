@@ -14,7 +14,7 @@ ColumnLayout {
         InputGroupInput { placeholderText: "0.00" }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
-            InputGroupText { text: "USD" }
+            InputGroupText { text: qsTr("USD") }
         }
     }
 
@@ -22,20 +22,20 @@ ColumnLayout {
     InputGroup {
         Layout.fillWidth: true
         InputGroupAddon { InputGroupText { text: "https://" } }
-        InputGroupInput { placeholderText: "example.com" }
+        InputGroupInput { placeholderText: qsTr("example.com") }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
-            InputGroupText { text: ".com" }
+            InputGroupText { text: qsTr(".com") }
         }
     }
 
     // 后缀域名
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Enter your username" }
+        InputGroupInput { placeholderText: qsTr("Enter your username") }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
-            InputGroupText { text: "@company.com" }
+            InputGroupText { text: qsTr("@company.com") }
         }
     }
 
@@ -44,11 +44,11 @@ ColumnLayout {
         Layout.fillWidth: true
         InputGroupTextarea {
             implicitHeight: 72
-            placeholderText: "Enter your message"
+            placeholderText: qsTr("Enter your message")
         }
         InputGroupAddon {
             align: InputGroupAddon.BlockEnd
-            InputGroupText { text: "120 characters left" }
+            InputGroupText { text: qsTr("120 characters left") }
         }
     }
 }

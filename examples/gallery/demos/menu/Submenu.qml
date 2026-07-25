@@ -5,7 +5,7 @@ import Shadcn
 // 触发项文字取自子菜单的 title;子菜单面板继承 popover 样式。
 Button {
     id: trigger
-    text: "Open"
+    text: qsTr("Open")
     variant: Button.Outline
     trailingIconName: "chevron-down"
     onClicked: menu.popup(0, trigger.height + 4)
@@ -13,26 +13,26 @@ Button {
     Menu {
         id: menu
 
-        MenuItem { text: "Team" }
+        MenuItem { text: qsTr("Team") }
 
         Menu {
-            title: "Invite users"
+            title: qsTr("Invite users")
 
-            MenuItem { text: "Email" }
-            MenuItem { text: "Message" }
+            MenuItem { text: qsTr("Email") }
+            MenuItem { text: qsTr("Message") }
 
             Menu {
-                title: "More options"
-                MenuItem { text: "Calendly" }
-                MenuItem { text: "Slack" }
+                title: qsTr("More options")
+                MenuItem { text: qsTr("Calendly") }
+                MenuItem { text: qsTr("Slack") }
                 MenuSeparator {}
-                MenuItem { text: "Webhook" }
+                MenuItem { text: qsTr("Webhook") }
             }
 
             MenuSeparator {}
-            MenuItem { text: "Advanced..." }
+            MenuItem { text: qsTr("Advanced...") }
         }
 
-        MenuItem { text: "New Team"; shortcut: "⌘+T" }
+        MenuItem { text: qsTr("New Team"); shortcut: "⌘+T" }
     }
 }

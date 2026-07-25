@@ -17,7 +17,7 @@ Rectangle {
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 40
-        text: "Activity"
+        text: qsTr("Activity")
         color: Theme.foreground
         font.pixelSize: 24
         font.weight: Font.DemiBold

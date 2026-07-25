@@ -9,17 +9,17 @@ FieldSet {
 
     FieldGroup {
         Field {
-            FieldLabel { text: "Username" }
+            FieldLabel { text: qsTr("Username") }
             Input {
                 Layout.fillWidth: true
-                text: "Max Leiter"
-                placeholderText: "Max Leiter"
+                text: qsTr("Max Leiter")
+                placeholderText: qsTr("Max Leiter")
             }
-            FieldDescription { text: "Choose a unique username for your account." }
+            FieldDescription { text: qsTr("Choose a unique username for your account.") }
         }
         Field {
-            FieldLabel { text: "Password" }
-            FieldDescription { text: "Must be at least 8 characters long." }
+            FieldLabel { text: qsTr("Password") }
+            FieldDescription { text: qsTr("Must be at least 8 characters long.") }
             Input {
                 Layout.fillWidth: true
                 echoMode: TextInput.Password

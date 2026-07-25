@@ -6,15 +6,15 @@ import Shadcn
 Field {
     width: 280        // max-w-xs
 
-    FieldLabel { text: "Department" }
+    FieldLabel { text: qsTr("Department") }
     Select {
         Layout.fillWidth: true
         currentIndex: -1
-        placeholder: "Choose department"
+        placeholder: qsTr("Choose department")
         model: [
-            "Engineering", "Design", "Marketing", "Sales",
-            "Customer Support", "Human Resources", "Finance", "Operations"
+            qsTr("Engineering"), qsTr("Design"), qsTr("Marketing"), qsTr("Sales"),
+            qsTr("Customer Support"), qsTr("Human Resources"), qsTr("Finance"), qsTr("Operations")
         ]
     }
-    FieldDescription { text: "Select your department or area of work." }
+    FieldDescription { text: qsTr("Select your department or area of work.") }
 }

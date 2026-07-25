@@ -3,7 +3,7 @@ import Shadcn
 
 // Shortcuts:条目右侧对齐键盘提示(command-shortcuts)。
 Button {
-    text: "Open Menu"
+    text: qsTr("Open Menu")
     variant: Button.Outline
     onClicked: dlg.open()
 
@@ -17,10 +17,10 @@ Button {
         Command {
             id: cmd
             model: [
-                { heading: "Settings", items: [
-                    { text: "Profile",  icon: "user",        shortcut: "⌘P" },
-                    { text: "Billing",  icon: "credit-card", shortcut: "⌘B" },
-                    { text: "Settings", icon: "settings",    shortcut: "⌘S" }
+                { heading: qsTr("Settings"), items: [
+                    { text: qsTr("Profile"),  icon: "user",        shortcut: "⌘P" },
+                    { text: qsTr("Billing"),  icon: "credit-card", shortcut: "⌘B" },
+                    { text: qsTr("Settings"), icon: "settings",    shortcut: "⌘S" }
                 ] }
             ]
             onTriggered: dlg.close()

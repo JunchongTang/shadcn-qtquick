@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 
 Button {
-    text: "Share Project"
+    text: qsTr("Share Project")
     variant: Button.Outline
     onClicked: dialog.open()
 

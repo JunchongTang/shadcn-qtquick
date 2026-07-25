@@ -49,7 +49,7 @@ Rectangle {
                         spacing: 0
                         Text {
                             Layout.fillWidth: true
-                            text: "Documentation"
+                            text: qsTr("Documentation")
                             color: Theme.sidebarForeground
                             font.pixelSize: Theme.textSm
                             font.weight: Font.Medium
@@ -57,7 +57,7 @@ Rectangle {
                         }
                         Text {
                             Layout.fillWidth: true
-                            text: "v2.0.0"
+                            text: qsTr("v2.0.0")
                             color: Theme.mutedForeground
                             font.pixelSize: Theme.textXs
                             elide: Text.ElideRight
@@ -75,18 +75,18 @@ Rectangle {
 
             SidebarContent {
                 SidebarGroup {
-                    SidebarGroupLabel { text: "Getting Started" }
+                    SidebarGroupLabel { text: qsTr("Getting Started") }
                     SidebarMenu {
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Installation"; iconName: "download"
+                                text: qsTr("Installation"); iconName: "download"
                                 active: shell.current === "installation"
                                 onClicked: shell.current = "installation"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Project Structure"; iconName: "folder"
+                                text: qsTr("Project Structure"); iconName: "folder"
                                 active: shell.current === "structure"
                                 onClicked: shell.current = "structure"
                             }
@@ -95,32 +95,32 @@ Rectangle {
                 }
 
                 SidebarGroup {
-                    SidebarGroupLabel { text: "Build Your Application" }
+                    SidebarGroupLabel { text: qsTr("Build Your Application") }
                     SidebarMenu {
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Routing"; iconName: "layout"
+                                text: qsTr("Routing"); iconName: "layout"
                                 active: shell.current === "routing"
                                 onClicked: shell.current = "routing"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Data Fetching"; iconName: "code"
+                                text: qsTr("Data Fetching"); iconName: "code"
                                 active: shell.current === "data-fetching"
                                 onClicked: shell.current = "data-fetching"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Rendering"; iconName: "monitor"
+                                text: qsTr("Rendering"); iconName: "monitor"
                                 active: shell.current === "rendering"
                                 onClicked: shell.current = "rendering"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Caching"; iconName: "bookmark"
+                                text: qsTr("Caching"); iconName: "bookmark"
                                 active: shell.current === "caching"
                                 onClicked: shell.current = "caching"
                             }
@@ -129,25 +129,25 @@ Rectangle {
                 }
 
                 SidebarGroup {
-                    SidebarGroupLabel { text: "API Reference" }
+                    SidebarGroupLabel { text: qsTr("API Reference") }
                     SidebarMenu {
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "Components"; iconName: "file-code"
+                                text: qsTr("Components"); iconName: "file-code"
                                 active: shell.current === "components"
                                 onClicked: shell.current = "components"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "File Conventions"; iconName: "file"
+                                text: qsTr("File Conventions"); iconName: "file"
                                 active: shell.current === "conventions"
                                 onClicked: shell.current = "conventions"
                             }
                         }
                         SidebarMenuItem {
                             SidebarMenuButton {
-                                text: "CLI"; iconName: "keyboard"
+                                text: qsTr("CLI"); iconName: "keyboard"
                                 active: shell.current === "cli"
                                 onClicked: shell.current = "cli"
                             }
@@ -162,14 +162,14 @@ Rectangle {
                 SidebarMenu {
                     SidebarMenuItem {
                         SidebarMenuButton {
-                            text: "Settings"; iconName: "settings"
+                            text: qsTr("Settings"); iconName: "settings"
                             active: shell.current === "settings"
                             onClicked: shell.current = "settings"
                         }
                     }
                     SidebarMenuItem {
                         SidebarMenuButton {
-                            text: "shadcn"; iconName: "user"
+                            text: qsTr("shadcn"); iconName: "user"
                         }
                     }
                 }
@@ -187,7 +187,7 @@ Rectangle {
                 spacing: 16
 
                 Text {
-                    text: "Data Fetching"
+                    text: qsTr("Data Fetching")
                     color: Theme.foreground
                     font.pixelSize: 18
                     font.weight: Font.DemiBold

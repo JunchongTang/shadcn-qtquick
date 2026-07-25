@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 
 Button {
-    text: "Open Popover"
+    text: qsTr("Open Popover")
     variant: Button.Outline
     onClicked: pop.open()
 
@@ -16,14 +16,14 @@ Button {
             width: pop.availableWidth
             spacing: 4
             Text {
-                text: "Dimensions"
+                text: qsTr("Dimensions")
                 color: Theme.foreground
                 font.pixelSize: Theme.textSm
                 font.weight: Font.Medium
             }
             Text {
                 Layout.fillWidth: true
-                text: "Set the dimensions for the layer."
+                text: qsTr("Set the dimensions for the layer.")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textXs
                 wrapMode: Text.Wrap

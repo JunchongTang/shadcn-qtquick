@@ -10,16 +10,16 @@ ColumnLayout {
     Marker {
         variant: Marker.Border
         iconName: "git-branch"
-        text: "Switched to release-candidate"
+        text: qsTr("Switched to release-candidate")
     }
     Marker {
         variant: Marker.Border
         iconName: "search"
-        text: "Reviewed 8 related files"
+        text: qsTr("Reviewed 8 related files")
     }
     Marker {
         variant: Marker.Border
         iconName: "file-text"
-        text: "Opened implementation notes"
+        text: qsTr("Opened implementation notes")
     }
 }

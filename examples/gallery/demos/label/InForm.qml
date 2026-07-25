@@ -12,8 +12,8 @@ ColumnLayout {
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 6
-        Label { text: "Your email address" }
-        Input { Layout.fillWidth: true; placeholderText: "you@example.com" }
+        Label { text: qsTr("Your email address") }
+        Input { Layout.fillWidth: true; placeholderText: qsTr("you@example.com") }
     }
 
     // Label + Checkbox
@@ -21,7 +21,7 @@ ColumnLayout {
         spacing: 8
         Checkbox { id: news }
         Label {
-            text: "Subscribe to the newsletter"
+            text: qsTr("Subscribe to the newsletter")
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor

@@ -9,12 +9,12 @@ ColumnLayout {
     enabled: false
 
     Label {
-        text: "Message"
+        text: qsTr("Message")
         Layout.fillWidth: true
     }
     Textarea {
         Layout.fillWidth: true
         implicitHeight: 88
-        placeholderText: "Type your message here."
+        placeholderText: qsTr("Type your message here.")
     }
 }

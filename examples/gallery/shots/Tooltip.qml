@@ -9,8 +9,8 @@ Rectangle {
 
     Button {
         anchors.centerIn: parent
-        text: "Hover me"
+        text: qsTr("Hover me")
         variant: Button.Outline
-        Tooltip { text: "Add to library"; visible: true }
+        Tooltip { text: qsTr("Add to library"); visible: true }
     }
 }

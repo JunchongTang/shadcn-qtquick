@@ -4,6 +4,6 @@ import Shadcn
 
 RowLayout {
     spacing: 8
-    Button { text: "Disabled"; enabled: false }
-    Button { text: "Disabled"; variant: Button.Outline; enabled: false }
+    Button { text: qsTr("Disabled"); enabled: false }
+    Button { text: qsTr("Disabled"); variant: Button.Outline; enabled: false }
 }

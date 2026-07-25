@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 
 Button {
-    text: "Edit Profile"
+    text: qsTr("Edit Profile")
     onClicked: dialog.open()
 
     Dialog {
@@ -14,18 +14,18 @@ Button {
             spacing: 10
             RowLayout {
                 spacing: 10
-                Label { text: "Name"; Layout.preferredWidth: 80 }
-                Input { Layout.preferredWidth: 220; text: "Pedro Duarte" }
+                Label { text: qsTr("Name"); Layout.preferredWidth: 80 }
+                Input { Layout.preferredWidth: 220; text: qsTr("Pedro Duarte") }
             }
             RowLayout {
                 spacing: 10
-                Label { text: "Username"; Layout.preferredWidth: 80 }
-                Input { Layout.preferredWidth: 220; text: "@peduarte" }
+                Label { text: qsTr("Username"); Layout.preferredWidth: 80 }
+                Input { Layout.preferredWidth: 220; text: qsTr("@peduarte") }
             }
         }
         footerContent: RowLayout {
             Item { Layout.fillWidth: true }
-            Button { text: "Save changes"; onClicked: dialog.close() }
+            Button { text: qsTr("Save changes"); onClicked: dialog.close() }
         }
     }
 }

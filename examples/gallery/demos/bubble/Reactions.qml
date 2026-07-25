@@ -14,7 +14,7 @@ ColumnLayout {
     Bubble {
         variant: Bubble.Muted
         align: Bubble.End
-        BubbleContent { text: "I don't need tests, I know my code works." }
+        BubbleContent { text: qsTr("I don't need tests, I know my code works.") }
         BubbleReactions {
             align: Bubble.Start
             Text { text: "👍"; font.pixelSize: Theme.textXs }
@@ -25,7 +25,7 @@ ColumnLayout {
     Bubble {
         variant: Bubble.Muted
         BubbleContent {
-            text: "Bold. Fine I'll add some tests. I'll let you know when they're done."
+            text: qsTr("Bold. Fine I'll add some tests. I'll let you know when they're done.")
         }
         BubbleReactions {
             Text { text: "👀"; font.pixelSize: Theme.textXs }
@@ -37,7 +37,7 @@ ColumnLayout {
     Bubble {
         variant: Bubble.Default
         align: Bubble.End
-        BubbleContent { text: "Tests passed on the first try. All 142 of them. Looking good!" }
+        BubbleContent { text: qsTr("Tests passed on the first try. All 142 of them. Looking good!") }
         BubbleReactions {
             side: BubbleReactions.Above
             align: Bubble.Start
@@ -48,13 +48,13 @@ ColumnLayout {
 
     Bubble {
         variant: Bubble.Destructive
-        BubbleContent { text: "Are you sure I can run this command?" }
+        BubbleContent { text: qsTr("Are you sure I can run this command?") }
         BubbleReactions {
             padded: false
             Button {
                 variant: Button.Ghost
                 size: Button.Xs
-                text: "Yes, run it"
+                text: qsTr("Yes, run it")
                 onClicked: root.status = "You clicked yes, running command..."
             }
         }

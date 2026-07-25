@@ -5,20 +5,20 @@ import Shadcn
 Card {
     width: 340
     CardHeader {
-        CardTitle { text: "Create project" }
-        CardDescription { text: "Deploy your new project in one-click." }
+        CardTitle { text: qsTr("Create project") }
+        CardDescription { text: qsTr("Deploy your new project in one-click.") }
     }
     CardContent {
         ColumnLayout {
             Layout.fillWidth: true
             spacing: 6
-            Label { text: "Name" }
-            Input { Layout.fillWidth: true; placeholderText: "Name of your project" }
+            Label { text: qsTr("Name") }
+            Input { Layout.fillWidth: true; placeholderText: qsTr("Name of your project") }
         }
     }
     CardFooter {
-        Button { text: "Cancel"; variant: Button.Outline }
+        Button { text: qsTr("Cancel"); variant: Button.Outline }
         Item { Layout.fillWidth: true }
-        Button { text: "Deploy" }
+        Button { text: qsTr("Deploy") }
     }
 }

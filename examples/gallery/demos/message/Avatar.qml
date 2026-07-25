@@ -11,7 +11,7 @@ ColumnLayout {
         MessageAvatar { fallback: "R" }
         MessageContent {
             variant: MessageContent.Muted
-            text: "The build failed during dependency installation."
+            text: qsTr("The build failed during dependency installation.")
         }
     }
     Message {
@@ -19,14 +19,14 @@ ColumnLayout {
         MessageAvatar { fallback: "ME" }
         MessageContent {
             variant: MessageContent.Default
-            text: "Can you share the exact error?"
+            text: qsTr("Can you share the exact error?")
         }
     }
     Message {
         MessageAvatar { fallback: "R" }
         MessageContent {
             variant: MessageContent.Muted
-            text: "Something went wrong with the build. The libraries are not installed correctly. Try running the build again."
+            text: qsTr("Something went wrong with the build. The libraries are not installed correctly. Try running the build again.")
         }
     }
 }

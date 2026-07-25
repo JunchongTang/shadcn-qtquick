@@ -11,7 +11,7 @@ Rectangle {
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 40
-        text: "Settings"
+        text: qsTr("Settings")
         color: Theme.foreground
         font.pixelSize: 24
         font.weight: Font.DemiBold
@@ -26,21 +26,21 @@ Rectangle {
         ColumnLayout {
             Layout.fillWidth: true
             spacing: Theme.space3
-            Label { text: "Name" }
-            Input { Layout.fillWidth: true; text: "Pedro Duarte" }
+            Label { text: qsTr("Name") }
+            Input { Layout.fillWidth: true; text: qsTr("Pedro Duarte") }
         }
         ColumnLayout {
             Layout.fillWidth: true
             spacing: Theme.space3
-            Label { text: "Username" }
-            Input { Layout.fillWidth: true; text: "@peduarte" }
+            Label { text: qsTr("Username") }
+            Input { Layout.fillWidth: true; text: qsTr("@peduarte") }
         }
 
         footer: ColumnLayout {
             Layout.fillWidth: true
             spacing: Theme.space2
-            Button { Layout.fillWidth: true; text: "Save changes" }
-            Button { Layout.fillWidth: true; text: "Close"; variant: Button.Outline }
+            Button { Layout.fillWidth: true; text: qsTr("Save changes") }
+            Button { Layout.fillWidth: true; text: qsTr("Close"); variant: Button.Outline }
         }
     }
 

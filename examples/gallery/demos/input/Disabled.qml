@@ -9,16 +9,16 @@ ColumnLayout {
     enabled: false
 
     Label {
-        text: "Email"
+        text: qsTr("Email")
         Layout.fillWidth: true
     }
     Input {
         Layout.fillWidth: true
-        placeholderText: "Email"
+        placeholderText: qsTr("Email")
     }
     Text {
         Layout.fillWidth: true
-        text: "This field is currently disabled."
+        text: qsTr("This field is currently disabled.")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textXs
         opacity: 0.5

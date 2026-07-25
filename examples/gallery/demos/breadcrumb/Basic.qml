@@ -4,14 +4,14 @@ import Shadcn
 // 官方 breadcrumb-basic:Home / Components 链接 + 当前页 Breadcrumb。
 Breadcrumb {
     BreadcrumbItem {
-        BreadcrumbLink { text: "Home" }
+        BreadcrumbLink { text: qsTr("Home") }
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
-        BreadcrumbLink { text: "Components" }
+        BreadcrumbLink { text: qsTr("Components") }
     }
     BreadcrumbSeparator {}
     BreadcrumbItem {
-        BreadcrumbPage { text: "Breadcrumb" }
+        BreadcrumbPage { text: qsTr("Breadcrumb") }
     }
 }

@@ -27,7 +27,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -35,8 +35,8 @@ Item {
     ContextMenu {
         target: area
 
-        MenuCheckboxItem { text: "Show Bookmarks Bar"; checked: true }
-        MenuCheckboxItem { text: "Show Full URLs" }
-        MenuCheckboxItem { text: "Show Developer Tools"; checked: true }
+        MenuCheckboxItem { text: qsTr("Show Bookmarks Bar"); checked: true }
+        MenuCheckboxItem { text: qsTr("Show Full URLs") }
+        MenuCheckboxItem { text: qsTr("Show Developer Tools"); checked: true }
     }
 }

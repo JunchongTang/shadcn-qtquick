@@ -16,10 +16,10 @@ S.Avatar {
         readonly property int _w: 180
         implicitWidth: _w
 
-        S.MenuItem { text: "Account"; iconName: "badge-check" }
-        S.MenuItem { text: "Billing"; iconName: "credit-card" }
-        S.MenuItem { text: "Notifications"; iconName: "bell" }
+        S.MenuItem { text: qsTr("Account"); iconName: "badge-check" }
+        S.MenuItem { text: qsTr("Billing"); iconName: "credit-card" }
+        S.MenuItem { text: qsTr("Notifications"); iconName: "bell" }
         S.MenuSeparator {}
-        S.MenuItem { text: "Sign Out"; iconName: "log-out" }
+        S.MenuItem { text: qsTr("Sign Out"); iconName: "log-out" }
     }
 }

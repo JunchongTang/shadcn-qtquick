@@ -1,64 +1,64 @@
 import QtQuick
 
 PageScaffold {
-    description: "Styles for headings, paragraphs, lists, etc. We do not ship any typography "
+    description: qsTr("Styles for headings, paragraphs, lists, etc. We do not ship any typography ")
         + "styles by default — this page shows how to compose text with the Theme tokens."
 
     ExampleCard {
-        title: "Demo"
+        title: qsTr("Demo")
         source: "qrc:/demos/typography/Demo.qml"
         previewMinHeight: 320
     }
     ExampleCard {
-        title: "h1"
+        title: qsTr("h1")
         source: "qrc:/demos/typography/H1.qml"
     }
     ExampleCard {
-        title: "h2"
+        title: qsTr("h2")
         source: "qrc:/demos/typography/H2.qml"
     }
     ExampleCard {
-        title: "h3"
+        title: qsTr("h3")
         source: "qrc:/demos/typography/H3.qml"
     }
     ExampleCard {
-        title: "h4"
+        title: qsTr("h4")
         source: "qrc:/demos/typography/H4.qml"
     }
     ExampleCard {
-        title: "p"
+        title: qsTr("p")
         source: "qrc:/demos/typography/P.qml"
     }
     ExampleCard {
-        title: "blockquote"
+        title: qsTr("blockquote")
         source: "qrc:/demos/typography/Blockquote.qml"
     }
     ExampleCard {
-        title: "table"
+        title: qsTr("table")
         source: "qrc:/demos/typography/Table.qml"
     }
     ExampleCard {
-        title: "list"
+        title: qsTr("list")
         source: "qrc:/demos/typography/List.qml"
     }
     ExampleCard {
-        title: "Inline code"
+        title: qsTr("Inline code")
         source: "qrc:/demos/typography/InlineCode.qml"
     }
     ExampleCard {
-        title: "Lead"
+        title: qsTr("Lead")
         source: "qrc:/demos/typography/Lead.qml"
     }
     ExampleCard {
-        title: "Large"
+        title: qsTr("Large")
         source: "qrc:/demos/typography/Large.qml"
     }
     ExampleCard {
-        title: "Small"
+        title: qsTr("Small")
         source: "qrc:/demos/typography/Small.qml"
     }
     ExampleCard {
-        title: "Muted"
+        title: qsTr("Muted")
         source: "qrc:/demos/typography/Muted.qml"
     }
 }

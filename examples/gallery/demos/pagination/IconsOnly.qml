@@ -9,7 +9,7 @@ RowLayout {
 
     RowLayout {
         spacing: 8
-        Label { text: "Rows per page" }
+        Label { text: qsTr("Rows per page") }
         Select {
             Layout.preferredWidth: 80
             model: ["10", "25", "50", "100"]

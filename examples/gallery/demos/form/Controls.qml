@@ -10,33 +10,33 @@ ColumnLayout {
 
     FormField {
         Layout.fillWidth: true
-        label: "Bio"
-        description: "Tell us a little bit about yourself."
+        label: qsTr("Bio")
+        description: qsTr("Tell us a little bit about yourself.")
         Textarea {
             Layout.fillWidth: true
-            placeholderText: "I'm a..."
+            placeholderText: qsTr("I'm a...")
         }
     }
 
     FormField {
         Layout.fillWidth: true
-        label: "Country"
+        label: qsTr("Country")
         Select {
             Layout.fillWidth: true
-            placeholder: "Select a country"
-            model: ["United States", "United Kingdom", "Canada"]
+            placeholder: qsTr("Select a country")
+            model: [qsTr("United States"), qsTr("United Kingdom"), qsTr("Canada")]
         }
     }
 
     FormField {
         id: userField
         Layout.fillWidth: true
-        label: "Username"
+        label: qsTr("Username")
         required: true
         error: "This username is already taken."
         Input {
             Layout.fillWidth: true
-            text: "evilrabbit"
+            text: qsTr("evilrabbit")
             invalid: userField.invalid
         }
     }

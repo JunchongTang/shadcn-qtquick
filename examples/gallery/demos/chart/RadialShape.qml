@@ -9,11 +9,11 @@ Card {
     CardHeader {
         Layout.alignment: Qt.AlignHCenter
         CardTitle {
-            text: "Radial Chart - Shape"
+            text: qsTr("Radial Chart - Shape")
             horizontalAlignment: Text.AlignHCenter
         }
         CardDescription {
-            text: "January - June 2024"
+            text: qsTr("January - June 2024")
             horizontalAlignment: Text.AlignHCenter
         }
     }
@@ -50,7 +50,7 @@ Card {
                 Layout.alignment: Qt.AlignHCenter
                 spacing: Theme.space2
                 Text {
-                    text: "Trending up by 5.2% this month"
+                    text: qsTr("Trending up by 5.2% this month")
                     color: Theme.foreground
                     font.pixelSize: Theme.textSm
                     font.weight: Font.Medium
@@ -59,7 +59,7 @@ Card {
             }
             Text {
                 Layout.alignment: Qt.AlignHCenter
-                text: "Showing total visitors for the last 6 months"
+                text: qsTr("Showing total visitors for the last 6 months")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm
             }

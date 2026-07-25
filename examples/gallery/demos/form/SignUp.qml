@@ -17,13 +17,13 @@ ColumnLayout {
     FormField {
         id: nameField
         Layout.fillWidth: true
-        label: "Name"
+        label: qsTr("Name")
         required: true
-        error: form.submitted && nameInput.text.trim() === "" ? "Name is required." : ""
+        error: form.submitted && nameInput.text.trim() === "" ? qsTr("Name is required.") : ""
         Input {
             id: nameInput
             Layout.fillWidth: true
-            placeholderText: "Evil Rabbit"
+            placeholderText: qsTr("Evil Rabbit")
             invalid: nameField.invalid
         }
     }
@@ -31,14 +31,14 @@ ColumnLayout {
     FormField {
         id: emailField
         Layout.fillWidth: true
-        label: "Email"
+        label: qsTr("Email")
         required: true
-        description: "We'll never share your email with anyone."
-        error: form.submitted && !/^.+@.+\..+$/.test(emailInput.text) ? "Enter a valid email address." : ""
+        description: qsTr("We'll never share your email with anyone.")
+        error: form.submitted && !/^.+@.+\..+$/.test(emailInput.text) ? qsTr("Enter a valid email address.") : ""
         Input {
             id: emailInput
             Layout.fillWidth: true
-            placeholderText: "john@example.com"
+            placeholderText: qsTr("john@example.com")
             invalid: emailField.invalid
         }
     }
@@ -46,14 +46,14 @@ ColumnLayout {
     FormField {
         id: pwField
         Layout.fillWidth: true
-        label: "Password"
+        label: qsTr("Password")
         required: true
-        description: "Must be at least 8 characters."
-        error: form.submitted && pwInput.text.length < 8 ? "Password must be at least 8 characters." : ""
+        description: qsTr("Must be at least 8 characters.")
+        error: form.submitted && pwInput.text.length < 8 ? qsTr("Password must be at least 8 characters.") : ""
         Input {
             id: pwInput
             Layout.fillWidth: true
-            placeholderText: "Enter a password"
+            placeholderText: qsTr("Enter a password")
             echoMode: TextInput.Password
             invalid: pwField.invalid
         }
@@ -66,14 +66,14 @@ ColumnLayout {
         spacing: Theme.space2
 
         FormDescription {
-            text: "Account created."
+            text: qsTr("Account created.")
             color: Theme.foreground
             visible: form.submitted && form.valid
             Layout.alignment: Qt.AlignVCenter
         }
         Item { Layout.fillWidth: true }
         Button {
-            text: "Reset"
+            text: qsTr("Reset")
             variant: Button.Outline
             onClicked: {
                 form.submitted = false
@@ -83,7 +83,7 @@ ColumnLayout {
             }
         }
         Button {
-            text: "Create account"
+            text: qsTr("Create account")
             onClicked: form.submitted = true
         }
     }

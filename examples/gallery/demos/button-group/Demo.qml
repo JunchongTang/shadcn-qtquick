@@ -10,11 +10,11 @@ Row {
         Button { variant: Button.Outline; size: Button.Icon; iconName: "arrow-left" }
     }
     ButtonGroup {
-        Button { variant: Button.Outline; text: "Archive" }
-        Button { variant: Button.Outline; text: "Report" }
+        Button { variant: Button.Outline; text: qsTr("Archive") }
+        Button { variant: Button.Outline; text: qsTr("Report") }
     }
     ButtonGroup {
-        Button { variant: Button.Outline; text: "Snooze" }
+        Button { variant: Button.Outline; text: qsTr("Snooze") }
         Button {
             id: moreBtn
             variant: Button.Outline
@@ -24,14 +24,14 @@ Row {
 
             Menu {
                 id: moreMenu
-                MenuItem { text: "Mark as Read"; iconName: "mail-check" }
-                MenuItem { text: "Archive"; iconName: "archive" }
+                MenuItem { text: qsTr("Mark as Read"); iconName: "mail-check" }
+                MenuItem { text: qsTr("Archive"); iconName: "archive" }
                 MenuSeparator {}
-                MenuItem { text: "Snooze"; iconName: "clock" }
-                MenuItem { text: "Add to Calendar"; iconName: "calendar-plus" }
-                MenuItem { text: "Add to List"; iconName: "list-filter" }
+                MenuItem { text: qsTr("Snooze"); iconName: "clock" }
+                MenuItem { text: qsTr("Add to Calendar"); iconName: "calendar-plus" }
+                MenuItem { text: qsTr("Add to List"); iconName: "list-filter" }
                 MenuSeparator {}
-                MenuItem { text: "Trash"; iconName: "trash-2" }
+                MenuItem { text: qsTr("Trash"); iconName: "trash-2" }
             }
         }
     }

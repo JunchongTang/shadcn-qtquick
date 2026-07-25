@@ -12,8 +12,8 @@ ColumnLayout {
         size: Attachment.Default
         AttachmentMedia { iconName: "file-text" }
         AttachmentContent {
-            AttachmentName { text: "Default attachment" }
-            AttachmentSize { text: "PDF · 2.4 MB" }
+            AttachmentName { text: qsTr("Default attachment") }
+            AttachmentSize { text: qsTr("PDF · 2.4 MB") }
         }
     }
 
@@ -22,8 +22,8 @@ ColumnLayout {
         size: Attachment.Sm
         AttachmentMedia { iconName: "file-text" }
         AttachmentContent {
-            AttachmentName { text: "Small attachment" }
-            AttachmentSize { text: "PDF · 2.4 MB" }
+            AttachmentName { text: qsTr("Small attachment") }
+            AttachmentSize { text: qsTr("PDF · 2.4 MB") }
         }
     }
 
@@ -32,7 +32,7 @@ ColumnLayout {
         size: Attachment.Xs
         AttachmentMedia { iconName: "file-text" }
         AttachmentContent {
-            AttachmentName { text: "Extra small attachment" }
+            AttachmentName { text: qsTr("Extra small attachment") }
         }
     }
 }

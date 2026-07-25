@@ -5,7 +5,7 @@ import LucideIcons
 // 官方 breadcrumb-dropdown:中间项为下拉触发(Components + chevron-down),圆点分隔。
 Breadcrumb {
     BreadcrumbItem {
-        BreadcrumbLink { text: "Home" }
+        BreadcrumbLink { text: qsTr("Home") }
     }
     BreadcrumbSeparator { iconName: "dot" }
     BreadcrumbItem {
@@ -18,7 +18,7 @@ Breadcrumb {
             property bool hovered: triggerHover.hovered
 
             Text {
-                text: "Components"
+                text: qsTr("Components")
                 color: trigger.hovered ? Theme.foreground : Theme.mutedForeground
                 font.pixelSize: Theme.textXs
                 font.family: Theme.fontSans
@@ -38,13 +38,13 @@ Breadcrumb {
         }
         Menu {
             id: menu
-            MenuItem { text: "Documentation" }
-            MenuItem { text: "Themes" }
-            MenuItem { text: "GitHub" }
+            MenuItem { text: qsTr("Documentation") }
+            MenuItem { text: qsTr("Themes") }
+            MenuItem { text: qsTr("GitHub") }
         }
     }
     BreadcrumbSeparator { iconName: "dot" }
     BreadcrumbItem {
-        BreadcrumbPage { text: "Breadcrumb" }
+        BreadcrumbPage { text: qsTr("Breadcrumb") }
     }
 }

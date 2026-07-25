@@ -11,7 +11,7 @@ Rectangle {
         id: trigger
         x: 24
         y: 24
-        text: "Open Popover"
+        text: qsTr("Open Popover")
         variant: Button.Outline
 
         Popover {
@@ -22,14 +22,14 @@ Rectangle {
                 width: pop.availableWidth
                 spacing: 4
                 Text {
-                    text: "Dimensions"
+                    text: qsTr("Dimensions")
                     color: Theme.foreground
                     font.pixelSize: Theme.textSm
                     font.weight: Font.Medium
                 }
                 Text {
                     Layout.fillWidth: true
-                    text: "Set the dimensions for the layer."
+                    text: qsTr("Set the dimensions for the layer.")
                     color: Theme.mutedForeground
                     font.pixelSize: Theme.textXs
                     wrapMode: Text.Wrap

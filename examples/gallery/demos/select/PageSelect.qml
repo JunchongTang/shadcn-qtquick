@@ -1,34 +1,34 @@
 import QtQuick
 
 PageScaffold {
-    description: "Displays a list of options for the user to pick from — triggered by a button."
+    description: qsTr("Displays a list of options for the user to pick from — triggered by a button.")
 
     ExampleCard {
-        title: "Select"
+        title: qsTr("Select")
         source: "qrc:/demos/select/Basic.qml"
     }
     ExampleCard {
-        title: "With label"
+        title: qsTr("With label")
         source: "qrc:/demos/select/WithLabel.qml"
     }
     ExampleCard {
-        title: "Groups"
+        title: qsTr("Groups")
         source: "qrc:/demos/select/Groups.qml"
     }
     ExampleCard {
-        title: "Scrollable"
+        title: qsTr("Scrollable")
         source: "qrc:/demos/select/Scrollable.qml"
     }
     ExampleCard {
-        title: "Disabled"
+        title: qsTr("Disabled")
         source: "qrc:/demos/select/Disabled.qml"
     }
     ExampleCard {
-        title: "Invalid"
+        title: qsTr("Invalid")
         source: "qrc:/demos/select/Invalid.qml"
     }
     ExampleCard {
-        title: "Align Item With Trigger"
+        title: qsTr("Align Item With Trigger")
         source: "qrc:/demos/select/Align.qml"
     }
 }

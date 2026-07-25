@@ -6,7 +6,7 @@ import Shadcn
 // 依赖 Theme 的覆盖层(setToken/setRadius/resetTheme/exportJson/colorTokenNames/tokenColor)。
 PageScaffold {
     id: page
-    description: "Adjust brand color, radius and any design token — every component updates live. Export the config to rebrand the whole library."
+    description: qsTr("Adjust brand color, radius and any design token — every component updates live. Export the config to rebrand the whole library.")
 
     // 强调色预设:设置 primary + primaryForeground(明暗两套)。
     readonly property var accents: [
@@ -42,7 +42,7 @@ PageScaffold {
             anchors.margins: Theme.space4
             spacing: Theme.space3
 
-            Text { text: "Accent color"; color: Theme.foreground; font.pixelSize: Theme.textSm; font.weight: Font.Medium }
+            Text { text: qsTr("Accent color"); color: Theme.foreground; font.pixelSize: Theme.textSm; font.weight: Font.Medium }
             Flow {
                 Layout.fillWidth: true
                 spacing: 8
@@ -66,7 +66,7 @@ PageScaffold {
                 }
             }
 
-            Text { text: "Radius"; color: Theme.foreground; font.pixelSize: Theme.textSm; font.weight: Font.Medium; Layout.topMargin: Theme.space2 }
+            Text { text: qsTr("Radius"); color: Theme.foreground; font.pixelSize: Theme.textSm; font.weight: Font.Medium; Layout.topMargin: Theme.space2 }
             RowLayout {
                 spacing: 8
                 Repeater {
@@ -98,30 +98,30 @@ PageScaffold {
             anchors.margins: Theme.space4
             spacing: Theme.space3
 
-            Text { text: "Live preview"; color: Theme.mutedForeground; font.pixelSize: Theme.textXs; font.weight: Font.Medium }
+            Text { text: qsTr("Live preview"); color: Theme.mutedForeground; font.pixelSize: Theme.textXs; font.weight: Font.Medium }
             Flow {
                 Layout.fillWidth: true
                 spacing: 8
-                Button { text: "Primary" }
-                Button { text: "Secondary"; variant: Button.Secondary }
-                Button { text: "Outline"; variant: Button.Outline }
-                Button { text: "Ghost"; variant: Button.Ghost }
-                Button { text: "Destructive"; variant: Button.Destructive }
-                Badge { text: "Badge" }
-                Badge { text: "Secondary"; variant: Badge.Secondary }
+                Button { text: qsTr("Primary") }
+                Button { text: qsTr("Secondary"); variant: Button.Secondary }
+                Button { text: qsTr("Outline"); variant: Button.Outline }
+                Button { text: qsTr("Ghost"); variant: Button.Ghost }
+                Button { text: qsTr("Destructive"); variant: Button.Destructive }
+                Badge { text: qsTr("Badge") }
+                Badge { text: qsTr("Secondary"); variant: Badge.Secondary }
             }
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 12
-                Input { Layout.preferredWidth: 200; placeholderText: "Email" }
+                Input { Layout.preferredWidth: 200; placeholderText: qsTr("Email") }
                 Switch { checked: true }
-                Checkbox { text: "Accept"; checked: true }
+                Checkbox { text: qsTr("Accept"); checked: true }
                 Progress { Layout.preferredWidth: 120; value: 60 }
             }
             Tabs {
                 Layout.topMargin: 2
-                TabButton { text: "Account" }
-                TabButton { text: "Password" }
+                TabButton { text: qsTr("Account") }
+                TabButton { text: qsTr("Password") }
             }
         }
     }
@@ -144,11 +144,11 @@ PageScaffold {
             RowLayout {
                 Layout.fillWidth: true
                 Text {
-                    text: "Tokens — " + (Theme.dark ? "dark" : "light") + " mode"
+                    text: qsTr("Tokens — ") + (Theme.dark ? qsTr("dark") : qsTr("light")) + " mode"
                     color: Theme.foreground; font.pixelSize: Theme.textSm; font.weight: Font.Medium
                 }
                 Item { Layout.fillWidth: true }
-                Text { text: "toggle mode from the top bar"; color: Theme.mutedForeground; font.pixelSize: 10 }
+                Text { text: qsTr("toggle mode from the top bar"); color: Theme.mutedForeground; font.pixelSize: 10 }
             }
 
             GridLayout {
@@ -204,9 +204,9 @@ PageScaffold {
 
             RowLayout {
                 Layout.fillWidth: true
-                Text { text: "Export"; color: Theme.foreground; font.pixelSize: Theme.textSm; font.weight: Font.Medium }
+                Text { text: qsTr("Export"); color: Theme.foreground; font.pixelSize: Theme.textSm; font.weight: Font.Medium }
                 Item { Layout.fillWidth: true }
-                Button { text: "Reset"; size: Button.Sm; variant: Button.Outline; onClicked: Theme.resetTheme() }
+                Button { text: qsTr("Reset"); size: Button.Sm; variant: Button.Outline; onClicked: Theme.resetTheme() }
             }
             Text {
                 Layout.fillWidth: true

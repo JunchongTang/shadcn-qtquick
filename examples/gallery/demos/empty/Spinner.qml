@@ -9,16 +9,16 @@ Empty {
             variant: EmptyMedia.Icon
             Spinner { size: 16 }    // 圆底内 svg size-4
         }
-        EmptyTitle { text: "Processing your request" }
+        EmptyTitle { text: qsTr("Processing your request") }
         EmptyDescription {
-            text: "Please wait while we process your request. Do not refresh the page."
+            text: qsTr("Please wait while we process your request. Do not refresh the page.")
         }
     }
 
     EmptyContent {
         Button {
             Layout.alignment: Qt.AlignHCenter
-            text: "Cancel"
+            text: qsTr("Cancel")
             variant: Button.Outline
             size: Button.Sm
         }

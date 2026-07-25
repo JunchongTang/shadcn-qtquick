@@ -20,7 +20,7 @@ Collapsible {
             Layout.rightMargin: 16
             spacing: 16
             Text {
-                text: "Order #4189"
+                text: qsTr("Order #4189")
                 color: Theme.foreground
                 font.pixelSize: Theme.textSm
                 font.weight: Font.DemiBold
@@ -47,13 +47,13 @@ Collapsible {
                 anchors.leftMargin: 16
                 anchors.rightMargin: 16
                 Text {
-                    text: "Status"
+                    text: qsTr("Status")
                     color: Theme.mutedForeground
                     font.pixelSize: Theme.textSm
                 }
                 Item { Layout.fillWidth: true }
                 Text {
-                    text: "Shipped"
+                    text: qsTr("Shipped")
                     color: Theme.foreground
                     font.pixelSize: Theme.textSm
                     font.weight: Font.Medium
@@ -97,6 +97,6 @@ Collapsible {
         }
     }
 
-    InfoCard { heading: "Shipping address"; detail: "100 Market St, San Francisco" }
-    InfoCard { heading: "Items"; detail: "2x Studio Headphones" }
+    InfoCard { heading: qsTr("Shipping address"); detail: "100 Market St, San Francisco" }
+    InfoCard { heading: qsTr("Items"); detail: "2x Studio Headphones" }
 }

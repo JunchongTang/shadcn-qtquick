@@ -6,20 +6,20 @@ Menubar {
     id: menubar
 
     MenubarMenu {
-        title: "File"
+        title: qsTr("File")
 
-        MenuItem { text: "New File"; iconName: "file"; shortcut: "⌘N" }
-        MenuItem { text: "Open Folder"; iconName: "folder" }
+        MenuItem { text: qsTr("New File"); iconName: "file"; shortcut: "⌘N" }
+        MenuItem { text: qsTr("Open Folder"); iconName: "folder" }
         MenuSeparator {}
-        MenuItem { text: "Save"; iconName: "save"; shortcut: "⌘S" }
+        MenuItem { text: qsTr("Save"); iconName: "save"; shortcut: "⌘S" }
     }
 
     MenubarMenu {
-        title: "More"
+        title: qsTr("More")
 
-        MenuItem { text: "Settings"; iconName: "settings" }
-        MenuItem { text: "Help"; iconName: "circle-help" }
+        MenuItem { text: qsTr("Settings"); iconName: "settings" }
+        MenuItem { text: qsTr("Help"); iconName: "circle-help" }
         MenuSeparator {}
-        MenuItem { text: "Delete"; iconName: "trash-2"; destructive: true }
+        MenuItem { text: qsTr("Delete"); iconName: "trash-2"; destructive: true }
     }
 }

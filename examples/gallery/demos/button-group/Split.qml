@@ -8,7 +8,7 @@ Row {
 
     Button {
         variant: Button.Secondary
-        text: "Button"
+        text: qsTr("Button")
         groupPosition: Button.GroupFirst
     }
     ButtonGroupSeparator { length: 28 }   // default 按钮高 28

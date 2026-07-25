@@ -32,7 +32,7 @@ Card {
         }
         Text {
             anchors.centerIn: parent
-            text: "Event cover"
+            text: qsTr("Event cover")
             color: Theme.alpha("#ffffff", 0.85)
             font.pixelSize: Theme.textSm
             font.weight: Font.Medium
@@ -46,14 +46,14 @@ Card {
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space1
-                CardTitle { text: "Design systems meetup" }
-                CardDescription { text: "A practical talk on component APIs, accessibility, and shipping faster." }
+                CardTitle { text: qsTr("Design systems meetup") }
+                CardDescription { text: qsTr("A practical talk on component APIs, accessibility, and shipping faster.") }
             }
-            Badge { text: "Featured"; variant: Badge.Secondary; Layout.alignment: Qt.AlignTop }
+            Badge { text: qsTr("Featured"); variant: Badge.Secondary; Layout.alignment: Qt.AlignTop }
         }
     }
 
     CardFooter {
-        Button { Layout.fillWidth: true; text: "View Event" }
+        Button { Layout.fillWidth: true; text: qsTr("View Event") }
     }
 }

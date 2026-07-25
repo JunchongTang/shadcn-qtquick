@@ -23,8 +23,8 @@ Card {
     }
 
     CardHeader {
-        CardTitle { text: "Terms of Service" }
-        CardDescription { text: "Review the terms before accepting the agreement." }
+        CardTitle { text: qsTr("Terms of Service") }
+        CardDescription { text: qsTr("Review the terms before accepting the agreement.") }
     }
 
     CardContent {
@@ -57,10 +57,10 @@ Card {
                     spacing: 16                  // space-y-4
 
                     Item { Layout.fillWidth: true; implicitHeight: 16 } // py-4 顶
-                    Para { text: "These terms govern your use of the workspace, including access to shared documents, project files, and collaboration tools." }
-                    Para { text: "You are responsible for the content you upload and for ensuring that your team has the appropriate permissions to view or edit it." }
-                    Para { text: "We may update features or limits as the service evolves. When those changes materially affect your workflow, we will notify your workspace administrators." }
-                    Para { text: "By continuing, you agree to keep your account credentials secure and to follow your organization's acceptable use policies." }
+                    Para { text: qsTr("These terms govern your use of the workspace, including access to shared documents, project files, and collaboration tools.") }
+                    Para { text: qsTr("You are responsible for the content you upload and for ensuring that your team has the appropriate permissions to view or edit it.") }
+                    Para { text: qsTr("We may update features or limits as the service evolves. When those changes materially affect your workflow, we will notify your workspace administrators.") }
+                    Para { text: qsTr("By continuing, you agree to keep your account credentials secure and to follow your organization's acceptable use policies.") }
                     Item { Layout.fillWidth: true; implicitHeight: 16 } // py-4 底
                 }
             }
@@ -69,7 +69,7 @@ Card {
 
     CardFooter {
         Item { Layout.fillWidth: true }          // justify-end
-        Button { text: "Decline"; variant: Button.Outline }
-        Button { text: "Accept" }
+        Button { text: qsTr("Decline"); variant: Button.Outline }
+        Button { text: qsTr("Accept") }
     }
 }

@@ -5,8 +5,8 @@ import Shadcn
 Combobox {
     width: 260
     multiple: true
-    placeholder: "Select frameworks..."
-    emptyText: "No items found."
+    placeholder: qsTr("Select frameworks...")
+    emptyText: qsTr("No items found.")
     selectedValues: ["Next.js"]
-    model: ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
+    model: [qsTr("Next.js"), qsTr("SvelteKit"), qsTr("Nuxt.js"), qsTr("Remix"), qsTr("Astro")]
 }

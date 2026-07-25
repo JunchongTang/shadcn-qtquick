@@ -5,7 +5,7 @@ import Shadcn
 // Custom Close Button —— 在 footer 放一个自定义 Close 按钮(对标 dialog-close-button)。
 // 右上角默认关闭按钮保留(与官方示例一致,官方也未关闭它)。
 Button {
-    text: "Share"
+    text: qsTr("Share")
     variant: Button.Outline
     onClicked: dialog.open()
 

@@ -29,14 +29,14 @@ FieldSet {
 
     FieldLegend {
         variant: FieldLegend.Label
-        text: "Subscription Plan"
+        text: qsTr("Subscription Plan")
     }
-    FieldDescription { text: "Yearly and lifetime plans offer significant savings." }
+    FieldDescription { text: qsTr("Yearly and lifetime plans offer significant savings.") }
 
     RadioGroup {
         Layout.fillWidth: true
-        PlanRow { group: plan; label: "Monthly ($9.99/month)"; checked: true }
-        PlanRow { group: plan; label: "Yearly ($99.99/year)" }
-        PlanRow { group: plan; label: "Lifetime ($299.99)" }
+        PlanRow { group: plan; label: qsTr("Monthly ($9.99/month)"); checked: true }
+        PlanRow { group: plan; label: qsTr("Yearly ($99.99/year)") }
+        PlanRow { group: plan; label: qsTr("Lifetime ($299.99)") }
     }
 }

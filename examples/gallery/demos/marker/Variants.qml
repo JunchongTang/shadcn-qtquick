@@ -8,14 +8,14 @@ ColumnLayout {
     spacing: 32                     // gap-8
 
     Marker {
-        text: "A default marker for inline notes."
+        text: qsTr("A default marker for inline notes.")
     }
     Marker {
         variant: Marker.Separator
-        text: "A separator marker"
+        text: qsTr("A separator marker")
     }
     Marker {
         variant: Marker.Border
-        text: "A border marker for row boundaries."
+        text: qsTr("A border marker for row boundaries.")
     }
 }

@@ -3,7 +3,7 @@ import Shadcn
 
 Button {
     id: trigger
-    text: "Actions"
+    text: qsTr("Actions")
     variant: Button.Outline
     trailingIconName: "chevron-down"
     onClicked: menu.popup(0, trigger.height + 4)
@@ -11,9 +11,9 @@ Button {
     Menu {
         id: menu
 
-        MenuItem { text: "Edit"; iconName: "pencil" }
-        MenuItem { text: "Share"; iconName: "share" }
+        MenuItem { text: qsTr("Edit"); iconName: "pencil" }
+        MenuItem { text: qsTr("Share"); iconName: "share" }
         MenuSeparator {}
-        MenuItem { text: "Delete"; iconName: "trash"; destructive: true }
+        MenuItem { text: qsTr("Delete"); iconName: "trash"; destructive: true }
     }
 }

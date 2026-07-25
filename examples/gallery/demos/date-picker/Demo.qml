@@ -6,5 +6,5 @@ import Shadcn
 DatePicker {
     id: picker
     width: 212                       // w-[212px]
-    placeholder: "Pick a date"
+    placeholder: qsTr("Pick a date")
 }

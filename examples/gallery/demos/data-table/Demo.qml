@@ -110,9 +110,9 @@ ColumnLayout {
         id: emailHeader
         Item { Button {
             anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
-            variant: Button.Ghost; text: "Email";
-            trailingIconName: root.sortDir === "asc" ? "arrow-up" : root.sortDir === "desc" ? "arrow-down" : "arrow-up-down"
-            onClicked: root.sortDir = (root.sortDir === "asc") ? "desc" : "asc"
+            variant: Button.Ghost; text: qsTr("Email");
+            trailingIconName: root.sortDir === "asc" ? "arrow-up" : root.sortDir === "desc" ? qsTr("arrow-down") : qsTr("arrow-up-down")
+            onClicked: root.sortDir = (root.sortDir === "asc") ? qsTr("desc") : qsTr("asc")
         } }
     }
     Component {
@@ -127,11 +127,11 @@ ColumnLayout {
                 Menu {
                     id: rowMenu
                     implicitWidth: 176
-                    MenuLabel { text: "Actions" }
-                    MenuItem { text: "Copy payment ID" }
+                    MenuLabel { text: qsTr("Actions") }
+                    MenuItem { text: qsTr("Copy payment ID") }
                     MenuSeparator {}
-                    MenuItem { text: "View customer" }
-                    MenuItem { text: "View payment details" }
+                    MenuItem { text: qsTr("View customer") }
+                    MenuItem { text: qsTr("View payment details") }
                 }
             } }
     }
@@ -143,24 +143,24 @@ ColumnLayout {
         spacing: 8
         Input {
             Layout.preferredWidth: 240
-            placeholderText: "Filter emails..."
+            placeholderText: qsTr("Filter emails...")
             onTextChanged: root.filterText = text
         }
         Item { Layout.fillWidth: true }
         Button {
             id: colBtn
-            text: "Columns"; variant: Button.Outline; trailingIconName: "chevron-down"
+            text: qsTr("Columns"); variant: Button.Outline; trailingIconName: "chevron-down"
             onClicked: colMenu.popup(colBtn.width - 176, colBtn.height + 4)
             Menu {
                 id: colMenu
                 implicitWidth: 176
-                MenuCheckboxItem { id: cbS; text: "Status"
+                MenuCheckboxItem { id: cbS; text: qsTr("Status")
                     Binding { target: cbS; property: "checked"; value: root.colStatusVisible; restoreMode: Binding.RestoreBinding }
                     onToggled: root.colStatusVisible = cbS.checked }
-                MenuCheckboxItem { id: cbE; text: "Email"
+                MenuCheckboxItem { id: cbE; text: qsTr("Email")
                     Binding { target: cbE; property: "checked"; value: root.colEmailVisible; restoreMode: Binding.RestoreBinding }
                     onToggled: root.colEmailVisible = cbE.checked }
-                MenuCheckboxItem { id: cbA; text: "Amount"
+                MenuCheckboxItem { id: cbA; text: qsTr("Amount")
                     Binding { target: cbA; property: "checked"; value: root.colAmountVisible; restoreMode: Binding.RestoreBinding }
                     onToggled: root.colAmountVisible = cbA.checked }
             }
@@ -186,9 +186,9 @@ ColumnLayout {
             model: root._pageRows
             columns: {
                 var c = [{ title: "", key: "", width: 52, headerDelegate: selHeader, cellDelegate: selCell }]
-                if (root.colStatusVisible) c.push({ title: "Status", key: "status", width: 150, cellDelegate: statusCell })
-                if (root.colEmailVisible) c.push({ title: "Email", key: "email", headerDelegate: emailHeader, format: root.lc })
-                if (root.colAmountVisible) c.push({ title: "Amount", key: "amount", width: 120, medium: true, format: root.money })
+                if (root.colStatusVisible) c.push({ title: qsTr("Status"), key: "status", width: 150, cellDelegate: statusCell })
+                if (root.colEmailVisible) c.push({ title: qsTr("Email"), key: "email", headerDelegate: emailHeader, format: root.lc })
+                if (root.colAmountVisible) c.push({ title: qsTr("Amount"), key: "amount", width: 120, medium: true, format: root.money })
                 c.push({ title: "", key: "", width: 52, cellDelegate: actionsCell })
                 return c
             }
@@ -206,7 +206,7 @@ ColumnLayout {
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
         }
-        Button { text: "Previous"; variant: Button.Outline; size: Button.Sm; enabled: root.page > 1; onClicked: root.page-- }
-        Button { text: "Next"; variant: Button.Outline; size: Button.Sm; enabled: root.page < root._pageCount; onClicked: root.page++ }
+        Button { text: qsTr("Previous"); variant: Button.Outline; size: Button.Sm; enabled: root.page > 1; onClicked: root.page-- }
+        Button { text: qsTr("Next"); variant: Button.Outline; size: Button.Sm; enabled: root.page < root._pageCount; onClicked: root.page++ }
     }
 }

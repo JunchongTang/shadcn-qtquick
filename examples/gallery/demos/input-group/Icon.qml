@@ -10,7 +10,7 @@ ColumnLayout {
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Search..." }
+        InputGroupInput { placeholderText: qsTr("Search...") }
         InputGroupAddon {
             LucideIcon { name: "search"; size: 14; color: Theme.mutedForeground }
         }
@@ -18,7 +18,7 @@ ColumnLayout {
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Enter your email" }
+        InputGroupInput { placeholderText: qsTr("Enter your email") }
         InputGroupAddon {
             LucideIcon { name: "mail"; size: 14; color: Theme.mutedForeground }
         }
@@ -26,7 +26,7 @@ ColumnLayout {
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Card number" }
+        InputGroupInput { placeholderText: qsTr("Card number") }
         InputGroupAddon {
             LucideIcon { name: "credit-card"; size: 14; color: Theme.mutedForeground }
         }
@@ -38,7 +38,7 @@ ColumnLayout {
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Card number" }
+        InputGroupInput { placeholderText: qsTr("Card number") }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
             LucideIcon { name: "star"; size: 14; color: Theme.mutedForeground }

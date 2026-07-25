@@ -9,9 +9,9 @@ Empty {
             variant: EmptyMedia.Icon
             iconName: "folder-code"
         }
-        EmptyTitle { text: "No Projects Yet" }
+        EmptyTitle { text: qsTr("No Projects Yet") }
         EmptyDescription {
-            text: "You haven't created any projects yet. Get started by creating your first project."
+            text: qsTr("You haven't created any projects yet. Get started by creating your first project.")
         }
     }
 
@@ -20,8 +20,8 @@ Empty {
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             spacing: Theme.space2
-            Button { text: "Create Project" }
-            Button { text: "Import Project"; variant: Button.Outline }
+            Button { text: qsTr("Create Project") }
+            Button { text: qsTr("Import Project"); variant: Button.Outline }
         }
     }
 
@@ -30,7 +30,7 @@ Empty {
         Layout.alignment: Qt.AlignHCenter
         variant: Button.Link
         size: Button.Sm
-        text: "Learn More"
+        text: qsTr("Learn More")
         trailingIconName: "arrow-up-right"
     }
 }

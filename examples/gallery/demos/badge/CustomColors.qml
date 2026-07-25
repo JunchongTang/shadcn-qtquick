@@ -6,9 +6,9 @@ import Shadcn
 RowLayout {
     spacing: 8
 
-    Badge { text: "Blue";   bgColor: "#eff6ff"; fgColor: "#1d4ed8" }
-    Badge { text: "Green";  bgColor: "#f0fdf4"; fgColor: "#15803d" }
-    Badge { text: "Sky";    bgColor: "#f0f9ff"; fgColor: "#0369a1" }
-    Badge { text: "Purple"; bgColor: "#faf5ff"; fgColor: "#7e22ce" }
-    Badge { text: "Red";    bgColor: "#fef2f2"; fgColor: "#b91c1c" }
+    Badge { text: qsTr("Blue");   bgColor: "#eff6ff"; fgColor: "#1d4ed8" }
+    Badge { text: qsTr("Green");  bgColor: "#f0fdf4"; fgColor: "#15803d" }
+    Badge { text: qsTr("Sky");    bgColor: "#f0f9ff"; fgColor: "#0369a1" }
+    Badge { text: qsTr("Purple"); bgColor: "#faf5ff"; fgColor: "#7e22ce" }
+    Badge { text: qsTr("Red");    bgColor: "#fef2f2"; fgColor: "#b91c1c" }
 }

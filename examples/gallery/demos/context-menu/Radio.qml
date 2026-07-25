@@ -32,7 +32,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -40,13 +40,13 @@ Item {
     ContextMenu {
         target: area
 
-        MenuLabel { text: "People" }
-        MenuRadioItem { text: "Pedro Duarte"; checked: true; QC.ButtonGroup.group: peopleGroup }
-        MenuRadioItem { text: "Colm Tuite"; QC.ButtonGroup.group: peopleGroup }
+        MenuLabel { text: qsTr("People") }
+        MenuRadioItem { text: qsTr("Pedro Duarte"); checked: true; QC.ButtonGroup.group: peopleGroup }
+        MenuRadioItem { text: qsTr("Colm Tuite"); QC.ButtonGroup.group: peopleGroup }
         MenuSeparator {}
-        MenuLabel { text: "Theme" }
-        MenuRadioItem { text: "Light"; checked: true; QC.ButtonGroup.group: themeGroup }
-        MenuRadioItem { text: "Dark"; QC.ButtonGroup.group: themeGroup }
-        MenuRadioItem { text: "System"; QC.ButtonGroup.group: themeGroup }
+        MenuLabel { text: qsTr("Theme") }
+        MenuRadioItem { text: qsTr("Light"); checked: true; QC.ButtonGroup.group: themeGroup }
+        MenuRadioItem { text: qsTr("Dark"); QC.ButtonGroup.group: themeGroup }
+        MenuRadioItem { text: qsTr("System"); QC.ButtonGroup.group: themeGroup }
     }
 }

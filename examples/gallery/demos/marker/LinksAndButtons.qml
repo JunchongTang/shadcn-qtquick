@@ -14,14 +14,14 @@ ColumnLayout {
         interactive: true
         underline: true
         iconName: "git-branch"
-        text: "View the pull request"
+        text: qsTr("View the pull request")
         onClicked: console.log("navigate: #links-and-buttons")
     }
     // render={<button ... onClick={() => toast(...)} />}
     Marker {
         interactive: true
         iconName: "rotate-ccw"
-        text: "Revert this change"
+        text: qsTr("Revert this change")
         onClicked: console.log("You clicked the revert button")
     }
 }

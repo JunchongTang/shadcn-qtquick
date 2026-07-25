@@ -9,24 +9,24 @@ FieldGroup {
 
     Field {
         invalid: true
-        FieldLabel { text: "Email"; invalid: parent.invalid }
+        FieldLabel { text: qsTr("Email"); invalid: parent.invalid }
         Input {
             Layout.fillWidth: true
             invalid: true
-            text: "evil@"
-            placeholderText: "you@example.com"
+            text: qsTr("evil@")
+            placeholderText: qsTr("you@example.com")
         }
-        FieldError { text: "Enter a valid email address." }
+        FieldError { text: qsTr("Enter a valid email address.") }
     }
 
     Field {
         invalid: true
-        FieldLabel { text: "Password"; invalid: parent.invalid }
+        FieldLabel { text: qsTr("Password"); invalid: parent.invalid }
         Input {
             Layout.fillWidth: true
             invalid: true
             echoMode: TextInput.Password
-            text: "abc"
+            text: qsTr("abc")
         }
         FieldError {
             errors: [

@@ -9,10 +9,10 @@ Table {
     property bool fillCard: true
 
     columns: [
-        { title: "Invoice", key: "invoice", width: 100, medium: true },
-        { title: "Status",  key: "status" },
-        { title: "Method",  key: "method" },
-        { title: "Amount",  key: "amount",  width: 100 }
+        { title: qsTr("Invoice"), key: "invoice", width: 100, medium: true },
+        { title: qsTr("Status"),  key: "status" },
+        { title: qsTr("Method"),  key: "method" },
+        { title: qsTr("Amount"),  key: "amount",  width: 100 }
     ]
     model: [
         { invoice: "INV001", status: "Paid",    method: "Credit Card",   amount: "$250.00" },
@@ -24,5 +24,5 @@ Table {
         { invoice: "INV007", status: "Unpaid",  method: "Credit Card",   amount: "$300.00" }
     ]
     footerData: ["Total", "", "", "$2,500.00"]
-    caption: "A list of your recent invoices."
+    caption: qsTr("A list of your recent invoices.")
 }

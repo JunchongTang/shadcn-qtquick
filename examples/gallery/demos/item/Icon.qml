@@ -11,11 +11,11 @@ ColumnLayout {
         variant: ShadItem.Outline
         ItemMedia { variant: ItemMedia.Icon; iconName: "shield-alert" }
         ItemContent {
-            ItemTitle { text: "Security Alert" }
-            ItemDescription { text: "New login detected from unknown device." }
+            ItemTitle { text: qsTr("Security Alert") }
+            ItemDescription { text: qsTr("New login detected from unknown device.") }
         }
         ItemActions {
-            Button { text: "Review"; variant: Button.Outline; size: Button.Sm }
+            Button { text: qsTr("Review"); variant: Button.Outline; size: Button.Sm }
         }
     }
 }

@@ -8,7 +8,7 @@ ColumnLayout {
 
     RowLayout {
         Layout.fillWidth: true
-        Label { text: "Upload progress" }
+        Label { text: qsTr("Upload progress") }
         Item { Layout.fillWidth: true }
         Text {
             text: Math.round(bar.value) + "%"

@@ -3,7 +3,7 @@ import Shadcn
 
 // 官方 button-group-dropdown:主动作按钮 + 下拉触发(chevron)组成拆分按钮。
 ButtonGroup {
-    Button { variant: Button.Outline; text: "Follow" }
+    Button { variant: Button.Outline; text: qsTr("Follow") }
     Button {
         id: moreBtn
         variant: Button.Outline
@@ -13,14 +13,14 @@ ButtonGroup {
 
         Menu {
             id: menu
-            MenuItem { text: "Mute Conversation"; iconName: "volume-off" }
-            MenuItem { text: "Mark as Read"; iconName: "check" }
-            MenuItem { text: "Report Conversation"; iconName: "alert-triangle" }
-            MenuItem { text: "Block User"; iconName: "user-round-x" }
-            MenuItem { text: "Share Conversation"; iconName: "share" }
-            MenuItem { text: "Copy Conversation"; iconName: "copy" }
+            MenuItem { text: qsTr("Mute Conversation"); iconName: "volume-off" }
+            MenuItem { text: qsTr("Mark as Read"); iconName: "check" }
+            MenuItem { text: qsTr("Report Conversation"); iconName: "alert-triangle" }
+            MenuItem { text: qsTr("Block User"); iconName: "user-round-x" }
+            MenuItem { text: qsTr("Share Conversation"); iconName: "share" }
+            MenuItem { text: qsTr("Copy Conversation"); iconName: "copy" }
             MenuSeparator {}
-            MenuItem { text: "Delete Conversation"; iconName: "trash" }
+            MenuItem { text: qsTr("Delete Conversation"); iconName: "trash" }
         }
     }
 }

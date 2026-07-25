@@ -6,15 +6,15 @@ import Shadcn
 FieldSet {
     width: 320        // max-w-sm
 
-    FieldLegend { text: "Address Information" }
-    FieldDescription { text: "We need your address to deliver your order." }
+    FieldLegend { text: qsTr("Address Information") }
+    FieldDescription { text: qsTr("We need your address to deliver your order.") }
 
     FieldGroup {
         Field {
-            FieldLabel { text: "Street Address" }
+            FieldLabel { text: qsTr("Street Address") }
             Input {
                 Layout.fillWidth: true
-                placeholderText: "123 Main St"
+                placeholderText: qsTr("123 Main St")
             }
         }
         // grid grid-cols-2 gap-4
@@ -25,14 +25,14 @@ FieldSet {
             rowSpacing: Theme.space4
 
             Field {
-                FieldLabel { text: "City" }
+                FieldLabel { text: qsTr("City") }
                 Input {
                     Layout.fillWidth: true
-                    placeholderText: "New York"
+                    placeholderText: qsTr("New York")
                 }
             }
             Field {
-                FieldLabel { text: "Postal Code" }
+                FieldLabel { text: qsTr("Postal Code") }
                 Input {
                     Layout.fillWidth: true
                     placeholderText: "90502"

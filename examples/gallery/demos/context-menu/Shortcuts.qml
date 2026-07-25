@@ -27,7 +27,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -35,11 +35,11 @@ Item {
     ContextMenu {
         target: area
 
-        MenuItem { text: "Back"; shortcut: "⌘[" }
-        MenuItem { text: "Forward"; enabled: false; shortcut: "⌘]" }
-        MenuItem { text: "Reload"; shortcut: "⌘R" }
+        MenuItem { text: qsTr("Back"); shortcut: "⌘[" }
+        MenuItem { text: qsTr("Forward"); enabled: false; shortcut: "⌘]" }
+        MenuItem { text: qsTr("Reload"); shortcut: "⌘R" }
         MenuSeparator {}
-        MenuItem { text: "Save"; shortcut: "⌘S" }
-        MenuItem { text: "Save As..."; shortcut: "⇧⌘S" }
+        MenuItem { text: qsTr("Save"); shortcut: "⌘S" }
+        MenuItem { text: qsTr("Save As..."); shortcut: "⇧⌘S" }
     }
 }

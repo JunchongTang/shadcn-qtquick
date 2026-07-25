@@ -6,6 +6,6 @@ NativeSelect {
     width: 180
     invalid: true
     currentIndex: -1
-    placeholder: "Error state"
-    model: ["Apple", "Banana", "Blueberry"]
+    placeholder: qsTr("Error state")
+    model: [qsTr("Apple"), qsTr("Banana"), qsTr("Blueberry")]
 }

@@ -23,7 +23,7 @@ Rectangle {
         Spinner { size: 16 }                   // ItemMedia
         Text {
             Layout.fillWidth: true
-            text: "Processing payment..."
+            text: qsTr("Processing payment...")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
             font.family: Theme.fontSans

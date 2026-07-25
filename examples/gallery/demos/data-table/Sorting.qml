@@ -57,11 +57,11 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 variant: Button.Ghost
-                text: "Email"
+                text: qsTr("Email")
                 // leftPadding: 0
                 // rightPadding: 4
-                trailingIconName: root.sortDir === "asc" ? "arrow-up" : "arrow-down"
-                onClicked: root.sortDir = (root.sortDir === "asc") ? "desc" : "asc"
+                trailingIconName: root.sortDir === "asc" ? qsTr("arrow-up") : qsTr("arrow-down")
+                onClicked: root.sortDir = (root.sortDir === "asc") ? qsTr("desc") : qsTr("asc")
             }
         }
     }
@@ -72,9 +72,9 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         columns: [
-            { title: "Status", key: "status", width: 150, cellDelegate: statusCell },
-            { title: "Email",  key: "email",  headerDelegate: emailHeader, format: function (s) { return s.toLowerCase() } },
-            { title: "Amount", key: "amount", width: 120, medium: true, format: root.money }
+            { title: qsTr("Status"), key: "status", width: 150, cellDelegate: statusCell },
+            { title: qsTr("Email"),  key: "email",  headerDelegate: emailHeader, format: function (s) { return s.toLowerCase() } },
+            { title: qsTr("Amount"), key: "amount", width: 120, medium: true, format: root.money }
         ]
         model: root._rows
     }

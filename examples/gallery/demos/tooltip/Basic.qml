@@ -3,7 +3,7 @@ import Shadcn
 
 Button {
     id: hoverBtn
-    text: "Hover me"
+    text: qsTr("Hover me")
     variant: Button.Outline
-    Tooltip { text: "Add to library"; visible: hoverBtn.hovered }
+    Tooltip { text: qsTr("Add to library"); visible: hoverBtn.hovered }
 }

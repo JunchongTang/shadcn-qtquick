@@ -5,6 +5,6 @@ import Shadcn
 Combobox {
     width: 220
     enabled: false
-    placeholder: "Select a framework"
-    model: ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
+    placeholder: qsTr("Select a framework")
+    model: [qsTr("Next.js"), qsTr("SvelteKit"), qsTr("Nuxt.js"), qsTr("Remix"), qsTr("Astro")]
 }

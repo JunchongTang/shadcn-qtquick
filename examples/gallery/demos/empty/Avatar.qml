@@ -14,16 +14,16 @@ Empty {
                 fallback: "LR"
             }
         }
-        EmptyTitle { text: "User Offline" }
+        EmptyTitle { text: qsTr("User Offline") }
         EmptyDescription {
-            text: "This user is currently offline. You can leave a message to notify them or try again later."
+            text: qsTr("This user is currently offline. You can leave a message to notify them or try again later.")
         }
     }
 
     EmptyContent {
         Button {
             Layout.alignment: Qt.AlignHCenter
-            text: "Leave Message"
+            text: qsTr("Leave Message")
             size: Button.Sm
         }
     }

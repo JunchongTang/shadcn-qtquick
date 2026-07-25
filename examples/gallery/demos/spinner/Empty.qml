@@ -23,7 +23,7 @@ ColumnLayout {
 
     Text {
         Layout.alignment: Qt.AlignHCenter
-        text: "Processing your request"
+        text: qsTr("Processing your request")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
         font.weight: Font.Medium
@@ -32,7 +32,7 @@ ColumnLayout {
     Text {
         Layout.fillWidth: true
         Layout.topMargin: -Theme.space2
-        text: "Please wait while we process your request. Do not refresh the page."
+        text: qsTr("Please wait while we process your request. Do not refresh the page.")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textSm
         font.family: Theme.fontSans
@@ -45,7 +45,7 @@ ColumnLayout {
     Button {
         Layout.alignment: Qt.AlignHCenter
         Layout.topMargin: Theme.space2
-        text: "Cancel"
+        text: qsTr("Cancel")
         size: Button.Sm
         variant: Button.Outline
     }

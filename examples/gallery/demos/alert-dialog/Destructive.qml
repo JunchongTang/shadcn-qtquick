@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 
 Button {
-    text: "Delete Chat"
+    text: qsTr("Delete Chat")
     variant: Button.Destructive
     onClicked: dialog.open()
 

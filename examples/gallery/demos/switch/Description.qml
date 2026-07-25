@@ -9,10 +9,10 @@ RowLayout {
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 2
-        Label { text: "Share across devices" }
+        Label { text: qsTr("Share across devices") }
         Text {
             Layout.fillWidth: true
-            text: "Focus is shared across devices, and turns off when you leave the app."
+            text: qsTr("Focus is shared across devices, and turns off when you leave the app.")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             lineHeight: Theme.lineRelaxed

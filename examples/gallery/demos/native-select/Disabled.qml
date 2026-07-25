@@ -6,6 +6,6 @@ NativeSelect {
     width: 180
     enabled: false
     currentIndex: -1
-    placeholder: "Disabled"
-    model: ["Apple", "Banana", "Blueberry"]
+    placeholder: qsTr("Disabled")
+    model: [qsTr("Apple"), qsTr("Banana"), qsTr("Blueberry")]
 }

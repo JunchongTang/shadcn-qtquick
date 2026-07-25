@@ -6,15 +6,15 @@ Command {
     width: 384                    // max-w-sm
     showBorder: true              // rounded-lg border
     model: [
-        { heading: "Suggestions", items: [
-            { text: "Calendar",     icon: "calendar" },
-            { text: "Search Emoji", icon: "smile" },
-            { text: "Calculator",   icon: "calculator", disabled: true }
+        { heading: qsTr("Suggestions"), items: [
+            { text: qsTr("Calendar"),     icon: "calendar" },
+            { text: qsTr("Search Emoji"), icon: "smile" },
+            { text: qsTr("Calculator"),   icon: "calculator", disabled: true }
         ] },
-        { heading: "Settings", items: [
-            { text: "Profile",  icon: "user",        shortcut: "⌘P" },
-            { text: "Billing",  icon: "credit-card", shortcut: "⌘B" },
-            { text: "Settings", icon: "settings",    shortcut: "⌘S" }
+        { heading: qsTr("Settings"), items: [
+            { text: qsTr("Profile"),  icon: "user",        shortcut: "⌘P" },
+            { text: qsTr("Billing"),  icon: "credit-card", shortcut: "⌘B" },
+            { text: qsTr("Settings"), icon: "settings",    shortcut: "⌘S" }
         ] }
     ]
 }

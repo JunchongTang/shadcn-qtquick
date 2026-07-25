@@ -14,7 +14,7 @@ ScrollArea {
         spacing: 8                      // 分隔线上下 my-2 之间距
 
         Text {
-            text: "Tags"
+            text: qsTr("Tags")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
             font.weight: Font.Medium
@@ -29,7 +29,7 @@ ScrollArea {
                 spacing: 8                  // my-2 上侧
 
                 Text {
-                    text: "v1.2.0-beta." + (50 - index)
+                    text: qsTr("v1.2.0-beta.") + (50 - index)
                     color: Theme.foreground
                     font.pixelSize: Theme.textSm
                 }

@@ -19,7 +19,7 @@ ColumnLayout {
 
     Bubble {
         variant: Bubble.Muted
-        BubbleContent { text: "How can I help you today?" }
+        BubbleContent { text: qsTr("How can I help you today?") }
     }
 
     Bubble {
@@ -45,8 +45,8 @@ ColumnLayout {
                     visible: root.isLong
                     variant: Button.Link
                     size: Button.Xs
-                    text: root.open ? "Show less" : "Show more"
-                    trailingIconName: root.open ? "chevron-up" : "chevron-down"
+                    text: root.open ? qsTr("Show less") : qsTr("Show more")
+                    trailingIconName: root.open ? qsTr("chevron-up") : qsTr("chevron-down")
                     onClicked: root.open = !root.open
                 }
             }

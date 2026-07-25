@@ -7,8 +7,8 @@ Card {
     width: 420
 
     CardHeader {
-        CardTitle { text: "Area Chart - Stacked" }
-        CardDescription { text: "Showing total visitors for the last 6 months" }
+        CardTitle { text: qsTr("Area Chart - Stacked") }
+        CardDescription { text: qsTr("Showing total visitors for the last 6 months") }
     }
 
     CardContent {
@@ -26,8 +26,8 @@ Card {
             tooltipIndicator: ChartTooltip.Dot
             xTickFormatter: function (v) { return String(v).substring(0, 3) }
             series: [
-                { key: "mobile",  label: "Mobile",  color: Theme.chart2 },
-                { key: "desktop", label: "Desktop", color: Theme.chart1 }
+                { key: "mobile",  label: qsTr("Mobile"),  color: Theme.chart2 },
+                { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 }
             ]
             chartData: [
                 { month: "January",  desktop: 186, mobile: 80  },
@@ -47,7 +47,7 @@ Card {
             RowLayout {
                 spacing: Theme.space2
                 Text {
-                    text: "Trending up by 5.2% this month"
+                    text: qsTr("Trending up by 5.2% this month")
                     color: Theme.foreground
                     font.pixelSize: Theme.textSm
                     font.weight: Font.Medium
@@ -55,7 +55,7 @@ Card {
                 LucideIcon { name: "trending-up"; size: 16; color: Theme.foreground }
             }
             Text {
-                text: "January - June 2024"
+                text: qsTr("January - June 2024")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm
             }

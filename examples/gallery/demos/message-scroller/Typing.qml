@@ -20,11 +20,11 @@ Rectangle {
         Message {
             align: Message.End
             MessageAvatar { fallback: "ME" }
-            MessageContent { variant: MessageContent.Default; text: "Can you summarize the incident report?" }
+            MessageContent { variant: MessageContent.Default; text: qsTr("Can you summarize the incident report?") }
         }
         Message {
             MessageAvatar { fallback: "AI" }
-            MessageContent { variant: MessageContent.Muted; text: "Sure — pulling the timeline together now." }
+            MessageContent { variant: MessageContent.Muted; text: qsTr("Sure — pulling the timeline together now.") }
         }
         Message {
             MessageAvatar { fallback: "AI" }

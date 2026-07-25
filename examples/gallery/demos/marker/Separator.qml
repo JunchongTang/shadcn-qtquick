@@ -9,14 +9,14 @@ ColumnLayout {
 
     Marker {
         variant: Marker.Separator
-        text: "Today"
+        text: qsTr("Today")
     }
     Marker {
         variant: Marker.Separator
-        text: "Worked for 42s"
+        text: qsTr("Worked for 42s")
     }
     Marker {
         variant: Marker.Separator
-        text: "Conversation compacted"
+        text: qsTr("Conversation compacted")
     }
 }

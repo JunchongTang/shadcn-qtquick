@@ -52,12 +52,12 @@ ColumnLayout {
     }
 
     ChoiceRow {
-        title: "Share across devices"
-        description: "Focus is shared across devices, and turns off when you leave the app."
+        title: qsTr("Share across devices")
+        description: qsTr("Focus is shared across devices, and turns off when you leave the app.")
     }
     ChoiceRow {
-        title: "Enable notifications"
-        description: "Receive notifications when focus mode is enabled or disabled."
+        title: qsTr("Enable notifications")
+        description: qsTr("Receive notifications when focus mode is enabled or disabled.")
         value: true
     }
 }

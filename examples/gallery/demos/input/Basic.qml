@@ -3,5 +3,5 @@ import Shadcn
 
 Input {
     width: 260
-    placeholderText: "Email"
+    placeholderText: qsTr("Email")
 }

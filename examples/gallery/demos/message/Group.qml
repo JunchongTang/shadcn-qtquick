@@ -17,14 +17,14 @@ ColumnLayout {
             MessageAvatar {}                // 空占位:对齐用
             MessageContent {
                 variant: MessageContent.Muted
-                text: "I checked the registry addresses."
+                text: qsTr("I checked the registry addresses.")
             }
         }
         Message {
             MessageAvatar { fallback: "CN" }
             MessageContent {
                 variant: MessageContent.Muted
-                text: "The component and example JSON now live under the UI registry."
+                text: qsTr("The component and example JSON now live under the UI registry.")
             }
         }
     }

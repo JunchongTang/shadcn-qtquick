@@ -11,7 +11,7 @@ Rectangle {
         x: 24
         y: 24
         width: 220
-        model: ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"]
+        model: [qsTr("Apple"), qsTr("Banana"), qsTr("Blueberry"), qsTr("Grapes"), qsTr("Pineapple")]
     }
 
     Component.onCompleted: sel.popup.open()

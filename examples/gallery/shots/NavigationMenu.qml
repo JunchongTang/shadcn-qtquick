@@ -13,20 +13,20 @@ Rectangle {
 
         NavigationMenuItem {
             id: firstItem
-            text: "Getting started"
+            text: qsTr("Getting started")
             contentWidth: 384
-            NavigationMenuLink { text: "Introduction"; description: "Re-usable components built with Tailwind CSS." }
-            NavigationMenuLink { text: "Installation"; description: "How to install dependencies and structure your app." }
-            NavigationMenuLink { text: "Typography"; description: "Styles for headings, paragraphs, lists...etc" }
+            NavigationMenuLink { text: qsTr("Introduction"); description: qsTr("Re-usable components built with Tailwind CSS.") }
+            NavigationMenuLink { text: qsTr("Installation"); description: qsTr("How to install dependencies and structure your app.") }
+            NavigationMenuLink { text: qsTr("Typography"); description: qsTr("Styles for headings, paragraphs, lists...etc") }
         }
         NavigationMenuItem {
-            text: "Components"
+            text: qsTr("Components")
             columns: 2
             contentWidth: 500
-            NavigationMenuLink { text: "Alert Dialog"; description: "A modal dialog that interrupts the user." }
-            NavigationMenuLink { text: "Hover Card"; description: "Preview content behind a link." }
+            NavigationMenuLink { text: qsTr("Alert Dialog"); description: qsTr("A modal dialog that interrupts the user.") }
+            NavigationMenuLink { text: qsTr("Hover Card"); description: qsTr("Preview content behind a link.") }
         }
-        NavigationMenuItem { text: "Docs"; asLink: true }
+        NavigationMenuItem { text: qsTr("Docs"); asLink: true }
     }
 
     Component.onCompleted: nav.requestOpen(firstItem)

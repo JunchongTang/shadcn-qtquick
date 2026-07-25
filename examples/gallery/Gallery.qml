@@ -37,70 +37,70 @@ Window {
     // ==== 导航数据:官方 Components 列表(含实现状态)========================
     // page 非空即为已实现;label 用于详情页标题。
     readonly property var nav: [
-        { id: "theme-customizer", label: "Theme Customizer", page: "PageThemeCustomizer.qml" },
-        { id: "accordion",        label: "Accordion",        page: "demos/accordion/PageAccordion.qml" },
-        { id: "alert",            label: "Alert",            page: "demos/alert/PageAlert.qml" },
-        { id: "alert-dialog",     label: "Alert Dialog",     page: "demos/alert-dialog/PageAlertDialog.qml" },
-        { id: "aspect-ratio",     label: "Aspect Ratio",     page: "demos/aspect-ratio/PageAspectRatio.qml" },
-        { id: "attachment",       label: "Attachment",       page: "demos/attachment/PageAttachment.qml" },
-        { id: "avatar",           label: "Avatar",           page: "demos/avatar/PageAvatar.qml" },
-        { id: "badge",            label: "Badge",            page: "demos/badge/PageBadge.qml" },
-        { id: "breadcrumb",       label: "Breadcrumb",       page: "demos/breadcrumb/PageBreadcrumb.qml" },
-        { id: "bubble",           label: "Bubble",           page: "demos/bubble/PageBubble.qml" },
-        { id: "button",           label: "Button",           page: "demos/button/PageButton.qml" },
-        { id: "button-group",     label: "Button Group",     page: "demos/button-group/PageButtonGroup.qml" },
-        { id: "calendar",         label: "Calendar",         page: "demos/calendar/PageCalendar.qml" },
-        { id: "card",             label: "Card",             page: "demos/card/PageCard.qml" },
-        { id: "carousel",         label: "Carousel",         page: "demos/carousel/PageCarousel.qml" },
-        { id: "chart",            label: "Chart",            page: "demos/chart/PageChart.qml" },
-        { id: "checkbox",         label: "Checkbox",         page: "demos/checkbox/PageCheckbox.qml" },
-        { id: "collapsible",      label: "Collapsible",      page: "demos/collapsible/PageCollapsible.qml" },
-        { id: "combobox",         label: "Combobox",         page: "demos/combobox/PageCombobox.qml" },
-        { id: "command",          label: "Command",          page: "demos/command/PageCommand.qml" },
-        { id: "context-menu",     label: "Context Menu",     page: "demos/context-menu/PageContextMenu.qml" },
-        { id: "data-table",       label: "Data Table",       page: "demos/data-table/PageDataTable.qml" },
-        { id: "date-picker",      label: "Date Picker",      page: "demos/date-picker/PageDatePicker.qml" },
-        { id: "dialog",           label: "Dialog",           page: "demos/dialog/PageDialog.qml" },
-        { id: "drawer",           label: "Drawer",           page: "demos/drawer/PageDrawer.qml" },
-        { id: "dropdown-menu",    label: "Dropdown Menu",    page: "demos/menu/PageMenu.qml" },
-        { id: "empty",            label: "Empty",            page: "demos/empty/PageEmpty.qml" },
-        { id: "field",            label: "Field",            page: "demos/field/PageField.qml" },
-        { id: "form",             label: "Form",             page: "demos/form/PageForm.qml" },
-        { id: "hover-card",       label: "Hover Card",       page: "demos/hover-card/PageHoverCard.qml" },
-        { id: "input",            label: "Input",            page: "demos/input/PageInput.qml" },
-        { id: "input-group",      label: "Input Group",      page: "demos/input-group/PageInputGroup.qml" },
-        { id: "input-otp",        label: "Input OTP",        page: "demos/input-otp/PageInputOtp.qml" },
-        { id: "item",             label: "Item",             page: "demos/item/PageItem.qml" },
-        { id: "kbd",              label: "Kbd",              page: "demos/kbd/PageKbd.qml" },
-        { id: "label",            label: "Label",            page: "demos/label/PageLabel.qml" },
-        { id: "marker",           label: "Marker",           page: "demos/marker/PageMarker.qml" },
-        { id: "menubar",          label: "Menubar",          page: "demos/menubar/PageMenubar.qml" },
-        { id: "message",          label: "Message",          page: "demos/message/PageMessage.qml" },
-        { id: "message-scroller", label: "Message Scroller", page: "demos/message-scroller/PageMessageScroller.qml" },
-        { id: "native-select",    label: "Native Select",    page: "demos/native-select/PageNativeSelect.qml" },
-        { id: "navigation-menu",  label: "Navigation Menu",  page: "demos/navigation-menu/PageNavigationMenu.qml" },
-        { id: "pagination",       label: "Pagination",       page: "demos/pagination/PagePagination.qml" },
-        { id: "popover",          label: "Popover",          page: "demos/popover/PagePopover.qml" },
-        { id: "progress",         label: "Progress",         page: "demos/progress/PageProgress.qml" },
-        { id: "radio-group",      label: "Radio Group",      page: "demos/radio-group/PageRadioGroup.qml" },
-        { id: "resizable",        label: "Resizable",        page: "demos/resizable/PageResizable.qml" },
-        { id: "scroll-area",      label: "Scroll Area",      page: "demos/scroll-area/PageScrollArea.qml" },
-        { id: "select",           label: "Select",           page: "demos/select/PageSelect.qml" },
-        { id: "separator",        label: "Separator",        page: "demos/separator/PageSeparator.qml" },
-        { id: "sheet",            label: "Sheet",            page: "demos/sheet/PageSheet.qml" },
-        { id: "sidebar",          label: "Sidebar",          page: "demos/sidebar/PageSidebar.qml" },
-        { id: "skeleton",         label: "Skeleton",         page: "demos/skeleton/PageSkeleton.qml" },
-        { id: "slider",           label: "Slider",           page: "demos/slider/PageSlider.qml" },
-        { id: "sonner",           label: "Sonner",           page: "demos/sonner/PageSonner.qml" },
-        { id: "spinner",          label: "Spinner",          page: "demos/spinner/PageSpinner.qml" },
-        { id: "switch",           label: "Switch",           page: "demos/switch/PageSwitch.qml" },
-        { id: "table",            label: "Table",            page: "demos/table/PageTable.qml" },
-        { id: "tabs",             label: "Tabs",             page: "demos/tabs/PageTabs.qml" },
-        { id: "textarea",         label: "Textarea",         page: "demos/textarea/PageTextarea.qml" },
-        { id: "toggle",           label: "Toggle",           page: "demos/toggle/PageToggle.qml" },
-        { id: "toggle-group",     label: "Toggle Group",     page: "demos/toggle-group/PageToggleGroup.qml" },
-        { id: "tooltip",          label: "Tooltip",          page: "demos/tooltip/PageTooltip.qml" },
-        { id: "typography",       label: "Typography",       page: "demos/typography/PageTypography.qml" }
+        { id: "theme-customizer", label: qsTr("Theme Customizer"), page: "PageThemeCustomizer.qml" },
+        { id: "accordion",        label: qsTr("Accordion"),        page: "demos/accordion/PageAccordion.qml" },
+        { id: "alert",            label: qsTr("Alert"),            page: "demos/alert/PageAlert.qml" },
+        { id: "alert-dialog",     label: qsTr("Alert Dialog"),     page: "demos/alert-dialog/PageAlertDialog.qml" },
+        { id: "aspect-ratio",     label: qsTr("Aspect Ratio"),     page: "demos/aspect-ratio/PageAspectRatio.qml" },
+        { id: "attachment",       label: qsTr("Attachment"),       page: "demos/attachment/PageAttachment.qml" },
+        { id: "avatar",           label: qsTr("Avatar"),           page: "demos/avatar/PageAvatar.qml" },
+        { id: "badge",            label: qsTr("Badge"),            page: "demos/badge/PageBadge.qml" },
+        { id: "breadcrumb",       label: qsTr("Breadcrumb"),       page: "demos/breadcrumb/PageBreadcrumb.qml" },
+        { id: "bubble",           label: qsTr("Bubble"),           page: "demos/bubble/PageBubble.qml" },
+        { id: "button",           label: qsTr("Button"),           page: "demos/button/PageButton.qml" },
+        { id: "button-group",     label: qsTr("Button Group"),     page: "demos/button-group/PageButtonGroup.qml" },
+        { id: "calendar",         label: qsTr("Calendar"),         page: "demos/calendar/PageCalendar.qml" },
+        { id: "card",             label: qsTr("Card"),             page: "demos/card/PageCard.qml" },
+        { id: "carousel",         label: qsTr("Carousel"),         page: "demos/carousel/PageCarousel.qml" },
+        { id: "chart",            label: qsTr("Chart"),            page: "demos/chart/PageChart.qml" },
+        { id: "checkbox",         label: qsTr("Checkbox"),         page: "demos/checkbox/PageCheckbox.qml" },
+        { id: "collapsible",      label: qsTr("Collapsible"),      page: "demos/collapsible/PageCollapsible.qml" },
+        { id: "combobox",         label: qsTr("Combobox"),         page: "demos/combobox/PageCombobox.qml" },
+        { id: "command",          label: qsTr("Command"),          page: "demos/command/PageCommand.qml" },
+        { id: "context-menu",     label: qsTr("Context Menu"),     page: "demos/context-menu/PageContextMenu.qml" },
+        { id: "data-table",       label: qsTr("Data Table"),       page: "demos/data-table/PageDataTable.qml" },
+        { id: "date-picker",      label: qsTr("Date Picker"),      page: "demos/date-picker/PageDatePicker.qml" },
+        { id: "dialog",           label: qsTr("Dialog"),           page: "demos/dialog/PageDialog.qml" },
+        { id: "drawer",           label: qsTr("Drawer"),           page: "demos/drawer/PageDrawer.qml" },
+        { id: "dropdown-menu",    label: qsTr("Dropdown Menu"),    page: "demos/menu/PageMenu.qml" },
+        { id: "empty",            label: qsTr("Empty"),            page: "demos/empty/PageEmpty.qml" },
+        { id: "field",            label: qsTr("Field"),            page: "demos/field/PageField.qml" },
+        { id: "form",             label: qsTr("Form"),             page: "demos/form/PageForm.qml" },
+        { id: "hover-card",       label: qsTr("Hover Card"),       page: "demos/hover-card/PageHoverCard.qml" },
+        { id: "input",            label: qsTr("Input"),            page: "demos/input/PageInput.qml" },
+        { id: "input-group",      label: qsTr("Input Group"),      page: "demos/input-group/PageInputGroup.qml" },
+        { id: "input-otp",        label: qsTr("Input OTP"),        page: "demos/input-otp/PageInputOtp.qml" },
+        { id: "item",             label: qsTr("Item"),             page: "demos/item/PageItem.qml" },
+        { id: "kbd",              label: qsTr("Kbd"),              page: "demos/kbd/PageKbd.qml" },
+        { id: "label",            label: qsTr("Label"),            page: "demos/label/PageLabel.qml" },
+        { id: "marker",           label: qsTr("Marker"),           page: "demos/marker/PageMarker.qml" },
+        { id: "menubar",          label: qsTr("Menubar"),          page: "demos/menubar/PageMenubar.qml" },
+        { id: "message",          label: qsTr("Message"),          page: "demos/message/PageMessage.qml" },
+        { id: "message-scroller", label: qsTr("Message Scroller"), page: "demos/message-scroller/PageMessageScroller.qml" },
+        { id: "native-select",    label: qsTr("Native Select"),    page: "demos/native-select/PageNativeSelect.qml" },
+        { id: "navigation-menu",  label: qsTr("Navigation Menu"),  page: "demos/navigation-menu/PageNavigationMenu.qml" },
+        { id: "pagination",       label: qsTr("Pagination"),       page: "demos/pagination/PagePagination.qml" },
+        { id: "popover",          label: qsTr("Popover"),          page: "demos/popover/PagePopover.qml" },
+        { id: "progress",         label: qsTr("Progress"),         page: "demos/progress/PageProgress.qml" },
+        { id: "radio-group",      label: qsTr("Radio Group"),      page: "demos/radio-group/PageRadioGroup.qml" },
+        { id: "resizable",        label: qsTr("Resizable"),        page: "demos/resizable/PageResizable.qml" },
+        { id: "scroll-area",      label: qsTr("Scroll Area"),      page: "demos/scroll-area/PageScrollArea.qml" },
+        { id: "select",           label: qsTr("Select"),           page: "demos/select/PageSelect.qml" },
+        { id: "separator",        label: qsTr("Separator"),        page: "demos/separator/PageSeparator.qml" },
+        { id: "sheet",            label: qsTr("Sheet"),            page: "demos/sheet/PageSheet.qml" },
+        { id: "sidebar",          label: qsTr("Sidebar"),          page: "demos/sidebar/PageSidebar.qml" },
+        { id: "skeleton",         label: qsTr("Skeleton"),         page: "demos/skeleton/PageSkeleton.qml" },
+        { id: "slider",           label: qsTr("Slider"),           page: "demos/slider/PageSlider.qml" },
+        { id: "sonner",           label: qsTr("Sonner"),           page: "demos/sonner/PageSonner.qml" },
+        { id: "spinner",          label: qsTr("Spinner"),          page: "demos/spinner/PageSpinner.qml" },
+        { id: "switch",           label: qsTr("Switch"),           page: "demos/switch/PageSwitch.qml" },
+        { id: "table",            label: qsTr("Table"),            page: "demos/table/PageTable.qml" },
+        { id: "tabs",             label: qsTr("Tabs"),             page: "demos/tabs/PageTabs.qml" },
+        { id: "textarea",         label: qsTr("Textarea"),         page: "demos/textarea/PageTextarea.qml" },
+        { id: "toggle",           label: qsTr("Toggle"),           page: "demos/toggle/PageToggle.qml" },
+        { id: "toggle-group",     label: qsTr("Toggle Group"),     page: "demos/toggle-group/PageToggleGroup.qml" },
+        { id: "tooltip",          label: qsTr("Tooltip"),          page: "demos/tooltip/PageTooltip.qml" },
+        { id: "typography",       label: qsTr("Typography"),       page: "demos/typography/PageTypography.qml" }
     ]
 
     function select(item) {
@@ -137,19 +137,19 @@ Window {
                     onClicked: navDrawer.open()
                 }
                 Text {
-                    text: "shadcn/ui"
+                    text: qsTr("shadcn/ui")
                     color: Theme.foreground
                     font.pixelSize: 15
                     font.weight: Font.DemiBold
                 }
                 Text {
-                    text: "QML"
+                    text: qsTr("QML")
                     color: Theme.mutedForeground
                     font.pixelSize: 13
                 }
                 Item { Layout.fillWidth: true }
                 IconButton {
-                    iconName: Theme.dark ? "sun" : "moon"
+                    iconName: Theme.dark ? qsTr("sun") : qsTr("moon")
                     variant: IconButton.Ghost
                     onClicked: Theme.dark = !Theme.dark
                 }

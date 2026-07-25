@@ -8,9 +8,9 @@ Field {
     id: f
     width: 280        // max-w-xs
 
-    FieldTitle { text: "Price Range" }
+    FieldTitle { text: qsTr("Price Range") }
     FieldDescription {
-        text: "Set your budget up to $" + Math.round(budget.value) + "."
+        text: qsTr("Set your budget up to $") + Math.round(budget.value) + "."
     }
     Slider {
         id: budget

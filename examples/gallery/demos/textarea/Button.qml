@@ -10,10 +10,10 @@ ColumnLayout {
     Textarea {
         Layout.fillWidth: true
         implicitHeight: 88
-        placeholderText: "Type your message here."
+        placeholderText: qsTr("Type your message here.")
     }
     Button {
         Layout.fillWidth: true
-        text: "Send message"
+        text: qsTr("Send message")
     }
 }

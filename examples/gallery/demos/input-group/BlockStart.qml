@@ -11,10 +11,10 @@ ColumnLayout {
     // 输入 + 顶部标题
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Enter your name" }
+        InputGroupInput { placeholderText: qsTr("Enter your name") }
         InputGroupAddon {
             align: InputGroupAddon.BlockStart
-            InputGroupText { text: "Full Name" }
+            InputGroupText { text: qsTr("Full Name") }
         }
     }
 
@@ -23,7 +23,7 @@ ColumnLayout {
         Layout.fillWidth: true
         InputGroupTextarea {
             implicitHeight: 96
-            placeholderText: "console.log('Hello, world!');"
+            placeholderText: qsTr("console.log('Hello, world!');")
             font.family: Theme.fontMono
         }
         InputGroupAddon {
@@ -31,7 +31,7 @@ ColumnLayout {
             border: true
             LucideIcon { name: "file-code"; size: 14; color: Theme.mutedForeground }
             InputGroupText {
-                text: "script.js"
+                text: qsTr("script.js")
                 font.family: Theme.fontMono
                 Layout.fillWidth: true
             }

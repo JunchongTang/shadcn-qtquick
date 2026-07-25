@@ -7,17 +7,17 @@ RowLayout {
     spacing: Theme.space1_5
 
     Text {
-        text: "Use"
+        text: qsTr("Use")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textSm
         font.family: Theme.fontSans
     }
     KbdGroup {
-        Kbd { text: "Ctrl + B" }
-        Kbd { text: "Ctrl + K" }
+        Kbd { text: qsTr("Ctrl + B") }
+        Kbd { text: qsTr("Ctrl + K") }
     }
     Text {
-        text: "to open the command palette"
+        text: qsTr("to open the command palette")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textSm
         font.family: Theme.fontSans

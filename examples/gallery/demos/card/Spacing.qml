@@ -15,10 +15,10 @@ ColumnLayout {
         Layout.alignment: Qt.AlignHCenter
         variant: ToggleGroup.Outline
         size: ToggleGroup.Sm
-        ToggleGroupItem { text: "16px"; checked: true; onCheckedChanged: if (checked) root.selectedSpacing = 16 }
-        ToggleGroupItem { text: "20px"; onCheckedChanged: if (checked) root.selectedSpacing = 20 }
-        ToggleGroupItem { text: "24px"; onCheckedChanged: if (checked) root.selectedSpacing = 24 }
-        ToggleGroupItem { text: "32px"; onCheckedChanged: if (checked) root.selectedSpacing = 32 }
+        ToggleGroupItem { text: qsTr("16px"); checked: true; onCheckedChanged: if (checked) root.selectedSpacing = 16 }
+        ToggleGroupItem { text: qsTr("20px"); onCheckedChanged: if (checked) root.selectedSpacing = 20 }
+        ToggleGroupItem { text: qsTr("24px"); onCheckedChanged: if (checked) root.selectedSpacing = 24 }
+        ToggleGroupItem { text: qsTr("32px"); onCheckedChanged: if (checked) root.selectedSpacing = 32 }
     }
 
     Card {
@@ -33,10 +33,10 @@ ColumnLayout {
                 ColumnLayout {
                     Layout.fillWidth: true
                     spacing: Theme.space1
-                    CardTitle { text: "Login to your account" }
-                    CardDescription { text: "Enter your email below to login to your account" }
+                    CardTitle { text: qsTr("Login to your account") }
+                    CardDescription { text: qsTr("Enter your email below to login to your account") }
                 }
-                Button { text: "Sign Up"; variant: Button.Link; Layout.alignment: Qt.AlignTop }
+                Button { text: qsTr("Sign Up"); variant: Button.Link; Layout.alignment: Qt.AlignTop }
             }
         }
 
@@ -45,18 +45,18 @@ ColumnLayout {
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space2
-                Label { text: "Email" }
-                Input { Layout.fillWidth: true; placeholderText: "m@example.com" }
+                Label { text: qsTr("Email") }
+                Input { Layout.fillWidth: true; placeholderText: qsTr("m@example.com") }
             }
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space2
                 RowLayout {
                     Layout.fillWidth: true
-                    Label { text: "Password" }
+                    Label { text: qsTr("Password") }
                     Item { Layout.fillWidth: true }
                     Text {
-                        text: "Forgot your password?"
+                        text: qsTr("Forgot your password?")
                         color: Theme.foreground
                         font.pixelSize: Theme.textSm
                     }
@@ -70,8 +70,8 @@ ColumnLayout {
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space2
-                Button { Layout.fillWidth: true; text: "Login" }
-                Button { Layout.fillWidth: true; text: "Login with Google"; variant: Button.Outline }
+                Button { Layout.fillWidth: true; text: qsTr("Login") }
+                Button { Layout.fillWidth: true; text: qsTr("Login with Google"); variant: Button.Outline }
             }
         }
     }

@@ -8,7 +8,7 @@ RowLayout {
 
     Checkbox { id: terms }
     Label {
-        text: "Accept terms and conditions"
+        text: qsTr("Accept terms and conditions")
         // 点击标签联动勾选(对标 htmlFor)。
         MouseArea {
             anchors.fill: parent

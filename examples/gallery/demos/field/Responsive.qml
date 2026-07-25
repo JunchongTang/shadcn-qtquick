@@ -7,31 +7,31 @@ import Shadcn
 FieldSet {
     width: 460        // max-w-lg
 
-    FieldLegend { text: "Profile" }
-    FieldDescription { text: "Fill in your profile information." }
+    FieldLegend { text: qsTr("Profile") }
+    FieldDescription { text: qsTr("Fill in your profile information.") }
 
     FieldGroup {
         Field {
             orientation: Field.Responsive
             FieldContent {
                 Layout.alignment: Qt.AlignTop
-                FieldLabel { text: "Name" }
-                FieldDescription { text: "Provide your full name for identification" }
+                FieldLabel { text: qsTr("Name") }
+                FieldDescription { text: qsTr("Provide your full name for identification") }
             }
             Input {
                 Layout.preferredWidth: 220
                 Layout.alignment: Qt.AlignTop
-                placeholderText: "Evil Rabbit"
+                placeholderText: qsTr("Evil Rabbit")
             }
         }
         Field {
             orientation: Field.Responsive
             Button {
-                text: "Submit"
+                text: qsTr("Submit")
                 Layout.fillWidth: false
             }
             Button {
-                text: "Cancel"
+                text: qsTr("Cancel")
                 variant: Button.Outline
                 Layout.fillWidth: false
             }

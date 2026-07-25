@@ -9,25 +9,25 @@ ColumnLayout {
     Tabs {
         id: tabs
         Layout.fillWidth: true
-        TabButton { text: "Account" }
-        TabButton { text: "Password" }
+        TabButton { text: qsTr("Account") }
+        TabButton { text: qsTr("Password") }
     }
 
     Card {
         Layout.fillWidth: true
         CardHeader {
-            CardTitle { text: tabs.currentIndex === 0 ? "Account" : "Password" }
+            CardTitle { text: tabs.currentIndex === 0 ? qsTr("Account") : qsTr("Password") }
             CardDescription {
                 text: tabs.currentIndex === 0
-                      ? "Make changes to your account here."
-                      : "Change your password here."
+                      ? qsTr("Make changes to your account here.")
+                      : qsTr("Change your password here.")
             }
         }
         CardContent {
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 6
-                Label { text: tabs.currentIndex === 0 ? "Name" : "Current password" }
+                Label { text: tabs.currentIndex === 0 ? qsTr("Name") : qsTr("Current password") }
                 Input { Layout.fillWidth: true }
             }
         }

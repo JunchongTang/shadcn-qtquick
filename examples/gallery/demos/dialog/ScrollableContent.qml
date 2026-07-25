@@ -5,7 +5,7 @@ import Shadcn
 // 关键:给 ScrollView 一个固定 implicitHeight 作为最大高度,内容 Column 超出即滚动;
 // Dialog 依此高度定尺,header/footer 在滚动区之外。
 Button {
-    text: "Scrollable Content"
+    text: qsTr("Scrollable Content")
     variant: Button.Outline
     onClicked: dialog.open()
 

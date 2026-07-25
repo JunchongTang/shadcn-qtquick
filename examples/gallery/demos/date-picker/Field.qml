@@ -10,12 +10,12 @@ ColumnLayout {
     spacing: Theme.space2            // Field gap ≈ gap-2
 
     Label {
-        text: "Date"                 // FieldLabel
+        text: qsTr("Date")                 // FieldLabel
     }
 
     DatePicker {
         Layout.fillWidth: true
-        placeholder: "Pick a date"
+        placeholder: qsTr("Pick a date")
         align: Popover.Align.Start
     }
 }

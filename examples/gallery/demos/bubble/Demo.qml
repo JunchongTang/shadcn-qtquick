@@ -9,18 +9,18 @@ ColumnLayout {
 
     Bubble {
         align: Bubble.End
-        BubbleContent { text: "Hey there! what's up?" }
+        BubbleContent { text: qsTr("Hey there! what's up?") }
     }
 
     BubbleGroup {
         Bubble {
             variant: Bubble.Muted
-            BubbleContent { text: "Hey! Want to see chat bubbles?" }
+            BubbleContent { text: qsTr("Hey! Want to see chat bubbles?") }
         }
         Bubble {
             variant: Bubble.Muted
             BubbleContent {
-                text: "I can group messages, switch sides, and keep the whole thread easy to scan."
+                text: qsTr("I can group messages, switch sides, and keep the whole thread easy to scan.")
             }
             BubbleReactions {
                 Text { text: "👍"; font.pixelSize: Theme.textXs }
@@ -30,13 +30,13 @@ ColumnLayout {
 
     Bubble {
         align: Bubble.End
-        BubbleContent { text: "Sure. Hit me with your best demo." }
+        BubbleContent { text: qsTr("Sure. Hit me with your best demo.") }
     }
 
     Bubble {
         variant: Bubble.Muted
         BubbleContent {
-            text: "Yes. You are reading a demo that is demoing itself. Very meta. Very on-brand."
+            text: qsTr("Yes. You are reading a demo that is demoing itself. Very meta. Very on-brand.")
         }
         BubbleReactions {
             Text { text: "👍"; font.pixelSize: Theme.textXs }

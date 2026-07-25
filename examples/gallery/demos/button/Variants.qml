@@ -4,10 +4,10 @@ import Shadcn
 
 RowLayout {
     spacing: 8
-    Button { text: "Default" }
-    Button { text: "Secondary"; variant: Button.Secondary }
-    Button { text: "Outline"; variant: Button.Outline }
-    Button { text: "Ghost"; variant: Button.Ghost }
-    Button { text: "Destructive"; variant: Button.Destructive }
-    Button { text: "Link"; variant: Button.Link }
+    Button { text: qsTr("Default") }
+    Button { text: qsTr("Secondary"); variant: Button.Secondary }
+    Button { text: qsTr("Outline"); variant: Button.Outline }
+    Button { text: qsTr("Ghost"); variant: Button.Ghost }
+    Button { text: qsTr("Destructive"); variant: Button.Destructive }
+    Button { text: qsTr("Link"); variant: Button.Link }
 }

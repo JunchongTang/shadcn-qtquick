@@ -4,5 +4,5 @@ import Shadcn
 TypographyH1 {
     width: 520
     horizontalAlignment: Text.AlignHCenter
-    text: "Taxing Laughter: The Joke Tax Chronicles"
+    text: qsTr("Taxing Laughter: The Joke Tax Chronicles")
 }

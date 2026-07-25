@@ -47,7 +47,7 @@ ColumnLayout {
         TapHandler { onTapped: rb.toggle() }
     }
 
-    PlanCard { title: "Plus"; description: "For individuals and small teams."; value: true }
-    PlanCard { title: "Pro"; description: "For growing businesses." }
-    PlanCard { title: "Enterprise"; description: "For large teams and enterprises." }
+    PlanCard { title: qsTr("Plus"); description: qsTr("For individuals and small teams."); value: true }
+    PlanCard { title: qsTr("Pro"); description: qsTr("For growing businesses.") }
+    PlanCard { title: qsTr("Enterprise"); description: qsTr("For large teams and enterprises.") }
 }

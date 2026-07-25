@@ -4,7 +4,7 @@ import Shadcn
 
 // 官方 sheet-no-close-button:showCloseButton: false 隐藏右上角关闭,点击外部关闭。
 Button {
-    text: "Open Sheet"
+    text: qsTr("Open Sheet")
     variant: Button.Outline
     onClicked: sheet.open()
 

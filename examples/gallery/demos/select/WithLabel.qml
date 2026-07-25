@@ -5,9 +5,9 @@ import Shadcn
 ColumnLayout {
     width: 220
     spacing: 6
-    Label { text: "Fruit" }
+    Label { text: qsTr("Fruit") }
     Select {
         Layout.fillWidth: true
-        model: ["Apple", "Banana", "Blueberry"]
+        model: [qsTr("Apple"), qsTr("Banana"), qsTr("Blueberry")]
     }
 }

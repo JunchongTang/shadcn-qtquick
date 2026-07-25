@@ -14,8 +14,8 @@ ColumnLayout {
             Avatar { size: Avatar.Lg; source: "https://github.com/evilrabbit.png"; fallback: "ER" }
         }
         ItemContent {
-            ItemTitle { text: "Evil Rabbit" }
-            ItemDescription { text: "Last seen 5 months ago" }
+            ItemTitle { text: qsTr("Evil Rabbit") }
+            ItemDescription { text: qsTr("Last seen 5 months ago") }
         }
         ItemActions {
             Button {
@@ -49,11 +49,11 @@ ColumnLayout {
             }
         }
         ItemContent {
-            ItemTitle { text: "No Team Members" }
-            ItemDescription { text: "Invite your team to collaborate on this project." }
+            ItemTitle { text: qsTr("No Team Members") }
+            ItemDescription { text: qsTr("Invite your team to collaborate on this project.") }
         }
         ItemActions {
-            Button { text: "Invite"; variant: Button.Outline; size: Button.Sm }
+            Button { text: qsTr("Invite"); variant: Button.Outline; size: Button.Sm }
         }
     }
 }

@@ -16,7 +16,7 @@ ColumnLayout {
             Text {
                 Layout.maximumWidth: mdBubble._innerMaxW
                 textFormat: Text.MarkdownText
-                text: "Hello! Are you actually **thinking**?"
+                text: qsTr("Hello! Are you actually **thinking**?")
                 color: Theme.foreground
                 font.pixelSize: Theme.textXs
                 lineHeight: Theme.lineRelaxed
@@ -33,7 +33,7 @@ ColumnLayout {
             Text {
                 Layout.maximumWidth: ghostBubble._innerMaxW
                 textFormat: Text.MarkdownText
-                text: "Ghost bubbles work for assistant text, **markdown**, and other content "
+                text: qsTr("Ghost bubbles work for assistant text, **markdown**, and other content ")
                       + "that should not be framed.\n\nThis is perfect for assistant messages that "
                       + "should not have a frame and can take the full width of the container. "
                       + "You can also render `code` in it.\n\n"

@@ -30,9 +30,9 @@ ColumnLayout {
                     AttachmentSize { text: modelData.meta }
                 }
                 AttachmentActions {
-                    AttachmentAction { iconName: "x"; label: "Remove " + modelData.name }
+                    AttachmentAction { iconName: "x"; label: qsTr("Remove ") + modelData.name }
                 }
-                AttachmentTrigger { label: "Open " + modelData.name }
+                AttachmentTrigger { label: qsTr("Open ") + modelData.name }
                 onTriggered: Qt.openUrlExternally(imgUrl)
             }
         }

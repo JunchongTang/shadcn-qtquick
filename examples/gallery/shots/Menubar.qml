@@ -13,27 +13,27 @@ Rectangle {
 
         MenubarMenu {
             id: fileMenu
-            title: "File"
-            MenuItem { text: "New Tab"; shortcut: "⌘T" }
-            MenuItem { text: "New Window"; shortcut: "⌘N" }
-            MenuItem { text: "New Incognito Window"; enabled: false }
+            title: qsTr("File")
+            MenuItem { text: qsTr("New Tab"); shortcut: "⌘T" }
+            MenuItem { text: qsTr("New Window"); shortcut: "⌘N" }
+            MenuItem { text: qsTr("New Incognito Window"); enabled: false }
             MenuSeparator {}
-            MenuItem { text: "Print..."; shortcut: "⌘P" }
+            MenuItem { text: qsTr("Print..."); shortcut: "⌘P" }
         }
         MenubarMenu {
-            title: "Edit"
-            MenuItem { text: "Undo"; shortcut: "⌘Z" }
-            MenuItem { text: "Redo"; shortcut: "⇧⌘Z" }
+            title: qsTr("Edit")
+            MenuItem { text: qsTr("Undo"); shortcut: "⌘Z" }
+            MenuItem { text: qsTr("Redo"); shortcut: "⇧⌘Z" }
         }
         MenubarMenu {
-            title: "View"
-            MenuCheckboxItem { text: "Bookmarks Bar" }
-            MenuCheckboxItem { text: "Full URLs"; checked: true }
+            title: qsTr("View")
+            MenuCheckboxItem { text: qsTr("Bookmarks Bar") }
+            MenuCheckboxItem { text: qsTr("Full URLs"); checked: true }
         }
         MenubarMenu {
-            title: "Profiles"
-            MenuRadioItem { text: "Andy" }
-            MenuRadioItem { text: "Benoit"; checked: true }
+            title: qsTr("Profiles")
+            MenuRadioItem { text: qsTr("Andy") }
+            MenuRadioItem { text: qsTr("Benoit"); checked: true }
         }
     }
 

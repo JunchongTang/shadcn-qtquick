@@ -9,16 +9,16 @@ ColumnLayout {
 
     Message {
         MessageContent {
-            header: "Olivia"
+            header: qsTr("Olivia")
             variant: MessageContent.Muted
-            text: "I already checked the logs."
+            text: qsTr("I already checked the logs.")
         }
     }
     Message {
         align: Message.End
         MessageContent {
             variant: MessageContent.Default
-            text: "Send the report to the team. Ping @shadcn if you need help."
+            text: qsTr("Send the report to the team. Ping @shadcn if you need help.")
             footer: "Read · Yesterday"
         }
     }

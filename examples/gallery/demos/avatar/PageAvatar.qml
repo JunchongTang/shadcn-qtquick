@@ -1,25 +1,25 @@
 import QtQuick
 
 PageScaffold {
-    description: "An image element with a fallback for representing the user."
+    description: qsTr("An image element with a fallback for representing the user.")
 
     ExampleCard {
-        title: "Basic"
+        title: qsTr("Basic")
         source: "qrc:/demos/avatar/Basic.qml"
     }
     ExampleCard {
-        title: "Sizes"
-        description: "Small, default and large sizes."
+        title: qsTr("Sizes")
+        description: qsTr("Small, default and large sizes.")
         source: "qrc:/demos/avatar/Sizes.qml"
     }
     ExampleCard {
-        title: "Avatar Group"
-        description: "Overlapping avatars with a background ring."
+        title: qsTr("Avatar Group")
+        description: qsTr("Overlapping avatars with a background ring.")
         source: "qrc:/demos/avatar/Group.qml"
     }
     ExampleCard {
-        title: "Avatar Group Count"
-        description: "Append a count to indicate additional members."
+        title: qsTr("Avatar Group Count")
+        description: qsTr("Append a count to indicate additional members.")
         source: "qrc:/demos/avatar/GroupCount.qml"
     }
 }

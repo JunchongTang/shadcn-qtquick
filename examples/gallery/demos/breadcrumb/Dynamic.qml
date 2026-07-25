@@ -13,9 +13,9 @@ Column {
 
     // 当前路径:每项一层,最后一项 = 当前页(无链接)。
     property var path: [
-        { label: "Home" },
-        { label: "Components" },
-        { label: "Breadcrumb" }
+        { label: qsTr("Home") },
+        { label: qsTr("Components") },
+        { label: qsTr("Breadcrumb") }
     ]
     // 追加时轮换取用的下一级名字。
     readonly property var pool: ["Settings", "Profile", "Billing", "Team", "Details"]
@@ -57,7 +57,7 @@ Column {
         spacing: Theme.space2
 
         Button {
-            text: "Navigate deeper"
+            text: qsTr("Navigate deeper")
             variant: Button.Outline
             size: Button.Sm
             enabled: root.path.length < root.pool.length + 3
@@ -68,13 +68,13 @@ Column {
             }
         }
         Button {
-            text: "Reset"
+            text: qsTr("Reset")
             variant: Button.Ghost
             size: Button.Sm
             onClicked: root.path = [
-                { label: "Home" },
-                { label: "Components" },
-                { label: "Breadcrumb" }
+                { label: qsTr("Home") },
+                { label: qsTr("Components") },
+                { label: qsTr("Breadcrumb") }
             ]
         }
     }

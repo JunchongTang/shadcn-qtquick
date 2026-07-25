@@ -11,7 +11,7 @@ Button {
     contentItem: RowLayout {
         spacing: Theme.space1                    // gap-1
         Text {
-            text: "Accept"
+            text: qsTr("Accept")
             color: Theme.foreground              // outline 前景色
             font.pixelSize: btn.font.pixelSize
             font.weight: btn.font.weight

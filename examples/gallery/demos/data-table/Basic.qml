@@ -25,9 +25,9 @@ Rectangle {
 
         // 声明式列:每列一个 TableColumn 子对象(等价于 JS columns 的对象元素)。
         columnItems: [
-            TableColumn { title: "Status"; key: "status"; width: 150; format: root.cap },
-            TableColumn { title: "Email";  key: "email";  format: function (s) { return s.toLowerCase() } },
-            TableColumn { title: "Amount"; key: "amount"; width: 120; medium: true; format: root.money }
+            TableColumn { title: qsTr("Status"); key: "status"; width: 150; format: root.cap },
+            TableColumn { title: qsTr("Email");  key: "email";  format: function (s) { return s.toLowerCase() } },
+            TableColumn { title: qsTr("Amount"); key: "amount"; width: 120; medium: true; format: root.money }
         ]
         model: [
             { id: "m5gr84i9", amount: 316, status: "success",    email: "ken99@example.com" },

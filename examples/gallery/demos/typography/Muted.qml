@@ -2,5 +2,5 @@ import QtQuick
 import Shadcn
 
 TypographyMuted {
-    text: "Enter your email address."
+    text: qsTr("Enter your email address.")
 }

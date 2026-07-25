@@ -10,10 +10,10 @@ Flow {
 
     Repeater {
         model: [
-            { label: "Top",    side: "top" },
-            { label: "Right",  side: "right" },
-            { label: "Bottom", side: "bottom" },
-            { label: "Left",   side: "left" }
+            { label: qsTr("Top"),    side: "top" },
+            { label: qsTr("Right"),  side: "right" },
+            { label: qsTr("Bottom"), side: "bottom" },
+            { label: qsTr("Left"),   side: "left" }
         ]
         delegate: Button {
             required property var modelData

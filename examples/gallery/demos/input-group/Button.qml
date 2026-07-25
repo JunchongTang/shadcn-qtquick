@@ -37,13 +37,13 @@ ColumnLayout {
     // 搜索文本按钮
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Type to search..." }
+        InputGroupInput { placeholderText: qsTr("Type to search...") }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
             InputGroupButton {
                 kind: InputGroupButton.KindXs
                 variant: Button.Secondary
-                text: "Search"
+                text: qsTr("Search")
             }
         }
     }

@@ -90,9 +90,9 @@ ColumnLayout {
             selectedRows: root.sel
             columns: [
                 { title: "", key: "", width: 52, headerDelegate: selHeader, cellDelegate: selCell },
-                { title: "Status", key: "status", width: 150, cellDelegate: statusCell },
-                { title: "Email",  key: "email",  format: function (s) { return s.toLowerCase() } },
-                { title: "Amount", key: "amount", width: 120, medium: true, format: root.money }
+                { title: qsTr("Status"), key: "status", width: 150, cellDelegate: statusCell },
+                { title: qsTr("Email"),  key: "email",  format: function (s) { return s.toLowerCase() } },
+                { title: qsTr("Amount"), key: "amount", width: 120, medium: true, format: root.money }
             ]
             model: root.payments
         }

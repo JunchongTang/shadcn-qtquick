@@ -8,14 +8,14 @@ ColumnLayout {
 
     Button {
         Layout.alignment: Qt.AlignHCenter
-        text: "Loading..."; size: Button.Sm; loading: true
+        text: qsTr("Loading..."); size: Button.Sm; loading: true
     }
     Button {
         Layout.alignment: Qt.AlignHCenter
-        text: "Please wait"; size: Button.Sm; variant: Button.Outline; loading: true
+        text: qsTr("Please wait"); size: Button.Sm; variant: Button.Outline; loading: true
     }
     Button {
         Layout.alignment: Qt.AlignHCenter
-        text: "Processing"; size: Button.Sm; variant: Button.Secondary; loading: true
+        text: qsTr("Processing"); size: Button.Sm; variant: Button.Secondary; loading: true
     }
 }

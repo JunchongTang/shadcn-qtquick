@@ -65,9 +65,9 @@ ColumnLayout {
             anchors.right: parent.right
             anchors.top: parent.top
             columns: [
-                { title: "Status", key: "status", width: 150, cellDelegate: statusCell },
-                { title: "Email",  key: "email" },
-                { title: "Amount", key: "amount", width: 120, medium: true, format: root.money }
+                { title: qsTr("Status"), key: "status", width: 150, cellDelegate: statusCell },
+                { title: qsTr("Email"),  key: "email" },
+                { title: qsTr("Amount"), key: "amount", width: 120, medium: true, format: root.money }
             ]
             model: root._rows
         }

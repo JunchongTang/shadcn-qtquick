@@ -4,6 +4,6 @@ import Shadcn
 ToggleGroup {
     variant: ToggleGroup.Outline
 
-    ToggleGroupItem { value: "all"; text: "All"; checked: true }
-    ToggleGroupItem { value: "missed"; text: "Missed" }
+    ToggleGroupItem { value: "all"; text: qsTr("All"); checked: true }
+    ToggleGroupItem { value: "missed"; text: qsTr("Missed") }
 }

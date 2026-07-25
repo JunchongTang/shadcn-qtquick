@@ -4,5 +4,5 @@ import Shadcn
 Textarea {
     width: 320
     height: 88
-    placeholderText: "Type your message here."
+    placeholderText: qsTr("Type your message here.")
 }

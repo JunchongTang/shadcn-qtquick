@@ -6,21 +6,21 @@ Menubar {
     id: menubar
 
     MenubarMenu {
-        title: "Profiles"
+        title: qsTr("Profiles")
 
-        MenuRadioItem { text: "Andy" }
-        MenuRadioItem { text: "Benoit"; checked: true }
-        MenuRadioItem { text: "Luis" }
+        MenuRadioItem { text: qsTr("Andy") }
+        MenuRadioItem { text: qsTr("Benoit"); checked: true }
+        MenuRadioItem { text: qsTr("Luis") }
         MenuSeparator {}
-        MenuItem { text: "Edit..." }
-        MenuItem { text: "Add Profile..." }
+        MenuItem { text: qsTr("Edit...") }
+        MenuItem { text: qsTr("Add Profile...") }
     }
 
     MenubarMenu {
-        title: "Theme"
+        title: qsTr("Theme")
 
-        MenuRadioItem { text: "Light" }
-        MenuRadioItem { text: "Dark" }
-        MenuRadioItem { text: "System"; checked: true }
+        MenuRadioItem { text: qsTr("Light") }
+        MenuRadioItem { text: qsTr("Dark") }
+        MenuRadioItem { text: qsTr("System"); checked: true }
     }
 }

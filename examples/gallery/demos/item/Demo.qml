@@ -12,11 +12,11 @@ ColumnLayout {
         variant: ShadItem.Outline
 
         ItemContent {
-            ItemTitle { text: "Basic Item" }
-            ItemDescription { text: "A simple item with title and description." }
+            ItemTitle { text: qsTr("Basic Item") }
+            ItemDescription { text: qsTr("A simple item with title and description.") }
         }
         ItemActions {
-            Button { text: "Action"; variant: Button.Outline; size: Button.Sm }
+            Button { text: qsTr("Action"); variant: Button.Outline; size: Button.Sm }
         }
     }
 
@@ -30,7 +30,7 @@ ColumnLayout {
             LucideIcon { name: "badge-check"; size: 20; color: Theme.foreground }
         }
         ItemContent {
-            ItemTitle { text: "Your profile has been verified." }
+            ItemTitle { text: qsTr("Your profile has been verified.") }
         }
         ItemActions {
             LucideIcon { name: "chevron-right"; size: 16; color: Theme.mutedForeground }

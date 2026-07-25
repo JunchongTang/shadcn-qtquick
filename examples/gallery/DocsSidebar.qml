@@ -46,7 +46,7 @@ Item {
             Layout.leftMargin: 16
             Layout.topMargin: 16
             Layout.bottomMargin: 4
-            text: "Components"
+            text: qsTr("Components")
             color: Theme.foreground
             font.pixelSize: Theme.textXs
             font.weight: Font.DemiBold
@@ -112,7 +112,7 @@ Item {
                     }
                     Text {
                         visible: !navItem.implemented
-                        text: "soon"
+                        text: qsTr("soon")
                         color: Theme.mutedForeground
                         font.pixelSize: 9
                         opacity: 0.7

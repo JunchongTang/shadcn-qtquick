@@ -8,11 +8,11 @@ Rectangle {
 
     Button {
         anchors.centerIn: parent
-        text: "Show Toast"
+        text: qsTr("Show Toast")
         variant: Button.Outline
     }
 
     ToastArea { id: area; anchors.fill: parent }
 
-    Component.onCompleted: area.show("Event has been created", { description: "Sunday, December 03 at 9:00 AM" })
+    Component.onCompleted: area.show(qsTr("Event has been created"), { description: qsTr("Sunday, December 03 at 9:00 AM") })
 }

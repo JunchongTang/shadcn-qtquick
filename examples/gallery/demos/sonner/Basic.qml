@@ -8,9 +8,9 @@ Item {
 
     Button {
         anchors.centerIn: parent
-        text: "Show Toast"
+        text: qsTr("Show Toast")
         variant: Button.Outline
-        onClicked: area.show("Event has been created")
+        onClicked: area.show(qsTr("Event has been created"))
     }
 
     ToastArea { id: area; anchors.fill: parent }

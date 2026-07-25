@@ -6,13 +6,13 @@ import LucideIcons
 InputGroup {
     width: 320
 
-    InputGroupInput { placeholderText: "Search..." }
+    InputGroupInput { placeholderText: qsTr("Search...") }
 
     InputGroupAddon {
         LucideIcon { name: "search"; size: 14; color: Theme.mutedForeground }
     }
     InputGroupAddon {
         align: InputGroupAddon.InlineEnd
-        InputGroupText { text: "12 results" }
+        InputGroupText { text: qsTr("12 results") }
     }
 }

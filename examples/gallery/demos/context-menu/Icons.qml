@@ -27,7 +27,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -35,10 +35,10 @@ Item {
     ContextMenu {
         target: area
 
-        MenuItem { text: "Copy"; iconName: "copy" }
-        MenuItem { text: "Cut"; iconName: "scissors" }
-        MenuItem { text: "Paste"; iconName: "clipboard-paste" }
+        MenuItem { text: qsTr("Copy"); iconName: "copy" }
+        MenuItem { text: qsTr("Cut"); iconName: "scissors" }
+        MenuItem { text: qsTr("Paste"); iconName: "clipboard-paste" }
         MenuSeparator {}
-        MenuItem { text: "Delete"; iconName: "trash-2"; destructive: true }
+        MenuItem { text: qsTr("Delete"); iconName: "trash-2"; destructive: true }
     }
 }

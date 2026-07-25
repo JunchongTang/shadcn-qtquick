@@ -15,9 +15,9 @@ ColumnLayout {
         ColumnLayout {
             Layout.fillWidth: true
             spacing: 2
-            Label { text: "Align Item" }
+            Label { text: qsTr("Align Item") }
             Text {
-                text: "Toggle to align the item with the trigger."
+                text: qsTr("Toggle to align the item with the trigger.")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textXs
                 wrapMode: Text.Wrap
@@ -34,6 +34,6 @@ ColumnLayout {
         Layout.fillWidth: true
         alignItemWithTrigger: alignSwitch.checked
         currentIndex: 1     // Banana
-        model: ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"]
+        model: [qsTr("Apple"), qsTr("Banana"), qsTr("Blueberry"), qsTr("Grapes"), qsTr("Pineapple")]
     }
 }

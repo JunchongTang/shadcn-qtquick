@@ -13,7 +13,7 @@ Row {
     }
     InputGroup {
         width: 260
-        InputGroupInput { placeholderText: "Send a message..." }
+        InputGroupInput { placeholderText: qsTr("Send a message...") }
         InputGroupAddon {
             align: InputGroupAddon.InlineEnd
             InputGroupButton {

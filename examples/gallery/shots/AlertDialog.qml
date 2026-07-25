@@ -6,7 +6,7 @@ Rectangle {
     implicitWidth: 620
     implicitHeight: 360
 
-    Button { anchors.centerIn: parent; text: "Show Dialog"; variant: Button.Outline }
+    Button { anchors.centerIn: parent; text: qsTr("Show Dialog"); variant: Button.Outline }
 
     AlertDialog {
         id: dialog

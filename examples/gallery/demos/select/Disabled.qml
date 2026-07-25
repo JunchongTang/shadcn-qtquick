@@ -8,12 +8,12 @@ Select {
     enabled: false
     textRole: "text"
     currentIndex: -1
-    placeholder: "Select a fruit"
+    placeholder: qsTr("Select a fruit")
     model: [
-        { text: "Apple" },
-        { text: "Banana" },
-        { text: "Blueberry" },
-        { text: "Grapes", disabled: true },
-        { text: "Pineapple" }
+        { text: qsTr("Apple") },
+        { text: qsTr("Banana") },
+        { text: qsTr("Blueberry") },
+        { text: qsTr("Grapes"), disabled: true },
+        { text: qsTr("Pineapple") }
     ]
 }

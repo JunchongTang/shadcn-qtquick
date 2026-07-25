@@ -18,10 +18,10 @@ ColumnLayout {
 
         AttachmentMedia { iconName: "upload" }
         AttachmentContent {
-            AttachmentName { text: "Add attachment" }
-            AttachmentSize { text: "Drag and drop or click to browse" }
+            AttachmentName { text: qsTr("Add attachment") }
+            AttachmentSize { text: qsTr("Drag and drop or click to browse") }
         }
-        AttachmentTrigger { label: "Add attachment" }
+        AttachmentTrigger { label: qsTr("Add attachment") }
         onTriggered: root._added++
     }
 

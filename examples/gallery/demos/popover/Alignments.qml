@@ -6,7 +6,7 @@ RowLayout {
     spacing: 24                          // gap-6
 
     Button {
-        text: "Start"
+        text: qsTr("Start")
         variant: Button.Outline
         size: Button.Sm
         onClicked: startPop.open()
@@ -16,7 +16,7 @@ RowLayout {
             align: Popover.Align.Start
             Text {
                 width: startPop.availableWidth
-                text: "Aligned to start"
+                text: qsTr("Aligned to start")
                 color: Theme.popoverForeground
                 font.pixelSize: Theme.textXs
                 wrapMode: Text.Wrap
@@ -25,7 +25,7 @@ RowLayout {
     }
 
     Button {
-        text: "Center"
+        text: qsTr("Center")
         variant: Button.Outline
         size: Button.Sm
         onClicked: centerPop.open()
@@ -35,7 +35,7 @@ RowLayout {
             align: Popover.Align.Center
             Text {
                 width: centerPop.availableWidth
-                text: "Aligned to center"
+                text: qsTr("Aligned to center")
                 color: Theme.popoverForeground
                 font.pixelSize: Theme.textXs
                 wrapMode: Text.Wrap
@@ -44,7 +44,7 @@ RowLayout {
     }
 
     Button {
-        text: "End"
+        text: qsTr("End")
         variant: Button.Outline
         size: Button.Sm
         onClicked: endPop.open()
@@ -54,7 +54,7 @@ RowLayout {
             align: Popover.Align.End
             Text {
                 width: endPop.availableWidth
-                text: "Aligned to end"
+                text: qsTr("Aligned to end")
                 color: Theme.popoverForeground
                 font.pixelSize: Theme.textXs
                 wrapMode: Text.Wrap

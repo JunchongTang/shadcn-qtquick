@@ -9,13 +9,13 @@ RowLayout {
     spacing: 8
     Button {
         variant: Button.Link
-        text: "Login"
+        text: qsTr("Login")
         onClicked: Qt.openUrlExternally("https://ui.shadcn.com/docs/components/button")
     }
     Button {
         variant: Button.Secondary
         size: Button.Sm
-        text: "Login"
+        text: qsTr("Login")
         onClicked: Qt.openUrlExternally("https://ui.shadcn.com/docs/components/button")
     }
 }

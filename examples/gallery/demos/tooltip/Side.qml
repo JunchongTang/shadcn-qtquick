@@ -7,26 +7,26 @@ Flow {
 
     Button {
         id: leftBtn
-        text: "Left"
+        text: qsTr("Left")
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Side.LeftEdge; visible: leftBtn.hovered }
+        Tooltip { text: qsTr("Add to library"); side: Tooltip.Side.LeftEdge; visible: leftBtn.hovered }
     }
     Button {
         id: topBtn
-        text: "Top"
+        text: qsTr("Top")
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Side.TopEdge; visible: topBtn.hovered }
+        Tooltip { text: qsTr("Add to library"); side: Tooltip.Side.TopEdge; visible: topBtn.hovered }
     }
     Button {
         id: bottomBtn
-        text: "Bottom"
+        text: qsTr("Bottom")
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Side.BottomEdge; visible: bottomBtn.hovered }
+        Tooltip { text: qsTr("Add to library"); side: Tooltip.Side.BottomEdge; visible: bottomBtn.hovered }
     }
     Button {
         id: rightBtn
-        text: "Right"
+        text: qsTr("Right")
         variant: Button.Outline
-        Tooltip { text: "Add to library"; side: Tooltip.Side.RightEdge; visible: rightBtn.hovered }
+        Tooltip { text: qsTr("Add to library"); side: Tooltip.Side.RightEdge; visible: rightBtn.hovered }
     }
 }

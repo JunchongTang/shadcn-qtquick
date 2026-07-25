@@ -12,8 +12,8 @@ ColumnLayout {
         Layout.fillWidth: true
         asLink: true
         ItemContent {
-            ItemTitle { text: "Visit our documentation" }
-            ItemDescription { text: "Learn how to get started with our components." }
+            ItemTitle { text: qsTr("Visit our documentation") }
+            ItemDescription { text: qsTr("Learn how to get started with our components.") }
         }
         ItemActions {
             LucideIcon { name: "chevron-right"; size: 16; color: Theme.mutedForeground }
@@ -25,8 +25,8 @@ ColumnLayout {
         variant: ShadItem.Outline
         asLink: true
         ItemContent {
-            ItemTitle { text: "External resource" }
-            ItemDescription { text: "Opens in a new tab with security attributes." }
+            ItemTitle { text: qsTr("External resource") }
+            ItemDescription { text: qsTr("Opens in a new tab with security attributes.") }
         }
         ItemActions {
             LucideIcon { name: "external-link"; size: 16; color: Theme.mutedForeground }

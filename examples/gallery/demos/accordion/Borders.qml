@@ -15,17 +15,17 @@ Accordion {
     }
 
     AccordionItem {
-        title: "How does billing work?"
+        title: qsTr("How does billing work?")
         expanded: true
-        Para { text: "We offer monthly and annual plans. Billing is charged at the beginning of each cycle, and you can cancel anytime." }
+        Para { text: qsTr("We offer monthly and annual plans. Billing is charged at the beginning of each cycle, and you can cancel anytime.") }
     }
     AccordionItem {
-        title: "Is my data secure?"
-        Para { text: "Yes. We use end-to-end encryption, SOC 2 Type II compliance and regular third-party security audits." }
+        title: qsTr("Is my data secure?")
+        Para { text: qsTr("Yes. We use end-to-end encryption, SOC 2 Type II compliance and regular third-party security audits.") }
     }
     AccordionItem {
-        title: "What integrations do you support?"
+        title: qsTr("What integrations do you support?")
         last: true
-        Para { text: "We integrate with 500+ popular tools including Slack, Zapier, Salesforce and more, plus a REST API and webhooks." }
+        Para { text: qsTr("We integrate with 500+ popular tools including Slack, Zapier, Salesforce and more, plus a REST API and webhooks.") }
     }
 }

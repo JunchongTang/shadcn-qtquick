@@ -3,7 +3,7 @@ import Shadcn
 
 // 基础:按钮打开承载 Command 的 Dialog(command-basic)。
 Button {
-    text: "Open Menu"
+    text: qsTr("Open Menu")
     variant: Button.Outline
     onClicked: dlg.open()
 
@@ -17,10 +17,10 @@ Button {
         Command {
             id: cmd
             model: [
-                { heading: "Suggestions", items: [
-                    { text: "Calendar" },
-                    { text: "Search Emoji" },
-                    { text: "Calculator" }
+                { heading: qsTr("Suggestions"), items: [
+                    { text: qsTr("Calendar") },
+                    { text: qsTr("Search Emoji") },
+                    { text: qsTr("Calculator") }
                 ] }
             ]
             onTriggered: dlg.close()

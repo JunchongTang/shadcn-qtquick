@@ -48,22 +48,22 @@ FieldGroup {
     FieldSet {
         FieldLegend {
             variant: FieldLegend.Label
-            text: "Compute Environment"
+            text: qsTr("Compute Environment")
         }
-        FieldDescription { text: "Select the compute environment for your cluster." }
+        FieldDescription { text: qsTr("Select the compute environment for your cluster.") }
 
         RadioGroup {
             Layout.fillWidth: true
             EnvCard {
                 group: env
-                title: "Kubernetes"
-                description: "Run GPU workloads on a K8s cluster."
+                title: qsTr("Kubernetes")
+                description: qsTr("Run GPU workloads on a K8s cluster.")
                 checked: true
             }
             EnvCard {
                 group: env
-                title: "Virtual Machine"
-                description: "Access a cluster to run GPU workloads."
+                title: qsTr("Virtual Machine")
+                description: qsTr("Access a cluster to run GPU workloads.")
             }
         }
     }

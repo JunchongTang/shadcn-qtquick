@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 
 RadioGroup {
-    RadioButton { text: "Default" }
-    RadioButton { text: "Comfortable"; checked: true }
-    RadioButton { text: "Compact" }
+    RadioButton { text: qsTr("Default") }
+    RadioButton { text: qsTr("Comfortable"); checked: true }
+    RadioButton { text: qsTr("Compact") }
 }

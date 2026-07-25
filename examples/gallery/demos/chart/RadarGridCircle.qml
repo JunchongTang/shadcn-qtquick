@@ -9,11 +9,11 @@ Card {
     CardHeader {
         Layout.alignment: Qt.AlignHCenter
         CardTitle {
-            text: "Radar Chart - Grid Circle"
+            text: qsTr("Radar Chart - Grid Circle")
             horizontalAlignment: Text.AlignHCenter
         }
         CardDescription {
-            text: "Showing total visitors for the last 6 months"
+            text: qsTr("Showing total visitors for the last 6 months")
             horizontalAlignment: Text.AlignHCenter
         }
     }
@@ -29,7 +29,7 @@ Card {
             polarRadialLines: false
             showDots: true
             hideTooltipLabel: true
-            series: [ { key: "desktop", label: "Desktop", color: Theme.chart1 } ]
+            series: [ { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 } ]
             chartData: [
                 { month: "January",  desktop: 186 },
                 { month: "February", desktop: 305 },
@@ -50,7 +50,7 @@ Card {
                 Layout.alignment: Qt.AlignHCenter
                 spacing: Theme.space2
                 Text {
-                    text: "Trending up by 5.2% this month"
+                    text: qsTr("Trending up by 5.2% this month")
                     color: Theme.foreground
                     font.pixelSize: Theme.textSm
                     font.weight: Font.Medium
@@ -59,7 +59,7 @@ Card {
             }
             Text {
                 Layout.alignment: Qt.AlignHCenter
-                text: "January - June 2024"
+                text: qsTr("January - June 2024")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm
             }

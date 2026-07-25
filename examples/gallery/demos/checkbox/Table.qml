@@ -50,21 +50,21 @@ ColumnLayout {
         Text {
             Layout.fillWidth: true
             Layout.preferredWidth: 130
-            text: "Name"
+            text: qsTr("Name")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             font.weight: Font.Medium
         }
         Text {
             Layout.preferredWidth: 200
-            text: "Email"
+            text: qsTr("Email")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             font.weight: Font.Medium
         }
         Text {
             Layout.preferredWidth: 70
-            text: "Role"
+            text: qsTr("Role")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             font.weight: Font.Medium

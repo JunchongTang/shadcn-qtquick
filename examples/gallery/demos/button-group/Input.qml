@@ -6,7 +6,7 @@ import Shadcn
 ButtonGroup {
     Input {
         width: 200
-        placeholderText: "Search..."
+        placeholderText: qsTr("Search...")
     }
     Button { variant: Button.Outline; size: Button.Icon; iconName: "search" }
 }

@@ -15,15 +15,15 @@ Rectangle {
         Command {
             id: cmd
             model: [
-                { heading: "Suggestions", items: [
-                    { text: "Calendar", iconName: "calendar" },
-                    { text: "Search Emoji", iconName: "smile" },
-                    { text: "Calculator", iconName: "calculator" }
+                { heading: qsTr("Suggestions"), items: [
+                    { text: qsTr("Calendar"), iconName: "calendar" },
+                    { text: qsTr("Search Emoji"), iconName: "smile" },
+                    { text: qsTr("Calculator"), iconName: "calculator" }
                 ] },
-                { heading: "Settings", items: [
-                    { text: "Profile", iconName: "user" },
-                    { text: "Billing", iconName: "credit-card" },
-                    { text: "Settings", iconName: "settings" }
+                { heading: qsTr("Settings"), items: [
+                    { text: qsTr("Profile"), iconName: "user" },
+                    { text: qsTr("Billing"), iconName: "credit-card" },
+                    { text: qsTr("Settings"), iconName: "settings" }
                 ] }
             ]
         }

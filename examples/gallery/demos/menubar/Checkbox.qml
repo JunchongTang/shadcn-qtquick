@@ -6,21 +6,21 @@ Menubar {
     id: menubar
 
     MenubarMenu {
-        title: "View"
+        title: qsTr("View")
         menuWidth: 256               // w-64
 
-        MenuCheckboxItem { text: "Always Show Bookmarks Bar" }
-        MenuCheckboxItem { text: "Always Show Full URLs"; checked: true }
+        MenuCheckboxItem { text: qsTr("Always Show Bookmarks Bar") }
+        MenuCheckboxItem { text: qsTr("Always Show Full URLs"); checked: true }
         MenuSeparator {}
-        MenuItem { text: "Reload"; shortcut: "⌘R" }
-        MenuItem { text: "Force Reload"; shortcut: "⇧⌘R"; enabled: false }
+        MenuItem { text: qsTr("Reload"); shortcut: "⌘R" }
+        MenuItem { text: qsTr("Force Reload"); shortcut: "⇧⌘R"; enabled: false }
     }
 
     MenubarMenu {
-        title: "Format"
+        title: qsTr("Format")
 
-        MenuCheckboxItem { text: "Strikethrough"; checked: true }
-        MenuCheckboxItem { text: "Code" }
-        MenuCheckboxItem { text: "Superscript" }
+        MenuCheckboxItem { text: qsTr("Strikethrough"); checked: true }
+        MenuCheckboxItem { text: qsTr("Code") }
+        MenuCheckboxItem { text: qsTr("Superscript") }
     }
 }

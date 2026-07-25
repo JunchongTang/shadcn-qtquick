@@ -2,5 +2,5 @@ import QtQuick
 import Shadcn
 
 TypographyLarge {
-    text: "Are you absolutely sure?"
+    text: qsTr("Are you absolutely sure?")
 }

@@ -9,9 +9,9 @@ FieldGroup {
     FieldSet {
         FieldLegend {
             variant: FieldLegend.Label
-            text: "Show these items on the desktop"
+            text: qsTr("Show these items on the desktop")
         }
-        FieldDescription { text: "Select the items you want to show on the desktop." }
+        FieldDescription { text: qsTr("Select the items you want to show on the desktop.") }
 
         // gap-3 复选组
         FieldGroup {
@@ -32,10 +32,10 @@ FieldGroup {
                 }
             }
 
-            OptionRow { label: "Hard disks"; checked: true }
-            OptionRow { label: "External disks"; checked: true }
-            OptionRow { label: "CDs, DVDs, and iPods" }
-            OptionRow { label: "Connected servers" }
+            OptionRow { label: qsTr("Hard disks"); checked: true }
+            OptionRow { label: qsTr("External disks"); checked: true }
+            OptionRow { label: qsTr("CDs, DVDs, and iPods") }
+            OptionRow { label: qsTr("Connected servers") }
         }
     }
 
@@ -49,9 +49,9 @@ FieldGroup {
             Layout.alignment: Qt.AlignTop
         }
         FieldContent {
-            FieldLabel { text: "Sync Desktop & Documents folders" }
+            FieldLabel { text: qsTr("Sync Desktop & Documents folders") }
             FieldDescription {
-                text: "Your Desktop & Documents folders are being synced with iCloud Drive. You can access them from other devices."
+                text: qsTr("Your Desktop & Documents folders are being synced with iCloud Drive. You can access them from other devices.")
             }
         }
     }

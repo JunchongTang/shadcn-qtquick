@@ -13,7 +13,7 @@ ColumnLayout {
 
     Bubble {
         variant: Bubble.Muted
-        BubbleContent { text: "How can I help you today?" }
+        BubbleContent { text: qsTr("How can I help you today?") }
     }
 
     BubbleGroup {
@@ -21,7 +21,7 @@ ColumnLayout {
             variant: Bubble.Tinted
             align: Bubble.End
             BubbleContent {
-                text: "I forgot my password"
+                text: qsTr("I forgot my password")
                 interactive: true
                 onClicked: root.status = "You clicked forgot password"
             }
@@ -30,7 +30,7 @@ ColumnLayout {
             variant: Bubble.Tinted
             align: Bubble.End
             BubbleContent {
-                text: "I need help with my subscription"
+                text: qsTr("I need help with my subscription")
                 interactive: true
                 onClicked: root.status = "You clicked help with subscription"
             }
@@ -39,7 +39,7 @@ ColumnLayout {
             variant: Bubble.Tinted
             align: Bubble.End
             BubbleContent {
-                text: "Something else. Talk to a human."
+                text: qsTr("Something else. Talk to a human.")
                 interactive: true
                 onClicked: root.status = "You clicked something else. Talk to a human."
             }

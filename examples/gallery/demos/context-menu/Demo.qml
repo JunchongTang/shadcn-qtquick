@@ -29,7 +29,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        text: "Right click here"
+        text: qsTr("Right click here")
         color: Theme.foreground
         font.pixelSize: Theme.textSm
     }
@@ -38,30 +38,30 @@ Item {
         target: area
         implicitWidth: 192           // w-48
 
-        MenuItem { text: "Back"; shortcut: "⌘[" }
-        MenuItem { text: "Forward"; enabled: false; shortcut: "⌘]" }
-        MenuItem { text: "Reload"; shortcut: "⌘R" }
+        MenuItem { text: qsTr("Back"); shortcut: "⌘[" }
+        MenuItem { text: qsTr("Forward"); enabled: false; shortcut: "⌘]" }
+        MenuItem { text: qsTr("Reload"); shortcut: "⌘R" }
 
         Menu {
-            title: "More Tools"
+            title: qsTr("More Tools")
             implicitWidth: 176       // w-44
 
-            MenuItem { text: "Save Page..." }
-            MenuItem { text: "Create Shortcut..." }
-            MenuItem { text: "Name Window..." }
+            MenuItem { text: qsTr("Save Page...") }
+            MenuItem { text: qsTr("Create Shortcut...") }
+            MenuItem { text: qsTr("Name Window...") }
             MenuSeparator {}
-            MenuItem { text: "Developer Tools" }
+            MenuItem { text: qsTr("Developer Tools") }
             MenuSeparator {}
-            MenuItem { text: "Delete"; destructive: true }
+            MenuItem { text: qsTr("Delete"); destructive: true }
         }
 
         MenuSeparator {}
-        MenuCheckboxItem { text: "Show Bookmarks"; checked: true }
-        MenuCheckboxItem { text: "Show Full URLs" }
+        MenuCheckboxItem { text: qsTr("Show Bookmarks"); checked: true }
+        MenuCheckboxItem { text: qsTr("Show Full URLs") }
 
         MenuSeparator {}
-        MenuLabel { text: "People" }
-        MenuRadioItem { text: "Pedro Duarte"; checked: true }
-        MenuRadioItem { text: "Colm Tuite" }
+        MenuLabel { text: qsTr("People") }
+        MenuRadioItem { text: qsTr("Pedro Duarte"); checked: true }
+        MenuRadioItem { text: qsTr("Colm Tuite") }
     }
 }

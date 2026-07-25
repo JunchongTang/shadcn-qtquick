@@ -51,7 +51,7 @@ ColumnLayout {
         IconButton {
             id: copyBtn
             visible: card.cardPath !== ""
-            iconName: copyBtn._copied ? "check" : "copy"
+            iconName: copyBtn._copied ? qsTr("check") : qsTr("copy")
             variant: IconButton.Ghost
             size: IconButton.Small
             property bool _copied: false
@@ -145,7 +145,7 @@ ColumnLayout {
                             text: {
                                 var s = ""
                                 for (var i = 1; i <= card._lineCount; i++)
-                                    s += i + (i < card._lineCount ? "\n" : "")
+                                    s += i + (i < card._lineCount ? qsTr("\n") : "")
                                 return s
                             }
                             color: Theme.alpha(Theme.mutedForeground, 0.6)
@@ -186,7 +186,7 @@ ColumnLayout {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: card.codeExpanded ? 10 : 6
-                    text: card.codeExpanded ? "Collapse" : "View Code"
+                    text: card.codeExpanded ? qsTr("Collapse") : qsTr("View Code")
                     size: Button.Sm
                     variant: Button.Outline
                     onClicked: card.codeExpanded = !card.codeExpanded

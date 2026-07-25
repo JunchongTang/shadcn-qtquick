@@ -7,13 +7,13 @@ FieldSet {
 
     FieldGroup {
         Field {
-            FieldLabel { text: "Feedback" }
+            FieldLabel { text: qsTr("Feedback") }
             Textarea {
                 Layout.fillWidth: true
                 implicitHeight: 88
-                placeholderText: "Your feedback helps us improve..."
+                placeholderText: qsTr("Your feedback helps us improve...")
             }
-            FieldDescription { text: "Share your thoughts about our service." }
+            FieldDescription { text: qsTr("Share your thoughts about our service.") }
         }
     }
 }

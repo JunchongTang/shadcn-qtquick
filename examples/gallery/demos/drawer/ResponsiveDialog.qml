@@ -21,12 +21,12 @@ Button {
             RowLayout {
                 spacing: Theme.space2
                 Label { text: qsTr("Name"); Layout.preferredWidth: 80 }
-                Input { Layout.fillWidth: true; text: "Pedro Duarte" }
+                Input { Layout.fillWidth: true; text: qsTr("Pedro Duarte") }
             }
             RowLayout {
                 spacing: Theme.space2
                 Label { text: qsTr("Username"); Layout.preferredWidth: 80 }
-                Input { Layout.fillWidth: true; text: "@peduarte" }
+                Input { Layout.fillWidth: true; text: qsTr("@peduarte") }
             }
         }
         footerContent: RowLayout {
@@ -47,13 +47,13 @@ Button {
                 Layout.fillWidth: true
                 spacing: Theme.space1
                 Label { text: qsTr("Name") }
-                Input { Layout.fillWidth: true; text: "Pedro Duarte" }
+                Input { Layout.fillWidth: true; text: qsTr("Pedro Duarte") }
             }
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space1
                 Label { text: qsTr("Username") }
-                Input { Layout.fillWidth: true; text: "@peduarte" }
+                Input { Layout.fillWidth: true; text: qsTr("@peduarte") }
             }
         }
         footer: ColumnLayout {

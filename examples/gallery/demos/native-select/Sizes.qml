@@ -9,11 +9,11 @@ RowLayout {
     NativeSelect {
         Layout.preferredWidth: 160
         size: NativeSelect.Default
-        model: ["Apple", "Banana", "Blueberry"]
+        model: [qsTr("Apple"), qsTr("Banana"), qsTr("Blueberry")]
     }
     NativeSelect {
         Layout.preferredWidth: 160
         size: NativeSelect.Sm
-        model: ["Apple", "Banana", "Blueberry"]
+        model: [qsTr("Apple"), qsTr("Banana"), qsTr("Blueberry")]
     }
 }

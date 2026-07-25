@@ -7,10 +7,10 @@ ColumnLayout {
     width: 300
     spacing: 6
 
-    Label { text: "Show these items on the desktop:" }
+    Label { text: qsTr("Show these items on the desktop:") }
     Text {
         Layout.fillWidth: true
-        text: "Select the items you want to show on the desktop."
+        text: qsTr("Select the items you want to show on the desktop.")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textXs
         lineHeight: Theme.lineRelaxed
@@ -21,9 +21,9 @@ ColumnLayout {
     ColumnLayout {
         Layout.topMargin: 6
         spacing: 12
-        Checkbox { text: "Hard disks"; checked: true }
-        Checkbox { text: "External disks"; checked: true }
-        Checkbox { text: "CDs, DVDs, and iPods" }
-        Checkbox { text: "Connected servers" }
+        Checkbox { text: qsTr("Hard disks"); checked: true }
+        Checkbox { text: qsTr("External disks"); checked: true }
+        Checkbox { text: qsTr("CDs, DVDs, and iPods") }
+        Checkbox { text: qsTr("Connected servers") }
     }
 }

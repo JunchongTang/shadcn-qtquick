@@ -14,21 +14,21 @@ ColumnLayout {
         spacing: 6
         RowLayout {
             spacing: 2
-            Label { text: "Name" }
+            Label { text: qsTr("Name") }
             Label { text: "*"; color: Theme.destructive }
         }
-        Input { Layout.fillWidth: true; placeholderText: "Evil Rabbit" }
+        Input { Layout.fillWidth: true; placeholderText: qsTr("Evil Rabbit") }
     }
 
     // Email + 描述
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 6
-        Label { text: "Email" }
-        Input { Layout.fillWidth: true; placeholderText: "john@example.com" }
+        Label { text: qsTr("Email") }
+        Input { Layout.fillWidth: true; placeholderText: qsTr("john@example.com") }
         Text {
             Layout.fillWidth: true
-            text: "We'll never share your email with anyone."
+            text: qsTr("We'll never share your email with anyone.")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             lineHeight: Theme.lineRelaxed
@@ -46,16 +46,16 @@ ColumnLayout {
         ColumnLayout {
             Layout.fillWidth: true
             spacing: 6
-            Label { text: "Phone" }
+            Label { text: qsTr("Phone") }
             Input { Layout.fillWidth: true; placeholderText: "+1 (555) 123-4567" }
         }
         ColumnLayout {
             Layout.fillWidth: true
             spacing: 6
-            Label { text: "Country" }
+            Label { text: qsTr("Country") }
             Select {
                 Layout.fillWidth: true
-                model: ["United States", "United Kingdom", "Canada"]
+                model: [qsTr("United States"), qsTr("United Kingdom"), qsTr("Canada")]
             }
         }
     }
@@ -64,8 +64,8 @@ ColumnLayout {
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 6
-        Label { text: "Address" }
-        Input { Layout.fillWidth: true; placeholderText: "123 Main St" }
+        Label { text: qsTr("Address") }
+        Input { Layout.fillWidth: true; placeholderText: qsTr("123 Main St") }
     }
 
     // 操作按钮(横向)
@@ -74,7 +74,7 @@ ColumnLayout {
         Layout.topMargin: 4
         spacing: 8
         Item { Layout.fillWidth: true }
-        Button { text: "Cancel"; variant: Button.Outline }
-        Button { text: "Submit" }
+        Button { text: qsTr("Cancel"); variant: Button.Outline }
+        Button { text: qsTr("Submit") }
     }
 }

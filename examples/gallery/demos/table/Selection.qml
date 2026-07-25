@@ -27,9 +27,9 @@ Table {
     selectedRows: sel
     columns: [
         { title: "", key: "", width: 52, headerDelegate: cbHeader, cellDelegate: cbCell },
-        { title: "Invoice", key: "invoice", medium: true },
-        { title: "Status",  key: "status" },
-        { title: "Amount",  key: "amount",  width: 100, align: Qt.AlignRight }
+        { title: qsTr("Invoice"), key: "invoice", medium: true },
+        { title: qsTr("Status"),  key: "status" },
+        { title: qsTr("Amount"),  key: "amount",  width: 100, align: Qt.AlignRight }
     ]
     model: invoices
     caption: sel.length + " of " + invoices.length + " row(s) selected."

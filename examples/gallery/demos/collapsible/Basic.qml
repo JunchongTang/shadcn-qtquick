@@ -29,7 +29,7 @@ Card {
                     spacing: 8
                     Text {
                         Layout.fillWidth: true
-                        text: "Product details"
+                        text: qsTr("Product details")
                         color: Theme.foreground
                         font.pixelSize: Theme.textXs
                         font.weight: Font.Medium
@@ -52,7 +52,7 @@ Card {
                 Layout.fillWidth: true
                 Layout.leftMargin: 10
                 Layout.rightMargin: 10
-                text: "This panel can be expanded or collapsed to reveal additional content."
+                text: qsTr("This panel can be expanded or collapsed to reveal additional content.")
                 color: Theme.foreground
                 font.pixelSize: Theme.textXs
                 lineHeight: Theme.lineRelaxed
@@ -62,7 +62,7 @@ Card {
             Button {
                 Layout.leftMargin: 10
                 Layout.bottomMargin: 10
-                text: "Learn More"
+                text: qsTr("Learn More")
                 size: Button.Xs
             }
         }

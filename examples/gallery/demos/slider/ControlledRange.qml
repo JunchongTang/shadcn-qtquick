@@ -10,7 +10,7 @@ ColumnLayout {
 
     RowLayout {
         Layout.fillWidth: true
-        Label { text: "Temperature" }
+        Label { text: qsTr("Temperature") }
         Item { Layout.fillWidth: true }
         Text {
             text: slider.first.value.toFixed(1) + ", " + slider.second.value.toFixed(1)

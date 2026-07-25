@@ -6,14 +6,14 @@ import Shadcn
 ButtonGroup {
     Button {
         id: saveBtn
-        text: "Save"
+        text: qsTr("Save")
         variant: Button.Outline
-        Tooltip { text: "Save Changes"; kbd: "S"; visible: saveBtn.hovered }
+        Tooltip { text: qsTr("Save Changes"); kbd: "S"; visible: saveBtn.hovered }
     }
     Button {
         id: printBtn
-        text: "Print"
+        text: qsTr("Print")
         variant: Button.Outline
-        Tooltip { text: "Print Document"; kbd: "Ctrl P"; visible: printBtn.hovered }
+        Tooltip { text: qsTr("Print Document"); kbd: "Ctrl P"; visible: printBtn.hovered }
     }
 }

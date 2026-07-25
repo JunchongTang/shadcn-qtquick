@@ -14,19 +14,19 @@ ColumnLayout {
         MessageContent {
             variant: MessageContent.Default
             imageSource: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&auto=format&fit=crop&q=80"
-            text: "Here's the image. Can you add it to the PDF? Use it for the cover page."
+            text: qsTr("Here's the image. Can you add it to the PDF? Use it for the cover page.")
         }
     }
     Message {
         MessageContent {
             variant: MessageContent.Muted
-            text: "Done. Here's the PDF with the image added as the cover page."
+            text: qsTr("Done. Here's the PDF with the image added as the cover page.")
             fileName: "sales-dashboard.pdf"
             fileMeta: "PDF · 2.4 MB"
         }
     }
     Message {
         align: Message.End
-        MessageContent { variant: MessageContent.Default; text: "Thanks. Looks good." }
+        MessageContent { variant: MessageContent.Default; text: qsTr("Thanks. Looks good.") }
     }
 }

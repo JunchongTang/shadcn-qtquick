@@ -28,7 +28,7 @@ Rectangle {
         }
         Text {
             anchors.centerIn: parent
-            text: "Right click here"
+            text: qsTr("Right click here")
             color: Theme.foreground
             font.pixelSize: Theme.textSm
         }
@@ -36,9 +36,9 @@ Rectangle {
         ContextMenu {
             id: ctx
             target: area
-            MenuItem { text: "Back" }
-            MenuItem { text: "Forward"; enabled: false }
-            MenuItem { text: "Reload" }
+            MenuItem { text: qsTr("Back") }
+            MenuItem { text: qsTr("Forward"); enabled: false }
+            MenuItem { text: qsTr("Reload") }
         }
     }
 

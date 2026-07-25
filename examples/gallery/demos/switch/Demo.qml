@@ -5,5 +5,5 @@ import Shadcn
 RowLayout {
     spacing: 8
     Switch { id: sw }
-    Label { text: "Airplane Mode" }
+    Label { text: qsTr("Airplane Mode") }
 }

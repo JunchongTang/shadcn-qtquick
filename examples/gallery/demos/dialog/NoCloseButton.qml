@@ -3,7 +3,7 @@ import Shadcn
 
 // No Close Button —— showCloseButton: false 隐藏右上角关闭按钮(对标 dialog-no-close-button)。
 Button {
-    text: "No Close Button"
+    text: qsTr("No Close Button")
     variant: Button.Outline
     onClicked: dialog.open()
 

@@ -11,16 +11,16 @@ Empty {
             variant: EmptyMedia.Icon
             iconName: "cloud"
         }
-        EmptyTitle { text: "Cloud Storage Empty" }
+        EmptyTitle { text: qsTr("Cloud Storage Empty") }
         EmptyDescription {
-            text: "Upload files to your cloud storage to access them anywhere."
+            text: qsTr("Upload files to your cloud storage to access them anywhere.")
         }
     }
 
     EmptyContent {
         Button {
             Layout.alignment: Qt.AlignHCenter
-            text: "Upload Files"
+            text: qsTr("Upload Files")
             variant: Button.Outline
             size: Button.Sm
         }

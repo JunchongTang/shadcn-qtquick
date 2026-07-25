@@ -9,11 +9,11 @@ ColumnLayout {
 
     Marker {
         spinner: true
-        text: "Compacting conversation"
+        text: qsTr("Compacting conversation")
     }
     Marker {
         variant: Marker.Separator
         spinner: true
-        text: "Running tests"
+        text: qsTr("Running tests")
     }
 }

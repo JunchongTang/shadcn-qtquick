@@ -16,13 +16,13 @@ ColumnLayout {
 
     KbdGroup {
         Layout.alignment: Qt.AlignHCenter
-        Kbd { text: "Ctrl" }
+        Kbd { text: qsTr("Ctrl") }
         Text {
             text: "+"
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             font.family: Theme.fontSans
         }
-        Kbd { text: "B" }
+        Kbd { text: qsTr("B") }
     }
 }

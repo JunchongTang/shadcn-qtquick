@@ -10,12 +10,12 @@ ColumnLayout {
 
     Bubble {
         variant: Bubble.Secondary
-        BubbleContent { text: "Did you remove the stale route?" }
+        BubbleContent { text: qsTr("Did you remove the stale route?") }
     }
 
     Bubble {
         align: Bubble.End
-        BubbleContent { text: "Yes, removed it from the registry." }
+        BubbleContent { text: qsTr("Yes, removed it from the registry.") }
         BubbleReactions {
             padded: false
             Button {
@@ -24,7 +24,7 @@ ColumnLayout {
                 size: Button.IconXs
                 iconName: "check"
                 Tooltip {
-                    text: "Read on Jan 5, 2026 at 4:32 PM"
+                    text: qsTr("Read on Jan 5, 2026 at 4:32 PM")
                     visible: readBtn.hovered
                 }
             }

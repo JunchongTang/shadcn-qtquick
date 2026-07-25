@@ -80,8 +80,8 @@ Card {
     CardHeader {
         Tabs {
             Layout.fillWidth: true
-            TabButton { text: "Explorer" }
-            TabButton { text: "Outline" }
+            TabButton { text: qsTr("Explorer") }
+            TabButton { text: qsTr("Outline") }
         }
     }
 
@@ -91,32 +91,32 @@ Card {
             spacing: 4
 
             Folder {
-                label: "components"
+                label: qsTr("components")
                 Folder {
                     Layout.leftMargin: 20
-                    label: "ui"
-                    TreeRow { Layout.leftMargin: 20; label: "button.tsx" }
-                    TreeRow { Layout.leftMargin: 20; label: "card.tsx" }
-                    TreeRow { Layout.leftMargin: 20; label: "dialog.tsx" }
-                    TreeRow { Layout.leftMargin: 20; label: "input.tsx" }
+                    label: qsTr("ui")
+                    TreeRow { Layout.leftMargin: 20; label: qsTr("button.tsx") }
+                    TreeRow { Layout.leftMargin: 20; label: qsTr("card.tsx") }
+                    TreeRow { Layout.leftMargin: 20; label: qsTr("dialog.tsx") }
+                    TreeRow { Layout.leftMargin: 20; label: qsTr("input.tsx") }
                 }
-                TreeRow { Layout.leftMargin: 20; label: "login-form.tsx" }
-                TreeRow { Layout.leftMargin: 20; label: "register-form.tsx" }
+                TreeRow { Layout.leftMargin: 20; label: qsTr("login-form.tsx") }
+                TreeRow { Layout.leftMargin: 20; label: qsTr("register-form.tsx") }
             }
             Folder {
-                label: "lib"
-                TreeRow { Layout.leftMargin: 20; label: "utils.ts" }
-                TreeRow { Layout.leftMargin: 20; label: "cn.ts" }
-                TreeRow { Layout.leftMargin: 20; label: "api.ts" }
+                label: qsTr("lib")
+                TreeRow { Layout.leftMargin: 20; label: qsTr("utils.ts") }
+                TreeRow { Layout.leftMargin: 20; label: qsTr("cn.ts") }
+                TreeRow { Layout.leftMargin: 20; label: qsTr("api.ts") }
             }
             Folder {
-                label: "hooks"
-                TreeRow { Layout.leftMargin: 20; label: "use-media-query.ts" }
-                TreeRow { Layout.leftMargin: 20; label: "use-debounce.ts" }
+                label: qsTr("hooks")
+                TreeRow { Layout.leftMargin: 20; label: qsTr("use-media-query.ts") }
+                TreeRow { Layout.leftMargin: 20; label: qsTr("use-debounce.ts") }
             }
-            TreeRow { label: "app.tsx" }
-            TreeRow { label: "package.json" }
-            TreeRow { label: "README.md" }
+            TreeRow { label: qsTr("app.tsx") }
+            TreeRow { label: qsTr("package.json") }
+            TreeRow { label: qsTr("README.md") }
         }
     }
 }

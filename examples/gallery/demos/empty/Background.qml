@@ -11,16 +11,16 @@ Empty {
             variant: EmptyMedia.Icon
             iconName: "bell"
         }
-        EmptyTitle { text: "No Notifications" }
+        EmptyTitle { text: qsTr("No Notifications") }
         EmptyDescription {
-            text: "You're all caught up. New notifications will appear here."
+            text: qsTr("You're all caught up. New notifications will appear here.")
         }
     }
 
     EmptyContent {
         Button {
             Layout.alignment: Qt.AlignHCenter
-            text: "Refresh"
+            text: qsTr("Refresh")
             variant: Button.Outline
             iconName: "refresh-cw"
         }

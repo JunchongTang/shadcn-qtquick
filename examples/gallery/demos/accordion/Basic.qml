@@ -6,32 +6,32 @@ Accordion {
     width: 420
 
     AccordionItem {
-        title: "Is it accessible?"
+        title: qsTr("Is it accessible?")
         expanded: true
         Text {
             Layout.fillWidth: true
-            text: "Yes. It adheres to the WAI-ARIA design pattern."
+            text: qsTr("Yes. It adheres to the WAI-ARIA design pattern.")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             wrapMode: Text.Wrap
         }
     }
     AccordionItem {
-        title: "Is it styled?"
+        title: qsTr("Is it styled?")
         Text {
             Layout.fillWidth: true
-            text: "Yes. It comes with styles that match the base-mira theme out of the box."
+            text: qsTr("Yes. It comes with styles that match the base-mira theme out of the box.")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             wrapMode: Text.Wrap
         }
     }
     AccordionItem {
-        title: "Is it animated?"
+        title: qsTr("Is it animated?")
         last: true
         Text {
             Layout.fillWidth: true
-            text: "Yes. It's animated by default, expanding and collapsing smoothly."
+            text: qsTr("Yes. It's animated by default, expanding and collapsing smoothly.")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             wrapMode: Text.Wrap

@@ -14,14 +14,14 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 10
         Text {
-            text: "Account settings"
+            text: qsTr("Account settings")
             color: Theme.foreground
             font.pixelSize: 24
             font.weight: Font.DemiBold
             Layout.alignment: Qt.AlignHCenter
         }
         Text {
-            text: "Manage your profile and preferences."
+            text: qsTr("Manage your profile and preferences.")
             color: Theme.mutedForeground
             font.pixelSize: 14
             Layout.alignment: Qt.AlignHCenter
@@ -37,18 +37,18 @@ Rectangle {
             spacing: 10
             RowLayout {
                 spacing: 10
-                Label { text: "Name"; Layout.preferredWidth: 80 }
-                Input { Layout.preferredWidth: 220; text: "Pedro Duarte" }
+                Label { text: qsTr("Name"); Layout.preferredWidth: 80 }
+                Input { Layout.preferredWidth: 220; text: qsTr("Pedro Duarte") }
             }
             RowLayout {
                 spacing: 10
-                Label { text: "Username"; Layout.preferredWidth: 80 }
-                Input { Layout.preferredWidth: 220; text: "@peduarte" }
+                Label { text: qsTr("Username"); Layout.preferredWidth: 80 }
+                Input { Layout.preferredWidth: 220; text: qsTr("@peduarte") }
             }
         }
         footerContent: RowLayout {
             Item { Layout.fillWidth: true }
-            Button { text: "Save changes" }
+            Button { text: qsTr("Save changes") }
         }
     }
 

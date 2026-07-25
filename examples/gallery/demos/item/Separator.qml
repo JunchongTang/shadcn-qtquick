@@ -14,7 +14,7 @@ ColumnLayout {
             Layout.fillWidth: true
             asLink: true
             ItemMedia { variant: ItemMedia.Icon; iconName: "user" }
-            ItemContent { ItemTitle { text: "Profile" } }
+            ItemContent { ItemTitle { text: qsTr("Profile") } }
             ItemActions { LucideIcon { name: "chevron-right"; size: 16; color: Theme.mutedForeground } }
         }
         ItemSeparator {}
@@ -22,7 +22,7 @@ ColumnLayout {
             Layout.fillWidth: true
             asLink: true
             ItemMedia { variant: ItemMedia.Icon; iconName: "settings" }
-            ItemContent { ItemTitle { text: "Settings" } }
+            ItemContent { ItemTitle { text: qsTr("Settings") } }
             ItemActions { LucideIcon { name: "chevron-right"; size: 16; color: Theme.mutedForeground } }
         }
         ItemSeparator {}
@@ -30,7 +30,7 @@ ColumnLayout {
             Layout.fillWidth: true
             asLink: true
             ItemMedia { variant: ItemMedia.Icon; iconName: "log-out" }
-            ItemContent { ItemTitle { text: "Log out" } }
+            ItemContent { ItemTitle { text: qsTr("Log out") } }
             ItemActions { LucideIcon { name: "chevron-right"; size: 16; color: Theme.mutedForeground } }
         }
     }

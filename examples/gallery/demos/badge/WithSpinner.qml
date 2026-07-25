@@ -7,13 +7,13 @@ RowLayout {
 
     Badge {
         id: deleting
-        text: "Deleting"
+        text: qsTr("Deleting")
         variant: Badge.Destructive
         leading: Spinner { size: 10; color: deleting.fgColor }
     }
     Badge {
         id: generating
-        text: "Generating"
+        text: qsTr("Generating")
         variant: Badge.Secondary
         trailing: Spinner { size: 10; color: generating.fgColor }
     }

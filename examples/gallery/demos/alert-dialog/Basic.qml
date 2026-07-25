@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 
 Button {
-    text: "Show Dialog"
+    text: qsTr("Show Dialog")
     variant: Button.Outline
     onClicked: dialog.open()
 

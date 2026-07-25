@@ -3,5 +3,5 @@ import Shadcn
 
 Toggle {
     iconName: "italic"
-    text: "Italic"
+    text: qsTr("Italic")
 }

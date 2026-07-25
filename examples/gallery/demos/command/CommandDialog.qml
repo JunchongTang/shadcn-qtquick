@@ -9,11 +9,11 @@ ColumnLayout {
     RowLayout {
         spacing: 6
         Text {
-            text: "Press"
+            text: qsTr("Press")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textSm
         }
-        Kbd { text: "⌘K" }
+        Kbd { text: qsTr("⌘K") }
     }
 
     // 全局快捷键(⌘K / Ctrl+K)切换面板。
@@ -33,15 +33,15 @@ ColumnLayout {
             id: cmd
             onTriggered: dlg.close()
             model: [
-                { heading: "Suggestions", items: [
-                    { text: "Calendar",     icon: "calendar" },
-                    { text: "Search Emoji", icon: "smile" },
-                    { text: "Calculator",   icon: "calculator" }
+                { heading: qsTr("Suggestions"), items: [
+                    { text: qsTr("Calendar"),     icon: "calendar" },
+                    { text: qsTr("Search Emoji"), icon: "smile" },
+                    { text: qsTr("Calculator"),   icon: "calculator" }
                 ] },
-                { heading: "Settings", items: [
-                    { text: "Profile",  icon: "user",        shortcut: "⌘P" },
-                    { text: "Billing",  icon: "credit-card", shortcut: "⌘B" },
-                    { text: "Settings", icon: "settings",    shortcut: "⌘S" }
+                { heading: qsTr("Settings"), items: [
+                    { text: qsTr("Profile"),  icon: "user",        shortcut: "⌘P" },
+                    { text: qsTr("Billing"),  icon: "credit-card", shortcut: "⌘B" },
+                    { text: qsTr("Settings"), icon: "settings",    shortcut: "⌘S" }
                 ] }
             ]
         }

@@ -8,18 +8,18 @@ ColumnLayout {
     spacing: 6
 
     Label {
-        text: "Message"
+        text: qsTr("Message")
         Layout.fillWidth: true
     }
     Textarea {
         Layout.fillWidth: true
         implicitHeight: 88
-        placeholderText: "Type your message here."
+        placeholderText: qsTr("Type your message here.")
         invalid: true
     }
     Text {
         Layout.fillWidth: true
-        text: "Please enter a valid message."
+        text: qsTr("Please enter a valid message.")
         color: Theme.destructive
         font.pixelSize: Theme.textXs
         lineHeight: Theme.lineRelaxed

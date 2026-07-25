@@ -6,7 +6,7 @@ import LucideIcons
 // 悬停链接式触发,弹出用户名片:头像 + 用户名 + 简介 + 加入时间。
 Button {
     id: trigger
-    text: "@nextjs"
+    text: qsTr("@nextjs")
     variant: Button.Link
 
     HoverCard {
@@ -30,14 +30,14 @@ Button {
                 spacing: 2
 
                 Text {
-                    text: "@nextjs"
+                    text: qsTr("@nextjs")
                     color: Theme.foreground
                     font.pixelSize: Theme.textXs
                     font.weight: Font.DemiBold
                 }
                 Text {
                     Layout.fillWidth: true
-                    text: "The React Framework – created and maintained by @vercel."
+                    text: qsTr("The React Framework – created and maintained by @vercel.")
                     color: Theme.foreground
                     font.pixelSize: Theme.textXs
                     lineHeight: Theme.lineRelaxed
@@ -53,7 +53,7 @@ Button {
                         color: Theme.mutedForeground
                     }
                     Text {
-                        text: "Joined December 2021"
+                        text: qsTr("Joined December 2021")
                         color: Theme.mutedForeground
                         font.pixelSize: Theme.textXs
                     }

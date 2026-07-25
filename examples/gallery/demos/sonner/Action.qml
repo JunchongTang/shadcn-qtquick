@@ -8,17 +8,17 @@ Item {
 
     Button {
         anchors.centerIn: parent
-        text: "Show Toast"
+        text: qsTr("Show Toast")
         variant: Button.Outline
-        onClicked: area.show("Event has been created", {
-            description: "Sunday, December 03, 2023 at 9:00 AM",
-            actionText: "Undo"
+        onClicked: area.show(qsTr("Event has been created"), {
+            description: qsTr("Sunday, December 03, 2023 at 9:00 AM"),
+            actionText: qsTr("Undo")
         })
     }
 
     ToastArea {
         id: area
         anchors.fill: parent
-        onActionTriggered: (uid) => area.success("Event has been reverted")
+        onActionTriggered: (uid) => area.success(qsTr("Event has been reverted"))
     }
 }

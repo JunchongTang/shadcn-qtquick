@@ -8,16 +8,16 @@ ColumnLayout {
     spacing: 6
 
     Label {
-        text: "Username"
+        text: qsTr("Username")
         Layout.fillWidth: true
     }
     Input {
         Layout.fillWidth: true
-        placeholderText: "Enter your username"
+        placeholderText: qsTr("Enter your username")
     }
     Text {
         Layout.fillWidth: true
-        text: "Choose a unique username for your account."
+        text: qsTr("Choose a unique username for your account.")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textXs
         lineHeight: Theme.lineRelaxed

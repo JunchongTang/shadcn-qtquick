@@ -10,10 +10,10 @@ ColumnLayout {
     // 输入 + 底部单位
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Enter amount" }
+        InputGroupInput { placeholderText: qsTr("Enter amount") }
         InputGroupAddon {
             align: InputGroupAddon.BlockEnd
-            InputGroupText { text: "USD" }
+            InputGroupText { text: qsTr("USD") }
         }
     }
 
@@ -22,7 +22,7 @@ ColumnLayout {
         Layout.fillWidth: true
         InputGroupTextarea {
             implicitHeight: 88
-            placeholderText: "Write a comment..."
+            placeholderText: qsTr("Write a comment...")
         }
         InputGroupAddon {
             align: InputGroupAddon.BlockEnd
@@ -30,7 +30,7 @@ ColumnLayout {
             InputGroupButton {
                 kind: InputGroupButton.KindSm
                 variant: Button.Default
-                text: "Post"
+                text: qsTr("Post")
             }
         }
     }

@@ -11,7 +11,7 @@ ColumnLayout {
     RowLayout {
         Layout.fillWidth: true
         spacing: 2
-        Label { text: "Required Field" }
+        Label { text: qsTr("Required Field") }
         Label {
             text: "*"
             color: Theme.destructive
@@ -19,11 +19,11 @@ ColumnLayout {
     }
     Input {
         Layout.fillWidth: true
-        placeholderText: "This field is required"
+        placeholderText: qsTr("This field is required")
     }
     Text {
         Layout.fillWidth: true
-        text: "This field must be filled out."
+        text: qsTr("This field must be filled out.")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textXs
         lineHeight: Theme.lineRelaxed

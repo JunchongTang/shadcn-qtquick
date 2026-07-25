@@ -12,7 +12,7 @@ ColumnLayout {
     Message {
         MessageContent {
             variant: MessageContent.Muted
-            text: "The install failure is coming from the workspace package."
+            text: qsTr("The install failure is coming from the workspace package.")
             actionsOnHover: false
             IconButton { iconName: "copy"; size: IconButton.Small; variant: IconButton.Ghost }
             IconButton { iconName: "thumbs-up"; size: IconButton.Small; variant: IconButton.Ghost }
@@ -23,7 +23,7 @@ ColumnLayout {
         align: Message.End
         MessageContent {
             variant: MessageContent.Default
-            text: "Okay drop me a link. Taking a look..."
+            text: qsTr("Okay drop me a link. Taking a look...")
             footer: "Failed to send"
             footerDestructive: true
             actionsOnHover: false

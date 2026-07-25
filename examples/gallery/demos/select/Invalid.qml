@@ -6,21 +6,21 @@ import Shadcn
 ColumnLayout {
     width: 200
     spacing: 6
-    Label { text: "Fruit" }
+    Label { text: qsTr("Fruit") }
     Select {
         Layout.fillWidth: true
         invalid: true
         textRole: "text"
         currentIndex: -1
-        placeholder: "Select a fruit"
+        placeholder: qsTr("Select a fruit")
         model: [
-            { text: "Apple" },
-            { text: "Banana" },
-            { text: "Blueberry" }
+            { text: qsTr("Apple") },
+            { text: qsTr("Banana") },
+            { text: qsTr("Blueberry") }
         ]
     }
     Text {
-        text: "Please select a fruit."
+        text: qsTr("Please select a fruit.")
         color: Theme.destructive
         font.pixelSize: Theme.textXs
     }

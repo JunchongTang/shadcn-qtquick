@@ -15,10 +15,10 @@ RowLayout {
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 2
-        Label { text: "Accept terms and conditions" }
+        Label { text: qsTr("Accept terms and conditions") }
         Text {
             Layout.fillWidth: true
-            text: "By clicking this checkbox, you agree to the terms and conditions."
+            text: qsTr("By clicking this checkbox, you agree to the terms and conditions.")
             color: Theme.mutedForeground
             font.pixelSize: Theme.textXs
             lineHeight: Theme.lineRelaxed

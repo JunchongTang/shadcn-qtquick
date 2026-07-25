@@ -14,24 +14,24 @@ Item {
         spacing: 8
 
         Button {
-            text: "Default"; variant: Button.Outline
-            onClicked: area.show("Event has been created")
+            text: qsTr("Default"); variant: Button.Outline
+            onClicked: area.show(qsTr("Event has been created"))
         }
         Button {
-            text: "Success"; variant: Button.Outline
-            onClicked: area.success("Event has been created")
+            text: qsTr("Success"); variant: Button.Outline
+            onClicked: area.success(qsTr("Event has been created"))
         }
         Button {
-            text: "Info"; variant: Button.Outline
-            onClicked: area.info("Be at the area 10 minutes before the event time")
+            text: qsTr("Info"); variant: Button.Outline
+            onClicked: area.info(qsTr("Be at the area 10 minutes before the event time"))
         }
         Button {
-            text: "Warning"; variant: Button.Outline
-            onClicked: area.warning("Event start time cannot be earlier than 8am")
+            text: qsTr("Warning"); variant: Button.Outline
+            onClicked: area.warning(qsTr("Event start time cannot be earlier than 8am"))
         }
         Button {
-            text: "Error"; variant: Button.Outline
-            onClicked: area.error("Event has not been created")
+            text: qsTr("Error"); variant: Button.Outline
+            onClicked: area.error(qsTr("Event has not been created"))
         }
     }
 

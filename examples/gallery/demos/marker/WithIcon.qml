@@ -9,16 +9,16 @@ ColumnLayout {
 
     Marker {
         iconName: "git-branch"
-        text: "Switched to a new branch"
+        text: qsTr("Switched to a new branch")
     }
     Marker {
         variant: Marker.Separator
         iconName: "search"
-        text: "Explored 4 files"
+        text: qsTr("Explored 4 files")
     }
     Marker {
         stacked: true               // className="flex-col"
         iconName: "book-open-check"
-        text: "Syncing completed"
+        text: qsTr("Syncing completed")
     }
 }

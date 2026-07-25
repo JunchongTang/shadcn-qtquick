@@ -10,10 +10,10 @@ GridLayout {
 
     Repeater {
         model: [
-            { icon: "inbox",    title: "No messages",  desc: "Your inbox is empty. New messages will appear here." },
-            { icon: "star",     title: "No favorites", desc: "Items you mark as favorites will appear here." },
-            { icon: "heart",    title: "No likes yet", desc: "Content you like will be saved here for easy access." },
-            { icon: "bookmark", title: "No bookmarks", desc: "Save interesting content by bookmarking it." }
+            { icon: "inbox",    title: qsTr("No messages"),  desc: "Your inbox is empty. New messages will appear here." },
+            { icon: "star",     title: qsTr("No favorites"), desc: "Items you mark as favorites will appear here." },
+            { icon: "heart",    title: qsTr("No likes yet"), desc: "Content you like will be saved here for easy access." },
+            { icon: "bookmark", title: qsTr("No bookmarks"), desc: "Save interesting content by bookmarking it." }
         ]
         Empty {
             EmptyHeader {

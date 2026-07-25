@@ -15,17 +15,17 @@ Accordion {
     }
 
     AccordionItem {
-        title: "Notification Settings"
+        title: qsTr("Notification Settings")
         expanded: true
-        Para { text: "Manage how you receive notifications. You can enable email alerts for updates or push notifications for mobile devices." }
+        Para { text: qsTr("Manage how you receive notifications. You can enable email alerts for updates or push notifications for mobile devices.") }
     }
     AccordionItem {
-        title: "Privacy & Security"
-        Para { text: "Control your privacy settings and security preferences. Enable two-factor authentication, manage connected devices and review active sessions." }
+        title: qsTr("Privacy & Security")
+        Para { text: qsTr("Control your privacy settings and security preferences. Enable two-factor authentication, manage connected devices and review active sessions.") }
     }
     AccordionItem {
-        title: "Billing & Subscription"
+        title: qsTr("Billing & Subscription")
         last: true
-        Para { text: "View your current plan, payment history and upcoming invoices. Update your payment method or change your subscription tier." }
+        Para { text: qsTr("View your current plan, payment history and upcoming invoices. Update your payment method or change your subscription tier.") }
     }
 }

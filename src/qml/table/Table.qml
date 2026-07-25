@@ -52,7 +52,7 @@ Item {
     property string caption: ""
     /*! \qmlproperty string Table::emptyText
         Centered message shown when there are no data rows. Defaults to \c "No results.". */
-    property string emptyText: "No results."
+    property string emptyText: qsTr("No results.")
     /*! \qmlproperty var Table::footerData
         Optional totals/footer row: a per-column array whose elements are strings
         or \c {{ text, align, medium }} objects. Hidden when empty. */

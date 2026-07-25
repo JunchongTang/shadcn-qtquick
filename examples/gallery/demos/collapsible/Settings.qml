@@ -10,8 +10,8 @@ Card {
     size: Card.Small
 
     CardHeader {
-        CardTitle { text: "Radius" }
-        CardDescription { text: "Set the corner radius of the element." }
+        CardTitle { text: qsTr("Radius") }
+        CardDescription { text: qsTr("Set the corner radius of the element.") }
     }
 
     CardContent {
@@ -29,7 +29,7 @@ Card {
                 Button {
                     variant: Button.Outline
                     size: Button.Icon
-                    iconName: c.expanded ? "minimize" : "maximize"
+                    iconName: c.expanded ? qsTr("minimize") : qsTr("maximize")
                     onClicked: c.toggle()
                 }
             }

@@ -8,9 +8,9 @@ Table {
     property bool fillCard: true
 
     columns: [
-        { title: "Product", key: "product", medium: true },
-        { title: "Price",   key: "price" },
-        { title: "Actions", key: "",       width: 90, align: Qt.AlignRight, cellDelegate: actionsCell }
+        { title: qsTr("Product"), key: "product", medium: true },
+        { title: qsTr("Price"),   key: "price" },
+        { title: qsTr("Actions"), key: "",       width: 90, align: Qt.AlignRight, cellDelegate: actionsCell }
     ]
     model: [
         { product: "Wireless Mouse",      price: "$29.99"  },
@@ -29,10 +29,10 @@ Table {
                 onClicked: rowMenu.popup(0, height + 4)
                 Menu {
                     id: rowMenu
-                    MenuItem { text: "Edit"; iconName: "pencil" }
-                    MenuItem { text: "Duplicate"; iconName: "copy" }
+                    MenuItem { text: qsTr("Edit"); iconName: "pencil" }
+                    MenuItem { text: qsTr("Duplicate"); iconName: "copy" }
                     MenuSeparator {}
-                    MenuItem { text: "Delete"; iconName: "trash-2"; destructive: true }
+                    MenuItem { text: qsTr("Delete"); iconName: "trash-2"; destructive: true }
                 }
             }
         }

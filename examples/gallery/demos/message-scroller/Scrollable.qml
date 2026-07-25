@@ -23,7 +23,7 @@ Rectangle {
                 required property int index
                 Layout.fillWidth: true
                 align: index % 2 === 0 ? Message.Start : Message.End
-                MessageAvatar { fallback: index % 2 === 0 ? "R" : "ME" }
+                MessageAvatar { fallback: index % 2 === 0 ? qsTr("R") : qsTr("ME") }
                 MessageContent {
                     variant: index % 2 === 0 ? MessageContent.Muted : MessageContent.Default
                     text: index % 2 === 0

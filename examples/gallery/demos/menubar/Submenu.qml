@@ -6,33 +6,33 @@ Menubar {
     id: menubar
 
     MenubarMenu {
-        title: "File"
+        title: qsTr("File")
 
         Menu {
-            title: "Share"
-            MenuItem { text: "Email link" }
-            MenuItem { text: "Messages" }
-            MenuItem { text: "Notes" }
+            title: qsTr("Share")
+            MenuItem { text: qsTr("Email link") }
+            MenuItem { text: qsTr("Messages") }
+            MenuItem { text: qsTr("Notes") }
         }
         MenuSeparator {}
-        MenuItem { text: "Print..."; shortcut: "⌘P" }
+        MenuItem { text: qsTr("Print..."); shortcut: "⌘P" }
     }
 
     MenubarMenu {
-        title: "Edit"
+        title: qsTr("Edit")
 
-        MenuItem { text: "Undo"; shortcut: "⌘Z" }
-        MenuItem { text: "Redo"; shortcut: "⇧⌘Z" }
+        MenuItem { text: qsTr("Undo"); shortcut: "⌘Z" }
+        MenuItem { text: qsTr("Redo"); shortcut: "⇧⌘Z" }
         MenuSeparator {}
         Menu {
-            title: "Find"
-            MenuItem { text: "Find..." }
-            MenuItem { text: "Find Next" }
-            MenuItem { text: "Find Previous" }
+            title: qsTr("Find")
+            MenuItem { text: qsTr("Find...") }
+            MenuItem { text: qsTr("Find Next") }
+            MenuItem { text: qsTr("Find Previous") }
         }
         MenuSeparator {}
-        MenuItem { text: "Cut" }
-        MenuItem { text: "Copy" }
-        MenuItem { text: "Paste" }
+        MenuItem { text: qsTr("Cut") }
+        MenuItem { text: qsTr("Copy") }
+        MenuItem { text: qsTr("Paste") }
     }
 }

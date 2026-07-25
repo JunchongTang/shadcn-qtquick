@@ -7,7 +7,7 @@ Field {
     orientation: Field.Horizontal
 
     FieldLabel {
-        text: "Multi-factor authentication"
+        text: qsTr("Multi-factor authentication")
         Layout.fillWidth: false          // w-fit:不拉伸
         Layout.alignment: Qt.AlignVCenter
     }

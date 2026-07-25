@@ -8,17 +8,17 @@ ColumnLayout {
     spacing: 6
 
     Label {
-        text: "Invalid Input"
+        text: qsTr("Invalid Input")
         Layout.fillWidth: true
     }
     Input {
         Layout.fillWidth: true
-        placeholderText: "Error"
+        placeholderText: qsTr("Error")
         invalid: true
     }
     Text {
         Layout.fillWidth: true
-        text: "This field contains validation errors."
+        text: qsTr("This field contains validation errors.")
         color: Theme.destructive
         font.pixelSize: Theme.textXs
         lineHeight: Theme.lineRelaxed

@@ -8,11 +8,11 @@ ColumnLayout {
     width: 320
     spacing: 6
 
-    Label { text: "Input"; Layout.fillWidth: true }
+    Label { text: qsTr("Input"); Layout.fillWidth: true }
 
     InputGroup {
         Layout.fillWidth: true
-        InputGroupInput { placeholderText: "Search..." }
+        InputGroupInput { placeholderText: qsTr("Search...") }
         InputGroupAddon {
             align: InputGroupAddon.InlineStart
             LucideIcon { name: "search"; size: 14; color: Theme.mutedForeground }
@@ -21,7 +21,7 @@ ColumnLayout {
 
     Text {
         Layout.fillWidth: true
-        text: "Icon positioned at the start."
+        text: qsTr("Icon positioned at the start.")
         color: Theme.mutedForeground
         font.pixelSize: Theme.textXs
         lineHeight: Theme.lineRelaxed
