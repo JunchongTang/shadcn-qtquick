@@ -128,14 +128,23 @@ ColumnLayout {
                     ? Math.min(codeText.implicitHeight + 32, 420)
                     : card._collapsedCodeH
 
-                Rectangle { anchors.fill: parent; color: Theme.muted }
+                // Muted background; bottom corners rounded to match the card
+                // (the card's clip only clips to its rectangular bounds).
+                Rectangle {
+                    anchors.fill: parent
+                    color: Theme.muted
+                    bottomLeftRadius: Theme.radiusLg
+                    bottomRightRadius: Theme.radiusLg
+                }
 
-                // 代码 + 行号(展开时可滚)
+                // 代码 + 行号(展开时可滚)。折叠时禁用交互,让滚轮穿透到页面,
+                // 不被这块代码区域截获(对齐官网:未展开不在代码区滚动)。
                 ScrollView {
                     id: codeScroll
                     anchors.fill: parent
                     anchors.margins: 16
                     clip: true
+                    enabled: card.codeExpanded
                     contentWidth: codeRow.implicitWidth
 
                     Row {
@@ -168,13 +177,15 @@ ColumnLayout {
                     }
                 }
 
-                // 折叠时底部渐隐
+                // 折叠时底部渐隐(底部两角圆角,与卡片一致)
                 Rectangle {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     height: 48
                     visible: !card.codeExpanded
+                    bottomLeftRadius: Theme.radiusLg
+                    bottomRightRadius: Theme.radiusLg
                     gradient: Gradient {
                         GradientStop { position: 0.0; color: Theme.alpha(Theme.muted, 0) }
                         GradientStop { position: 1.0; color: Theme.muted }
