@@ -6,6 +6,8 @@ qt_add_qml_module(shadcn_gallery
     SOURCES
         sourcereader.h
         sourcereader.cpp
+        shooter.h
+        shooter.cpp
     QML_FILES
         Gallery.qml
         DocsSidebar.qml
@@ -459,6 +461,22 @@ qt_add_resources(shadcn_gallery "gallery_demos"
         demos/typography/P.qml
         demos/typography/Small.qml
         demos/typography/Table.qml
+        shots/shots.json
+        shots/DemoFrame.qml
+        shots/Dialog.qml
+        shots/Tooltip.qml
+        shots/AlertDialog.qml
+        shots/Popover.qml
+        shots/HoverCard.qml
+        shots/Select.qml
+        shots/Menu.qml
+        shots/ContextMenu.qml
+        shots/Menubar.qml
+        shots/NavigationMenu.qml
+        shots/Command.qml
+        shots/Drawer.qml
+        shots/Sheet.qml
+        shots/Sonner.qml
 )
 
 # STATIC 模块的 backing lib + plugin 均可链接;LucideIcons 供 gallery 直接/间接用。

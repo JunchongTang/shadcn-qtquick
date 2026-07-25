@@ -1,10 +1,15 @@
+#include <QFile>
 #include <QGuiApplication>
+#include <QJsonArray>
+#include <QJsonDocument>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QStyleHints>
 #include <QTimer>
 #include <QImage>
+
+#include "shooter.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +21,22 @@ int main(int argc, char *argv[])
     app.styleHints()->setTabFocusBehavior(Qt::TabFocusAllControls);
 
     QQmlApplicationEngine engine;
+
+    // Batch hero-screenshot mode: SHADCN_SHOOT=<outdir> renders every entry of
+    // the shots manifest (:/shots/shots.json) to <outdir>/<name>.png and quits.
+    // Run windowed (real GPU) so shadows/blur render; see docs/build-images.sh.
+    if (const QByteArray shootDir = qgetenv("SHADCN_SHOOT"); !shootDir.isEmpty()) {
+        QFile mf(QStringLiteral(":/shots/shots.json"));
+        if (!mf.open(QIODevice::ReadOnly)) {
+            qFatal("cannot open :/shots/shots.json");
+            return -1;
+        }
+        const QJsonArray items = QJsonDocument::fromJson(mf.readAll()).array();
+        auto *shooter = new Shooter(&engine, QString::fromUtf8(shootDir), items);
+        QObject::connect(shooter, &Shooter::finished, &app, &QCoreApplication::quit);
+        QTimer::singleShot(0, shooter, &Shooter::start);
+        return app.exec();
+    }
 
     // 无头验证:SHADCN_DARK 让 gallery 以暗色启动。
     engine.rootContext()->setContextProperty(
