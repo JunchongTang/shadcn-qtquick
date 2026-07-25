@@ -191,11 +191,12 @@ Window {
                 onItemClicked: (item) => win.select(item)
             }
 
-            // ==== 右侧内容区:Preview(示例卡片)/ API(内嵌 qdoc 文档)切换 ====
-            Item {
+            // ==== 右侧内容区:顶部工具条 + Preview(示例卡片)/ API(内嵌 qdoc 文档)====
+            ColumnLayout {
                 id: contentArea
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                spacing: 0
 
                 property bool showApi: false
                 readonly property string apiHtml: win.apiFile(win.currentId)
@@ -206,10 +207,84 @@ Window {
                 // 切换组件时回到 Preview。
                 Connections { target: win; function onCurrentIdChanged() { contentArea.showApi = false } }
 
-                // ---- Preview:示例卡片(原内容区)----
+                // ---- 顶部工具条:左(仅 API 模式)后退/刷新/外部打开;右 Preview|API 分段 ----
+                Item {
+                    Layout.fillWidth: true
+                    implicitHeight: 48
+                    visible: contentArea.apiAvail
+
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 12
+                        anchors.rightMargin: 16
+                        spacing: 6
+
+                        IconButton {
+                            visible: contentArea.showApi
+                            iconName: "arrow-left"
+                            variant: IconButton.Ghost
+                            size: IconButton.Small
+                            enabled: apiLoader.item ? apiLoader.item.canGoBack : false
+                            onClicked: if (apiLoader.item) apiLoader.item.goBack()
+                        }
+                        IconButton {
+                            visible: contentArea.showApi
+                            iconName: "rotate-cw"
+                            variant: IconButton.Ghost
+                            size: IconButton.Small
+                            onClicked: if (apiLoader.item) apiLoader.item.reload()
+                        }
+                        IconButton {
+                            visible: contentArea.showApi
+                            iconName: "external-link"
+                            variant: IconButton.Ghost
+                            size: IconButton.Small
+                            onClicked: if (apiLoader.item) Qt.openUrlExternally(apiLoader.item.currentUrl)
+                        }
+
+                        Item { Layout.fillWidth: true }
+
+                        // Preview | API 分段
+                        Rectangle {
+                            radius: Theme.radiusMd
+                            color: Theme.background
+                            border.width: 1
+                            border.color: Theme.border
+                            implicitWidth: segRow.implicitWidth + 6
+                            implicitHeight: segRow.implicitHeight + 6
+
+                            RowLayout {
+                                id: segRow
+                                anchors.centerIn: parent
+                                spacing: 2
+                                Button {
+                                    text: qsTr("Preview")
+                                    size: Button.Sm
+                                    variant: contentArea.showApi ? Button.Ghost : Button.Secondary
+                                    onClicked: contentArea.showApi = false
+                                }
+                                Button {
+                                    text: qsTr("API")
+                                    size: Button.Sm
+                                    variant: contentArea.showApi ? Button.Secondary : Button.Ghost
+                                    onClicked: contentArea.showApi = true
+                                }
+                            }
+                        }
+                    }
+                    // 工具条底部分隔线
+                    Rectangle {
+                        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+                        height: 1
+                        color: Theme.border
+                    }
+                }
+
+                // ---- Preview:示例卡片 ----
                 ScrollView {
                     id: contentScroll
-                    anchors.fill: parent
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                     visible: !contentArea.showApi
                     clip: true
                     // 内容宽度锁定到视口可用宽 → 永不产生横向滚动,页面随窗口宽度自适应收缩。
@@ -238,45 +313,13 @@ Window {
 
                 // ---- API:内嵌 qdoc 文档(懒加载,仅在切到 API 时实例化)----
                 Loader {
-                    anchors.fill: parent
+                    id: apiLoader
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                     active: contentArea.showApi
                     visible: contentArea.showApi
                     source: Qt.resolvedUrl("ApiDocsView.qml")
                     onLoaded: item.pageUrl = docsBaseUrl + contentArea.apiHtml
-                }
-
-                // ---- 右上角 Preview | API 分段切换 ----
-                Rectangle {
-                    visible: contentArea.apiAvail
-                    anchors.top: parent.top
-                    anchors.right: parent.right
-                    anchors.topMargin: 12
-                    anchors.rightMargin: 16
-                    z: 10
-                    radius: Theme.radiusMd
-                    color: Theme.background
-                    border.width: 1
-                    border.color: Theme.border
-                    implicitWidth: segRow.implicitWidth + 6
-                    implicitHeight: segRow.implicitHeight + 6
-
-                    RowLayout {
-                        id: segRow
-                        anchors.centerIn: parent
-                        spacing: 2
-                        Button {
-                            text: qsTr("Preview")
-                            size: Button.Sm
-                            variant: contentArea.showApi ? Button.Ghost : Button.Secondary
-                            onClicked: contentArea.showApi = false
-                        }
-                        Button {
-                            text: qsTr("API")
-                            size: Button.Sm
-                            variant: contentArea.showApi ? Button.Secondary : Button.Ghost
-                            onClicked: contentArea.showApi = true
-                        }
-                    }
                 }
             }
         }
