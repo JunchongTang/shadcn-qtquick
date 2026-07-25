@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic as C
 /*!
     \qmltype RangeSlider
     \inqmlmodule Shadcn
-    \inherits RangeSlider
+    \inherits QtQuick.Controls.RangeSlider
     \brief A two-thumb slider for selecting a value range.
 
     RangeSlider ports shadcn's base-mira \c .cn-slider styling for the two-thumb

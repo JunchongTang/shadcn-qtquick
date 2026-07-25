@@ -6,7 +6,7 @@ import LucideIcons
 /*!
     \qmltype MenuItem
     \inqmlmodule Shadcn
-    \inherits MenuItem
+    \inherits QtQuick.Controls.MenuItem
     \brief A selectable row in a \l Menu.
 
     MenuItem is the QML port of shadcn/ui's \c DropdownMenuItem (base-mira). It

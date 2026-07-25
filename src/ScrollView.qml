@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic as C
 /*!
     \qmltype ScrollView
     \inqmlmodule Shadcn
-    \inherits ScrollView
+    \inherits QtQuick.Controls.ScrollView
     \brief A scroll container with thin, self-fading overlay scrollbars.
 
     ScrollView is the plain styled scroll container used across the gallery. It

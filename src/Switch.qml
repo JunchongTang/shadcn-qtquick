@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic as C
 /*!
     \qmltype Switch
     \inqmlmodule Shadcn
-    \inherits Switch
+    \inherits QtQuick.Controls.Switch
     \brief A capsule toggle with a sliding circular thumb.
 
     Switch ports shadcn/ui's \c base-mira switch (\c .cn-switch /

@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic as C
 /*!
     \qmltype Label
     \inqmlmodule Shadcn
-    \inherits Label
+    \inherits QtQuick.Controls.Label
     \brief A form label, styled after shadcn's base-mira label.
 
     Label renders shadcn's \c .cn-label: 12px medium text (\c text-xs,

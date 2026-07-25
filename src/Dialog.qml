@@ -7,7 +7,7 @@ import QtQuick.Effects
 /*!
     \qmltype Dialog
     \inqmlmodule Shadcn
-    \inherits Dialog
+    \inherits QtQuick.Controls.Dialog
     \brief A modal dialog with a header, body and an optional footer bar.
 
     Dialog wraps the Qt Quick Controls \c Dialog with the shadcn (base-mira) look:

@@ -5,7 +5,7 @@ import QtQuick.Effects
 /*!
     \qmltype Menu
     \inqmlmodule Shadcn
-    \inherits Menu
+    \inherits QtQuick.Controls.Menu
     \brief Popover container for the shadcn DropdownMenu family.
 
     Menu is the QML port of shadcn/ui's \c DropdownMenuContent (base-mira

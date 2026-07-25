@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic as C
 /*!
     \qmltype RadioButton
     \inqmlmodule Shadcn
-    \inherits RadioButton
+    \inherits QtQuick.Controls.RadioButton
     \brief A compact 16px radio control with an optional trailing label.
 
     RadioButton ports shadcn/ui's \c base-mira \c RadioGroupItem: a 16x16 circle

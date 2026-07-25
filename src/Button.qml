@@ -6,7 +6,7 @@ import LucideIcons
 /*!
     \qmltype Button
     \inqmlmodule Shadcn
-    \inherits Button
+    \inherits QtQuick.Controls.Button
     \brief A compact, variant-driven push button styled after shadcn/ui base-mira.
 
     Button is the foundational action control. It wraps the Qt Quick Controls

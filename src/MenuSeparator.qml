@@ -4,7 +4,7 @@ import QtQuick.Controls.Basic as C
 /*!
     \qmltype MenuSeparator
     \inqmlmodule Shadcn
-    \inherits MenuSeparator
+    \inherits QtQuick.Controls.MenuSeparator
     \brief A 1px divider between \l Menu groups.
 
     MenuSeparator is the QML port of shadcn/ui's \c DropdownMenuSeparator

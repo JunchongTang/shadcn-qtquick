@@ -7,7 +7,7 @@ import LucideIcons
 /*!
     \qmltype TabButton
     \inqmlmodule Shadcn
-    \inherits TabButton
+    \inherits QtQuick.Controls.TabButton
     \brief A single trigger inside a \l Tabs strip.
 
     TabButton ports shadcn base-mira's \c .cn-tabs-trigger. It reads its variant
