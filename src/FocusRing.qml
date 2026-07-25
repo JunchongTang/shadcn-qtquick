@@ -25,7 +25,7 @@ import QtQuick
     the ring corner square. For controls whose corners differ (e.g. grouped buttons with
     flattened inner corners), set the per-corner \l targetTopLeft, \l targetTopRight,
     \l targetBottomLeft and \l targetBottomRight to each corner's target radius; \c -1
-    (the default) means "use \l targetRadius".
+    (the default) means to use \l targetRadius.
 
     Visibility is gated entirely by \l active; callers bind it to the appropriate focus
     condition (typically \c visualFocus for button-like controls or \c activeFocus for

@@ -32,7 +32,7 @@ import QtQuick.Effects
     (\c {as C}) and the root is \c C.Drawer.
 
     \note Sheet derives from \c Drawer (the \c Popup family), which does not carry
-    an \c Item.TransformOrigin enumeration, so the \l Side members do not collide
+    an \c Item.TransformOrigin enumeration, so the \c Side members do not collide
     with an inherited enum. \c Side is the only enum declared here, so there is no
     in-file flattening clash either.
 */

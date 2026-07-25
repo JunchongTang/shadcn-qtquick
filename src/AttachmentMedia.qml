@@ -22,17 +22,15 @@ import LucideIcons
 Item {
     id: media
 
-    /*!
-        \qmlproperty enumeration AttachmentMedia::variant
-        Content kind.
-        \value AttachmentMedia.Icon File-type icon or custom centered child (default).
-        \value AttachmentMedia.Image Cover thumbnail cropped to the box radius.
-    */
+    // Content kind (documented on the variant property).
     enum Variant { Icon, Image }
 
     /*!
         \qmlproperty enumeration AttachmentMedia::variant
-        Content kind; see \l Variant. Defaults to \c AttachmentMedia.Icon.
+        Content kind. Defaults to \c AttachmentMedia.Icon.
+
+        \value AttachmentMedia.Icon File-type icon or custom centered child (default).
+        \value AttachmentMedia.Image Cover thumbnail cropped to the box radius.
     */
     property int variant: AttachmentMedia.Icon
     /*!

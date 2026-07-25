@@ -28,33 +28,13 @@ import QtQuick.Controls.Basic as C
 Item {
     id: control
 
-    /*!
-        \qmlproperty enumeration Attachment::uploadState
-        Upload lifecycle (the web \c state); drives the outline style and the
-        title shimmer.
-        \value Attachment.Idle Empty drop target; dashed border.
-        \value Attachment.Uploading Transfer in progress; title shimmers.
-        \value Attachment.Processing Server-side processing; title shimmers.
-        \value Attachment.Error Failure; destructive border and description.
-        \value Attachment.Done Completed (default).
-    */
+    // Upload lifecycle (the web state); drives outline style and title shimmer.
     enum State { Idle, Uploading, Processing, Error, Done }
 
-    /*!
-        \qmlproperty enumeration Attachment::size
-        Compact size scale controlling padding, gap, radius and media box.
-        \value Attachment.Default px-2 py-1.5, gap-2, rounded-lg, 40px media.
-        \value Attachment.Sm px-1.5 py-1, gap-2.5, 32px media.
-        \value Attachment.Xs px-1.5 py-1, gap-1.5, rounded-md, 28px media.
-    */
+    // Compact size scale controlling padding, gap, radius and media box.
     enum Size { Default, Sm, Xs }
 
-    /*!
-        \qmlproperty enumeration Attachment::orientation
-        Card layout direction.
-        \value Attachment.Horizontal media | content | actions (min-w-40).
-        \value Attachment.Vertical media over content; actions float top-right.
-    */
+    // Card layout direction.
     enum Orientation { Horizontal, Vertical }
 
     // All enum member names above are unique, so QML's flattening of enum values
@@ -62,17 +42,32 @@ Item {
 
     /*!
         \qmlproperty enumeration Attachment::uploadState
-        Upload lifecycle; see \l State. Defaults to \c Attachment.Done.
+        Upload lifecycle (the web \c state); drives the outline style and the
+        title shimmer. Defaults to \c Attachment.Done.
+
+        \value Attachment.Idle Empty drop target; dashed border.
+        \value Attachment.Uploading Transfer in progress; title shimmers.
+        \value Attachment.Processing Server-side processing; title shimmers.
+        \value Attachment.Error Failure; destructive border and description.
+        \value Attachment.Done Completed (default).
     */
     property int uploadState: Attachment.Done
     /*!
         \qmlproperty enumeration Attachment::size
-        Compact size scale; see \l Size. Defaults to \c Attachment.Default.
+        Compact size scale controlling padding, gap, radius and media box.
+        Defaults to \c Attachment.Default.
+
+        \value Attachment.Default px-2 py-1.5, gap-2, rounded-lg, 40px media.
+        \value Attachment.Sm px-1.5 py-1, gap-2.5, 32px media.
+        \value Attachment.Xs px-1.5 py-1, gap-1.5, rounded-md, 28px media.
     */
     property int size: Attachment.Default
     /*!
         \qmlproperty enumeration Attachment::orientation
-        Layout direction; see \l Orientation. Defaults to \c Attachment.Horizontal.
+        Card layout direction. Defaults to \c Attachment.Horizontal.
+
+        \value Attachment.Horizontal media | content | actions (min-w-40).
+        \value Attachment.Vertical media over content; actions float top-right.
     */
     property int orientation: Attachment.Horizontal
 

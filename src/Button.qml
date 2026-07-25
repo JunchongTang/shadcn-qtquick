@@ -38,9 +38,19 @@ import LucideIcons
 C.Button {
     id: control
 
+    // Visual style. Default is first so it holds value 0 (documented on the variant property).
+    enum Variant { Default, Secondary, Outline, Ghost, Destructive, Link }
+
+    // Compact size scale. Default is first so it holds value 0 (documented on the size property).
+    enum Size { Default, Sm, Lg, Xs, Icon, IconSm, IconXs, IconLg }
+
+    // Adjacency inside a ButtonGroup (documented on the groupPosition property).
+    enum GroupPosition { GroupNone, GroupFirst, GroupMiddle, GroupLast }
+
     /*!
         \qmlproperty enumeration Button::variant
-        Visual style. \c Default is listed first so it holds value 0.
+        The visual style. Defaults to \c Button.Default.
+
         \value Button.Default Solid primary background, primary-foreground text.
         \value Button.Secondary Solid secondary background, secondary-foreground text.
         \value Button.Outline Transparent fill with a 1px border-colored outline.
@@ -48,13 +58,11 @@ C.Button {
         \value Button.Destructive Translucent destructive fill, destructive text.
         \value Button.Link Text-only, primary color, underline on hover.
     */
-    enum Variant { Default, Secondary, Outline, Ghost, Destructive, Link }
-
+    property int variant: Button.Default
     /*!
         \qmlproperty enumeration Button::size
-        Compact size scale (height in px). \c Default is listed first so it holds
-        value 0, matching \l Variant's \c Default (QML flattens enum values into
-        the type scope, so a shared name must resolve to the same number).
+        The size on the compact scale. Defaults to \c Button.Default.
+
         \value Button.Default 28px, 12px text, 14px icons, px-2.
         \value Button.Sm 24px, 12px text, 12px icons, px-2.
         \value Button.Lg 32px, 12px text, 16px icons, px-2.5.
@@ -63,28 +71,6 @@ C.Button {
         \value Button.IconSm 24px square, icon-only.
         \value Button.IconXs 20px square, icon-only, smaller radius.
         \value Button.IconLg 32px square, icon-only.
-    */
-    enum Size { Default, Sm, Lg, Xs, Icon, IconSm, IconXs, IconLg }
-
-    /*!
-        \qmlproperty enumeration Button::groupPosition
-        Adjacency inside a ButtonGroup, which decides which corners are
-        straightened. Set automatically by ButtonGroup.
-        \value Button.GroupNone Standalone; all corners rounded.
-        \value Button.GroupFirst First item; keeps the outer leading corners round.
-        \value Button.GroupMiddle Interior item; all corners straightened.
-        \value Button.GroupLast Last item; keeps the outer trailing corners round.
-    */
-    enum GroupPosition { GroupNone, GroupFirst, GroupMiddle, GroupLast }
-
-    /*!
-        \qmlproperty int Button::variant
-        The visual style; see \l Variant. Defaults to \c Button.Default.
-    */
-    property int variant: Button.Default
-    /*!
-        \qmlproperty int Button::size
-        The size on the compact scale; see \l Size. Defaults to \c Button.Default.
     */
     property int size: Button.Default
     /*!
@@ -108,8 +94,14 @@ C.Button {
     */
     property bool loading: false
     /*!
-        \qmlproperty int Button::groupPosition
-        Adjacency inside a ButtonGroup; see \l GroupPosition. Set by ButtonGroup.
+        \qmlproperty enumeration Button::groupPosition
+        Adjacency inside a ButtonGroup, which decides which corners are
+        straightened. Set automatically by ButtonGroup.
+
+        \value Button.GroupNone Standalone; all corners rounded.
+        \value Button.GroupFirst First item; keeps the outer leading corners round.
+        \value Button.GroupMiddle Interior item; all corners straightened.
+        \value Button.GroupLast Last item; keeps the outer trailing corners round.
     */
     property int groupPosition: Button.GroupNone
     /*!

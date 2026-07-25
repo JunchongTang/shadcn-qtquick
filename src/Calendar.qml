@@ -39,32 +39,27 @@ import Shadcn
 Item {
     id: cal
 
-    /*!
-        \qmlproperty enumeration Calendar::mode
-        Selection mode.
-        \value Calendar.Single Single day selection (default); writes \l selectedDate.
-        \value Calendar.Range Two-endpoint range; writes \l rangeStart / \l rangeEnd.
-    */
+    // Selection mode. Single is first so it holds value 0.
     enum Mode { Single, Range }
 
-    /*!
-        \qmlproperty enumeration Calendar::captionLayout
-        Month/year caption presentation.
-        \value Calendar.Label Plain centered "Month Year" text (default).
-        \value Calendar.Dropdown Month and year NativeSelect dropdowns.
-    */
+    // Month/year caption presentation. Label is first so it holds value 0.
     enum CaptionLayout { Label, Dropdown }
 
     /*!
-        \qmlproperty int Calendar::mode
-        The selection mode; see \l Mode. Defaults to \c Calendar.Single.
+        \qmlproperty enumeration Calendar::mode
+        The selection mode. Defaults to \c Calendar.Single.
+
+        \value Calendar.Single Single day selection (default); writes \l selectedDate.
+        \value Calendar.Range Two-endpoint range; writes \l rangeStart / \l rangeEnd.
     */
     property int mode: Calendar.Single
 
     /*!
-        \qmlproperty int Calendar::captionLayout
-        The caption presentation; see \l CaptionLayout.
-        Defaults to \c Calendar.Label.
+        \qmlproperty enumeration Calendar::captionLayout
+        The caption presentation. Defaults to \c Calendar.Label.
+
+        \value Calendar.Label Plain centered "Month Year" text (default).
+        \value Calendar.Dropdown Month and year NativeSelect dropdowns.
     */
     property int captionLayout: Calendar.Label
 

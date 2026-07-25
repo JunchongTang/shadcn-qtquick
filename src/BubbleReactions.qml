@@ -22,7 +22,7 @@ import QtQuick.Layouts
             from the right (\c right-3).
     \endlist
 
-    \note The \l Side members are \c Above/\c Below rather than \c Top/\c Bottom
+    \note The \c Side members are \c Above/\c Below rather than \c Top/\c Bottom
     because this type derives from \c Item, whose flattened \c TransformOrigin enum
     already defines \c Top (1) and \c Bottom (7); reusing those names would collide
     (see issue #029).

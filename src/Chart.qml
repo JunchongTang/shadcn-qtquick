@@ -35,22 +35,20 @@ import QtQuick
 Item {
     id: root
 
+    // The chart shape to draw. Bar is first so it holds value 0.
+    enum Type { Bar, Line, Area, Pie, Radar, Radial }
+
+    // ==== Data and series ====
     /*!
         \qmlproperty enumeration Chart::type
-        The chart shape to draw.
+        The chart shape. Defaults to \c Chart.Bar.
+
         \value Chart.Bar Grouped or stacked bars (see \l stacked, \l horizontal).
         \value Chart.Line Smoothed or straight line series.
         \value Chart.Area Filled area series.
         \value Chart.Pie Pie or donut (\l innerRadius > 0).
         \value Chart.Radar Polar radar polygons.
         \value Chart.Radial Radial (arc) bars.
-    */
-    enum Type { Bar, Line, Area, Pie, Radar, Radial }
-
-    // ==== Data and series ====
-    /*!
-        \qmlproperty int Chart::type
-        The chart shape; see \l Type. Defaults to \c Chart.Bar.
     */
     property int type: Chart.Bar
     /*!
@@ -231,7 +229,7 @@ Item {
     property bool hideTooltipLabel: false
     /*!
         \qmlproperty int Chart::tooltipIndicator
-        Tooltip swatch style; see \l ChartTooltip::Indicator. Defaults to \c ChartTooltip.Dot.
+        Tooltip swatch style; see \c ChartTooltip.Indicator. Defaults to \c ChartTooltip.Dot.
     */
     property int tooltipIndicator: ChartTooltip.Dot
     /*!

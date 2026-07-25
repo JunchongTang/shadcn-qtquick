@@ -50,21 +50,16 @@ import LucideIcons
 Rectangle {
     id: control
 
-    /*!
-        \qmlproperty enumeration Alert::variant
-        Visual style of the alert.
-        \value Alert.Default Card surface with card-foreground title and muted description.
-        \value Alert.Destructive Card surface with destructive-tinted title and description.
-
-        \note \c Default is listed first so it holds value 0; Alert declares only
-        this enum, so there is no cross-enum member-name collision (issue #028
-        does not apply here).
-    */
+    // Visual style. Default is first so it holds value 0; Alert declares only this
+    // enum, so no cross-enum member-name collision (issue #028 does not apply here).
     enum Variant { Default, Destructive }
 
     /*!
-        \qmlproperty int Alert::variant
-        The visual style; see \l Variant. Defaults to \c Alert.Default.
+        \qmlproperty enumeration Alert::variant
+        The visual style. Defaults to \c Alert.Default.
+
+        \value Alert.Default Card surface with card-foreground title and muted description.
+        \value Alert.Destructive Card surface with destructive-tinted title and description.
     */
     property int variant: Alert.Default
     /*!

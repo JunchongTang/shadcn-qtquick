@@ -40,36 +40,33 @@ import LucideIcons
 C.Button {
     id: control
 
+    // Visual style, matching Button's variants. Default is first so it holds value 0.
+    enum Variant { Default, Secondary, Outline, Ghost, Destructive }
+
+    // Compact square scale (side length in px), mapping onto Button's icon sizes.
+    enum Size { Small, Medium, Large }
+
     /*!
         \qmlproperty enumeration IconButton::variant
         Visual style, matching \l Button's variants for cross-control consistency.
-        \c Default is listed first so it holds value 0.
+        Defaults to \c IconButton.Ghost.
+
         \value IconButton.Default Solid primary background, primary-foreground icon.
         \value IconButton.Secondary Solid secondary background, secondary-foreground icon.
         \value IconButton.Outline Transparent fill with a 1px border-colored outline.
         \value IconButton.Ghost Transparent fill, muted background on hover (the default).
         \value IconButton.Destructive Translucent destructive fill, destructive icon.
     */
-    enum Variant { Default, Secondary, Outline, Ghost, Destructive }
-
+    property int variant: IconButton.Ghost
     /*!
         \qmlproperty enumeration IconButton::size
         Compact square scale (side length in px). These map onto \l Button's
         icon sizes; all use the \c rounded-md corner radius.
+        Defaults to \c IconButton.Medium.
+
         \value IconButton.Small 24px square, 12px icon (= Button.IconSm).
         \value IconButton.Medium 28px square, 14px icon (= Button.Icon), the default.
         \value IconButton.Large 32px square, 16px icon (= Button.IconLg).
-    */
-    enum Size { Small, Medium, Large }
-
-    /*!
-        \qmlproperty int IconButton::variant
-        The visual style; see \l Variant. Defaults to \c IconButton.Ghost.
-    */
-    property int variant: IconButton.Ghost
-    /*!
-        \qmlproperty int IconButton::size
-        The square size; see \l Size. Defaults to \c IconButton.Medium.
     */
     property int size: IconButton.Medium
     /*!

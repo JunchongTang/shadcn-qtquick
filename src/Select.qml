@@ -45,22 +45,17 @@ import LucideIcons
 C.ComboBox {
     id: control
 
-    /*!
-        \qmlproperty enumeration Select::size
-        Compact size scale (only the trigger height changes; text stays \c text-xs):
-        \value Select.Default 28px height (data-[size=default]:h-7).
-        \value Select.Sm 24px height (data-[size=sm]:h-6).
-
-        \note This is the only enum on the type and its members (\c Default, \c Sm)
-        do not clash with the \c TransformOrigin values (\c Top / \c Bottom / \c Left /
-        \c Right / \c Center) that QML flattens in from the \l Item base, so no
-        renaming is required.
-    */
+    // Compact size scale (documented on the size property); members Default/Sm
+    // do not clash with the TransformOrigin values flattened in from the Item base.
     enum Size { Default, Sm }
 
     /*!
-        \qmlproperty int Select::size
-        The size on the compact scale; see \l Size. Defaults to \c Select.Default.
+        \qmlproperty enumeration Select::size
+        The size on the compact scale (only the trigger height changes; text stays
+        \c text-xs). Defaults to \c Select.Default.
+
+        \value Select.Default 28px height (data-[size=default]:h-7).
+        \value Select.Sm 24px height (data-[size=sm]:h-6).
     */
     property int size: Select.Default
     /*!

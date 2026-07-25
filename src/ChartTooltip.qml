@@ -27,13 +27,7 @@ import QtQuick.Effects
 Item {
     id: tip
 
-    /*!
-        \qmlproperty enumeration ChartTooltip::indicator
-        The per-row swatch style, matching shadcn's \c indicator prop.
-        \value ChartTooltip.Dot Filled rounded square (\c size-2.5).
-        \value ChartTooltip.Line Thin filled vertical bar (\c w-1).
-        \value ChartTooltip.Dashed Hollow outlined square (approximates \c border-dashed).
-    */
+    // The per-row swatch style, matching shadcn's indicator prop. Dot is first (value 0).
     enum Indicator { Dot, Line, Dashed }
 
     /*!
@@ -59,8 +53,13 @@ Item {
     property var items: []
 
     /*!
-        \qmlproperty int ChartTooltip::indicator
-        The row swatch style; see \l Indicator. Defaults to \c ChartTooltip.Dot.
+        \qmlproperty enumeration ChartTooltip::indicator
+        The row swatch style, matching shadcn's \c indicator prop.
+        Defaults to \c ChartTooltip.Dot.
+
+        \value ChartTooltip.Dot Filled rounded square (\c size-2.5).
+        \value ChartTooltip.Line Thin filled vertical bar (\c w-1).
+        \value ChartTooltip.Dashed Hollow outlined square (approximates \c border-dashed).
     */
     property int indicator: ChartTooltip.Dot
 

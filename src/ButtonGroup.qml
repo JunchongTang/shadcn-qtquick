@@ -33,20 +33,17 @@ import QtQuick
 Grid {
     id: group
 
+    // Layout direction of the group. Horizontal is first so it holds value 0.
+    enum Orientation { Horizontal, Vertical }
+
     /*!
         \qmlproperty enumeration ButtonGroup::orientation
-        Layout direction of the group.
+        The layout direction. Defaults to \c ButtonGroup.Horizontal.
+
         \value ButtonGroup.Horizontal Single row; inner left/right corners are
         straightened. Value 0 (default).
         \value ButtonGroup.Vertical Single column; inner top/bottom corners are
         straightened.
-    */
-    enum Orientation { Horizontal, Vertical }
-
-    /*!
-        \qmlproperty int ButtonGroup::orientation
-        The layout direction; see \l Orientation. Defaults to
-        \c ButtonGroup.Horizontal.
     */
     property int orientation: ButtonGroup.Horizontal
 

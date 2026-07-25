@@ -23,19 +23,17 @@ import QtQuick.Layouts
 Item {
     id: addon
 
-    /*!
-        \qmlproperty enumeration InputGroupAddon::align
-        Placement of the addon. Defaults to \c InputGroupAddon.InlineStart.
-        \value InputGroupAddon.InlineStart Leading horizontal end (pl-2).
-        \value InputGroupAddon.InlineEnd Trailing horizontal end (pr-2).
-        \value InputGroupAddon.BlockStart Row above the control (full width).
-        \value InputGroupAddon.BlockEnd Row below the control (full width).
-    */
+    // Placement of the addon (documented on the align property).
     enum Align { InlineStart, InlineEnd, BlockStart, BlockEnd }
 
     /*!
         \qmlproperty enumeration InputGroupAddon::align
-        See \l Align.
+        Placement of the addon. Defaults to \c InputGroupAddon.InlineStart.
+
+        \value InputGroupAddon.InlineStart Leading horizontal end (pl-2).
+        \value InputGroupAddon.InlineEnd Trailing horizontal end (pr-2).
+        \value InputGroupAddon.BlockStart Row above the control (full width).
+        \value InputGroupAddon.BlockEnd Row below the control (full width).
     */
     property int align: InputGroupAddon.InlineStart
 

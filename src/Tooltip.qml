@@ -20,7 +20,7 @@ import QtQuick.Controls.Basic
     appended to the right and the right padding tightens
     (\c {has-data-[slot=kbd]:pr-1.5}). Long text wraps within \c {max-w-xs}.
 
-    The bubble is placed on one of four \l Side edges of the trigger with a
+    The bubble is placed on one of four \c Side edges of the trigger with a
     \l sideOffset gap. It fades and zooms in / out on open / close
     (\c {data-open:fade-in / zoom-in-95}).
 
@@ -50,21 +50,20 @@ import QtQuick.Controls.Basic
 ToolTip {
     id: control
 
+    // Edge of the trigger the bubble is placed on (documented on the side
+    // property). Members are suffixed Edge to avoid the inherited
+    // Item.TransformOrigin name collision (issue #029).
+    enum Side { TopEdge, RightEdge, BottomEdge, LeftEdge }
+
     /*!
         \qmlproperty enumeration Tooltip::side
         Edge of the trigger the bubble is placed on (base-ui \c side).
-        Members are suffixed \c Edge to avoid the inherited
-        \c {Item.TransformOrigin} name collision (issue #029).
+        Defaults to \c Tooltip.Side.TopEdge.
+
         \value Tooltip.Side.TopEdge    Above the trigger. Value 0. Default.
         \value Tooltip.Side.RightEdge  To the right of the trigger. Value 1.
         \value Tooltip.Side.BottomEdge Below the trigger. Value 2.
         \value Tooltip.Side.LeftEdge   To the left of the trigger. Value 3.
-    */
-    enum Side { TopEdge, RightEdge, BottomEdge, LeftEdge }
-
-    /*!
-        \qmlproperty int Tooltip::side
-        Placement edge; see \l Side. Defaults to \c Tooltip.Side.TopEdge.
     */
     property int side: Tooltip.Side.TopEdge
 

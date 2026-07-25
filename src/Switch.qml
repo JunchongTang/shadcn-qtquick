@@ -28,17 +28,16 @@ import QtQuick.Controls.Basic as C
 C.Switch {
     id: control
 
-    /*!
-        \qmlproperty enumeration Switch::size
-        Compact size scale (matches \c data-[size]):
-        \value Switch.Default 28x16.6px track, 14px thumb (\c size-3.5).
-        \value Switch.Sm 24x14px track, 12px thumb (\c size-3).
-    */
+    // Compact size scale (documented on the size property).
     enum Size { Default, Sm }
 
     /*!
-        \qmlproperty int Switch::size
-        The size on the compact scale; see \l Size. Defaults to \c Switch.Default.
+        \qmlproperty enumeration Switch::size
+        The size on the compact scale (matches \c data-[size]). Defaults to
+        \c Switch.Default.
+
+        \value Switch.Default 28x16.6px track, 14px thumb (\c size-3.5).
+        \value Switch.Sm 24x14px track, 12px thumb (\c size-3).
     */
     property int size: Switch.Default
     /*!

@@ -36,22 +36,16 @@ import LucideIcons
 C.ComboBox {
     id: control
 
-    /*!
-        \qmlproperty enumeration NativeSelect::size
-        Compact size scale:
-        \value NativeSelect.Default 28px height, 12px text, 14px chevron.
-        \value NativeSelect.Sm 24px height, 10px text, 12px chevron.
-
-        \note This is the only enum on the type and its members (\c Default, \c Sm)
-        do not clash with the \c TransformOrigin values (\c Top / \c Bottom / \c Left /
-        \c Right / \c Center) that QML flattens in from the \l Item base, so no
-        renaming is required.
-    */
+    // Compact size scale. Members (Default, Sm) do not clash with the TransformOrigin
+    // values QML flattens in from the Item base, so no renaming is required.
     enum Size { Default, Sm }
 
     /*!
-        \qmlproperty int NativeSelect::size
-        The size on the compact scale; see \l Size. Defaults to \c NativeSelect.Default.
+        \qmlproperty enumeration NativeSelect::size
+        The size on the compact scale. Defaults to \c NativeSelect.Default.
+
+        \value NativeSelect.Default 28px height, 12px text, 14px chevron.
+        \value NativeSelect.Sm 24px height, 10px text, 12px chevron.
     */
     property int size: NativeSelect.Default
     /*!

@@ -26,35 +26,30 @@ import LucideIcons
 C.Button {
     id: control
 
-    /*!
-        \qmlproperty enumeration Toggle::variant
-        Visual style:
-        \value Toggle.Default Transparent background (muted on hover/on).
-        \value Toggle.Outline Adds a 1px input-colored border.
-    */
+    // Visual style (documented on the variant property).
     enum Variant { Default, Outline }
 
-    /*!
-        \qmlproperty enumeration Toggle::size
-        Compact size scale (height 24 / 28 / 32):
-        \value Toggle.Default 28px, 12px text, 16px icons.
-        \value Toggle.Sm 24px, 10px text, 12px icons.
-        \value Toggle.Lg 32px.
-
-        \note \c Default is listed first so it shares value 0 with \l Variant's
-        \c Default; QML flattens enum values into the type scope, so a colliding
-        name must resolve to the same number in both enums.
-    */
+    // Compact size scale (documented on the size property). Default is listed
+    // first so it shares value 0 with Variant's Default; QML flattens enum values
+    // into the type scope, so a colliding name must resolve to the same number in both enums.
     enum Size { Default, Sm, Lg }
 
     /*!
-        \qmlproperty int Toggle::variant
-        The visual style; see \l Variant. Defaults to \c Toggle.Default.
+        \qmlproperty enumeration Toggle::variant
+        The visual style. Defaults to \c Toggle.Default.
+
+        \value Toggle.Default Transparent background (muted on hover/on).
+        \value Toggle.Outline Adds a 1px input-colored border.
     */
     property int variant: Toggle.Default
     /*!
-        \qmlproperty int Toggle::size
-        The size on the compact scale; see \l Size. Defaults to \c Toggle.Default.
+        \qmlproperty enumeration Toggle::size
+        The size on the compact scale (height 24 / 28 / 32). Defaults to
+        \c Toggle.Default.
+
+        \value Toggle.Default 28px, 12px text, 16px icons.
+        \value Toggle.Sm 24px, 10px text, 12px icons.
+        \value Toggle.Lg 32px.
     */
     property int size: Toggle.Default
     /*!

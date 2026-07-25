@@ -27,7 +27,7 @@ import QtQuick.Effects
 
     \note Unlike \l HoverCard, Popover derives from \l Popup (not \l Item), so
     the inherited \c {Item.TransformOrigin} enum does not leak into scope; the
-    \l Align members \c Start / \c Center / \c End are therefore free of the
+    \c Align members \c Start / \c Center / \c End are therefore free of the
     name collision described in issue #029.
 
     \qml
@@ -47,20 +47,17 @@ import QtQuick.Effects
 C.Popup {
     id: control
 
-    /*!
-        \qmlproperty enumeration Popover::align
-        Horizontal alignment of the popup relative to the trigger (base-ui
-        \c align). Members map to values 0/1/2; there is no collision with any
-        inherited enum since Popup is not an \l Item.
-        \value Popover.Align.Start Align the popup's left edge to the trigger's left. Value 0.
-        \value Popover.Align.Center Center the popup over the trigger. Value 1. Default.
-        \value Popover.Align.End Align the popup's right edge to the trigger's right. Value 2.
-    */
+    // Horizontal alignment (documented on the align property); no collision with any inherited enum since Popup is not an Item.
     enum Align { Start, Center, End }
 
     /*!
-        \qmlproperty int Popover::align
-        Horizontal alignment; see \l Align. Defaults to \c Popover.Align.Center.
+        \qmlproperty enumeration Popover::align
+        Horizontal alignment of the popup relative to the trigger (base-ui
+        \c align). Members map to values 0/1/2. Defaults to \c Popover.Align.Center.
+
+        \value Popover.Align.Start Align the popup's left edge to the trigger's left. Value 0.
+        \value Popover.Align.Center Center the popup over the trigger. Value 1. Default.
+        \value Popover.Align.End Align the popup's right edge to the trigger's right. Value 2.
     */
     property int align: Popover.Align.Center
 

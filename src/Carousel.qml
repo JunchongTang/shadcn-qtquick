@@ -41,23 +41,20 @@ import LucideIcons
 Item {
     id: control
 
+    // Scroll axis of the carousel (documented on the orientation property).
+    // Members Horizontal/Vertical do not collide with the inherited
+    // Item.TransformOrigin members (Top/Left/Center/Right/Bottom), so QML's
+    // flattening of enum values into the type scope is safe here (see #029).
+    enum Orientation { Horizontal, Vertical }
+
     /*!
         \qmlproperty enumeration Carousel::orientation
-        Scroll axis of the carousel.
+        Scroll axis. Defaults to \c Carousel.Horizontal.
+
         \value Carousel.Horizontal Slides flow left-to-right; nav buttons sit
                left and right of the content. This is the default.
         \value Carousel.Vertical Slides flow top-to-bottom; nav buttons sit
                above and below the content.
-    */
-    enum Orientation { Horizontal, Vertical }
-
-    // Enum members Horizontal/Vertical do not collide with the inherited
-    // Item.TransformOrigin members (Top/Left/Center/Right/Bottom), so QML's
-    // flattening of enum values into the type scope is safe here (see #029).
-
-    /*!
-        \qmlproperty enumeration Carousel::orientation
-        Scroll axis; see \l Orientation. Defaults to \c Carousel.Horizontal.
     */
     property int orientation: Carousel.Horizontal
 

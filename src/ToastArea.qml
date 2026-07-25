@@ -28,15 +28,16 @@ import QtQuick
 Item {
     id: area
 
+    // The corner (and stacking edge) that toasts anchor to (documented on the
+    // position property). Members deliberately avoid TopLeft/TopRight/BottomLeft/
+    // BottomRight/Center, which would collide with the inherited Item.TransformOrigin
+    // enumeration (QML flattens enum names and TransformOrigin wins), silently
+    // remapping the values. Start means the left edge and End the right edge.
+    enum Position { TopStart, TopCenter, TopEnd, BottomStart, BottomCenter, BottomEnd }
+
     /*!
         \qmlproperty enumeration ToastArea::position
-        The corner (and stacking edge) that toasts anchor to.
-
-        \note Members deliberately avoid the names \c TopLeft / \c TopRight /
-        \c BottomLeft / \c BottomRight / \c Center. Those collide with the
-        inherited \c Item.TransformOrigin enumeration (QML flattens enum names
-        into the type scope and \c TransformOrigin wins), which would silently
-        remap the values. \c Start means the left edge and \c End the right edge.
+        The anchoring corner. Defaults to \c ToastArea.BottomEnd.
 
         \value ToastArea.TopStart     Top-left corner; slides in from the left.
         \value ToastArea.TopCenter    Top edge, centered; slides down.
@@ -44,12 +45,6 @@ Item {
         \value ToastArea.BottomStart  Bottom-left corner; slides in from the left.
         \value ToastArea.BottomCenter Bottom edge, centered; slides up.
         \value ToastArea.BottomEnd    Bottom-right corner; slides in from the right. (default)
-    */
-    enum Position { TopStart, TopCenter, TopEnd, BottomStart, BottomCenter, BottomEnd }
-
-    /*!
-        \qmlproperty int ToastArea::position
-        The anchoring corner; see \l Position. Defaults to \c ToastArea.BottomEnd.
     */
     property int position: ToastArea.BottomEnd
     /*!
@@ -90,7 +85,7 @@ Item {
     /*!
         \qmlmethod int ToastArea::show(string text, var opts)
         Pushes a toast whose title is \a text and returns its unique \c uid.
-        \a opts is an optional object supporting \c type (a \l Toast::Type value),
+        \a opts is an optional object supporting \c type (a \c Toast::Type value),
         \c description, \c actionText, and \c duration (ms).
     */
     function show(text, opts) {

@@ -22,7 +22,7 @@ import QtQuick.Effects
 
     \note Issue #029: the root is an \l Item, whose inherited
     \c {Item.TransformOrigin} members (\c Top, \c Right, \c Bottom, \c Left,
-    \c Center, ...) flatten into this type's scope. The \l Side and \l Align
+    \c Center, ...) flatten into this type's scope. The \c Side and \c Align
     enum members are therefore named \c {*Edge} / \c Middle to avoid colliding
     with those inherited names, which would otherwise resolve to the wrong
     integer values and silently break positioning.
@@ -40,36 +40,30 @@ import QtQuick.Effects
 Item {
     id: control
 
+    // Placement of the card relative to the trigger. Members are suffixed Edge to avoid
+    // the inherited Item.TransformOrigin name collision (issue #029).
+    enum Side { TopEdge, RightEdge, BottomEdge, LeftEdge }
     /*!
         \qmlproperty enumeration HoverCard::side
-        Placement of the card relative to the trigger (base-ui \c side).
-        Members are suffixed \c Edge to avoid the inherited
-        \c {Item.TransformOrigin} name collision (issue #029).
+        Placement side. Defaults to \c HoverCard.Side.BottomEdge.
+
         \value HoverCard.Side.TopEdge Above the trigger. Value 0.
         \value HoverCard.Side.RightEdge To the right of the trigger. Value 1.
         \value HoverCard.Side.BottomEdge Below the trigger. Value 2. Default.
         \value HoverCard.Side.LeftEdge To the left of the trigger. Value 3.
     */
-    enum Side { TopEdge, RightEdge, BottomEdge, LeftEdge }
-    /*!
-        \qmlproperty int HoverCard::side
-        Placement side; see \l Side. Defaults to \c HoverCard.Side.BottomEdge.
-    */
     property int side: HoverCard.Side.BottomEdge
 
+    // Alignment of the card along the trigger's cross axis. Middle replaces Center to
+    // avoid the inherited Item.TransformOrigin.Center collision (issue #029).
+    enum Align { Start, Middle, End }
     /*!
         \qmlproperty enumeration HoverCard::align
-        Alignment of the card along the trigger's cross axis (base-ui \c align).
-        \c Middle replaces \c Center to avoid the inherited
-        \c {Item.TransformOrigin.Center} collision (issue #029).
+        Cross-axis alignment. Defaults to \c HoverCard.Align.Middle.
+
         \value HoverCard.Align.Start Align to the leading edge. Value 0.
         \value HoverCard.Align.Middle Center on the trigger. Value 1. Default.
         \value HoverCard.Align.End Align to the trailing edge. Value 2.
-    */
-    enum Align { Start, Middle, End }
-    /*!
-        \qmlproperty int HoverCard::align
-        Cross-axis alignment; see \l Align. Defaults to \c HoverCard.Align.Middle.
     */
     property int align: HoverCard.Align.Middle
 

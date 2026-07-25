@@ -17,7 +17,7 @@ import LucideIcons
     Per-variant colors come from \l Theme; they may be overridden wholesale
     through \l bgColor, \l fgColor and \l borderColor for custom-colored badges.
 
-    The \l Variant enum values/names are stable API: other components (for
+    The \c Variant enum values/names are stable API: other components (for
     example table cells) select a badge style by name, e.g. \c Badge.Secondary.
 
     \qml
@@ -29,25 +29,21 @@ import LucideIcons
 Item {
     id: control
 
+    // Color style. Member order differs from Button.Variant on purpose; each QML type
+    // namespaces its own enum, so callers reference members by name, never numeric value.
+    enum Variant { Default, Secondary, Outline, Destructive, Ghost, Link }
+
     /*!
         \qmlproperty enumeration Badge::variant
         The color style. Values map to shadcn's \c .cn-badge-variant-* rules.
+        Defaults to \c Badge.Default.
+
         \value Badge.Default Primary fill with primary-foreground text.
         \value Badge.Secondary Secondary fill with secondary-foreground text.
         \value Badge.Outline 1px border, foreground text, faint input-tinted fill.
         \value Badge.Destructive Faint destructive fill with destructive text.
         \value Badge.Ghost Transparent, foreground text.
         \value Badge.Link Transparent, primary text, underlined.
-
-        \note The member order differs from \c Button.Variant on purpose; each
-        QML type namespaces its own enum, so callers must reference members by
-        name (\c Badge.Ghost), never by numeric value.
-    */
-    enum Variant { Default, Secondary, Outline, Destructive, Ghost, Link }
-
-    /*!
-        \qmlproperty int Badge::variant
-        The color style; see \l Variant. Defaults to \c Badge.Default.
     */
     property int variant: Badge.Default
     /*!

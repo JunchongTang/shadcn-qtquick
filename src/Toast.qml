@@ -34,21 +34,20 @@ import LucideIcons
 Rectangle {
     id: control
 
+    // The notification kind (documented on the type property); selects the leading icon.
+    enum Type { Default, Success, Info, Warning, Error, Loading }
+
     /*!
         \qmlproperty enumeration Toast::type
-        The notification kind, which selects the leading icon.
+        The notification kind, which selects the leading icon. Defaults to
+        \c Toast.Default.
+
         \value Toast.Default No icon.
         \value Toast.Success \c circle-check icon.
         \value Toast.Info    \c info icon.
         \value Toast.Warning \c triangle-alert icon.
         \value Toast.Error   \c octagon-x icon.
         \value Toast.Loading \c loader-circle icon, spinning continuously.
-    */
-    enum Type { Default, Success, Info, Warning, Error, Loading }
-
-    /*!
-        \qmlproperty int Toast::type
-        The notification kind; see \l Type. Defaults to \c Toast.Default.
     */
     property int type: Toast.Default
     /*!

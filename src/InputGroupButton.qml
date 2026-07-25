@@ -18,19 +18,17 @@ import QtQuick
 Button {
     id: btn
 
-    /*!
-        \qmlproperty enumeration InputGroupButton::kind
-        Size preset. Defaults to \c InputGroupButton.KindXs.
-        \value InputGroupButton.KindXs Text, maps to Button.Xs (h-5, 20px).
-        \value InputGroupButton.KindSm Text, maps to Button.Sm (h-6, 24px).
-        \value InputGroupButton.KindIconXs Square icon, maps to Button.IconSm (size-6, 24px).
-        \value InputGroupButton.KindIconSm Square icon, maps to Button.Icon (size-7, 28px).
-    */
+    // Size preset (documented on the kind property).
     enum Kind { KindXs, KindSm, KindIconXs, KindIconSm }
 
     /*!
         \qmlproperty enumeration InputGroupButton::kind
-        See \l Kind.
+        Size preset. Defaults to \c InputGroupButton.KindXs.
+
+        \value InputGroupButton.KindXs Text, maps to Button.Xs (h-5, 20px).
+        \value InputGroupButton.KindSm Text, maps to Button.Sm (h-6, 24px).
+        \value InputGroupButton.KindIconXs Square icon, maps to Button.IconSm (size-6, 24px).
+        \value InputGroupButton.KindIconSm Square icon, maps to Button.Icon (size-7, 28px).
     */
     property int kind: InputGroupButton.KindXs
     /*! \qmlproperty bool InputGroupButton::_igButton

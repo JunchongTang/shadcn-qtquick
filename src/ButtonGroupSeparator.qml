@@ -19,20 +19,17 @@ import QtQuick
     \sa ButtonGroup, Button
 */
 Rectangle {
+    // Direction the divider runs. Horizontal is first so it holds value 0.
+    enum Orientation { Horizontal, Vertical }
+
     /*!
         \qmlproperty enumeration ButtonGroupSeparator::orientation
-        Direction the divider runs.
+        The divider direction. Defaults to \c ButtonGroupSeparator.Vertical.
+
         \value ButtonGroupSeparator.Horizontal A horizontal line (1px tall,
         \l length wide). Value 0.
         \value ButtonGroupSeparator.Vertical A vertical line (1px wide,
         \l length tall). Default.
-    */
-    enum Orientation { Horizontal, Vertical }
-
-    /*!
-        \qmlproperty int ButtonGroupSeparator::orientation
-        The divider direction; see \l Orientation. Defaults to
-        \c ButtonGroupSeparator.Vertical.
     */
     property int orientation: ButtonGroupSeparator.Vertical
 

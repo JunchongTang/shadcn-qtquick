@@ -46,7 +46,7 @@ C.AbstractButton {
     /*!
         \qmlproperty int DateRangePicker::align
         Horizontal alignment of the popover relative to the trigger. Defaults to
-        \l {Popover::}{Popover.Align.Start}.
+        \c Popover.Align.Start.
     */
     property int align: Popover.Align.Start
 

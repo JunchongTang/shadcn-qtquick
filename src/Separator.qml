@@ -30,26 +30,19 @@ import QtQuick
     \sa ItemSeparator, MenuSeparator
 */
 Rectangle {
+    // The axis the divider runs along (documented on the orientation property).
+    // Member names Horizontal/Vertical do not collide with the Item.TransformOrigin
+    // enum inherited via Rectangle, so the flattened enum values stay 0 / 1 as declared.
+    enum Orientation { Horizontal, Vertical }
+
     /*!
         \qmlproperty enumeration Separator::orientation
-        The axis the divider runs along; see \l orientation.
+        The divider axis. Defaults to \c Separator.Horizontal.
+
         \value Separator.Horizontal A left-to-right rule: 1px tall, spans its
                width. This is the default.
         \value Separator.Vertical A top-to-bottom rule: 1px wide, spans its
                height.
-
-        \note The member names \c Horizontal and \c Vertical do not collide with
-        the \c Item.TransformOrigin enum inherited via \l Rectangle (whose
-        members are \c Top / \c Left / \c Center / \c Right / \c Bottom and the
-        corner variants), so the flattened enum values stay 0 / 1 as declared.
-        Renaming the way HoverCard's \c Side had to (issue #029) is unnecessary
-        here.
-    */
-    enum Orientation { Horizontal, Vertical }
-
-    /*!
-        \qmlproperty int Separator::orientation
-        The divider axis; see \l Orientation. Defaults to \c Separator.Horizontal.
     */
     property int orientation: Separator.Horizontal
 

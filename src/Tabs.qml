@@ -32,30 +32,20 @@ import QtQuick.Controls.Basic as C
 C.TabBar {
     id: control
 
-    /*!
-        \qmlproperty enumeration Tabs::variant
-        Visual style of the tab strip:
-        \value Tabs.Default Muted rounded background; active trigger is a filled pill.
-        \value Tabs.Line No background, square corners, gap-1 spacing; active trigger is underlined.
-    */
+    // Visual style of the tab strip (documented on the variant property).
     enum Variant { Default, Line }
 
-    /*!
-        \qmlproperty enumeration Tabs::orientation
-        Layout direction of the triggers. This is a read-only reflection of
-        \l vertical, exposed to match shadcn's \c orientation prop.
-        \value Tabs.Horizontal Triggers laid out in a row (default).
-        \value Tabs.Vertical Triggers stacked in a column.
-
-        \note \c Horizontal/\c Vertical do not collide with the inherited
-        \c Item.TransformOrigin names (Top/Left/Center/Right/Bottom), nor do the
-        flattened \l Variant names, so both enums coexist safely in the type scope.
-    */
+    // Layout direction of the triggers (documented on the orientation property).
+    // Horizontal/Vertical do not collide with the inherited Item.TransformOrigin
+    // names, nor do the flattened Variant names, so both enums coexist safely.
     enum Orientation { Horizontal, Vertical }
 
     /*!
-        \qmlproperty int Tabs::variant
-        The visual style; see \l Variant. Defaults to \c Tabs.Default.
+        \qmlproperty enumeration Tabs::variant
+        The visual style. Defaults to \c Tabs.Default.
+
+        \value Tabs.Default Muted rounded background; active trigger is a filled pill.
+        \value Tabs.Line No background, square corners, gap-1 spacing; active trigger is underlined.
     */
     property int variant: Tabs.Default
     /*!
@@ -64,8 +54,12 @@ C.TabBar {
     */
     property bool vertical: false
     /*!
-        \qmlproperty int Tabs::orientation
-        Read-only enum reflection of \l vertical; see \l Orientation.
+        \qmlproperty enumeration Tabs::orientation
+        Read-only enum reflection of \l vertical, exposed to match shadcn's
+        \c orientation prop.
+
+        \value Tabs.Horizontal Triggers laid out in a row (default).
+        \value Tabs.Vertical Triggers stacked in a column.
     */
     readonly property int orientation: vertical ? Tabs.Vertical : Tabs.Horizontal
 

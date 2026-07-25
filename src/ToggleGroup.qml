@@ -27,40 +27,32 @@ import QtQuick.Layouts
 GridLayout {
     id: group
 
-    /*!
-        \qmlproperty enumeration ToggleGroup::variant
-        \value ToggleGroup.Default Transparent items.
-        \value ToggleGroup.Outline Outlined items.
-    */
+    // Visual style (documented on the variant property).
     enum Variant { Default, Outline }
 
-    /*!
-        \qmlproperty enumeration ToggleGroup::size
-        \value ToggleGroup.Default 28px items.
-        \value ToggleGroup.Sm 24px items.
-        \value ToggleGroup.Lg 32px items.
-
-        \note \c Default is listed first so it shares value 0 with \l Variant's
-        \c Default; QML flattens enum values into the type scope, so a colliding
-        name must resolve to the same number in both enums.
-    */
+    // Compact size scale (documented on the size property). Default is listed
+    // first so it shares value 0 with Variant's Default; QML flattens enum values
+    // into the type scope, so a colliding name must resolve to the same number in both enums.
     enum Size { Default, Sm, Lg }
 
-    /*!
-        \qmlproperty enumeration ToggleGroup::orientation
-        \value ToggleGroup.Horizontal Single row.
-        \value ToggleGroup.Vertical Single column.
-    */
+    // Layout direction (documented on the orientation property).
     enum Orientation { Horizontal, Vertical }
 
     /*!
-        \qmlproperty int ToggleGroup::variant
-        Variant propagated to items; see \l Variant.
+        \qmlproperty enumeration ToggleGroup::variant
+        Variant propagated to items.
+
+        \value ToggleGroup.Default Transparent items.
+        \value ToggleGroup.Outline Outlined items.
     */
     property int variant: ToggleGroup.Default
     /*!
-        \qmlproperty int ToggleGroup::size
-        Size propagated to items; see \l Size.
+        \qmlproperty enumeration ToggleGroup::size
+        Size propagated to items.
+
+        \value ToggleGroup.Default 28px items.
+        \value ToggleGroup.Sm 24px items.
+        \value ToggleGroup.Lg 32px items.
     */
     property int size: ToggleGroup.Default
     /*!
@@ -69,8 +61,11 @@ GridLayout {
     */
     property int spacing: 2
     /*!
-        \qmlproperty int ToggleGroup::orientation
-        Layout direction; see \l Orientation.
+        \qmlproperty enumeration ToggleGroup::orientation
+        Layout direction.
+
+        \value ToggleGroup.Horizontal Single row.
+        \value ToggleGroup.Vertical Single column.
     */
     property int orientation: ToggleGroup.Horizontal
     /*!
