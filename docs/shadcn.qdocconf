@@ -21,6 +21,13 @@ headers.fileextensions = ""
 
 exampledirs = ../examples/gallery
 
+# Cross-link inherited/referenced Qt Quick types to the online Qt docs
+# (doc.qt.io). Resolved from the Qt .index files under the directory passed via
+# --indexdir (build-docs.sh auto-detects it, e.g. ~/Qt/Docs/Qt-<ver>). Modules
+# whose index is not installed are skipped with a benign note; QtQuick.Layouts
+# and QtQuick.Effects indexes are optional (install them to link those too).
+depends += qtquick qtquickcontrols qtcore qtqml
+
 sourceencoding  = UTF-8
 outputencoding  = UTF-8
 naturallanguage = en
