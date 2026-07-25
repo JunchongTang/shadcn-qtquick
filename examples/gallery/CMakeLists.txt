@@ -1,4 +1,4 @@
-find_package(Qt6 REQUIRED COMPONENTS WebView)
+find_package(Qt6 REQUIRED COMPONENTS WebView HttpServer)
 
 qt_add_executable(shadcn_gallery main.cpp)
 
@@ -487,6 +487,7 @@ qt_add_resources(shadcn_gallery "gallery_demos"
 target_link_libraries(shadcn_gallery PRIVATE
     Qt6::Quick
     Qt6::WebView
+    Qt6::HttpServer
     shadcn_ui
     shadcn_uiplugin
     LucideIcons
