@@ -58,16 +58,16 @@ Legend: ✅ done · 🔶 partial · ⬜ pending · — n/a
 | 48 | Resizable | Resizable | ✅ | ✅ | ✅ | 🔶 | no bugs; enum-safe (Qt.Horizontal/Vertical) |
 | 49 | RoundedImage | RoundedImage | ✅ | ✅ | ✅ | ✅ | no bugs; layer+mask verified |
 | 50 | ScrollArea | ScrollArea | ✅ | ✅ | ✅ | 🔶 | no bugs; baked border/rect-clip flagged |
-| 51 | ScrollView | ScrollView | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 52 | Select | Select | ⬜ | ⬜ | ⬜ | ⬜ | fix #013 landed |
-| 53 | Separator | Separator | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 54 | Sheet | Sheet | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 55 | Sidebar | Sidebar(+12 parts) | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 56 | Skeleton | Skeleton | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 57 | Slider | Slider | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 58 | Spinner | Spinner | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 59 | Switch | Switch | ⬜ | ⬜ | ⬜ | ⬜ | |
-| 60 | Tabs | Tabs, TabButton | ⬜ | ⬜ | ⬜ | ⬜ | fix #005 landed |
+| 51 | ScrollView | ScrollView | ✅ | ✅ | ✅ | 🔶 | P3 stale comment; clip/overlap parity flagged |
+| 52 | Select | Select | ✅ | ✅ | ✅ | 🔶 | 3×P2 (border/chevron/size scale); #013 intact |
+| 53 | Separator | Separator | ✅ | ✅ | ✅ | ✅ | no bugs; enum-safe |
+| 54 | Sheet | Sheet | ✅ | ✅ | ✅ | ✅ | P2 #029 Side enum collision (→*Edge) + P2 body px-6 |
+| 55 | Sidebar | Sidebar(+12 parts) | ✅ | ✅ | ✅ | 🔶 | P2 trigger size icon-sm; focus-ring flagged |
+| 56 | Skeleton | Skeleton | ✅ | ✅ | ✅ | ✅ | 2×P2 pulse opacity/duration + P3 bezier |
+| 57 | Slider | Slider | ✅ | ✅ | ✅ | ✅ | no bugs (RangeSlider's don't apply) |
+| 58 | Spinner | Spinner | ✅ | ✅ | ✅ | 🔶 | P3 spin 1s; a11y-role flagged |
+| 59 | Switch | Switch | ✅ | ✅ | ✅ | ✅ | 2×P2 thumb slide + dark-mode |
+| 60 | Tabs | Tabs, TabButton | ✅ | ✅ | ✅ | 🔶 | P2 inactive label color; #005 intact |
 | 61 | Table | Table, TableColumn | ✅ | ✅ | ✅ | ✅ | #023/#024 |
 | 62 | Textarea | Textarea | ⬜ | ⬜ | ⬜ | ⬜ | |
 | 63 | Theme | Theme | ⬜ | ⬜ | — | — | singleton / design tokens |

@@ -1,7 +1,18 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn SidebarSeparator —— 1px 分隔线,bg-sidebar-border,左右 mx-2 内缩。
+/*!
+    \qmltype SidebarSeparator
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A 1px horizontal divider within a \l Sidebar.
+
+    SidebarSeparator is the QML port of shadcn's \c SidebarSeparator
+    (\c .cn-sidebar-separator). It draws a 1px line in \c sidebar-border, inset
+    by \c mx-2 (8px) on each side.
+
+    \sa Sidebar, SidebarGroup
+*/
 Item {
     Layout.fillWidth: true
     implicitHeight: 1

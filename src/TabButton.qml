@@ -4,38 +4,69 @@ import QtQuick.Controls.Basic as C
 import QtQuick.Effects
 import LucideIcons
 
-// shadcn Tabs 触发器 —— 文件名与基类同名(TabButton),必须别名导入并以 C.TabButton 为根,
-// 释放 TabButton 供枚举访问、规避继承环。
-// Default 变体:选中 → background 底 + foreground 字 + radiusMd + 轻投影(激活胶囊)。
-// Line 变体:无胶囊底,选中 → 底部 2px 前景色下划线(vertical 时移到右侧)。
-// iconName:左侧 Lucide 图标(size-3.5 = 14),gap-1.5。disabled:整体变暗不可点。
+/*!
+    \qmltype TabButton
+    \inqmlmodule Shadcn
+    \inherits TabButton
+    \brief A single trigger inside a \l Tabs strip.
+
+    TabButton ports shadcn base-mira's \c .cn-tabs-trigger. It reads its variant
+    and orientation from the enclosing \l Tabs (a \c TabBar) via the
+    \c TabBar attached property, so it renders the right decoration automatically:
+
+    \list
+        \li \c Default variant: the active trigger shows a \c background pill with
+            \c rounded-md corners and, in dark mode, a 1px \c input border.
+        \li \c Line variant: no pill; the active trigger gets a 2px foreground
+            underline along the bottom (horizontal) or right (vertical) edge.
+    \endlist
+
+    The label uses the foreground color when active/hovered, and the muted
+    foreground (dark) or foreground at 60% (light) otherwise. An optional leading
+    \l iconName renders a 14px Lucide icon.
+
+    \note The file is intentionally named \c TabButton and re-roots on the aliased
+    base \c C.TabButton so the plain \c TabButton identifier stays free for enum
+    resolution and to avoid an inheritance cycle.
+
+    \sa Tabs
+*/
 C.TabButton {
     id: control
 
-    property string iconName: ""   // 前置图标(Lucide kebab-case 名)
+    /*! \qmlproperty string TabButton::iconName \brief Optional leading Lucide icon (kebab-case name). */
+    property string iconName: ""
 
-    // 从所属 Tabs(TabBar)读取变体/方向,决定胶囊 vs 下划线、横排 vs 竖排。
+    // Variant/orientation are read from the enclosing Tabs (TabBar) so a bare
+    // TabButton adapts to whichever strip it is placed in.
     readonly property var _bar: C.TabBar.tabBar
     readonly property bool _line: _bar ? _bar._line === true : false
     readonly property bool _vertical: _bar ? _bar.vertical === true : false
 
+    // Label/icon color: foreground when active/hovered; otherwise muted-foreground
+    // in dark mode and foreground/60 in light mode (matches text-foreground/60
+    // dark:text-muted-foreground from the reference).
     readonly property color _fg: (control.checked || control.hovered || control.down)
-                                 ? Theme.foreground : Theme.mutedForeground
+                                 ? Theme.foreground
+                                 : (Theme.dark ? Theme.mutedForeground
+                                               : Theme.alpha(Theme.foreground, 0.6))
 
-    leftPadding: Theme.space1_5     // px-1.5
+    // px-1.5 (6); a leading icon tightens the left side to pl-1 (4).
+    leftPadding: iconName !== "" ? Theme.space1 : Theme.space1_5
     rightPadding: Theme.space1_5
     topPadding: _vertical ? 5 : 0   // vertical: py-[calc(--spacing(1.25))] = 5px
     bottomPadding: _vertical ? 5 : 0
     implicitHeight: _vertical ? (contentItem.implicitHeight + topPadding + bottomPadding)
-                              : 26  // h-8 列表(32) - p-[3px] 两侧 = 26
-    // 垂直模式:每个触发器铺满列表宽度,使激活胶囊与 muted 背景等宽对齐(修复过窄)。
-    // 用 width(而非 implicitWidth),避免与 Tabs 的 _maxChildWidth 形成绑定环。
+                              : 26  // list h-8 (32) minus p-[3px] both sides = 26
+    // Vertical: every trigger fills the list width so the active pill and muted
+    // background stay aligned. Bind to ListView.view.width (not implicitWidth) to
+    // break the binding loop against Tabs._maxChildWidth (fix #005 - do not regress).
     width: (control._vertical && ListView.view) ? ListView.view.width : implicitWidth
     font.pixelSize: Theme.textXs
     font.weight: Font.Medium
     hoverEnabled: true
-    focusPolicy: Qt.StrongFocus     // 键盘可 Tab 聚焦;方向键在 TabBar 内切换由基类处理
-    opacity: enabled ? 1.0 : 0.5   // disabled
+    focusPolicy: Qt.StrongFocus     // Tab-focusable; arrow-key switching handled by the base TabBar
+    opacity: enabled ? 1.0 : 0.5    // disabled:opacity-50
 
     contentItem: Item {
         implicitWidth: row.implicitWidth
@@ -45,7 +76,7 @@ C.TabButton {
             id: row
             spacing: Theme.space1_5   // gap-1.5
             anchors.verticalCenter: parent.verticalCenter
-            // vertical:justify-start(左对齐);horizontal:居中。
+            // vertical: justify-start (left); horizontal: centered.
             anchors.left: control._vertical ? parent.left : undefined
             anchors.horizontalCenter: control._vertical ? undefined : parent.horizontalCenter
 
@@ -70,7 +101,8 @@ C.TabButton {
     }
 
     background: Item {
-        // Default 变体激活胶囊:选中时显 background 底 + 轻投影(shadow-sm);暗色下加 input 描边。
+        // Default variant pill: on active, paints a background fill (shadow-sm in
+        // the reference) plus a dark-mode input border.
         Rectangle {
             id: pill
             anchors.fill: parent
@@ -81,7 +113,8 @@ C.TabButton {
             border.color: Theme.input
         }
 
-        // Line 变体下划线:选中时淡入。horizontal 贴底满宽;vertical 贴右满高。均 2px 前景色。
+        // Line variant underline: fades in when active. Horizontal fills the
+        // bottom edge; vertical fills the right edge. Always 2px foreground.
         Rectangle {
             id: underline
             visible: control._line

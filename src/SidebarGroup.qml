@@ -1,14 +1,31 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn SidebarGroup —— 一个分组容器,px-2 py-1(左右 8 / 上下 4)。
-// 简化:未单独实现 SidebarGroupContent(其仅是 w-full 包装),菜单直接放进本组。
+/*!
+    \qmltype SidebarGroup
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A titled section within \l SidebarContent.
+
+    SidebarGroup is the QML port of shadcn's \c SidebarGroup
+    (\c .cn-sidebar-group). It applies \c px-2 (8px) horizontal padding and
+    \c py-1 (4px) vertical padding, and stacks its children vertically. A group
+    typically holds a \l SidebarGroupLabel followed by a \l SidebarMenu.
+
+    \note The web component's \c SidebarGroupContent (a \c w-full wrapper) is not
+    reproduced; place the menu directly inside the group.
+
+    \sa SidebarContent, SidebarGroupLabel, SidebarMenu
+*/
 Item {
     id: control
+
+    /*! \qmlproperty list<QtObject> SidebarGroup::content
+        \brief Default child list, stacked vertically inside the padded column. */
     default property alias content: inner.data
 
     Layout.fillWidth: true
-    implicitHeight: inner.implicitHeight + 8    // py-1(上下各 4)
+    implicitHeight: inner.implicitHeight + 8    // py-1 (4px top + 4px bottom)
 
     ColumnLayout {
         id: inner

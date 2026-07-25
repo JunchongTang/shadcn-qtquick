@@ -8,10 +8,10 @@ Flow {
 
     Repeater {
         model: [
-            { label: "top",    side: Sheet.Top },
-            { label: "right",  side: Sheet.Right },
-            { label: "bottom", side: Sheet.Bottom },
-            { label: "left",   side: Sheet.Left }
+            { label: "top",    side: Sheet.TopEdge },
+            { label: "right",  side: Sheet.RightEdge },
+            { label: "bottom", side: Sheet.BottomEdge },
+            { label: "left",   side: Sheet.LeftEdge }
         ]
         delegate: Button {
             required property var modelData

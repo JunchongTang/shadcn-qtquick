@@ -1,18 +1,34 @@
 import QtQuick
 
-// shadcn SidebarRail —— 贴在 Sidebar 边缘的窄条(w-4 = 16),点击切换折叠。
-// hover 时中缝显现 2px sidebar-border 线(after:w-[2px] hover:after:bg-sidebar-border)。
-// 用法:置于 Sidebar 右边缘之上(自行 anchors 定位),绑定 sidebar 指向目标 Sidebar。
-// 简化(见报告):不做拖拽调宽,仅点击切换;RTL 定位镜像跳过。
+/*!
+    \qmltype SidebarRail
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A thin edge strip that toggles the \l Sidebar when clicked.
+
+    SidebarRail is the QML port of shadcn's \c SidebarRail
+    (\c .cn-sidebar-rail). It is a \c w-4 (16px) wide strip placed over the
+    sidebar's edge. On hover a 2px \c sidebar-border line appears down the
+    centre, fading in with a linear transition. Clicking it toggles the target
+    sidebar's \l {Sidebar::collapsed}{collapsed} state.
+
+    Position it over the sidebar edge yourself (via anchors) and bind \l sidebar
+    to the target \l Sidebar.
+
+    \note Simplified: no drag-to-resize; only click-to-toggle. RTL mirroring of
+    the position is not handled.
+
+    \sa Sidebar, SidebarTrigger
+*/
 Item {
     id: control
 
-    // 目标 Sidebar(需外部绑定)。
+    /*! \qmlproperty var SidebarRail::sidebar \brief The target \l Sidebar to toggle (must be bound by the caller). */
     property var sidebar: null
 
     implicitWidth: 16                // w-4
 
-    // 中缝竖线:hover 显现,ease-linear 过渡。
+    // Centre line: appears on hover with a linear fade.
     Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top

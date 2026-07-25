@@ -10,9 +10,9 @@ import LucideIcons
     \brief A plain native-style dropdown select (\c .cn-native-select).
 
     NativeSelect is the plainer counterpart to \l Select, styled after shadcn's
-    base-mira \c .cn-native-select rules. Compared with \l Select it shows a
-    \e single trailing \c chevron-down (rather than \c chevrons-up-down) and its
-    popup is a plain list of options with no per-item check mark.
+    base-mira \c .cn-native-select rules. Both show a trailing \c chevron-down;
+    compared with \l Select, NativeSelect's popup is a plain list of options with
+    no per-item check mark.
 
     Visuals: an \c input-colored border over a faint \c {bg-input/20} fill,
     height 28 (24 when \l size is \c Sm), \c rounded-md corners, extra-small text

@@ -10,7 +10,7 @@ Button {
 
     Sheet {
         id: sheet
-        side: Sheet.Right
+        side: Sheet.RightEdge
         title: qsTr("Edit profile")
         description: qsTr("Make changes to your profile here. Click save when you're done.")
 

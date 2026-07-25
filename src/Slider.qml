@@ -1,29 +1,68 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
 
-// shadcn Slider(base-mira)—— 单值滑块。
-// track:bg-muted、rounded-md、h-1(水平)/ w-1(垂直);range:bg-primary;
-// thumb:size-3(12px)、rounded-md、border-ring、bg-white,hover/focus/active 显示 ring-2 ring/30。
-// 基类别名导入(as C)以便文件名 Slider 不与基类自引用冲突。
+/*!
+    \qmltype Slider
+    \inqmlmodule Shadcn
+    \inherits Slider
+    \brief A single-thumb slider for picking one value from a range.
+
+    Slider ports shadcn's base-mira \c .cn-slider styling for the single-value
+    usage (\c {defaultValue={n}}). It shares the exact visuals of the two-thumb
+    \l RangeSlider: a \c bg-muted, \c rounded-md track (\c h-1 / 4px when
+    horizontal, \c w-1 / 4px when vertical) with a \c bg-primary indicator filled
+    from the start of the track up to the current value, plus a \c size-3 (12px),
+    \c rounded-md, white thumb with a \c border-ring outline that grows a focus
+    ring on hover, press, or keyboard focus.
+
+    It is built on the Qt Quick Controls \c Slider, so the selected value is read
+    and written through \l value.
+
+    \qml
+    Slider { from: 0; to: 100; value: 50 }
+    Slider { orientation: Qt.Vertical; value: 25 }
+    \endqml
+
+    \sa RangeSlider
+*/
 C.Slider {
     id: control
 
+    /*! \qmlproperty real Slider::from \brief Range minimum. Defaults to \c 0. */
     from: 0
+    /*! \qmlproperty real Slider::to \brief Range maximum. Defaults to \c 100. */
     to: 100
+    /*! \qmlproperty real Slider::stepSize \brief Keyboard/drag increment. Defaults to \c 1. */
     stepSize: 1
 
-    // 注:C.Slider 自带只读 FINAL 属性 horizontal(= orientation===Qt.Horizontal),直接用 control.horizontal。
+    /*!
+        \qmlproperty real Slider::value
+        \brief The currently selected value, clamped to \l from .. \l to.
+
+        A bare Slider defaults to \l from (\c 0), i.e. an empty indicator with the
+        thumb at the start of the track; this matches Qt's own default and is the
+        sane single-thumb equivalent of \l RangeSlider's full-range fallback.
+    */
+
+    /*!
+        \qmlproperty enumeration Slider::orientation
+        \brief Layout direction.
+        \value Qt.Horizontal Track runs left-to-right (the default); higher values to the right.
+        \value Qt.Vertical Track runs bottom-to-top; higher values upward.
+    */
+    // Note: C.Slider exposes a read-only FINAL property horizontal
+    // (== orientation === Qt.Horizontal); use control.horizontal directly.
 
     implicitWidth: horizontal ? 200 : 12
-    implicitHeight: horizontal ? 12 : 160   // 垂直默认 min-h-40 = 160
+    implicitHeight: horizontal ? 12 : 160   // vertical default min-h-40 = 160
     padding: 0
     hoverEnabled: true
-    focusPolicy: Qt.StrongFocus     // 键盘可 Tab 聚焦;方向键调整由 Slider 基类处理
+    focusPolicy: Qt.StrongFocus     // Tab-focusable; arrow-key stepping comes from the base class
     live: true
     // data-disabled:opacity-50
     opacity: enabled ? 1.0 : 0.5
 
-    // ==== 轨道(bg-muted)+ 指示条(bg-primary)====
+    // ==== Track (bg-muted) + indicator (bg-primary, filled up to the value) ====
     background: Rectangle {
         id: track
         x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
@@ -37,16 +76,18 @@ C.Slider {
         clip: true                                               // overflow-hidden
 
         Rectangle {
+            objectName: "range"
             radius: Theme.radiusMd
             color: Theme.primary
-            // 水平:自左向右;垂直:自底向上(value 越大越靠上)。
+            // Horizontal: fill left-to-right. Vertical: fill bottom-up
+            // (a larger value means a taller fill anchored to the bottom).
             width: control.horizontal ? control.position * track.width : track.width
             height: control.horizontal ? track.height : control.position * track.height
             y: control.horizontal ? 0 : track.height - height
         }
     }
 
-    // ==== 滑块(rounded-md 白底 + ring 描边 + 焦点环)====
+    // ==== Thumb (rounded-md white fill + ring outline + focus ring) ====
     handle: Rectangle {
         id: thumb
         x: control.leftPadding + (control.horizontal
@@ -58,11 +99,13 @@ C.Slider {
         implicitWidth: 12                                        // size-3
         implicitHeight: 12
         radius: Theme.radiusMd
-        color: "#ffffff"                                         // bg-white(明暗一致)
+        color: "#ffffff"                                         // bg-white (identical in light/dark)
         border.width: 1
         border.color: Theme.ring                                 // border-ring
 
-        // hover:ring-2 / focus-visible:ring-2 / active:ring-2(ring/30)
+        // hover:ring-2 / focus-visible:ring-2 / active(pressed):ring-2 (ring/30).
+        // Single thumb, so control.visualFocus (keyboard-only) is enough for the
+        // focus ring; hover/press cover mouse interaction.
         FocusRing {
             active: control.hovered || control.visualFocus || control.pressed
             targetRadius: thumb.radius

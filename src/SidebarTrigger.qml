@@ -1,16 +1,26 @@
 import QtQuick
 
-// shadcn SidebarTrigger —— 切换 Sidebar 折叠/展开的按钮。
-// = Button variant=ghost size=icon(size-7 → 28)+ panel-left 图标。
-// 用法:设置 sidebar 指向目标 Sidebar,点击即翻转其 collapsed。
+/*!
+    \qmltype SidebarTrigger
+    \inqmlmodule Shadcn
+    \inherits IconButton
+    \brief A button that toggles a \l Sidebar between expanded and collapsed.
+
+    SidebarTrigger is the QML port of shadcn's \c SidebarTrigger: a ghost
+    \l IconButton at the \c icon-sm size (24px) showing the \c panel-left icon.
+    Bind \l sidebar to the target \l Sidebar; clicking flips its
+    \l {Sidebar::collapsed}{collapsed} state.
+
+    \sa Sidebar, SidebarRail
+*/
 IconButton {
     id: control
 
-    // 目标 Sidebar(需外部绑定)。
+    /*! \qmlproperty var SidebarTrigger::sidebar \brief The target \l Sidebar to toggle (must be bound by the caller). */
     property var sidebar: null
 
     variant: IconButton.Ghost
-    size: IconButton.Medium          // 28 = size-7
+    size: IconButton.Small           // 24 = icon-sm (size-6)
     iconName: "panel-left"
 
     onClicked: if (sidebar) sidebar.collapsed = !sidebar.collapsed

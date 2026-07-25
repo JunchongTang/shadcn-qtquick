@@ -3,42 +3,102 @@ import QtQuick.Controls.Basic as C
 import QtQuick.Effects
 import LucideIcons
 
-// shadcn Select —— 触发器(trigger)+ 弹出列表(popover)。
-// 文件名 Select 与基类 ComboBox 大小写不同,无需别名。用标准 model/currentIndex API。
-//
-// 扩展能力(对齐官方小节):
-//   · placeholder —— currentIndex<0 时显示占位文字(data-placeholder:text-muted-foreground)。
-//   · invalid     —— aria-invalid 破坏色边框 + 破坏色环(对标 Switch.qml 写法)。
-//   · 分组模型    —— model 里的对象若含 { header: "…" } 渲染为分组标题(SelectLabel),
-//                   含 { separator: true } 渲染为分隔线(SelectSeparator),二者均不可选;
-//                   普通条目可含 { disabled: true } 单项禁用。字符串数组照旧当普通条目。
-//   · alignItemWithTrigger —— true 时弹层上移,使当前项覆盖触发器(base-ui 默认行为的简化实现,
-//                   不含滚动/视口夹取,详见弹层 y 处注释)。
+/*!
+    \qmltype Select
+    \inqmlmodule Shadcn
+    \inherits ComboBox
+    \brief A rich dropdown select with a popover list, group labels and per-item check marks.
+
+    Select is the richer counterpart to \l NativeSelect, styled after shadcn's
+    base-mira \c .cn-select-* rules. The trigger shows the selected value (or a
+    muted \l placeholder) plus a trailing \c chevron-down; the popover surface is
+    a \c rounded-lg card that lists the model with the current row marked by a
+    trailing \c check icon and the hovered/highlighted row painted with the
+    accent background.
+
+    Visuals: an \c input-colored border over a faint \c {bg-input/20} fill,
+    height 28 (24 when \l size is \c Sm), \c rounded-md corners and extra-small
+    (\c text-xs) text. Set \l invalid for the aria-invalid destructive border and
+    ring, mirroring \l Switch and \l NativeSelect.
+
+    The \l model may be a plain string list or a list of objects. An object with
+    a \c header key renders as a non-selectable group label (SelectLabel); an
+    object with \c {separator: true} renders as a separator line (SelectSeparator);
+    a normal item may carry \c {disabled: true} to disable that single row. Object
+    items resolve their label through the standard \c textRole.
+
+    The keyboard focus ring is gated on \c visualFocus, so it only appears for Tab
+    focus (focus-visible), not for a mouse click that opens the popup; \c focusPolicy
+    is \c Qt.StrongFocus so Space / Enter / arrow keys are handled by the ComboBox
+    base.
+
+    \qml
+    Select {
+        placeholder: "Select a fruit"
+        model: ["Apple", "Banana", "Blueberry"]
+    }
+    Select { size: Select.Sm; invalid: true; model: ["Error state", "Apple"] }
+    \endqml
+
+    \sa NativeSelect
+*/
 C.ComboBox {
     id: control
 
-    property string placeholder: ""     // 未选中时的占位文字
-    property bool invalid: false        // aria-invalid → 破坏色描边 + 环
-    property bool alignItemWithTrigger: false  // 当前项对齐触发器(简化实现)
-    // 在 ButtonGroup 中的相邻位置(由 ButtonGroup 自动设置)—— 拉直相邻内侧圆角。
+    /*!
+        \qmlproperty enumeration Select::size
+        Compact size scale (only the trigger height changes; text stays \c text-xs):
+        \value Select.Default 28px height (data-[size=default]:h-7).
+        \value Select.Sm 24px height (data-[size=sm]:h-6).
+
+        \note This is the only enum on the type and its members (\c Default, \c Sm)
+        do not clash with the \c TransformOrigin values (\c Top / \c Bottom / \c Left /
+        \c Right / \c Center) that QML flattens in from the \l Item base, so no
+        renaming is required.
+    */
+    enum Size { Default, Sm }
+
+    /*! \qmlproperty int Select::size \brief The size on the compact scale; see \l Size. Defaults to \c Select.Default. */
+    property int size: Select.Default
+    /*! \qmlproperty string Select::placeholder \brief Text shown while nothing is selected (\c currentIndex < 0); rendered in the muted color (data-placeholder:text-muted-foreground). */
+    property string placeholder: ""
+    /*! \qmlproperty bool Select::invalid \brief When \c true, paints the aria-invalid destructive border and ring. Defaults to \c false. */
+    property bool invalid: false
+    /*!
+        \qmlproperty bool Select::alignItemWithTrigger
+        When \c true, the popup shifts up so the current row overlays the trigger
+        (a simplified take on base-ui's default behaviour). This simplified
+        implementation does not scroll the list or clamp against the viewport top
+        edge, so \c false (open below the trigger) is recommended for long lists.
+        Defaults to \c false.
+    */
+    property bool alignItemWithTrigger: false
+    /*!
+        \qmlproperty int Select::groupPosition
+        Adjacency inside a ButtonGroup, which decides which corners are
+        straightened; see \l {Button::GroupPosition}. Set automatically by ButtonGroup.
+    */
     property int groupPosition: Button.GroupNone
+    /*! \qmlproperty bool Select::groupVertical \brief Whether the containing ButtonGroup is vertical. Set by ButtonGroup. */
     property bool groupVertical: false
 
-    readonly property int _itemHeight: 28
+    readonly property bool _sm: size === Select.Sm
+    readonly property int _itemHeight: 28              // min-h-7
 
-    implicitHeight: 28              // data-[size=default]:h-7
-    leftPadding: Theme.space2       // px-2
-    rightPadding: Theme.space2 + 14 + Theme.space1_5 // 给右侧 chevron 留位(gap-1.5)
-    font.pixelSize: Theme.textXs
+    implicitHeight: _sm ? 24 : 28                       // data-[size=sm]:h-6 / data-[size=default]:h-7
+    leftPadding: Theme.space2                           // px-2
+    rightPadding: Theme.space2 + 14 + Theme.space1_5    // clear the chevron (px-2 + icon + gap-1.5)
+    font.pixelSize: Theme.textXs                        // text-xs (both sizes)
     hoverEnabled: true
-    focusPolicy: Qt.StrongFocus     // 键盘可 Tab 聚焦;Space/Enter/方向键由 ComboBox 基类处理
+    focusPolicy: Qt.StrongFocus     // Tab-focusable; Space/Enter/arrow handling comes from ComboBox
     opacity: enabled ? 1.0 : 0.5
 
-    // 分组内(键盘)聚焦/展开时抬到最上层(对标 focus-visible:z-10),让 ring 色边框盖住
-    // 与相邻控件重合(spacing:-1)的共享边。用 visualFocus:鼠标点击打开不算 focus-visible。
+    // Raise above neighbours while keyboard-focused or open (focus-visible:z-10) so the
+    // ring-colored border covers the shared edge with a neighbour (spacing:-1). Uses
+    // visualFocus: a mouse click that opens the popup is not focus-visible.
     z: (visualFocus || popup.visible) ? 10 : 0
 
-    // ==== 触发器文字(选中值 / 占位)====
+    // ==== Trigger text (selected value / placeholder) ====
     contentItem: Text {
         readonly property bool _empty: control.currentIndex < 0 || control.displayText === ""
         text: _empty && control.placeholder !== "" ? control.placeholder : control.displayText
@@ -48,20 +108,21 @@ C.ComboBox {
         elide: Text.ElideRight
     }
 
-    // ==== 右侧 chevron ====
+    // ==== Trailing chevron-down ====
     indicator: LucideIcon {
         x: control.width - width - Theme.space2
         y: (control.height - height) / 2
-        name: "chevrons-up-down"
+        name: "chevron-down"
         size: 14                                  // svg size-3.5
         color: Theme.mutedForeground
     }
 
-    // ==== 触发器背景 + 焦点外圈 ====
+    // ==== Trigger background + focus ring ====
     background: Rectangle {
         id: bg
         radius: Theme.radiusMd
-        // 分组时拉直相邻内侧角(逐角推导,机制同 Button)。
+        // Straighten the inner corners adjacent to neighbours when grouped (same
+        // per-corner derivation as Button).
         readonly property bool _n: control.groupPosition === Button.GroupNone
         readonly property bool _f: control.groupPosition === Button.GroupFirst
         readonly property bool _l: control.groupPosition === Button.GroupLast
@@ -70,15 +131,22 @@ C.ComboBox {
         bottomRightRadius: (_n || _l) ? radius : 0
         topRightRadius:    (_n || (!_v && _l) || (_v && _f)) ? radius : 0
         bottomLeftRadius:  (_n || (!_v && _f) || (_v && _l)) ? radius : 0
-        color: Theme.alpha(Theme.input, 0.2)      // bg-input/20 微填充
+        // bg-input/20; dark:bg-input/30 + dark:hover:bg-input/50 (light mode has no hover change).
+        color: Theme.dark
+               ? Theme.alpha(Theme.input, control.hovered ? 0.5 : 0.3)
+               : Theme.alpha(Theme.input, 0.2)
+        Behavior on color { ColorAnimation { duration: Theme.durFast } }
         border.width: 1
-        // aria-invalid:border-destructive 优先于 focus-visible:border-ring。
-        // border-ring 属 focus-visible(仅键盘),用 visualFocus:鼠标点击打开不高亮边框、不显环。
-        border.color: control.invalid ? Theme.destructive
-                      : control.visualFocus ? Theme.ring : Theme.border
+        // aria-invalid:border-destructive wins over focus-visible:border-ring.
+        // border-ring is focus-visible (keyboard only): a mouse click that opens the
+        // popup neither highlights the border nor shows the ring.
+        // Dark invalid border uses destructive/50 (dark:aria-invalid:border-destructive/50).
+        border.color: control.invalid
+                      ? (Theme.dark ? Theme.alpha(Theme.destructive, 0.5) : Theme.destructive)
+                      : control.visualFocus ? Theme.ring : Theme.input
         Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
 
-        // aria-invalid 破坏色环(ring-destructive/20,dark 40)
+        // aria-invalid destructive ring (ring-destructive/20, dark 40).
         Rectangle {
             anchors.fill: parent
             anchors.margins: -Theme.ringWidth
@@ -90,7 +158,8 @@ C.ComboBox {
             z: -1
         }
 
-        // 焦点环随背景逐角圆角(分组拉直的一侧同为直角);仅键盘 focus-visible 时显示。
+        // Focus ring follows the background's per-corner radii (a grouped straightened
+        // corner gets a square ring corner too); only for keyboard focus-visible.
         FocusRing {
             active: control.visualFocus && !control.invalid
             targetRadius: bg.radius
@@ -101,7 +170,7 @@ C.ComboBox {
         }
     }
 
-    // ==== 列表项 delegate(普通条目 / 分组标题 / 分隔线)====
+    // ==== Option delegate (normal item / group label / separator) ====
     delegate: C.ItemDelegate {
         id: item
         required property int index
@@ -109,19 +178,22 @@ C.ComboBox {
         width: ListView.view ? ListView.view.width : control.width
         padding: 0
         hoverEnabled: true
+        // Keyboard navigation highlight (focus:bg-accent applies to the highlighted row too).
+        highlighted: control.highlightedIndex === index
 
-        // 分组标题:{ header: "…" };分隔线:{ separator: true };其余为普通条目。
+        // group label: { header: "..." }; separator: { separator: true }; everything else a normal item.
         readonly property bool _isHeader: model.header !== undefined
         readonly property bool _isSeparator: model.separator === true
         readonly property bool _isItem: !_isHeader && !_isSeparator
         readonly property bool _selected: control.currentIndex === index
+        readonly property bool _active: _isItem && (hovered || highlighted)
 
-        enabled: _isItem && model.disabled !== true   // 标题/分隔线/单项禁用均不可选
-        height: _isSeparator ? 9 : control._itemHeight // 分隔线 h-px + my-1
+        enabled: _isItem && model.disabled !== true   // labels / separators / disabled rows are not selectable
+        height: _isSeparator ? 9 : control._itemHeight // separator h-px + my-1
         opacity: (_isItem && model.disabled === true) ? 0.5 : 1.0  // data-disabled:opacity-50
 
         contentItem: Item {
-            // ---- 分隔线(SelectSeparator: bg-border/50 -mx-1 my-1 h-px)----
+            // ---- separator (SelectSeparator: bg-border/50 -mx-1 my-1 h-px) ----
             Rectangle {
                 visible: item._isSeparator
                 anchors.left: parent.left
@@ -130,7 +202,7 @@ C.ComboBox {
                 height: 1
                 color: Theme.alpha(Theme.border, 0.5)
             }
-            // ---- 分组标题(SelectLabel: text-muted-foreground px-2 py-1.5 text-xs)----
+            // ---- group label (SelectLabel: text-muted-foreground px-2 py-1.5 text-xs) ----
             Text {
                 visible: item._isHeader
                 anchors.left: parent.left
@@ -142,7 +214,7 @@ C.ComboBox {
                 elide: Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
             }
-            // ---- 普通条目文字 ----
+            // ---- normal item text ----
             Text {
                 visible: item._isItem
                 anchors.left: parent.left
@@ -152,34 +224,36 @@ C.ComboBox {
                 text: item.model[control.textRole] !== undefined
                       ? item.model[control.textRole] : item.model.modelData
                 font.pixelSize: Theme.textXs
-                color: item.hovered ? Theme.accentForeground : Theme.foreground
+                color: item._active ? Theme.accentForeground : Theme.foreground
                 elide: Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
             }
-            // 选中项右侧 check(absolute right-2)。
+            // Trailing check on the selected item (absolute right-2).
             LucideIcon {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.space2
                 anchors.verticalCenter: parent.verticalCenter
                 name: "check"
                 size: 14                          // svg size-3.5
-                color: item.hovered ? Theme.accentForeground : Theme.foreground
+                color: item._active ? Theme.accentForeground : Theme.foreground
                 visible: item._isItem && item._selected
             }
         }
 
         background: Rectangle {
-            visible: item._isItem
+            visible: item._active
             radius: Theme.radiusMd                // rounded-md
-            color: item.hovered ? Theme.accent : "transparent"  // focus:bg-accent
+            color: Theme.accent                   // focus:bg-accent
         }
     }
 
-    // ==== 弹出层(popover surface)====
+    // ==== Popup (popover surface) ====
     popup: C.Popup {
-        // alignItemWithTrigger=true 时上移,使当前项覆盖触发器(条目与触发器同高 28)。
-        // 简化实现:未处理列表滚动 / 视口上边缘夹取(官方会夹取并回退到贴边);多项滚动
-        // 场景下建议保持 false。false 时贴触发器下沿弹出(= 官方 alignItemWithTrigger={false})。
+        // With alignItemWithTrigger=true, shift up so the current row overlays the trigger
+        // (rows are the same 28px height as the trigger). Simplified: no list scrolling and
+        // no clamping against the viewport top edge (base-ui clamps and falls back to
+        // edge-anchored); prefer false for long, scrolling lists. false opens just below the
+        // trigger (= base-ui alignItemWithTrigger={false}).
         y: control.alignItemWithTrigger && control.currentIndex >= 0
            ? -(control.currentIndex * control._itemHeight + padding)
            : control.height + Theme.space1
@@ -196,7 +270,7 @@ C.ComboBox {
             C.ScrollIndicator.vertical: C.ScrollIndicator {}
         }
 
-        // popover 面:rounded-lg + ring-1 ring-foreground/10 + shadow-md。
+        // Surface: rounded-lg + ring-1 ring-foreground/10 + shadow-md.
         background: Rectangle {
             radius: Theme.radiusLg
             color: Theme.popover

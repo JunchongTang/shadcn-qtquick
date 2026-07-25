@@ -2,21 +2,50 @@ import QtQuick
 import QtQuick.Layouts
 import LucideIcons
 
-// shadcn SidebarMenuButton —— 可点击菜单项:图标 + 文本。
-// h-8、rounded(radius-sm+2px≈8)、p-2、gap-2、text-xs;
-// hover/active → bg-sidebar-accent + text-sidebar-accent-foreground,active 时 font-medium。
-// collapsible=icon(父 Sidebar.collapsed):size-8! p-2! —— 收成 32×32 方块,仅居中显示图标、
-// 隐藏文本;hover 时用 Tooltip(side=right)显示原标签。
-// 简化:size(sm/lg)/variant(outline)、menu-action 预留右内边距未实现。
+/*!
+    \qmltype SidebarMenuButton
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A clickable icon + label entry inside a \l SidebarMenuItem.
+
+    SidebarMenuButton is the QML port of shadcn's \c SidebarMenuButton
+    (\c .cn-sidebar-menu-button). It is \c h-8 (32px) tall with
+    \c rounded-[calc(var(--radius-sm)+2px)] (8px) corners, \c p-2 padding,
+    \c gap-2 spacing and \c text-xs text. Hover or \l active paints
+    \c bg-sidebar-accent with \c text-sidebar-accent-foreground; the active
+    state also uses a \c Medium font weight.
+
+    When the enclosing \l Sidebar is \l {Sidebar::collapsed}{collapsed} (the web
+    component's \c collapsible=icon state) the button becomes a 32x32 square
+    showing only the centred icon; the label is hidden and its original text is
+    surfaced through a right-side \l Tooltip on hover. The collapsed state is
+    resolved by walking up the parent chain to the sidebar root.
+
+    \note Simplified: the size (sm / lg) and variant (outline) options and the
+    menu-action right padding are not implemented.
+
+    \qml
+    SidebarMenuItem {
+        SidebarMenuButton { iconName: "house"; text: "Home"; active: true }
+    }
+    \endqml
+
+    \sa SidebarMenuItem, Sidebar
+*/
 Item {
     id: control
 
+    /*! \qmlproperty string SidebarMenuButton::text \brief The label text (hidden when collapsed). */
     property string text: ""
+    /*! \qmlproperty string SidebarMenuButton::iconName \brief Leading Lucide icon (kebab-case name). */
     property string iconName: ""
+    /*! \qmlproperty bool SidebarMenuButton::active \brief Whether this entry is the active one; paints the accent background. */
     property bool active: false
+    /*! \qmlsignal SidebarMenuButton::clicked() \brief Emitted when the entry is tapped. */
     signal clicked()
 
-    // 向上查找父 Sidebar 的折叠状态(读取到根的 _isSidebarRoot 标记)。
+    /*! \qmlproperty bool SidebarMenuButton::collapsed
+        \brief Mirrors the enclosing \l Sidebar's collapsed state (resolved via the parent chain). */
     property bool collapsed: {
         var p = parent
         while (p) {
@@ -35,11 +64,14 @@ Item {
         NumberAnimation { duration: 200; easing.type: Easing.Linear }
     }
 
+    /*! \qmlproperty bool SidebarMenuButton::_hovered \brief \c true while the pointer hovers the entry. */
     readonly property bool _hovered: hover.hovered
+    /*! \qmlproperty color SidebarMenuButton::_fg \brief Foreground color: accent when active/hovered, otherwise sidebar foreground. */
     readonly property color _fg: (control.active || control._hovered)
         ? Theme.sidebarAccentForeground
         : Theme.sidebarForeground
 
+    // Accent background painted on hover / active.
     Rectangle {
         anchors.fill: parent
         radius: Theme.radiusMd                           // calc(radius-sm + 2px) = 8
@@ -63,7 +95,7 @@ Item {
         }
         Text {
             id: label
-            // 折叠态隐藏文字,仅留居中图标。
+            // Hidden when collapsed, leaving only the centred icon.
             visible: !control.collapsed && control.text !== ""
             Layout.fillWidth: !control.collapsed
             Layout.preferredWidth: control.collapsed ? 0 : label.implicitWidth
@@ -79,7 +111,7 @@ Item {
     HoverHandler { id: hover }
     TapHandler { onTapped: control.clicked() }
 
-    // 折叠态 hover 用 Tooltip 显示标签(对标 SidebarMenuButton 的 tooltip)。
+    // Collapsed state: reveal the label via a right-side tooltip on hover.
     Tooltip {
         text: control.text
         side: Tooltip.Right

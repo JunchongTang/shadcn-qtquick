@@ -1,22 +1,71 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
 
-// shadcn Tabs(分段胶囊 · segmented pill)—— 无前缀,基类别名导入(as C)。
-// 作为容器:muted 底、radiusLg、内边距 p-[3px],横向排布 TabButton。
-// variant=Line:无 muted 底(bg-transparent)、rounded-none、trigger 间 gap-1,激活项改用底部下划线。
-// vertical=true:TabButton 竖排(orientation vertical),下划线移至右侧。
-// 内容切换交由使用方(StackLayout.currentIndex ↔ Tabs.currentIndex),此处不管理内容。
+/*!
+    \qmltype Tabs
+    \inqmlmodule Shadcn
+    \inherits TabBar
+    \brief A segmented tab strip (the shadcn "tabs list").
+
+    Tabs ports shadcn base-mira's \c .cn-tabs-list. It is the container for a set
+    of \l TabButton triggers and mirrors the \c TabsList element only: content
+    panels are left to the caller, who typically binds a \c StackLayout's
+    \c currentIndex to \l {TabBar::}{currentIndex}.
+
+    The \c Default variant paints a \c muted rounded background with the active
+    trigger rendered as a filled "pill". The \c Line variant drops the background
+    (\c bg-transparent), squares the corners, spaces triggers with \c gap-1 and
+    marks the active trigger with a foreground underline instead of a pill.
+
+    Set \l vertical to stack triggers in a column; \l orientation reports the
+    same state as an enumeration for readability.
+
+    \qml
+    Tabs {
+        TabButton { text: "Account" }
+        TabButton { text: "Password" }
+    }
+    \endqml
+
+    \sa TabButton
+*/
 C.TabBar {
     id: control
 
+    /*!
+        \qmlproperty enumeration Tabs::variant
+        Visual style of the tab strip:
+        \value Tabs.Default Muted rounded background; active trigger is a filled pill.
+        \value Tabs.Line No background, square corners, gap-1 spacing; active trigger is underlined.
+    */
     enum Variant { Default, Line }
 
-    property int variant: Tabs.Default
-    property bool vertical: false
+    /*!
+        \qmlproperty enumeration Tabs::orientation
+        Layout direction of the triggers. This is a read-only reflection of
+        \l vertical, exposed to match shadcn's \c orientation prop.
+        \value Tabs.Horizontal Triggers laid out in a row (default).
+        \value Tabs.Vertical Triggers stacked in a column.
 
+        \note \c Horizontal/\c Vertical do not collide with the inherited
+        \c Item.TransformOrigin names (Top/Left/Center/Right/Bottom), nor do the
+        flattened \l Variant names, so both enums coexist safely in the type scope.
+    */
+    enum Orientation { Horizontal, Vertical }
+
+    /*! \qmlproperty int Tabs::variant \brief The visual style; see \l Variant. Defaults to \c Tabs.Default. */
+    property int variant: Tabs.Default
+    /*! \qmlproperty bool Tabs::vertical \brief Stacks triggers in a column when \c true. Defaults to \c false. */
+    property bool vertical: false
+    /*! \qmlproperty int Tabs::orientation \brief Read-only enum reflection of \l vertical; see \l Orientation. */
+    readonly property int orientation: vertical ? Tabs.Vertical : Tabs.Horizontal
+
+    /*! \internal Convenience: true for the Line variant. */
     readonly property bool _line: variant === Tabs.Line
 
-    // 竖排时逐项累加,横排时求各项之和(min h-8=32)。仅用于自适应尺寸,demo 也可显式覆盖。
+    // Widest child implicit width (vertical strips size to the widest trigger).
+    // Reads implicitWidth (never width) so it cannot feed back into the
+    // trigger's width binding; see the #005 note in TabButton.qml.
     readonly property real _maxChildWidth: {
         let w = 0
         for (let i = 0; i < contentChildren.length; i++) {
@@ -25,6 +74,8 @@ C.TabBar {
         }
         return w
     }
+    // Sum of child implicit widths plus inter-item spacing (horizontal strips
+    // fit their content, mirroring the w-fit list; callers may override width).
     readonly property real _sumChildWidth: {
         let s = 0, n = 0
         for (let i = 0; i < contentChildren.length; i++) {
@@ -34,8 +85,8 @@ C.TabBar {
         return s + Math.max(0, n - 1) * spacing
     }
 
-    padding: Theme.space1 - 1        // p-[3px]
-    spacing: _line ? Theme.space1 : 0  // line: gap-1;default 紧贴无间隙,激活胶囊填满
+    padding: Theme.space1 - 1           // p-[3px]
+    spacing: _line ? Theme.space1 : 0   // line: gap-1; default: pills sit flush
 
     implicitWidth: (vertical ? _maxChildWidth : _sumChildWidth) + leftPadding + rightPadding
     implicitHeight: vertical ? list.contentHeight + topPadding + bottomPadding : 32  // h-8

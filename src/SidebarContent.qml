@@ -1,10 +1,24 @@
 import QtQuick
 import QtQuick.Layouts
 
-// shadcn SidebarContent —— 占据剩余高度、可滚动的分组区(overflow-auto,gap-0)。
-// 用库内 ScrollView(细滚动条),子分组进内部 ColumnLayout。
+/*!
+    \qmltype SidebarContent
+    \inqmlmodule Shadcn
+    \inherits ScrollView
+    \brief The scrollable body region of a \l Sidebar.
+
+    SidebarContent is the QML port of shadcn's \c SidebarContent
+    (\c .cn-sidebar-content). It fills the remaining height of the sidebar and
+    scrolls when its groups overflow. Children (typically \l SidebarGroup) stack
+    vertically with no gap (\c gap-0).
+
+    \sa Sidebar, SidebarGroup, SidebarMenu
+*/
 ScrollView {
     id: sc
+
+    /*! \qmlproperty list<QtObject> SidebarContent::content
+        \brief Default child list placed in the scrolling column (typically \l SidebarGroup items). */
     default property alias content: inner.data
 
     Layout.fillWidth: true

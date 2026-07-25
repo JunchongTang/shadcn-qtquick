@@ -4,53 +4,121 @@ import QtQuick.Controls as QQC
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
 
-// shadcn Sheet(base-mira)—— 从屏幕边缘滑入、贴边铺满的面板,补充主内容。
-// 像素对齐 style-mira.css 的 .cn-sheet-*(overlay/content/close/header/footer/title/description)。
-// 基于 C.Drawer:天然处理「贴某条窗口边 + 滑入/滑出 + 模态遮罩」,无需手动定位。
-//   · side 枚举 Top/Right/Bottom/Left(默认 Right),映射 Drawer.edge。
-//   · 左右:占窗宽 3/4 但不超 max-w-sm(384)、满高、内侧边框;上下:满宽、内容高(h-auto)、内侧边框。
-// 结构:header(title/description)+ 默认内容槽(body)+ footer(mt-auto),右上角关闭按钮。
+/*!
+    \qmltype Sheet
+    \inqmlmodule Shadcn
+    \inherits Drawer
+    \brief An edge-anchored panel that slides in to complement the main content.
+
+    Sheet is the shadcn (base-mira) port of the sheet dialog. It wraps the Qt
+    Quick Controls \c Drawer, which natively handles the "pin to a window edge +
+    slide in/out + modal backdrop" behaviour so no manual positioning is needed.
+    The visuals are aligned pixel-for-pixel to \c {style-mira.css} (the
+    \c cn-sheet-* rules: overlay / content / close / header / footer / title /
+    description).
+
+    The entry \l side maps to the base type's \c edge. Horizontal sheets (left,
+    right) span the full height at three quarters of the window width, capped at
+    \c max-w-sm (384) with an inner border on the edge facing the viewport.
+    Vertical sheets (top, bottom) span the full width, size to their content
+    (\c h-auto, capped at the window height) and carry an inner border on their
+    inward edge.
+
+    The layout is a header (\l title / \l description), the default content slot
+    (the body), and an optional \l footer pinned to the bottom, with a close
+    button in the top-right corner.
+
+    Because the file name shadows the base type, it is imported aliased
+    (\c {as C}) and the root is \c C.Drawer.
+
+    \note Sheet derives from \c Drawer (the \c Popup family), which does not carry
+    an \c Item.TransformOrigin enumeration, so the \l Side members do not collide
+    with an inherited enum. \c Side is the only enum declared here, so there is no
+    in-file flattening clash either.
+*/
 C.Drawer {
     id: control
 
-    enum Side { Top, Right, Bottom, Left }
+    /*!
+        \qmlproperty enumeration Sheet::side
+        The window edge the sheet is anchored to and slides in from. Maps to the
+        base type's \c edge. Defaults to \c Sheet.RightEdge.
 
-    // ---- 对外 API ----
-    property int side: Sheet.Right          // 贴哪条边、从哪滑入
-    property string title: ""               // header 标题(text-sm medium)
-    property string description: ""         // header 描述(muted,text-xs/relaxed)
-    property bool showCloseButton: true     // 右上角关闭按钮(对标 XIcon)
-    // 默认内容进 body;footer 单独赋值(对标 SheetFooter,mt-auto 贴底)。
+        \value Sheet.TopEdge    Anchored to the top edge; full width, content height.
+        \value Sheet.RightEdge  Anchored to the right edge; three-quarter width, full height. (default)
+        \value Sheet.BottomEdge Anchored to the bottom edge; full width, content height.
+        \value Sheet.LeftEdge   Anchored to the left edge; three-quarter width, full height.
+    */
+    enum Side { TopEdge, RightEdge, BottomEdge, LeftEdge }
+
+    // ---- Public API ----
+    property int side: Sheet.RightEdge          // which edge to pin to / slide in from
+
+    /*!
+        \qmlproperty string Sheet::title
+        Header title (text-sm, medium weight).
+    */
+    property string title: ""
+
+    /*!
+        \qmlproperty string Sheet::description
+        Muted header description shown under the title (text-xs, relaxed leading).
+    */
+    property string description: ""
+
+    /*!
+        \qmlproperty bool Sheet::showCloseButton
+        Whether to show the top-right close button (the web \c XIcon). Defaults
+        to \c true.
+    */
+    property bool showCloseButton: true
+
+    /*!
+        \qmlproperty list<QtObject> Sheet::content
+        Default content slot; laid out in the padded body. Maps to the children
+        of \c SheetContent between the header and footer.
+    */
     default property alias content: bodyLayout.data
+
+    /*!
+        \qmlproperty Item Sheet::footer
+        Optional footer item (typically a \c ColumnLayout of buttons), reparented
+        into the padded footer region. Maps to \c SheetFooter (\c mt-auto), which
+        the body's fill pushes to the bottom.
+    */
     property Item footer: null
 
-    // ---- 内部推导 ----
-    readonly property bool _horizontal: side === Sheet.Left || side === Sheet.Right
-    // 尺寸须按「窗口 overlay」而非 parent(Drawer 的 parent 是触发器,不是窗口)。
+    // ---- Internal derivations ----
+    readonly property bool _horizontal: side === Sheet.LeftEdge || side === Sheet.RightEdge
+    // Size against the window overlay, not the parent: a Drawer's parent is the
+    // trigger, not the window.
     readonly property var _ov: QQC.Overlay.overlay
     readonly property real _winW: _ov ? _ov.width : 400
     readonly property real _winH: _ov ? _ov.height : 600
 
-    edge: side === Sheet.Top ? Qt.TopEdge
-        : side === Sheet.Bottom ? Qt.BottomEdge
-        : side === Sheet.Left ? Qt.LeftEdge
+    edge: side === Sheet.TopEdge ? Qt.TopEdge
+        : side === Sheet.BottomEdge ? Qt.BottomEdge
+        : side === Sheet.LeftEdge ? Qt.LeftEdge
         : Qt.RightEdge
 
-    // 尺寸:左右 = min(3/4 窗宽, 384) × 满高;上下 = 满宽 × 内容高(封顶窗高)。
+    // Sizing: horizontal = min(3/4 window width, 384) x full height;
+    // vertical = full width x content height (capped at the window height).
     width: _horizontal ? Math.min(_winW * 0.75, 384) : _winW
     height: _horizontal ? _winH : Math.min(sheetCol.implicitHeight, _winH)
 
     modal: true
     padding: 0
-    dragMargin: 0                           // 仅由触发器打开,不做边缘拖拽
+    dragMargin: 0                           // opened only by a trigger, no edge-drag
     closePolicy: C.Popup.CloseOnEscape | C.Popup.CloseOnPressOutside
 
     onFooterChanged: if (footer) footer.parent = footerLayout
 
-    // 模态遮罩:black/80(对标 .cn-sheet-overlay bg-black/80)。backdrop-blur 无对应令牌,略。
+    // Modal backdrop: black/80 (.cn-sheet-overlay bg-black/80). backdrop-blur has
+    // no matching token, so it is omitted.
     QQC.Overlay.modal: Rectangle { color: Theme.alpha("#000000", 0.8) }
 
-    // 面板:popover 底 + 贴边(无圆角)+ 内侧 1px 边框(border token)+ 投影(shadow-lg 近似)。
+    // Surface: popover base + edge-pinned (no radius) + 1px inner border (border
+    // token) + drop shadow (shadow-lg approximation).
     background: Rectangle {
         color: Theme.popover
         radius: 0
@@ -63,17 +131,19 @@ C.Drawer {
             shadowVerticalOffset: Theme.shadowOffset
         }
 
-        // 内侧边框:right→左边、left→右边、top→下边、bottom→上边。
+        // Inner border: right->left edge, left->right edge, top->bottom edge,
+        // bottom->top edge (the edge facing into the viewport).
         Rectangle {
             color: Theme.border
             width: control._horizontal ? 1 : parent.width
             height: control._horizontal ? parent.height : 1
-            x: control.side === Sheet.Left ? parent.width - 1 : 0
-            y: control.side === Sheet.Top ? parent.height - 1 : 0
+            x: control.side === Sheet.LeftEdge ? parent.width - 1 : 0
+            y: control.side === Sheet.TopEdge ? parent.height - 1 : 0
         }
     }
 
-    // 内容:header + body(填充,把 footer 顶到底)+ footer,右上角关闭按钮叠加。
+    // Content: header + body (fills, pushing the footer down) + footer, with the
+    // close button overlaid in the top-right corner.
     contentItem: Item {
         implicitHeight: sheetCol.implicitHeight
 
@@ -82,7 +152,7 @@ C.Drawer {
             anchors.fill: parent
             spacing: 0
 
-            // ==== header:gap-1.5 p-6 ====
+            // ==== header: gap-1.5 p-6 ====
             ColumnLayout {
                 visible: control.title !== "" || control.description !== ""
                 Layout.fillWidth: true
@@ -109,17 +179,18 @@ C.Drawer {
                 }
             }
 
-            // ==== body:默认内容槽。填充剩余空间,使 footer 贴底(mt-auto)。====
+            // ==== body: default content slot. Fills the remaining space so the
+            // footer sits at the bottom (mt-auto). ====
             ColumnLayout {
                 id: bodyLayout
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.leftMargin: Theme.space4        // 对标示例 body px-4
-                Layout.rightMargin: Theme.space4
-                spacing: Theme.space6                  // 示例 body gap-6
+                Layout.leftMargin: Theme.space6        // mira body px-6
+                Layout.rightMargin: Theme.space6
+                spacing: Theme.space6                  // body content gap-6
             }
 
-            // ==== footer:gap-2 p-6,mt-auto(靠 body 的 fillHeight 顶到底)====
+            // ==== footer: gap-2 p-6, mt-auto (pushed down by the body's fill) ====
             ColumnLayout {
                 id: footerLayout
                 visible: control.footer !== null
@@ -129,7 +200,7 @@ C.Drawer {
             }
         }
 
-        // ==== 右上角关闭按钮:absolute top-4 right-4 ====
+        // ==== top-right close button: absolute top-4 right-4 ====
         IconButton {
             visible: control.showCloseButton
             anchors.top: parent.top
@@ -143,8 +214,9 @@ C.Drawer {
         }
     }
 
-    // 滑入/滑出:position 位移滑动 + 透明淡入(对标 transition duration-200 ease-in-out)。
-    // Theme 无 200ms 令牌,取 durBase(150ms)近似。
+    // Slide in/out: position offset slide + opacity fade (aligned to the web
+    // transition duration-200 ease-in-out). Theme has no 200ms token, so durBase
+    // (150ms) is used as an approximation.
     enter: Transition {
         NumberAnimation { property: "position"; from: 0; to: 1; duration: Theme.durBase; easing.type: Easing.InOutQuad }
         NumberAnimation { property: "opacity"; from: 0; to: 1; duration: Theme.durBase }

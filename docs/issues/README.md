@@ -43,6 +43,7 @@
 | [#031](#031-batch-3-审查修复合集组件-2130) | Batch 3 审查修复合集(组件 21–30) | Component/*(Input/HoverCard/FocusRing/Form) | P2 | ✅ |
 | [#032](#032-batch-4-审查修复合集组件-3140) | Batch 4 审查修复合集(组件 31–40) | Component/*(Marker/InputOtp/Menu/Kbd/Menubar/MessageScroller) | P2 | ✅ |
 | [#033](#033-batch-5-审查修复合集组件-4150) | Batch 5 审查修复合集(组件 41–50) | Component/*(RangeSlider/RadioGroup/Progress/NavigationMenu/NativeSelect) | P1 | ✅ |
+| [#034](#034-batch-6-审查修复合集组件-5160) | Batch 6 审查修复合集(组件 51–60,含 Sheet #029) | Component/*(Sheet/Select/Switch/Skeleton/Sidebar/Tabs) | P2 | ✅ |
 
 ---
 
@@ -400,3 +401,17 @@
 - **P2 NavigationMenu Trigger 缺 h-9**(Component/NavigationMenu):触发器高度只按内容算(~28),base 规定 `h-9`(36)。加最小高度 36。
 - **P3 NativeSelect 暗色 invalid 边框**(Component/NativeSelect):暗色应 `destructive/50`,原用满色。
 - 其余(Popover/Pagination/Resizable/RoundedImage/ScrollArea)无功能缺陷,仅文档化 + 补测 + 少量 P3 还原度旗标。
+
+### #034 Batch 6 审查修复合集(组件 51–60)
+
+逐组件审查 Batch 6 的缺陷汇总。测试总数 624→735 全绿。
+
+- **P2 Sheet Side 枚举冲突(#029 同款)**(Component/Sheet):Sheet 根为 `C.Drawer`,实测外部 `Sheet.Top=1/Right=5/Bottom=7/Left=3`(= `Item.TransformOrigin` 值)而组件内绑定解析成 Side 值,不一致 → 从某边滑入会错。**更正**先前「Popup/Drawer 派生安全」的判断:即便非 Item 直系,`Top/Right/Bottom/Left` 仍会撞 TransformOrigin。修:`enum Side` 重命名为 `{TopEdge,RightEdge,BottomEdge,LeftEdge}`,同步默认值/绑定/QDoc/demo(Sides、Basic)/测试。**待查 Tooltip(同款非限定引用)**。
+- **P2 Sheet body 内边距**(Component/Sheet):正文用 px-4,base-mira 是 px-6(与 header/footer p-6 对齐)。改 space6。
+- **P2×3 Select**(Component/Select):静止边框 token `border`→`input`;触发器箭头 `chevrons-up-down`→`chevron-down`(与官网/NativeSelect 一致);补 `size` 尺寸档(default h-7 / sm h-6)。附带暗色填充/invalid + 键盘高亮。
+- **P2×2 Switch**(Component/Switch):把手滑动位置差 0.5px(应贴 1px 边框、checked 位移 100%-2px);暗色 track/thumb/ring token 补齐。
+- **P2×2 Skeleton**(Component/Skeleton):脉冲最小透明度 0.4→0.5、单程时长 800→1000(对齐 Tailwind `animate-pulse` 2s);附带精确 bezier 缓动。
+- **P2 Sidebar 触发器尺寸**(Component/Sidebar):`SidebarTrigger` 用了 Medium(28,=icon)应为 icon-sm(24)。
+- **P2 Tabs 非激活标签色**(Component/Tabs):亮色应 `foreground/60`,原用 muted-foreground。
+- **P3**:ScrollView 失实注释、Spinner 转速 800→1000ms(1s)、Slider objectName 补测;NativeSelect QDoc 关于 Select 箭头的失实交叉引用一并更正。
+- 其余(Separator)无缺陷。**通用**:a11y `Accessible.role` 全库缺失(Separator/Spinner 等标记),留作专项。
