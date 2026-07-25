@@ -7,6 +7,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Rectangle
     \brief A callout box with an optional leading icon, title, description and action slot.
+    \image alert.png
+
 
     Alert reproduces shadcn's base-mira \c .cn-alert rules: a \c rounded-lg
     bordered card with \c px-2 \c py-1.5 padding, an optional leading icon, a

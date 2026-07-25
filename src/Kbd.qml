@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Rectangle
     \brief A keyboard key cap, styled after shadcn's base-mira \c .cn-kbd.
+    \image kbd.png
+
 
     Kbd renders a single key hint such as \c Ctrl, \c ⌘K or an arrow glyph.
     It is a muted-filled cap: 20px tall (\c h-5), at least 20px wide

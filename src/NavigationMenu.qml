@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits RowLayout
     \brief Horizontal navigation bar that hosts NavigationMenuItem entries.
+    \image navigation-menu.png
+
 
     NavigationMenu is the root container of the navigation-menu family, styled
     after shadcn's base-mira \c .cn-navigation-menu / \c .cn-navigation-menu-list

@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits RowLayout
     \brief A single row in a conversation: avatar + content bubble + header/footer + hover actions.
+    \image message.png
+
 
     Message is the QML port of shadcn's base-mira \c .cn-message. It corresponds to
     \c {flex w-full min-w-0 data-[align=end]:flex-row-reverse} with \c gap-1.5. One

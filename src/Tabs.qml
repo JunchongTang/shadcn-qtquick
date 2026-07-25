@@ -6,6 +6,8 @@ import QtQuick.Controls.Basic as C
     \inqmlmodule Shadcn
     \inherits TabBar
     \brief A segmented tab strip (the shadcn "tabs list").
+    \image tabs.png
+
 
     Tabs ports shadcn base-mira's \c .cn-tabs-list. It is the container for a set
     of \l TabButton triggers and mirrors the \c TabsList element only: content

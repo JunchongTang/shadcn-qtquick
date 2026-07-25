@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Item
     \brief Constrains content to a fixed width-to-height ratio.
+    \image aspect-ratio.png
+
 
     AspectRatio is the base-mira port of shadcn's \c aspect-(--ratio) utility. It
     derives its \l height from its current \l width using \l ratio (\c {width / ratio}),

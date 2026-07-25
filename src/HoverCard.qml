@@ -7,6 +7,8 @@ import QtQuick.Effects
     \inqmlmodule Shadcn
     \inherits Item
     \brief A rich-content overlay revealed on pointer hover.
+    \image hover-card.png
+
 
     Port of shadcn/ui's HoverCard (base-mira style, backed by base-ui's
     PreviewCard). Declare it as a child of the trigger element: the card

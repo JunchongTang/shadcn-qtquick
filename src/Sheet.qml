@@ -9,6 +9,8 @@ import QtQuick.Effects
     \inqmlmodule Shadcn
     \inherits Drawer
     \brief An edge-anchored panel that slides in to complement the main content.
+    \image sheet.png
+
 
     Sheet is the shadcn (base-mira) port of the sheet dialog. It wraps the Qt
     Quick Controls \c Drawer, which natively handles the "pin to a window edge +

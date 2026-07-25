@@ -7,6 +7,8 @@ import QtQuick.Controls.Basic
     \inqmlmodule Shadcn
     \inherits ToolTip
     \brief A small inverted-color label revealed on hover, anchored to a trigger.
+    \image tooltip.png
+
 
     Port of shadcn/ui's Tooltip (base-mira style, backed by base-ui's Tooltip).
     Built on \c {QtQuick.Controls.Basic.ToolTip} (the Popup family), so declare

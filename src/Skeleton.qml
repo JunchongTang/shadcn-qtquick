@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Rectangle
     \brief A pulsing placeholder shown while content loads.
+    \image skeleton.png
+
 
     Skeleton ports shadcn's base-mira \c .cn-skeleton rule
     (\c {bg-muted rounded-md}) plus the Tailwind \c animate-pulse utility. It is

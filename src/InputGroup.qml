@@ -7,6 +7,8 @@ import QtQuick.Layouts
     \inherits FocusScope
     \brief Combines an input with addons/buttons/text behind one shared rounded
     border and a single focus ring, styled after shadcn/ui base-mira.
+    \image input-group.png
+
 
     InputGroup mirrors \c .cn-input-group: a \c border-input outline over a
     \c bg-input/20 (dark \c /30) fill, \c h-7 tall and \c rounded-md. When any

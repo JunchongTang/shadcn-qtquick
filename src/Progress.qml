@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Item
     \brief A horizontal bar that displays the completion progress of a task.
+    \image progress.png
+
 
     Progress ports shadcn's base-mira \c .cn-progress-* rules: an \c h-1 (4px)
     \c rounded-md track painted with the muted color, over which a primary-colored

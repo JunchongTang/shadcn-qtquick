@@ -9,6 +9,8 @@ import QtQuick.Effects
     \inqmlmodule Shadcn
     \inherits QtQuick.Controls.Drawer
     \brief A panel that slides in from an edge of the window.
+    \image drawer.png
+
 
     Drawer wraps the Qt Quick Controls \c Drawer with the shadcn (base-mira) look:
     a rounded popover surface (only the edges facing into the viewport are rounded),

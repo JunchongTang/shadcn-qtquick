@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits ColumnLayout
     \brief Vertical form field: label, control slot, description and error.
+    \image form.png
+
 
     Ports shadcn/ui \c Field / \c FieldLabel / \c FieldDescription /
     \c FieldError from the base-mira registry (\c field.tsx). It reproduces the

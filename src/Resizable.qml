@@ -6,6 +6,8 @@ import QtQuick.Controls.Basic as C
     \inqmlmodule Shadcn
     \inherits SplitView
     \brief A group of resizable split panels separated by draggable handles.
+    \image resizable.png
+
 
     Resizable is the QML port of shadcn's base-mira \c ResizablePanelGroup /
     \c ResizablePanel / \c ResizableHandle trio, built on the Qt Quick Controls

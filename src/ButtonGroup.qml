@@ -6,6 +6,8 @@ import QtQuick
     \inherits Grid
     \brief Joins adjacent controls into a single seamless bar, styled after
     shadcn/ui base-mira \c .cn-button-group.
+    \image button-group.png
+
 
     ButtonGroup lays its children out in a single row (\l orientation
     \c ButtonGroup.Horizontal) or a single column (\c ButtonGroup.Vertical) and

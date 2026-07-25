@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits RowLayout
     \brief Root container for a breadcrumb trail.
+    \image breadcrumb.png
+
 
     Maps to shadcn's \c{<nav> > <ol class="flex flex-wrap items-center gap-1.5">}.
     Place \l BreadcrumbItem and \l BreadcrumbSeparator instances directly as

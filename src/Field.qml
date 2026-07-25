@@ -7,6 +7,8 @@ import QtQuick.Layouts
     \inherits GridLayout
     \brief A single form field container (role="group") that arranges a label,
     control, description and error with a configurable orientation.
+    \image field.png
+
 
     The field switches between a single column (vertical) and a single row
     (horizontal) via \l flow / \l rows / \l columns, so the orientation can

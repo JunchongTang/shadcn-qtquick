@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Rectangle
     \brief A rounded-full avatar that shows an image and falls back to initials.
+    \image avatar.png
+
 
     Avatar renders a circular image (\l source). While the image is loading or
     if it fails to load (or when no source is set), it shows the \l fallback

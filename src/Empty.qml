@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits Rectangle
     \brief Centered empty-state container matching shadcn/ui base-mira Empty.
+    \image empty.png
+
 
     Mirrors \c .cn-empty (flex-col items-center justify-center text-center;
     gap-4 rounded-xl border-dashed p-6). Children stack vertically in a centered

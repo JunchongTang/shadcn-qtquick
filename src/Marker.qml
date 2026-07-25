@@ -7,6 +7,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Item
     \brief An inline conversation marker, styled after shadcn's base-mira marker.
+    \image marker.png
+
 
     Marker renders shadcn's \c .cn-marker: a compact inline note used inside a
     conversation thread for status updates, system notes, bordered rows and

@@ -1,47 +1,94 @@
 import QtQuick
 import Qt.labs.qmlmodels
 
-// shadcn Table(base-mira)—— 高性能版:表体用 QtQuick TableView(虚拟化),
-// 表头是自绘 Row(每列可配布局属性 + 稳定的列宽拖拽手柄)。模型/列定义驱动。
-//
-// 数据(model):JS 行数组 / QML TableModel / C++ QAbstractItemModel。
-// 列定义(columns):[{ title, key, role, width, fillWidth, minWidth, maxWidth, align, format, medium }]
-//   · width:固定/首选宽(px);fillWidth:true 则占剩余空间;minWidth/maxWidth:夹取;
-//   · 用户拖拽某列 → 记为该列的显式覆盖宽(其余 fill 列重新分配剩余)。
-//   · key:JS 数组取行对象字段;role:item model 取的角色(默认 "display");
-//   · align:Qt.AlignLeft/Right/HCenter;format(v)->string;medium:加粗。
+/*!
+    \qmltype Table
+    \inqmlmodule Shadcn
+    \inherits Item
+    \brief A high-performance, model/column-driven data table.
+    \image data-table.png
+
+    Table is the shadcn/ui (base-mira) table, reworked for performance: the body
+    is a virtualized \c TableView and the header is a self-drawn row with a
+    stable per-column resize handle. It is driven by a data \l model and a set of
+    column definitions (\l columns, or declarative \l TableColumn children via
+    \l columnItems).
+
+    The \l model may be a JavaScript array of row objects, a QML \c TableModel, or
+    a C++ \c QAbstractItemModel. Each column definition is an object of the form
+    \c {{ title, key, role, width, fillWidth, minWidth, maxWidth, align, format, medium }}:
+    \c width is a fixed/preferred pixel width, \c fillWidth lets the column absorb
+    the remaining space, \c minWidth / \c maxWidth clamp it, \c key reads a field
+    from a JS row object, \c role reads a role from an item model (default
+    \c "display"), \c align is one of \c Qt.AlignLeft / \c Right / \c HCenter,
+    \c format(v) formats the cell value, and \c medium renders it bold. Dragging a
+    column edge records an explicit override width and re-distributes the rest.
+
+    \sa TableColumn
+*/
 Item {
     id: root
 
+    /*! \qmlproperty var Table::model
+        Row data: a JS array of row objects, a QML \c TableModel, or a C++
+        \c QAbstractItemModel. */
     property var model: []
-    property var columns: []                        // JS 列定义:[{ title, key, ... }]
-    property list<TableColumn> columnItems          // 声明式列定义(子元素);非空时优先
-    // 生效的列集合:优先声明式 columnItems,否则 JS columns。两种写法属性同名,访问方式一致。
+    /*! \qmlproperty var Table::columns
+        JS column definitions, an array of \c {{ title, key, ... }} objects. */
+    property var columns: []
+    /*! \qmlproperty list<TableColumn> Table::columnItems
+        Declarative \l TableColumn children; when non-empty they take precedence
+        over \l columns. */
+    property list<TableColumn> columnItems
+    // Effective column set: prefer declarative columnItems, else the JS columns.
     readonly property var _cols: (columnItems && columnItems.length > 0) ? columnItems : (columns || [])
-    // 现算列集合:在 columns/columnItems 变更处理器里,派生的 _cols 绑定尚未标脏重算(惰性),
-    // 直接读源属性才拿得到最新值,避免重建模型时用了上一次的旧列集合(慢一拍 → 表头/模型列数错位)。
+    // Freshly computed column set: inside the columns/columnItems change handlers
+    // the derived _cols binding is not yet re-evaluated (lazy), so read the source
+    // properties directly to avoid rebuilding the model with the previous column
+    // set (one step behind -> header/model column-count mismatch).
     function _currentCols() { return (columnItems && columnItems.length > 0) ? columnItems : (columns || []) }
+    /*! \qmlproperty string Table::caption
+        Optional caption rendered, muted and centered, below the table. */
     property string caption: ""
-    property string emptyText: "No results."      // 无数据行时居中显示
-    // 合计/脚注行:按列对齐的数组(元素为字符串,或 { text, align, medium })。空则不显。
+    /*! \qmlproperty string Table::emptyText
+        Centered message shown when there are no data rows. Defaults to \c "No results.". */
+    property string emptyText: "No results."
+    /*! \qmlproperty var Table::footerData
+        Optional totals/footer row: a per-column array whose elements are strings
+        or \c {{ text, align, medium }} objects. Hidden when empty. */
     property var footerData: []
     readonly property bool _hasFooter: footerData && footerData.length > 0
+    /*! \qmlproperty int Table::rowHeight
+        Body row height in pixels. Defaults to \c 40. */
     property int rowHeight: 40
+    /*! \qmlproperty int Table::headerHeight
+        Header row height in pixels. Defaults to \c 40. */
     property int headerHeight: 40
+    /*! \qmlproperty real Table::minFillWidth
+        Minimum width a fill column may shrink to. Defaults to \c 60. */
     property real minFillWidth: 60
 
+    /*! \qmlproperty TableView Table::view
+        The underlying virtualized body \c TableView (read-only). */
     readonly property alias view: tableView
+    /*! \qmlproperty int Table::hoverRow
+        Index of the currently hovered row, or \c -1. */
     property int hoverRow: -1
-    property var selectedRows: []              // 选中行索引数组 → 行高亮 bg-muted(data-state=selected)
+    /*! \qmlproperty var Table::selectedRows
+        Array of selected row indices; selected rows paint the muted background
+        (the web \c data-state=selected). */
+    property var selectedRows: []
+    /*! \qmlsignal Table::rowClicked(int row)
+        Emitted when a body row is tapped; \a row is its index. */
     signal rowClicked(int row)
 
     implicitWidth: 480
     implicitHeight: headerHeight
-                    + (tableView.rows === 0 ? 96 : tableView.contentHeight)   // 空态留 h-24
+                    + (tableView.rows === 0 ? 96 : tableView.contentHeight)   // h-24 placeholder when empty
                     + (_hasFooter ? rowHeight : 0)
                     + (caption !== "" ? captionText.implicitHeight + 16 : 0)
 
-    // ==== 数据规范化:JS 数组 → 内部 TableModel;否则透传 ====
+    // ==== Normalize data: JS array -> internal TableModel; otherwise pass through ====
     property QtObject _internalModel: null
     readonly property bool _isArray: model !== undefined && model !== null && model.constructor === Array
     function _rebuild() {
@@ -62,13 +109,13 @@ Item {
         }
     }
 
-    // ==== 列宽计算(Layout 式:固定 + fill 均分剩余,支持 min/max 夹取 + 拖拽覆盖)====
-    property var _overrides: ({})          // 列索引 → 用户拖拽后的显式宽
-    property var _widths: []               // 解析后各列宽度(表头/表体共用)
+    // ==== Column widths (fixed + fill share the remainder; min/max clamp + drag override) ====
+    property var _overrides: ({})          // column index -> explicit width after a user drag
+    property var _widths: []               // resolved per-column widths (shared by header and body)
     property real _dragStartW: 0
 
     function _clamp(v, mn, mx) {
-        if (mn && mn > 0 && v < mn) v = mn      // 0/undefined 视为不限
+        if (mn && mn > 0 && v < mn) v = mn      // 0 / undefined means unbounded
         if (mx && mx > 0 && v > mx) v = mx
         return v
     }
@@ -80,7 +127,7 @@ Item {
         var fillIdx = []
         for (var i = 0; i < n; i++) {
             var def = cols[i] || {}
-            // 固定列 = 显式 width>0 且未强制 fillWidth;其余(含未设 width 的列)一律 fill。
+            // Fixed = explicit width>0 and not forced fillWidth; everything else fills.
             var isFixed = (def.width && def.width > 0) && def.fillWidth !== true
             if (root._overrides[i] !== undefined) {
                 arr[i] = root._overrides[i]; fixedTotal += arr[i]
@@ -97,8 +144,8 @@ Item {
                 arr[fillIdx[k]] = Math.max(root.minFillWidth, root._clamp(each, d.minWidth, d.maxWidth))
             }
         }
-        // 兜底铺满:总宽仍小于表宽时(无 fill 列 / fill 被 max 夹住),把剩余补给最后一列,
-        // 保证列铺满表宽、每行分隔线完整到右边缘、右侧无空白。
+        // Fallback fill: if the total is still narrower than the table (no fill column,
+        // or fill capped by max), give the remainder to the last column so rows fill fully.
         if (n > 0) {
             var sum = 0
             for (var s = 0; s < n; s++) sum += arr[s]
@@ -116,13 +163,13 @@ Item {
     function _align(def) { return (def && def.align) ? def.align : Text.AlignLeft }
 
     onWidthChanged: _recompute()
-    // 列集合变化(如显隐某列)→ 清掉按索引记录的拖拽覆盖宽(旧索引已错配),再重建/重算。
+    // Column-set change (e.g. show/hide) -> drop index-keyed drag overrides (now misaligned), then rebuild/recompute.
     onColumnsChanged: { root._overrides = ({}); _rebuild(); _recompute() }
     onColumnItemsChanged: { root._overrides = ({}); _rebuild(); _recompute() }
     onModelChanged: _rebuild()
     Component.onCompleted: { _rebuild(); _recompute() }
 
-    // ==== 自绘表头(普通 Row;随表体水平滚动)====
+    // ==== Self-drawn header (a plain Row; scrolls horizontally with the body) ====
     Item {
         id: header
         anchors.left: parent.left
@@ -134,7 +181,7 @@ Item {
         Row {
             id: headerRow
             height: parent.height
-            x: -tableView.contentX          // 与表体水平滚动同步
+            x: -tableView.contentX          // stay in sync with the body's horizontal scroll
 
             Repeater {
                 model: root._cols.length
@@ -146,12 +193,12 @@ Item {
                     readonly property var _def: root._cols[index]
                     readonly property bool _custom: _def && _def.headerDelegate !== undefined && _def.headerDelegate !== null
 
-                    // 默认表头文本
+                    // default header text
                     Text {
                         visible: !hcell._custom
                         anchors.fill: parent
                         anchors.leftMargin: Theme.space2
-                        anchors.rightMargin: Theme.space2 + 8   // 给右侧手柄让位
+                        anchors.rightMargin: Theme.space2 + 8   // leave room for the right-side handle
                         text: hcell._def ? (hcell._def.title || "") : ""
                         color: Theme.mutedForeground
                         font.pixelSize: Theme.textXs
@@ -160,20 +207,20 @@ Item {
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
                     }
-                    // 自定义表头(列定义 headerDelegate:Component)。组件内经 parent 访问:
-                    //   parent.column(列号)· parent.table(Table)
+                    // Custom header (column headerDelegate: Component). Inside it, via parent:
+                    //   parent.column (column index), parent.table (the Table)
                     Loader {
                         visible: hcell._custom
                         active: hcell._custom
                         anchors.fill: parent
                         anchors.leftMargin: Theme.space2
-                        anchors.rightMargin: Theme.space2   // 与单元格一致 → 自定义表头/单元格(如 checkbox)对齐
+                        anchors.rightMargin: Theme.space2   // match the cell margin so custom header/cell (e.g. checkbox) align
                         readonly property int column: hcell.index
                         readonly property var table: root
                         sourceComponent: hcell._custom ? hcell._def.headerDelegate : null
                     }
 
-                    // 列宽拖拽手柄:跨列右边界,宽命中区 + resize 光标。最后一列不显(它兜底填满)。
+                    // Column resize handle straddling the right edge (wide hit area + resize cursor). Hidden on the last column (it fills).
                     Item {
                         visible: hcell.index < root._cols.length - 1
                         width: 11
@@ -181,7 +228,7 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: -5
                         z: 5
-                        // 普通短竖分隔线(恒定,不随 hover/拖动高亮)
+                        // plain short vertical divider (constant; no hover/drag highlight)
                         Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
@@ -202,14 +249,14 @@ Item {
                 }
             }
         }
-        // 表头下边框(通栏)
+        // header bottom border (full width)
         Rectangle {
             anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
             height: 1; color: Theme.border
         }
     }
 
-    // ==== 表体(TableView,虚拟化)====
+    // ==== Body (virtualized TableView) ====
     TableView {
         id: tableView
         anchors.left: parent.left
@@ -242,7 +289,7 @@ Item {
             readonly property bool _custom: cellItem._def && cellItem._def.cellDelegate !== undefined
                                             && cellItem._def.cellDelegate !== null
 
-            // 默认文本单元格
+            // default text cell
             Text {
                 visible: !cellItem._custom
                 anchors.fill: parent
@@ -252,8 +299,8 @@ Item {
                     var d = cellItem._def
                     var v = cellItem._raw
                     var s = (v === undefined || v === null) ? "" : String(v)
-                    // format 用 try 包裹:切列瞬间 _def/_raw 绑定更新有先后,format 可能短暂收到
-                    // 另一列的值(类型不符)→ 静默回退到原值,避免过渡帧抛异常刷屏。
+                    // Wrap format() in try: while columns switch, _def/_raw update out of step, so format may
+                    // briefly receive another column's value -> silently fall back to the raw value.
                     if (d && d.format) { try { return d.format(v) } catch (e) { return s } }
                     return s
                 }
@@ -265,8 +312,8 @@ Item {
                 elide: Text.ElideRight
             }
 
-            // 自定义单元格(列定义 cellDelegate:Component)。组件内经 parent 访问:
-            //   parent.value(本格值)· parent.row(行号)· parent.rowData(整行 model)· parent.table(Table)
+            // Custom cell (column cellDelegate: Component). Inside it, via parent:
+            //   parent.value, parent.row, parent.rowData (the whole row model), parent.table
             Loader {
                 id: cellLoader
                 visible: cellItem._custom
@@ -292,7 +339,7 @@ Item {
         }
     }
 
-    // ==== 空态(无数据行时居中)====
+    // ==== Empty state (centered when there are no rows) ====
     Text {
         visible: tableView.rows === 0
         anchors.horizontalCenter: tableView.horizontalCenter
@@ -302,7 +349,7 @@ Item {
         font.pixelSize: Theme.textXs
     }
 
-    // ==== 合计/脚注行(muted 底 + medium)====
+    // ==== Totals/footer row (muted background + medium) ====
     Item {
         id: footer
         visible: root._hasFooter
@@ -314,7 +361,7 @@ Item {
         clip: true
 
         Rectangle { anchors.fill: parent; color: Theme.alpha(Theme.muted, 0.5) }   // TableFooter bg-muted/50
-        // 顶部分隔线
+        // top divider
         Rectangle {
             anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top
             height: 1; color: Theme.border
@@ -349,7 +396,7 @@ Item {
         }
     }
 
-    // ==== 表说明(caption-bottom)====
+    // ==== Caption (caption-bottom) ====
     Text {
         id: captionText
         visible: root.caption !== ""

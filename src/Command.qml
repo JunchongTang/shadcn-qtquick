@@ -9,6 +9,8 @@ import LucideIcons
     \inherits Rectangle
     \brief A command palette: a search field over a filterable, grouped item list
            with an empty-state fallback.
+    \image command.png
+
 
     Command is a self-contained, data-driven port of shadcn/ui's cmdk-based
     \c Command (base-mira). Content is described declaratively through \l model

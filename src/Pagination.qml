@@ -8,6 +8,8 @@ import LucideIcons
     \inherits RowLayout
     \brief A data-driven page navigator (Previous + numbered pages with
     ellipsis + Next).
+    \image pagination.png
+
 
     Pagination is the compact page navigator styled after shadcn's base-mira
     \c .cn-pagination-* rules. Unlike the declarative React composition

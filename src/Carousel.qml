@@ -8,6 +8,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Item
     \brief A horizontally or vertically scrollable set of snapping slides.
+    \image carousel.png
+
 
     Port of shadcn/ui's Carousel (base-mira style). The web component wraps
     the \c embla-carousel engine; this QML port approximates it with a

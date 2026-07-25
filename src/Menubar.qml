@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Item
     \brief A desktop-style application menu bar, styled after shadcn's base-mira menubar.
+    \image menubar.png
+
 
     Menubar renders shadcn's \c .cn-menubar: a horizontal row of \l MenubarMenu
     triggers inside a \c rounded-lg bordered container with \c p-1 padding and

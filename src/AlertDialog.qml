@@ -10,6 +10,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Dialog
     \brief An interrupting confirmation dialog styled after shadcn/ui base-mira.
+    \image alert-dialog.png
+
 
     AlertDialog is a modal, centered confirmation prompt built on the Qt Quick
     Controls \c Dialog. Unlike \l Dialog it has no top-right close button and no

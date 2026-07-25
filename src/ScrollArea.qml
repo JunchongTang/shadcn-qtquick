@@ -6,6 +6,8 @@ import QtQuick.Controls.Basic as C
     \inqmlmodule Shadcn
     \inherits ScrollView
     \brief A rounded, bordered scroll container with thin overlay scrollbars.
+    \image scroll-area.png
+
 
     ScrollArea ports shadcn's base-mira \c .cn-scroll-area. It wraps a single
     piece of content in a \c rounded-md bordered box and overlays a thin

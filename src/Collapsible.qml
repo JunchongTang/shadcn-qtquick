@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits Item
     \brief A panel whose content expands and collapses with a height animation.
+    \image collapsible.png
+
 
     Collapsible is the base-mira port of shadcn's Collapsible (base-ui
     \c Root / \c Trigger / \c Panel). base-mira ships no dedicated styling for

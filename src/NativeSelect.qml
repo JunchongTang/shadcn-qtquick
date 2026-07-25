@@ -8,6 +8,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits ComboBox
     \brief A plain native-style dropdown select (\c .cn-native-select).
+    \image native-select.png
+
 
     NativeSelect is the plainer counterpart to \l Select, styled after shadcn's
     base-mira \c .cn-native-select rules. Both show a trailing \c chevron-down;

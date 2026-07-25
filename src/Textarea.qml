@@ -6,6 +6,8 @@ import QtQuick.Controls.Basic as C
     \inqmlmodule Shadcn
     \inherits TextArea
     \brief Multi-line text field matching shadcn/ui's base-mira \c Textarea.
+    \image textarea.png
+
 
     Textarea is the multi-line counterpart of \l Input: it shares the same
     \c {input/20} tinted fill, 1px \c border-input outline and base-mira

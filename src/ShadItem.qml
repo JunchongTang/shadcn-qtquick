@@ -7,6 +7,8 @@ import QtQuick.Layouts
     \inherits Item
     \brief A generic content row: media | content (stretches) | actions, with
     optional header and footer rows that each span the full width.
+    \image item.png
+
 
     Port of shadcn/ui \c Item (base-mira). The main row lays out an optional
     \l ItemMedia, one or more \l ItemContent columns (the first stretches), and

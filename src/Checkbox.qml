@@ -7,6 +7,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits CheckBox
     \brief A compact 16px check control with an optional trailing label.
+    \image checkbox.png
+
 
     Checkbox ports shadcn/ui's \c base-mira checkbox: a 16x16 rounded box that
     fills with the primary color and shows a Lucide \c check glyph when checked,

@@ -6,6 +6,8 @@ import QtQuick.Controls.Basic as C
     \inqmlmodule Shadcn
     \inherits TextField
     \brief Single-line text field matching shadcn/ui's base-mira \c Input.
+    \image input.png
+
 
     Input is a compact (\c h-7 / 28px) text field with an \c {input/20} tinted
     fill, a 1px \c border-input outline, and the shared base-mira focus-visible

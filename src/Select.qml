@@ -8,6 +8,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits ComboBox
     \brief A rich dropdown select with a popover list, group labels and per-item check marks.
+    \image select.png
+
 
     Select is the richer counterpart to \l NativeSelect, styled after shadcn's
     base-mira \c .cn-select-* rules. The trigger shows the selected value (or a

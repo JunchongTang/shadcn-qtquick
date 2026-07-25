@@ -9,6 +9,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Control
     \brief An editable autocomplete input paired with a plain popup list.
+    \image combobox.png
+
 
     Combobox reproduces the shadcn (base-mira) look. The trigger itself is an
     editable ComboboxInput: the user can type to filter, and the popup contains

@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Item
     \brief A vertically stacked set of collapsible sections.
+    \image accordion.png
+
 
     Port of shadcn/ui's Accordion (base-mira style). The container is an
     \c {overflow-hidden rounded-md border} card that stacks its

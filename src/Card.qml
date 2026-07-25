@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits Item
     \brief Surface container matching shadcn/ui base-mira Card.
+    \image card.png
+
 
     Renders a card surface: bg-card fill, rounded-lg corners and a 1px
     foreground/10 ring (ring-1 ring-foreground/10) rather than a plain border.

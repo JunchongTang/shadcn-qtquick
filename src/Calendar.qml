@@ -8,6 +8,8 @@ import Shadcn
     \inqmlmodule Shadcn
     \inherits Item
     \brief A month-grid date picker (base-mira style).
+    \image calendar.png
+
 
     Port of shadcn/ui's Calendar (base-mira). Qt Quick has no built-in
     calendar (Qt.labs.calendar is deprecated), so this component computes a

@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits ColumnLayout
     \brief A vertical, gap-3 container for \l RadioButton items.
+    \image radio-group.png
+
 
     RadioGroup ports shadcn/ui's \c base-mira \c RadioGroup: a \c {grid gap-3}
     stack of options. Drop \l RadioButton children in directly; because they

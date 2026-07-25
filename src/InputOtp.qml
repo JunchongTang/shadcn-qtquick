@@ -7,6 +7,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits FocusScope
     \brief Segmented one-time-passcode field, matching shadcn/ui base-mira.
+    \image input-otp.png
+
 
     InputOtp maps the base-mira \c {.cn-input-otp} family (container, group, slot,
     separator) as a single focusable control. It renders \l length cells split into

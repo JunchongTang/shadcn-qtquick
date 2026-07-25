@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Rectangle
     \brief A thin 1px divider line, horizontal or vertical.
+    \image separator.png
+
 
     Separator is a port of shadcn's base-mira \c .cn-separator (Base UI
     \c Separator primitive). It renders a single 1px line filled with the

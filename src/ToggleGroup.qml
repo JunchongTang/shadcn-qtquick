@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits GridLayout
     \brief A set of two-state buttons that share styling and selection.
+    \image toggle-group.png
+
 
     ToggleGroup lays out \l ToggleGroupItem children and propagates \l variant and
     \l size down to them. \l multiple chooses between single-selection (mutually

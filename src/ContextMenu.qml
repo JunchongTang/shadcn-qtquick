@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Menu
     \brief A right-click context menu, styled to match shadcn/ui (base-mira).
+    \image context-menu.png
+
 
     ContextMenu is a thin wrapper over \l Menu. It reuses the Menu popover
     container, item delegates and enter/exit transitions (so its visuals are

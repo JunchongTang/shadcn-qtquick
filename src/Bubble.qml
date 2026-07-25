@@ -6,6 +6,8 @@ import QtQuick.Layouts
     \inqmlmodule Shadcn
     \inherits Item
     \brief A chat-message bubble container.
+    \image bubble.png
+
 
     Bubble is the QML port of shadcn's base-mira \c .cn-bubble. It corresponds to
     \c {flex flex-col gap-1 w-fit max-w-[80%]} (the ghost variant lifts the cap to

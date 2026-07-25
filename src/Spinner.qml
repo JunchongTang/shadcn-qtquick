@@ -6,6 +6,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits LucideIcon
     \brief A continuously rotating loading indicator.
+    \image spinner.png
+
 
     Spinner ports shadcn's base-mira \c Spinner: the Lucide \c loader-2 glyph
     with the Tailwind \c animate-spin animation (a linear 360-degree rotation

@@ -9,6 +9,8 @@ import Shadcn
     \inqmlmodule Shadcn
     \inherits AbstractButton
     \brief An outline trigger that opens a single-date calendar in a popover.
+    \image date-picker.png
+
 
     DatePicker is a convenience composition (shadcn has no standalone DatePicker
     component; see the date-picker "Composition" docs): a \l Popover whose trigger

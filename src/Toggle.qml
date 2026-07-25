@@ -8,6 +8,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Button
     \brief A two-state (on/off) button.
+    \image toggle.png
+
 
     Toggle is a checkable button styled after shadcn's base-mira \c .cn-toggle-*
     rules. It reuses the checked state of the Qt Quick Controls \c Button: the

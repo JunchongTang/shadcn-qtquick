@@ -9,6 +9,8 @@ import QtQuick.Effects
     \inqmlmodule Shadcn
     \inherits QtQuick.Controls.Dialog
     \brief A modal dialog with a header, body and an optional footer bar.
+    \image dialog.png
+
 
     Dialog wraps the Qt Quick Controls \c Dialog with the shadcn (base-mira) look:
     a rounded popover surface over a blurred backdrop, a header holding the title,

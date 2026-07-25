@@ -5,6 +5,8 @@ import QtQuick
     \inqmlmodule Shadcn
     \inherits Item
     \brief A data-driven chart, styled after shadcn's base-mira chart family.
+    \image chart.png
+
 
     Chart is a Canvas-drawn port of shadcn/ui's chart components (which wrap
     Recharts). One type covers six shapes selected by \l type: \c Bar, \c Line,

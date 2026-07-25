@@ -8,6 +8,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Rectangle
     \brief A single Sonner-style notification card.
+    \image sonner.png
+
 
     Toast is the visual for one notification, styled after shadcn's base-mira
     Sonner (\c registry/bases/base/ui/sonner.tsx). It maps Sonner's

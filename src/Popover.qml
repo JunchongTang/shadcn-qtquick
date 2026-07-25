@@ -7,6 +7,8 @@ import QtQuick.Effects
     \inqmlmodule Shadcn
     \inherits Popup
     \brief A trigger-anchored overlay that shows arbitrary rich content.
+    \image popover.png
+
 
     Port of shadcn/ui's Popover (base-mira style, backed by base-ui's Popover).
     QtQuick.Controls has no dedicated Popover type, so this is built on

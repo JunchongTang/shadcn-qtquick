@@ -7,6 +7,8 @@ import QtQuick.Controls.Basic as C
     \inqmlmodule Shadcn
     \inherits Item
     \brief A file/image attachment card with media, metadata and actions.
+    \image attachment.png
+
 
     Attachment is the base-mira \c .cn-attachment card: a leading media slot
     (\l AttachmentMedia — thumbnail or file-type icon), a content column

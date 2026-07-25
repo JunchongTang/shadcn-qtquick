@@ -6,6 +6,8 @@ import QtQuick.Controls.Basic as C
     \inqmlmodule Shadcn
     \inherits QtQuick.Controls.Slider
     \brief A single-thumb slider for picking one value from a range.
+    \image slider.png
+
 
     Slider ports shadcn's base-mira \c .cn-slider styling for the single-value
     usage (\c {defaultValue={n}}). It shares the exact visuals of the two-thumb

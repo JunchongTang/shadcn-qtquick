@@ -7,6 +7,8 @@ import LucideIcons
     \inqmlmodule Shadcn
     \inherits Item
     \brief A small pill-shaped label, styled after shadcn's base-mira badge.
+    \image badge.png
+
 
     Badge renders shadcn's \c .cn-badge as a compact \c rounded-full pill:
     20px tall (\c h-5), 10px medium text (\c text-[0.625rem]) and 6 color
