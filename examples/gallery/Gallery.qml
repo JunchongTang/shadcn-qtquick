@@ -15,7 +15,7 @@ Window {
     height: 820
     visible: true
     color: Theme.background
-    title: qsTr("shadcn/ui — QML")
+    title: qsTr("Shadcn - QtQuick")
 
     // 当前选中组件 id 与其页面文件(空 → 占位页)。
     property string currentId: "button"
@@ -163,21 +163,21 @@ Window {
                     variant: IconButton.Ghost
                     onClicked: navDrawer.open()
                 }
-                Text {
-                    text: qsTr("shadcn/ui")
-                    color: Theme.foreground
-                    font.pixelSize: 15
-                    font.weight: Font.DemiBold
-                }
-                Text {
-                    text: qsTr("QML")
-                    color: Theme.mutedForeground
-                    font.pixelSize: 13
-                }
+                // Text {
+                //     text: qsTr("shadcn/ui")
+                //     color: Theme.foreground
+                //     font.pixelSize: 15
+                //     font.weight: Font.DemiBold
+                // }
+                // Text {
+                //     text: qsTr("QML")
+                //     color: Theme.mutedForeground
+                //     font.pixelSize: 13
+                // }
 
                 // 主导航:Components / Charts / Create
                 RowLayout {
-                    Layout.leftMargin: 14
+                    //Layout.leftMargin: 14
                     spacing: 18
                     NavTab { text: qsTr("Components"); active: win.section === "components"; onClicked: win.section = "components" }
                     NavTab { text: qsTr("Charts"); active: win.section === "charts"; onClicked: win.section = "charts" }

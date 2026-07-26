@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import Shadcn
@@ -45,11 +47,23 @@ Item {
     ]
     readonly property var radii: [0, 4, 8, 10, 14, 16]
 
+    // ==== chart 配色:每个方案设置 chart1..chart5(明/暗共用)====
+    readonly property var chartPalettes: [
+        { name: "Amber",   c: ["#ffd230", "#fe9a00", "#e17100", "#bb4d00", "#973c00"] },
+        { name: "Blue",    c: ["#93c5fd", "#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8"] },
+        { name: "Green",   c: ["#6ee7b7", "#34d399", "#10b981", "#059669", "#047857"] },
+        { name: "Violet",  c: ["#c4b5fd", "#a78bfa", "#8b5cf6", "#7c3aed", "#6d28d9"] },
+        { name: "Rose",    c: ["#fda4af", "#fb7185", "#f43f5e", "#e11d48", "#be123c"] },
+        { name: "Neutral", c: ["#d4d4d4", "#a3a3a3", "#737373", "#525252", "#404040"] }
+    ]
+
     // 面板显示的当前选择状态。
     property string baseName: "Neutral"
     property color  baseDot: "#737373"
     property string accentName: "Amber"
     property color  accentDot: "#f0b100"
+    property string chartName: "Amber"
+    property color  chartDot: "#fe9a00"
     property int    radiusValue: 10
 
     // 面板固定深色(对齐官网 className="dark" 的定制卡,不随 app 明暗变化)。
@@ -78,6 +92,18 @@ Item {
         page.accentName = a.name; page.accentDot = a.dot
     }
     function setRadius(px) { Theme.setRadius(px); page.radiusValue = px }
+    function applyChartColor(p) {
+        for (var i = 0; i < 5; i++) {
+            Theme.setToken("chart" + (i + 1), p.c[i], false)
+            Theme.setToken("chart" + (i + 1), p.c[i], true)
+        }
+        page.chartName = p.name; page.chartDot = p.c[1]
+    }
+    function resetState() {
+        baseName = "Neutral"; baseDot = "#737373"
+        accentName = "Amber"; accentDot = "#f0b100"
+        chartName = "Amber"; chartDot = "#fe9a00"; radiusValue = 10
+    }
     function randomize() {
         applyBase(baseColors[Math.floor(Math.random() * baseColors.length)])
         applyAccent(accents[Math.floor(Math.random() * accents.length)])
@@ -206,6 +232,39 @@ Item {
                         MenuItem { text: qsTr("Orange"); onTriggered: page.applyAccent(page.accents[5]) }
                         MenuItem { text: qsTr("Mono");   onTriggered: page.applyAccent(page.accents[6]) }
                     }
+                    // Chart color
+                    PickerRow {
+                        label: qsTr("Chart color"); valueText: page.chartName; hasDot: true; dotColor: page.chartDot
+                        MenuItem { text: qsTr("Amber");   onTriggered: page.applyChartColor(page.chartPalettes[0]) }
+                        MenuItem { text: qsTr("Blue");    onTriggered: page.applyChartColor(page.chartPalettes[1]) }
+                        MenuItem { text: qsTr("Green");   onTriggered: page.applyChartColor(page.chartPalettes[2]) }
+                        MenuItem { text: qsTr("Violet");  onTriggered: page.applyChartColor(page.chartPalettes[3]) }
+                        MenuItem { text: qsTr("Rose");    onTriggered: page.applyChartColor(page.chartPalettes[4]) }
+                        MenuItem { text: qsTr("Neutral"); onTriggered: page.applyChartColor(page.chartPalettes[5]) }
+                    }
+                    // Heading font
+                    PickerRow {
+                        label: qsTr("Heading"); valueText: Theme.fontHeading; iconName: "type"
+                        MenuItem { text: "Inter";           onTriggered: Theme.fontHeadingOverride = "Inter" }
+                        MenuItem { text: "Helvetica";       onTriggered: Theme.fontHeadingOverride = "Helvetica" }
+                        MenuItem { text: "Georgia";         onTriggered: Theme.fontHeadingOverride = "Georgia" }
+                        MenuItem { text: "Times New Roman"; onTriggered: Theme.fontHeadingOverride = "Times New Roman" }
+                        MenuItem { text: "Courier New";     onTriggered: Theme.fontHeadingOverride = "Courier New" }
+                    }
+                    // Body font
+                    PickerRow {
+                        label: qsTr("Font"); valueText: Theme.fontSans; iconName: "type"
+                        MenuItem { text: "Inter";           onTriggered: Theme.fontBodyOverride = "Inter" }
+                        MenuItem { text: "Helvetica";       onTriggered: Theme.fontBodyOverride = "Helvetica" }
+                        MenuItem { text: "Georgia";         onTriggered: Theme.fontBodyOverride = "Georgia" }
+                        MenuItem { text: "Times New Roman"; onTriggered: Theme.fontBodyOverride = "Times New Roman" }
+                        MenuItem { text: "Courier New";     onTriggered: Theme.fontBodyOverride = "Courier New" }
+                    }
+                    // Icon library (Lucide only)
+                    PickerRow {
+                        label: qsTr("Icon Library"); valueText: qsTr("Lucide")
+                        MenuItem { text: qsTr("Lucide") }
+                    }
                     // Radius
                     PickerRow {
                         label: qsTr("Radius"); valueText: page.radiusValue + qsTr(" px")
@@ -226,7 +285,7 @@ Item {
 
                     Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: page.pBorder; Layout.topMargin: 6 }
 
-                    // 动作
+                    // Actions
                     DarkBtn { label: qsTr("Shuffle"); iconName: "shuffle"; prominent: true; Layout.topMargin: 6; onClicked: page.randomize() }
                     DarkBtn {
                         id: copyBtn
@@ -236,12 +295,12 @@ Item {
                         onClicked: { SourceReader.copyToClipboard(Theme.exportJson()); copyBtn._done = true; copyTimer.restart() }
                         Timer { id: copyTimer; interval: 1200; onTriggered: copyBtn._done = false }
                     }
-                    DarkBtn { label: qsTr("Reset"); iconName: "rotate-ccw"; onClicked: Theme.resetTheme() }
+                    DarkBtn { label: qsTr("Reset"); iconName: "rotate-ccw"; onClicked: { Theme.resetTheme(); page.resetState() } }
                 }
             }
         }
 
-        // ============================ 右:实时 showcase —— preview-02 bento 仪表盘 ============================
+        // ==================== Right: live showcase — preview-02 bento dashboard ====================
         CreateDashboard {
             Layout.fillWidth: true
             Layout.fillHeight: true

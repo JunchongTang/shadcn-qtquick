@@ -43,7 +43,7 @@ Item {
         spacing: 0
 
         Text {
-            Layout.leftMargin: 16
+            Layout.leftMargin: 6
             Layout.topMargin: 16
             Layout.bottomMargin: 4
             text: qsTr("Components")

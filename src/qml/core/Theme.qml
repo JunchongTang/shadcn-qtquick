@@ -81,9 +81,12 @@ QtObject {
 
     /*!
         \qmlmethod void Theme::resetTheme()
-        Clears all color overrides and restores the default base radius.
+        Clears all color, radius and font overrides, restoring the defaults.
     */
-    function resetTheme() { lightOverrides = ({}); darkOverrides = ({}); radiusOverride = -1 }
+    function resetTheme() {
+        lightOverrides = ({}); darkOverrides = ({}); radiusOverride = -1
+        fontBodyOverride = ""; fontHeadingOverride = ""
+    }
 
     // Enumerable color-token names (used by customizers to iterate tokens).
     readonly property var colorTokenNames: [
@@ -220,9 +223,21 @@ QtObject {
     readonly property real radiusFull: 9999          // pill (rounded-full)
 
     // ==== Typography ======================================================
-    readonly property string fontSans: "Inter"
+    /*!
+        \qmlproperty string Theme::fontBodyOverride
+        Overrides the body (sans) font family when non-empty; empty uses the
+        built-in default (\c Inter). Cleared by \l resetTheme.
+    */
+    property string fontBodyOverride: ""
+    /*!
+        \qmlproperty string Theme::fontHeadingOverride
+        Overrides the heading font family when non-empty; empty falls back to
+        \l fontSans. Cleared by \l resetTheme.
+    */
+    property string fontHeadingOverride: ""
+    readonly property string fontSans: fontBodyOverride !== "" ? fontBodyOverride : "Inter"
     readonly property string fontMono: "Geist Mono"
-    readonly property string fontHeading: fontSans
+    readonly property string fontHeading: fontHeadingOverride !== "" ? fontHeadingOverride : fontSans
 
     // ==== Focus ring (base-mira: ring-2 ring-ring/30 + border->ring) ========
     /*!
