@@ -22,6 +22,22 @@ Window {
     property string currentPage: "demos/button/PageButton.qml"
     property string currentLabel: "Button"
 
+    // 顶栏主导航当前分区:components | charts | create。
+    property string section: "components"
+
+    // 顶栏导航项:纯文本 tab,选中态用前景色 + 中等字重。
+    component NavTab: Text {
+        id: navTab
+        property bool active: false
+        signal clicked()
+        color: active ? Theme.foreground : Theme.mutedForeground
+        font.pixelSize: 14
+        font.weight: active ? Font.Medium : Font.Normal
+        verticalAlignment: Text.AlignVCenter
+        HoverHandler { cursorShape: Qt.PointingHandCursor }
+        TapHandler { onTapped: navTab.clicked() }
+    }
+
     // 窄屏(< 860)收起侧栏,顶栏出汉堡按钮开抽屉,让内容区拿到全部宽度。
     readonly property bool compact: width < 860
 
@@ -37,7 +53,6 @@ Window {
     // ==== 导航数据:官方 Components 列表(含实现状态)========================
     // page 非空即为已实现;label 用于详情页标题。
     readonly property var nav: [
-        { id: "theme-customizer", label: qsTr("Theme Customizer"), page: "PageThemeCustomizer.qml" },
         { id: "accordion",        label: qsTr("Accordion"),        page: "demos/accordion/PageAccordion.qml" },
         { id: "alert",            label: qsTr("Alert"),            page: "demos/alert/PageAlert.qml" },
         { id: "alert-dialog",     label: qsTr("Alert Dialog"),     page: "demos/alert-dialog/PageAlertDialog.qml" },
@@ -141,9 +156,9 @@ Window {
                 anchors.rightMargin: 16
                 spacing: 10
 
-                // 汉堡按钮:窄屏时出现,点开侧栏抽屉。
+                // 汉堡按钮:仅 Components 分区 + 窄屏,点开侧栏抽屉。
                 IconButton {
-                    visible: win.compact
+                    visible: win.compact && win.section === "components"
                     iconName: "menu"
                     variant: IconButton.Ghost
                     onClicked: navDrawer.open()
@@ -159,6 +174,16 @@ Window {
                     color: Theme.mutedForeground
                     font.pixelSize: 13
                 }
+
+                // 主导航:Components / Charts / Create
+                RowLayout {
+                    Layout.leftMargin: 14
+                    spacing: 18
+                    NavTab { text: qsTr("Components"); active: win.section === "components"; onClicked: win.section = "components" }
+                    NavTab { text: qsTr("Charts"); active: win.section === "charts"; onClicked: win.section = "charts" }
+                    NavTab { text: qsTr("Create"); active: win.section === "create"; onClicked: win.section = "create" }
+                }
+
                 Item { Layout.fillWidth: true }
                 IconButton {
                     iconName: Theme.dark ? qsTr("sun") : qsTr("moon")
@@ -175,14 +200,19 @@ Window {
             }
         }
 
-        RowLayout {
+        // ==== 分区切换:Components / Charts / Create ====
+        StackLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 0
+            currentIndex: win.section === "components" ? 0 : (win.section === "charts" ? 1 : 2)
 
-            // ==== 左侧导航(宽屏内联;窄屏收起,改用抽屉)====
-            DocsSidebar {
-                id: sidebar
+            // ---- 0: Components(侧栏 + 内容)----
+            RowLayout {
+                spacing: 0
+
+                // ==== 左侧导航(宽屏内联;窄屏收起,改用抽屉)====
+                DocsSidebar {
+                    id: sidebar
                 visible: !win.compact
                 Layout.preferredWidth: win.compact ? 0 : 240
                 Layout.fillHeight: true
@@ -327,6 +357,37 @@ Window {
                     visible: contentArea.showApi
                     source: Qt.resolvedUrl("ApiDocsView.qml")
                     onLoaded: item.pageUrl = docsBaseUrl + contentArea.apiHtml
+                }
+                }
+            }
+
+            // ---- 1: Charts(占位,暂未实现)----
+            Item {
+                ColumnLayout {
+                    anchors.centerIn: parent
+                    spacing: 8
+                    Text {
+                        text: qsTr("Charts")
+                        color: Theme.foreground
+                        font.pixelSize: 24
+                        font.weight: Font.DemiBold
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+                    Text {
+                        text: qsTr("Coming soon.")
+                        color: Theme.mutedForeground
+                        font.pixelSize: Theme.textSm
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+                }
+            }
+
+            // ---- 2: Create(主题定制器,全宽)----
+            Item {
+                PageThemeCustomizer {
+                    anchors.fill: parent
+                    anchors.margins: 24
+                    viewportHeight: height
                 }
             }
         }
