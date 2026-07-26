@@ -71,95 +71,10 @@ Item {
         anchors.fill: parent
         spacing: 16
 
-        // ============================ 左:实时 showcase ============================
-        ScrollView {
-            id: showcaseScroll
+        // ============================ 左:实时 showcase —— preview-02 bento 仪表盘 ============================
+        CreateDashboard {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            clip: true
-            contentWidth: availableWidth
-
-            ColumnLayout {
-                width: showcaseScroll.availableWidth
-                spacing: 16
-
-                Text {
-                    text: qsTr("Live preview")
-                    color: Theme.foreground
-                    font.pixelSize: 24
-                    font.weight: Font.DemiBold
-                }
-
-                // ---- 按钮变体 ----
-                Flow {
-                    Layout.fillWidth: true
-                    spacing: 8
-                    Button { text: qsTr("Primary") }
-                    Button { text: qsTr("Secondary"); variant: Button.Secondary }
-                    Button { text: qsTr("Outline"); variant: Button.Outline }
-                    Button { text: qsTr("Ghost"); variant: Button.Ghost }
-                    Button { text: qsTr("Destructive"); variant: Button.Destructive }
-                    Button { text: qsTr("Link"); variant: Button.Link }
-                    Badge { text: qsTr("Badge") }
-                    Badge { text: qsTr("Secondary"); variant: Badge.Secondary }
-                }
-
-                // ---- 卡片 + 表单 ----
-                Card {
-                    Layout.fillWidth: true
-                    Layout.maximumWidth: 520
-                    CardHeader {
-                        CardTitle { text: qsTr("Create account") }
-                        CardDescription { text: qsTr("Enter your details below to create your account.") }
-                    }
-                    CardContent {
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            spacing: 12
-                            ColumnLayout {
-                                Layout.fillWidth: true
-                                spacing: 6
-                                Label { text: qsTr("Email") }
-                                Input { Layout.fillWidth: true; placeholderText: qsTr("m@example.com") }
-                            }
-                            RowLayout {
-                                Layout.fillWidth: true
-                                spacing: 12
-                                Switch { checked: true }
-                                Label { text: qsTr("Email me about updates") }
-                                Item { Layout.fillWidth: true }
-                                Checkbox { text: qsTr("Remember"); checked: true }
-                            }
-                            Slider { Layout.fillWidth: true; value: 60 }
-                            Progress { Layout.fillWidth: true; value: 60 }
-                        }
-                    }
-                    CardFooter {
-                        Button { text: qsTr("Cancel"); variant: Button.Outline }
-                        Item { Layout.fillWidth: true }
-                        Button { text: qsTr("Create") }
-                    }
-                }
-
-                // ---- Tabs ----
-                Tabs {
-                    Layout.topMargin: 2
-                    TabButton { text: qsTr("Account") }
-                    TabButton { text: qsTr("Password") }
-                    TabButton { text: qsTr("Settings") }
-                }
-
-                // ---- Alert ----
-                Alert {
-                    Layout.fillWidth: true
-                    Layout.maximumWidth: 520
-                    iconName: "circle-check"
-                    title: qsTr("Heads up!")
-                    description: qsTr("Every component on this page re-themes as you tweak the panel.")
-                }
-
-                Item { Layout.fillHeight: true }   // 底部留白
-            }
         }
 
         // ============================ 右:定制面板 ============================
