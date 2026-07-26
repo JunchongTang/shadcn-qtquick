@@ -302,10 +302,17 @@ Window {
                             // 填满视口可用宽(不再封顶 760),使卡片随窗口变宽而变宽。
                             width: Math.max(0, parent.width - 2 * pad)
                             source: win.currentPage !== "" ? win.currentPage : "PagePlaceholder.qml"
-                            // 把标题/描述传给页面骨架
+                            // 把标题/描述传给页面骨架;对需要铺满视口的页面(如主题定制器双栏)
+                            // 再传入可用视口高度,使其内部两栏各自滚动而非整页滚动。
                             onLoaded: {
-                                if (item && item.hasOwnProperty("componentLabel"))
+                                if (!item)
+                                    return
+                                if (item.hasOwnProperty("componentLabel"))
                                     item.componentLabel = win.currentLabel
+                                if (item.hasOwnProperty("viewportHeight"))
+                                    item.viewportHeight = Qt.binding(function () {
+                                        return Math.max(360, contentScroll.availableHeight - 2 * pageLoader.pad)
+                                    })
                             }
                         }
                     }
