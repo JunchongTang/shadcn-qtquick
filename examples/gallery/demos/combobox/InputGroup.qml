@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 Input Group:ComboboxInput 内嵌前置图标(globe)+ 分组时区列表。
+// Official Input Group: ComboboxInput with a leading icon (globe) + grouped timezone list.
 Combobox {
     width: 240
     leadingIcon: "globe"

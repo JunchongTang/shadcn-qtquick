@@ -2,14 +2,15 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 collapsible-demo —— 「Order #4189」:标题 + 图标触发器常驻,
-// 状态行常驻,展开后揭示配送地址/商品明细两张边框卡。
+// Official collapsible-demo —— "Order #4189": title + icon trigger stay pinned,
+// status row stays pinned; expanding reveals two bordered cards (shipping address /
+// item details).
 Collapsible {
     id: c
     width: 350
     gap: 8
 
-    // ---- 常驻区:标题行 + 状态行 ----
+    // ---- Pinned area: title row + status row ----
     trigger: ColumnLayout {
         width: parent.width
         spacing: 8
@@ -62,7 +63,7 @@ Collapsible {
         }
     }
 
-    // ---- 可折叠内容:两张明细卡 ----
+    // ---- Collapsible content: two detail cards ----
     component InfoCard: Rectangle {
         id: cardRoot
         property string heading: ""

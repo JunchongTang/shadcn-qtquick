@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// ItemGroup 内用 ItemSeparator 在相邻 Item 之间加分隔线(my-2 留白)。
+// Use ItemSeparator inside an ItemGroup to add a divider between adjacent Items (my-2 spacing).
 ColumnLayout {
     width: 380
 

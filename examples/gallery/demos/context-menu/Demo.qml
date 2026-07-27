@@ -1,14 +1,14 @@
 import QtQuick
 import Shadcn
 
-// 组合示例:分组 + 快捷键 + 子菜单 + 复选 + 单选(对标 context-menu-demo)。
-// 触发区域为虚线边框方块,右键即在光标处弹出。
+// Combined example: groups + shortcuts + submenu + checkboxes + radio (mirrors context-menu-demo).
+// Trigger area is a dashed-border square; right-click opens the menu at the cursor.
 Item {
     id: area
     implicitWidth: 320               // max-w-xs
     implicitHeight: 180              // aspect-video
 
-    // 虚线边框提示(border-dashed rounded-xl)
+    // Dashed border hint (border-dashed rounded-xl)
     Canvas {
         id: dashed
         anchors.fill: parent

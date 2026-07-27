@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Group:堆叠同一发送者的连续消息(紧间距 gap-1.5)。
-// 前序消息用「空 MessageAvatar」占位,使其与末条消息的头像对齐。
-// 注:基础版未提供独立 MessageGroup 组件,用 ColumnLayout + 紧间距近似官方分组视觉。
+// Group: stacks consecutive messages from the same sender (tight spacing gap-1.5).
+// Preceding messages use an "empty MessageAvatar" as a placeholder so they align with the last message's avatar.
+// Note: the basic version has no standalone MessageGroup component; ColumnLayout + tight spacing approximates the official group visual.
 ColumnLayout {
     width: 360
     spacing: Theme.space6
@@ -14,7 +14,7 @@ ColumnLayout {
         spacing: Theme.space1_5             // cn-message-group gap-1.5
 
         Message {
-            MessageAvatar {}                // 空占位:对齐用
+            MessageAvatar {}                // empty placeholder: for alignment
             MessageContent {
                 variant: MessageContent.Muted
                 text: qsTr("I checked the registry addresses.")

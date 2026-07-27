@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// disabled —— 阻止交互并整体降透明度。
+// disabled —— blocks interaction and lowers overall opacity.
 ColumnLayout {
     spacing: 12
     Checkbox { text: qsTr("Enable notifications"); enabled: false }

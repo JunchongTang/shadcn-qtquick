@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 校验/错误:Field.invalid 让标签/描述转破坏色,控件 invalid 显破坏边框环,
-// FieldError 紧随控件之后。第二个字段演示 errors 数组 → 多条项目符号列表。
+// Validation/errors: Field.invalid turns the label/description destructive-colored, an invalid control shows a destructive border ring,
+// FieldError follows right after the control. The second field demonstrates an errors array → a multi-item bulleted list.
 FieldGroup {
     width: 280        // max-w-xs
 

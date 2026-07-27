@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 行内操作(新 Table)—— 每行末列一个 ghost IconButton 触发 DropdownMenu(cellDelegate)。
+// Row actions (new Table) -- last cell in each row is a ghost IconButton that opens a DropdownMenu (cellDelegate).
 Table {
     id: root
     width: 480

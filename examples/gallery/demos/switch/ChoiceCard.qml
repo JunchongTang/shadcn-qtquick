@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 卡片式选择:整张卡片可点击切换开关(FieldLabel 包裹 Field 的形态)。
+// Card-style choice: the whole card is tappable to toggle the switch (FieldLabel wrapping Field).
 ColumnLayout {
     width: 360
     spacing: 12

@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 基础表(新 Table)——本卡展示【声明式列】写法:用 columnItems + TableColumn 子元素定义列
-//(与 JS columns 写法等价、可互换)。Status 首字母大写 / Email 小写 / Amount 货币格式 + 加粗。
+// Basic table (new Table) -- this card shows the declarative-column style: define columns via columnItems + TableColumn child elements
+// (equivalent to and interchangeable with the JS columns style). Status capitalized / Email lowercased / Amount currency format + bold.
 Rectangle {
     id: root
     width: 620
@@ -23,7 +23,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
 
-        // 声明式列:每列一个 TableColumn 子对象(等价于 JS columns 的对象元素)。
+        // Declarative columns: one TableColumn child object per column (equivalent to the object elements of JS columns).
         columnItems: [
             TableColumn { title: qsTr("Status"); key: "status"; width: 150; format: root.cap },
             TableColumn { title: qsTr("Email");  key: "email";  format: function (s) { return s.toLowerCase() } },

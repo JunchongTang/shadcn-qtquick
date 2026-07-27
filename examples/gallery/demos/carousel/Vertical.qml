@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 纵向 —— orientation=Vertical,basis=0.5:上下两张同屏,导航按钮居于上/下方(chevron 朝上/下)。
+// Vertical —— orientation=Vertical, basis=0.5: two cards stacked on screen, nav buttons above/below (chevrons pointing up/down).
 Item {
     id: root
     width: 260

@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 组合示例:分组标签 + 图标 + 快捷键 + 复选 + 单选 + 多级子菜单 + 破坏性项。
-// 子菜单触发项的图标经「嵌套 Menu 的 icon.name」传入(delegate 读取 subMenu.icon.name)。
+// Combined example: group labels + icons + shortcuts + checkboxes + radios + multi-level submenus + destructive items.
+// The submenu trigger item's icon is passed via the "nested Menu's icon.name" (delegate reads subMenu.icon.name).
 Button {
     id: trigger
     text: qsTr("Complex Menu")

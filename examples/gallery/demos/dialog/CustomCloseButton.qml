@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Custom Close Button —— 在 footer 放一个自定义 Close 按钮(对标 dialog-close-button)。
-// 右上角默认关闭按钮保留(与官方示例一致,官方也未关闭它)。
+// Custom Close Button -- place a custom Close button in the footer (matches dialog-close-button).
+// The default top-right close button is kept (consistent with the official example, which also keeps it).
 Button {
     text: qsTr("Share")
     variant: Button.Outline
@@ -20,7 +20,7 @@ Button {
             text: "https://ui.shadcn.com/docs/installation"
         }
 
-        // footer 左对齐(sm:justify-start):自定义 Close 按钮
+        // footer left-aligned (sm:justify-start): custom Close button
         footerContent: RowLayout {
             Button {
                 text: qsTr("Close")

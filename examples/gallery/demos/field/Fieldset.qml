@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// FieldSet + Legend + Description + FieldGroup,其中一行用 GridLayout 两列并排(City / Postal)。
+// FieldSet + Legend + Description + FieldGroup, where one row uses a two-column GridLayout side by side (City / Postal).
 FieldSet {
     width: 320        // max-w-sm
 

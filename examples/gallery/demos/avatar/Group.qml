@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 重叠头像组:每个头像带 background 色描边环,向左重叠。
+// Overlapping avatar group: each avatar has a background-colored ring border, overlapping leftward.
 Item {
     readonly property int step: 24
     readonly property var people: [

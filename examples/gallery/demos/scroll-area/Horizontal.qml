@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Horizontal —— 横向滚动的图片行(对齐官方 scroll-area-horizontal-demo:w-96、一排作品缩略图)。
-// 无网络图片:以圆角占位块(chart 令牌色)代表画作,下方作者署名。
+// Horizontal — horizontally scrolling image row (matches the Official scroll-area-horizontal-demo: w-96, a row of artwork thumbnails).
+// No network images: use rounded placeholder blocks (chart token colors) to represent the artworks, with the artist credit below.
 ScrollArea {
     id: area
     width: 384          // w-96
@@ -23,9 +23,9 @@ ScrollArea {
             model: area.works
             delegate: Column {
                 required property var modelData
-                spacing: 8              // pt-2 署名与图片间距
+                spacing: 8              // pt-2 gap between credit and image
 
-                // 图片占位(aspect-[3/4],圆角、裁剪)
+                // Image placeholder (aspect-[3/4], rounded, clipped)
                 Rectangle {
                     width: 150
                     height: 200         // 3:4

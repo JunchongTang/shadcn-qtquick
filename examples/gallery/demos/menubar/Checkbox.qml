@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 复选项:可切换的选项,状态以尾随勾选呈现(复用 MenuCheckboxItem)。
+// Checkbox items: toggleable options whose state is shown by a trailing check (reuses MenuCheckboxItem).
 Menubar {
     id: menubar
 

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 kbd-demo:两组 KbdGroup —— 修饰键组(⌘⇧⌥⌃)与组合键(Ctrl + B,中间夹分隔符)。
+// Official kbd-demo: two KbdGroups — a modifier group (⌘⇧⌥⌃) and a combo (Ctrl + B, with a separator between).
 ColumnLayout {
     spacing: Theme.space4                       // gap-4
 

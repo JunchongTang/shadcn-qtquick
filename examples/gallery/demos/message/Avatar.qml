@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 头像槽:align=start 头像在左,align=end 头像在右。
+// Avatar slot: align=start puts the avatar on the left, align=end on the right.
 ColumnLayout {
     width: 360
     spacing: Theme.space6

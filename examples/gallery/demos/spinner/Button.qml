@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 spinner-button:按钮内 loading 状态 —— Button.loading 前置显示 Spinner 并禁用交互。
+// Official spinner-button: loading state inside a button -- Button.loading shows a leading Spinner and disables interaction.
 ColumnLayout {
     spacing: Theme.space4                  // gap-4
 

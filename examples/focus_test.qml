@@ -2,16 +2,16 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
-// 独立最小 Tab/焦点测试(和主项目一样用 Basic 样式)。
-// 运行:  qml examples/focus_test.qml      (qml 随 Qt 附带,在 Qt 的 bin 目录)
-// 目的:验证在你的 macOS + Qt 环境里,原生 Qt Quick 的 Tab 焦点导航是否工作。
+// Standalone minimal Tab/focus test (uses the Basic style, same as the main project).
+// Run:  qml examples/focus_test.qml      (qml ships with Qt, in Qt's bin directory)
+// Purpose: verify whether native Qt Quick Tab focus navigation works in your macOS + Qt environment.
 //
-// 三个场景各一列,便于对比:
-//   1) 直接放在 Window 里的按钮(最简单)
-//   2) 放在 ScrollView 里的按钮(模拟我们 Gallery 的内容区)
-//   3) 放在 ScrollView + Loader 里的按钮(和 Gallery 完全一致的层级)
+// Three scenarios, one column each, for easy comparison:
+//   1) Buttons placed directly in the Window (simplest)
+//   2) Buttons inside a ScrollView (mimics our Gallery content area)
+//   3) Buttons inside a ScrollView + Loader (exact same hierarchy as Gallery)
 //
-// 顶部实时显示"当前焦点项",按 Tab / Shift+Tab 看它是否在变。
+// The top shows the "current focus item" live; press Tab / Shift+Tab to see whether it changes.
 Window {
     id: win
     width: 720
@@ -28,14 +28,14 @@ Window {
     }
     onActiveFocusItemChanged: focusName = _describe(activeFocusItem)
 
-    // 顶部读数
+    // Top readout
     Rectangle {
         id: bar
         width: parent.width; height: 44
         color: "#111"
         Text {
             anchors.centerIn: parent
-            text: "当前焦点: " + win.focusName + "     (按 Tab / Shift+Tab 切换)"
+            text: "Current focus: " + win.focusName + "     (press Tab / Shift+Tab to switch)"
             color: "white"; font.pixelSize: 14
         }
     }
@@ -48,22 +48,22 @@ Window {
         anchors.margins: 16
         spacing: 16
 
-        // 场景 1:直接放 Window
+        // Scenario 1: directly in Window
         Column {
             width: (parent.width - 32) / 3
             spacing: 8
-            Text { text: "1) 直接放 Window"; font.bold: true }
+            Text { text: "1) Directly in Window"; font.bold: true }
             TextField { width: parent.width; placeholderText: "TextField" }
             Button { width: parent.width; text: "A1" }
             Button { width: parent.width; text: "A2" }
             CheckBox { text: "Check A" }
         }
 
-        // 场景 2:ScrollView 里
+        // Scenario 2: inside ScrollView
         Column {
             width: (parent.width - 32) / 3
             spacing: 8
-            Text { text: "2) 在 ScrollView 里"; font.bold: true }
+            Text { text: "2) Inside ScrollView"; font.bold: true }
             ScrollView {
                 width: parent.width; height: 200
                 Column {
@@ -75,7 +75,7 @@ Window {
             }
         }
 
-        // 场景 3:ScrollView + Loader(与 Gallery 同构)
+        // Scenario 3: ScrollView + Loader (same structure as Gallery)
         Column {
             width: (parent.width - 32) / 3
             spacing: 8
@@ -96,6 +96,6 @@ Window {
         }
     }
 
-    // 建立初始焦点(和主项目同样的做法);去掉这行可对比"无初始焦点时 Tab 是否死"。
+    // Establish initial focus (same approach as the main project); remove this line to compare whether Tab is dead without initial focus.
     Component.onCompleted: Qt.callLater(function () { win.contentItem.forceActiveFocus() })
 }

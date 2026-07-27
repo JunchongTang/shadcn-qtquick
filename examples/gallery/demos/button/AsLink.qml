@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// As Link:让链接看起来像按钮 / 让按钮充当链接。
-// 官方用 buttonVariants({variant:"secondary",size:"sm"}) 包在 <a> 上;
-// QML 无原生锚点,这里用 Link 变体与 secondary/sm 按钮 + onClicked 打开外链演示。
+// As Link: make a link look like a button / make a button act as a link.
+// Officially buttonVariants({variant:"secondary",size:"sm"}) is applied on an <a>;
+// QML has no native anchor, so here we use a Link variant and a secondary/sm button + onClicked to open an external link.
 RowLayout {
     spacing: 8
     Button {

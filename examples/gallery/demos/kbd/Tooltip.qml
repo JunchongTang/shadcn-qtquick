@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 官方 kbd-tooltip:两个按钮编成一组(ButtonGroup),气泡内文本后跟 Kbd 键位提示。
-// 注:Tooltip.kbd 为单个字符串键位,组合键(官方用 KbdGroup)在此以 "Ctrl P" 单键近似。
+// Official kbd-tooltip: two buttons grouped together (ButtonGroup), tooltip text followed by a Kbd key hint.
+// Note: Tooltip.kbd is a single string key; the combo (KbdGroup officially) is approximated here as the single key "Ctrl P".
 ButtonGroup {
     Button {
         id: saveBtn

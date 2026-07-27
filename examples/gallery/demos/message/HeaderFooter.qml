@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Header(发送者名,始终左对齐)+ Footer(状态文本,随 align 靠边)。
+// Header (sender name, always left-aligned) + Footer (status text, sides with align).
 ColumnLayout {
     width: 360
     spacing: Theme.space8

@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 响应式朝向:前端窄屏堆叠、宽屏横排;本库简化为横排(见 Field.qml 说明)。
-// FieldContent(标签+描述)在左,控件在右;末行两个按钮横排。
+// Responsive orientation: the web stacks on narrow screens and goes horizontal on wide ones; this library simplifies to horizontal (see Field.qml notes).
+// FieldContent (label+description) on the left, control on the right; last row has two buttons horizontally.
 FieldSet {
     width: 460        // max-w-lg
 
@@ -35,7 +35,7 @@ FieldSet {
                 variant: Button.Outline
                 Layout.fillWidth: false
             }
-            // 左对齐:占位撑开右侧空白。
+            // Left-align: spacer pushes out the empty space on the right.
             Item { Layout.fillWidth: true }
         }
     }

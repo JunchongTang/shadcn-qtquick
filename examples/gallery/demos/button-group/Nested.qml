@@ -1,10 +1,10 @@
 import QtQuick
 import Shadcn
 
-// 官方 button-group-nested:外层套多个 ButtonGroup → 组间留 gap-2(外层 Row spacing 8)。
-// 结构:[+] 图标按钮  |  InputGroup(输入框 + inline-end 内嵌 audio-lines 图标按钮)。
-// 注:官方内层为 <ButtonGroup> 包 <InputGroup>,inline-end addon 是带 Tooltip 的语音图标;
-//     此处以 InputGroupButton(ghost 图标)近似,tooltip 从略。
+// Official button-group-nested: outer wraps multiple ButtonGroups -> gap-2 between groups (outer Row spacing 8).
+// Structure: [+] icon button  |  InputGroup (text field + inline-end embedded audio-lines icon button).
+// Note: officially the inner layer is <ButtonGroup> wrapping <InputGroup>, the inline-end addon is a voice icon with a Tooltip;
+//     here approximated with InputGroupButton (ghost icon), tooltip omitted.
 Row {
     spacing: 8
 

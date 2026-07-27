@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// align="inline-start":图标位于输入起始处(默认)。含 Label + 描述。
+// align="inline-start": icon at the start of the input (default). Includes Label + description.
 ColumnLayout {
     width: 320
     spacing: 6

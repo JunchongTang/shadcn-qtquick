@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 date-picker-basic:Field(label + 控件)包裹的日期选择器,宽 w-44、align="start"。
-// 说明:库中暂无 Field/FieldLabel 组件,此处以 Label + DatePicker 垂直组合等价还原(gap-2)。
+// Official date-picker-basic: a date picker wrapped in a Field (label + control), width w-44, align="start".
+// Note: the library has no Field/FieldLabel component yet, so this reproduces it with a vertical Label + DatePicker composition (gap-2).
 ColumnLayout {
     id: field
     width: 176                       // w-44

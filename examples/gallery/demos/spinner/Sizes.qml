@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 spinner-size:用 size 调整尺寸(size-3 / size-4 默认 / size-6 / size-8)。
+// Official spinner-size: adjust dimensions via size (size-3 / size-4 default / size-6 / size-8).
 RowLayout {
     spacing: Theme.space6                 // gap-6
 

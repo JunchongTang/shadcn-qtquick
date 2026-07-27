@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 错误态:invalid:true → 破坏色边框 + 破坏色环,配合错误提示文字。
+// Error state: invalid:true → destructive-colored border + ring, paired with error hint text.
 ColumnLayout {
     width: 200
     spacing: 6

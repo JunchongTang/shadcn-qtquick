@@ -2,12 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 表情行:side(top/bottom)+ align(start/end)定位;可放表情或按钮(padded:false)。
-// 对标官方 bubble-reactions。
+// Reaction row: positioned by side (top/bottom) + align (start/end); holds reactions or buttons (padded:false).
+// Mirrors official bubble-reactions.
 ColumnLayout {
     id: root
     width: 360
-    spacing: 48   // gap-12:表情叠边预留
+    spacing: 48   // gap-12: reserve space for edge-overlapping reactions
 
     property string status: ""
 

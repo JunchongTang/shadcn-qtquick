@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Field: 标签 + 输入 + 描述(纵向)。对标前端 <Field><FieldLabel/><Input/><FieldDescription/>。
+// Field: label + input + description (vertical). Mirrors the web <Field><FieldLabel/><Input/><FieldDescription/>.
 ColumnLayout {
     width: 260
     spacing: 6

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Disabled: 整个 Field 禁用。对标前端 <Field data-disabled>。
+// Disabled: the whole Field is disabled. Matches the frontend <Field data-disabled>.
 ColumnLayout {
     width: 320
     spacing: 6

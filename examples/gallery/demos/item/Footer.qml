@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 展示 ItemHeader / ItemContent / ItemFooter 三段布局(header、footer 各占整行,两端对齐)。
+// Show the three-part ItemHeader / ItemContent / ItemFooter layout (header and footer each span a full row, justified).
 ColumnLayout {
     width: 420
 
@@ -10,7 +10,7 @@ ColumnLayout {
         Layout.fillWidth: true
         variant: ShadItem.Outline
 
-        // ItemTitle/ItemDescription 自带 Layout.fillWidth → 自然把右侧元素挤到行尾(justify-between)。
+        // ItemTitle/ItemDescription carry Layout.fillWidth → naturally push the right-hand element to the row end (justify-between).
         ItemHeader {
             ItemTitle { text: qsTr("Starter Plan") }
             Badge { text: qsTr("Popular") }

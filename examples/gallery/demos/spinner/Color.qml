@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 spinner-color:通过 color 覆盖旋转图标颜色。
-// 这些是演示用的自定义颜色(Tailwind 500 色阶字面量),非设计令牌,故直接给 hex。
+// Official spinner-color: override the spinner icon color via color.
+// These are demo-only custom colors (Tailwind 500 shade literals), not design tokens, so hex is given directly.
 RowLayout {
     spacing: Theme.space6                 // gap-6
 

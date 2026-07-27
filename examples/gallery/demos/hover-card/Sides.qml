@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// side 属性控制卡片相对触发器的方向:left / top / bottom / right。
+// The side property controls the card's direction relative to the trigger: left / top / bottom / right.
 Flow {
     id: root
     width: 360

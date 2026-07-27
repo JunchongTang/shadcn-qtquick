@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Shadcn
 
-// 带抓手:withHandle=true 时手柄中央显示 bg-border 抓手小块,更易发现可拖拽。
+// With handle: when withHandle=true the handle shows a bg-border grip block in its center, making it easier to discover it is draggable.
 Resizable {
     width: 380
     height: 200

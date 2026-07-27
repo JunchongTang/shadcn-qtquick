@@ -3,14 +3,14 @@ import QtQuick.Layouts
 import QtQuick.Window
 import Shadcn
 
-// 文档站示例卡片 —— 对齐 ui.shadcn.com:标题/描述在卡片之上;
-// 单张卡片内「预览在上 + 代码区融合在下」,代码默认折叠(渐隐 + View Code),点击展开。
+// Docs site example card — matches ui.shadcn.com: title/description above the card;
+// within a single card "preview on top + code area fused below", code collapsed by default (fade + View Code), click to expand.
 ColumnLayout {
     id: card
 
     property string title: ""
     property string description: ""
-    property url source                 // 示例 qml 文件 URL(qrc:/demos/...)
+    property url source                 // Example qml file URL (qrc:/demos/...)
     property int previewMinHeight: 220
     property string code: ""
     property bool codeExpanded: false
@@ -18,8 +18,8 @@ ColumnLayout {
     readonly property int _collapsedCodeH: 92
     readonly property int _lineCount: code === "" ? 1 : code.split("\n").length
 
-    // 由 source 推导出的可复制路径,形如 Component/ButtonGroup/Orientation
-    //   qrc:/demos/button-group/Orientation.qml → 组件目录转 PascalCase + 文件名。
+    // Copyable path derived from source, e.g. Component/ButtonGroup/Orientation
+    //   qrc:/demos/button-group/Orientation.qml → component directory to PascalCase + file name.
     readonly property string cardPath: {
         var m = String(source).match(/demos\/([^/]+)\/([^/]+)\.qml$/)
         if (!m)
@@ -33,7 +33,7 @@ ColumnLayout {
     Layout.fillWidth: true
     spacing: 8
 
-    // ==== 标题 +(右侧)复制路径按钮 ====
+    // ==== Title + (right) copy-path button ====
     RowLayout {
         Layout.fillWidth: true
         visible: card.title !== ""
@@ -47,7 +47,7 @@ ColumnLayout {
         }
         Item { Layout.fillWidth: true }
 
-        // 复制路径:点击把 cardPath 写入剪贴板,并短暂显示 √ 反馈。
+        // Copy path: on click write cardPath to the clipboard and briefly show a √ confirmation.
         IconButton {
             id: copyBtn
             visible: card.cardPath !== ""
@@ -81,7 +81,7 @@ ColumnLayout {
         wrapMode: Text.Wrap
     }
 
-    // ==== 融合卡片:预览 + 代码 ====
+    // ==== Fused card: preview + code ====
     Rectangle {
         Layout.fillWidth: true
         Layout.topMargin: 4
@@ -95,7 +95,7 @@ ColumnLayout {
         Column {
             anchors.fill: parent
 
-            // ---- 预览区 ----
+            // ---- Preview area ----
             Item {
                 id: previewArea
                 width: parent.width
@@ -105,14 +105,14 @@ ColumnLayout {
                     id: previewLoader
                     anchors.centerIn: parent
                     source: card.source
-                    // 若 demo 声明 fillCard:true(宽表等),让它填满卡片宽度(留 24px 边距),
-                    // 随卡片/窗口变宽而变宽;否则保持其固有尺寸并居中。
+                    // If the demo declares fillCard:true (wide tables, etc.), let it fill the card width (leaving a 24px margin),
+                    // growing as the card/window widens; otherwise keep its intrinsic size and center it.
                     onLoaded: if (item && item.fillCard === true)
                         item.width = Qt.binding(function () { return Math.max(320, previewArea.width - 48) })
                 }
             }
 
-            // ---- 分隔线 ----
+            // ---- Separator line ----
             Rectangle {
                 id: seam
                 width: parent.width
@@ -120,7 +120,7 @@ ColumnLayout {
                 color: Theme.border
             }
 
-            // ---- 代码区(可折叠)----
+            // ---- Code area (collapsible) ----
             Item {
                 id: codeArea
                 width: parent.width
@@ -137,8 +137,8 @@ ColumnLayout {
                     bottomRightRadius: Theme.radiusLg
                 }
 
-                // 代码 + 行号(展开时可滚)。折叠时禁用交互,让滚轮穿透到页面,
-                // 不被这块代码区域截获(对齐官网:未展开不在代码区滚动)。
+                // Code + line numbers (scrollable when expanded). When collapsed, disable interaction so the wheel passes through to the page,
+                // rather than being captured by this code area (matches the official site: no scrolling in the code area while collapsed).
                 ScrollView {
                     id: codeScroll
                     anchors.fill: parent
@@ -177,7 +177,7 @@ ColumnLayout {
                     }
                 }
 
-                // 折叠时底部渐隐(底部两角圆角,与卡片一致)
+                // Bottom fade when collapsed (bottom two corners rounded, matching the card)
                 Rectangle {
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -192,7 +192,7 @@ ColumnLayout {
                     }
                 }
 
-                // View Code / Collapse 按钮
+                // View Code / Collapse button
                 Button {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottom: parent.bottom
@@ -206,7 +206,7 @@ ColumnLayout {
         }
     }
 
-    // ==== 读取示例源码(C++ SourceReader 用 QFile 直读 qrc)====
+    // ==== Read example source (C++ SourceReader reads qrc directly via QFile) ====
     function loadCode() {
         card.code = String(card.source) === "" ? "" : SourceReader.read(card.source)
     }

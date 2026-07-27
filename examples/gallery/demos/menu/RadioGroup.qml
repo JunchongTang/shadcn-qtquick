@@ -13,7 +13,7 @@ Button {
         implicitWidth: 128           // w-32
 
         MenuLabel { text: qsTr("Panel Position") }
-        // 同一 Menu 内的 MenuRadioItem 自动互斥(autoExclusive)
+        // MenuRadioItems within the same Menu are automatically mutually exclusive (autoExclusive)
         MenuRadioItem { text: qsTr("Top") }
         MenuRadioItem { text: qsTr("Bottom"); checked: true }
         MenuRadioItem { text: qsTr("Right") }

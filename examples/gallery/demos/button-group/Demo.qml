@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 官方 button-group-demo:邮件工具栏。多个 ButtonGroup 之间留 gap-2(外层 Row spacing 8),
-// 组内相邻按钮首尾相接。末组的「更多」图标按钮打开下拉菜单。
+// Official button-group-demo: mail toolbar. Multiple ButtonGroups leave gap-2 (outer Row spacing 8),
+// adjacent buttons within a group join edge-to-edge. The last group's "more" icon button opens a dropdown menu.
 Row {
     spacing: 8
 

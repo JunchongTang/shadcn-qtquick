@@ -2,14 +2,14 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 spinner-empty:空状态占位中的加载态 —— 媒体图标位放 Spinner。
-// 注:官方用 Empty / EmptyMedia / EmptyHeader 等组件(非本库基础件),此处用居中列布局近似。
+// Official spinner-empty: loading state within an empty-state placeholder -- Spinner in the media icon slot.
+// Note: official uses Empty / EmptyMedia / EmptyHeader components (not primitives of this library); approximated here with a centered column layout.
 ColumnLayout {
     id: empty
     width: 360
     spacing: Theme.space4
 
-    // EmptyMedia variant="icon":muted 圆角方框 + 居中图标。
+    // EmptyMedia variant="icon": muted rounded box + centered icon.
     Rectangle {
         Layout.alignment: Qt.AlignHCenter
         implicitWidth: 40

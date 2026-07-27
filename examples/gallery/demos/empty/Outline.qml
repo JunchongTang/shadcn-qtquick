@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 empty-outline:虚线边框空状态(border border-dashed)。
+// Official empty-outline: dashed-border empty state (border border-dashed).
 Empty {
     outline: true
 

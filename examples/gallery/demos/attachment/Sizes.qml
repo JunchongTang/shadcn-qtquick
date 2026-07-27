@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 attachment-sizes:default / sm / xs。
+// Official attachment-sizes: default / sm / xs.
 ColumnLayout {
     width: 360
     spacing: 12

@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 Invalid:aria-invalid → 破坏色边框 + 破坏色环。
+// Official Invalid: aria-invalid → destructive-colored border + destructive-colored ring.
 Combobox {
     width: 220
     invalid: true

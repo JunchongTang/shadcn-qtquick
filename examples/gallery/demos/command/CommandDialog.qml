@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Command Dialog:全局快捷键 ⌘K 打开/关闭命令面板(command-dialog)。
+// Command Dialog: global shortcut ⌘K opens/closes the command palette (command-dialog).
 ColumnLayout {
     spacing: 12
 
@@ -16,7 +16,7 @@ ColumnLayout {
         Kbd { text: qsTr("⌘K") }
     }
 
-    // 全局快捷键(⌘K / Ctrl+K)切换面板。
+    // Global shortcut (⌘K / Ctrl+K) toggles the palette.
     Shortcut {
         sequences: ["Ctrl+K", "Meta+K"]
         onActivated: dlg.visible ? dlg.close() : dlg.open()

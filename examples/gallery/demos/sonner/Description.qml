@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 带描述的 toast:标题 + 次要说明文本(对标 sonner-description)。
+// Toast with description: title + secondary description text (matches sonner-description).
 Item {
     implicitWidth: 420
     implicitHeight: 200

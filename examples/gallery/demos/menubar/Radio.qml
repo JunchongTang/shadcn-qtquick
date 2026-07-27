@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 单选组:菜单内互斥选项(复用 MenuRadioItem,同一 Menu 内 autoExclusive 互斥)。
+// Radio group: mutually exclusive options within a menu (reuses MenuRadioItem, autoExclusive within the same Menu).
 Menubar {
     id: menubar
 

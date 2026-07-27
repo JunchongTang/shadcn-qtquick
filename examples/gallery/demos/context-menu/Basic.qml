@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 基础右键菜单:几个动作项(其一禁用)。右键虚线区域弹出。
+// Basic context menu: a few action items (one disabled). Right-click the dashed area to open.
 Item {
     id: area
     implicitWidth: 320

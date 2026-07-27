@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 气泡配 Tooltip:在表情行放一个图标按钮,悬停显示元数据(已读时间)。
-// 对标官方 bubble-tooltip。
+// Bubble with Tooltip: place an icon button in the reaction row; hovering shows metadata (read time).
+// Mirrors official bubble-tooltip.
 ColumnLayout {
     width: 360
     spacing: 16

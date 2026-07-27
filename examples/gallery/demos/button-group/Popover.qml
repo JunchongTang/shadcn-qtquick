@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 button-group-popover:主动作按钮 + chevron 触发,展开 Popover 富内容。
+// Official button-group-popover: main action button + chevron trigger, opens rich Popover content.
 ButtonGroup {
     Button { variant: Button.Outline; iconName: "bot"; text: qsTr("Copilot") }
     Button {

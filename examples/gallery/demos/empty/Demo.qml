@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 empty-demo:圆底图标 + 标题 + 描述 + 两个动作按钮(行) + Learn More 链接。
+// Official empty-demo: rounded icon + title + description + two action buttons (row) + Learn More link.
 Empty {
     EmptyHeader {
         EmptyMedia {
@@ -16,7 +16,7 @@ Empty {
     }
 
     EmptyContent {
-        // flex-row justify-center gap-2 —— 两个按钮并排居中。
+        // flex-row justify-center gap-2 -- two buttons centered side by side.
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             spacing: Theme.space2
@@ -25,7 +25,7 @@ Empty {
         }
     }
 
-    // Learn More 链接(Empty 的直接子件,链接风格,muted 色)。
+    // Learn More link (direct child of Empty, link style, muted color).
     Button {
         Layout.alignment: Qt.AlignHCenter
         variant: Button.Link

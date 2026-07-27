@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// No Close Button —— showCloseButton: false 隐藏右上角关闭按钮(对标 dialog-no-close-button)。
+// No Close Button -- showCloseButton: false hides the top-right close button (matches dialog-no-close-button).
 Button {
     text: qsTr("No Close Button")
     variant: Button.Outline

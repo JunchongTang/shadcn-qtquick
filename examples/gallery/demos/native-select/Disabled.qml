@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 native-select-disabled:整体禁用(opacity-50 + 不可交互)。
+// Official native-select-disabled: whole control disabled (opacity-50 + non-interactive).
 NativeSelect {
     width: 180
     enabled: false

@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 分组:用 MenuLabel 作分组小标题、MenuSeparator 作分隔线。
+// Groups: use MenuLabel as a group heading and MenuSeparator as a divider.
 Item {
     id: area
     implicitWidth: 320

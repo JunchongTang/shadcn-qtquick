@@ -3,8 +3,8 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import Shadcn
 
-// 选择卡:把横排 Field 包进带边框的可点卡片(对标 FieldLabel 包裹 Field 的用法)。
-// 选中:边框转 primary + 背景 primary/5;整卡可点。组以属性传入避免跨组件引用外层 id。
+// Choice card: wrap a horizontal Field into a bordered clickable card (mirrors FieldLabel wrapping a Field).
+// Checked: border turns primary + background primary/5; whole card is clickable. Group passed in as a property to avoid cross-component references to an outer id.
 FieldGroup {
     width: 300        // max-w-xs
     C.ButtonGroup { id: env }
@@ -23,7 +23,7 @@ FieldGroup {
         border.width: 1
         border.color: rb.checked ? Theme.primary : Theme.border
 
-        // 横排 Field:FieldContent(标题+描述)在左,RadioButton 在右。
+        // Horizontal Field: FieldContent (title+description) on the left, RadioButton on the right.
         RowLayout {
             id: row
             anchors.left: parent.left

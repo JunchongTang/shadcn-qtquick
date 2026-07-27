@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 一段会话:左右对齐、气泡变体、Delivered 状态、末尾 typing 点动画。
+// A conversation snippet: left/right alignment, bubble variants, Delivered status, trailing typing dot animation.
 ColumnLayout {
     width: 360
     spacing: Theme.space6

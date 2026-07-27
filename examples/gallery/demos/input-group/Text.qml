@@ -2,12 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 文本 addon(前缀 / 后缀 / 前后组合)。声明顺序任意,按 align 自动定位。
+// Text addons (leading / trailing / both). Declaration order is arbitrary; positioned automatically by align.
 ColumnLayout {
     width: 320
     spacing: 20
 
-    // 前 $ / 后 USD
+    // Leading $ / trailing USD
     InputGroup {
         Layout.fillWidth: true
         InputGroupAddon { InputGroupText { text: "$" } }
@@ -18,7 +18,7 @@ ColumnLayout {
         }
     }
 
-    // 前 https:// / 后 .com
+    // Leading https:// / trailing .com
     InputGroup {
         Layout.fillWidth: true
         InputGroupAddon { InputGroupText { text: "https://" } }
@@ -29,7 +29,7 @@ ColumnLayout {
         }
     }
 
-    // 后缀域名
+    // Trailing domain
     InputGroup {
         Layout.fillWidth: true
         InputGroupInput { placeholderText: qsTr("Enter your username") }
@@ -39,7 +39,7 @@ ColumnLayout {
         }
     }
 
-    // 文本域 + 底部字数
+    // Textarea + bottom character count
     InputGroup {
         Layout.fillWidth: true
         InputGroupTextarea {

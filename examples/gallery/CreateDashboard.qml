@@ -45,7 +45,7 @@ ScrollView {
         height: root.availableHeight
         spacing: 16
 
-        // ============================ 列 1 ============================
+        // ============================ Column 1 ============================
         ColumnLayout {
             Layout.preferredWidth: 360
             Layout.alignment: Qt.AlignTop
@@ -134,7 +134,7 @@ ScrollView {
             }
         }
 
-        // ============================ 列 2 ============================
+        // ============================ Column 2 ============================
         ColumnLayout {
             Layout.preferredWidth: 360
             Layout.alignment: Qt.AlignTop
@@ -242,13 +242,13 @@ ScrollView {
             }
         }
 
-        // ============================ 列 3(宽)============================
+        // ============================ Column 3 (wide) ============================
         ColumnLayout {
             Layout.preferredWidth: 740
             Layout.alignment: Qt.AlignTop
             spacing: 16
 
-            // ---- Savings Targets + Buy Investment(并排)----
+            // ---- Savings Targets + Buy Investment (side by side) ----
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 16
@@ -400,6 +400,6 @@ ScrollView {
             }
         }
 
-        Item { Layout.preferredWidth: 8 }   // 尾部留白
+        Item { Layout.preferredWidth: 8 }   // Trailing whitespace
     }
 }

@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 spinner-demo(带文本):Spinner 作为媒体图标 + 标题 + 右侧金额,置于 muted 列表项内。
-// 注:官方用 Item / ItemMedia / ItemContent 组件(非本库基础件),此处用 muted 圆角容器近似。
+// Official spinner-demo (with text): Spinner as media icon + title + trailing amount, inside a muted list item.
+// Note: official uses Item / ItemMedia / ItemContent components (not primitives of this library); approximated here with a muted rounded container.
 Rectangle {
     id: item
     implicitWidth: 320                         // max-w-xs

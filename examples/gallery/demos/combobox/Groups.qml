@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 Groups:分组标题(header)+ 组间分隔线(separator);打字仅保留有匹配项的分组。
+// Official Groups: group headers + separators between groups; typing keeps only groups with matches.
 Combobox {
     width: 240
     placeholder: qsTr("Select a timezone")

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 empty-icon:圆底图标空状态网格(仅 header,无动作)。2 列。
+// Official empty-icon: grid of rounded-icon empty states (header only, no actions). 2 columns.
 GridLayout {
     columns: 2
     columnSpacing: Theme.space6

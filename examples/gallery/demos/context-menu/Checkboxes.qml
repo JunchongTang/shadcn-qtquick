@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 复选项:MenuCheckboxItem 切换态以右侧勾选呈现。
+// Checkboxes: MenuCheckboxItem renders its toggled state as a right-side check.
 Item {
     id: area
     implicitWidth: 320

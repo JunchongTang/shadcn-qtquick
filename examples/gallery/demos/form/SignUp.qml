@@ -2,14 +2,14 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 完整校验示例(注册表单):多个 FormField + 提交按钮,演示「提交后显示字段错误态」。
-// 说明:QML 无 react-hook-form/zod;此处用手写轻量校验做结构/视觉等价,不接入 schema 校验库。
-// 交互:点 Create account → submitted=true,各字段按规则显示错误并驱动控件 invalid;
-//       修正后错误实时消失;全部通过时显示成功提示。
+// Full validation example (sign-up form): multiple FormFields + submit button, demonstrating "show field errors after submit".
+// Note: QML has no react-hook-form/zod; here we use hand-written lightweight validation for structural/visual parity, without a schema validation library.
+// Interaction: click Create account → submitted=true, each field shows errors per its rule and drives the control invalid;
+//       errors clear in real time once fixed; a success message shows when all pass.
 ColumnLayout {
     id: form
     width: 360
-    spacing: Theme.space4                 // 对标 FieldGroup gap-4
+    spacing: Theme.space4                 // matches FieldGroup gap-4
 
     property bool submitted: false
     readonly property bool valid: !nameField.invalid && !emailField.invalid && !pwField.invalid
@@ -59,7 +59,7 @@ ColumnLayout {
         }
     }
 
-    // ---- 操作 + 成功提示 ----
+    // ---- Actions + success message ----
     RowLayout {
         Layout.fillWidth: true
         Layout.topMargin: Theme.space1

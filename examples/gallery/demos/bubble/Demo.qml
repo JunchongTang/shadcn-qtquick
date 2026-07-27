@@ -2,10 +2,10 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 综合演示:左右对齐、分组连发、表情。对标官方 bubble-demo。
+// Combined demo: left/right alignment, grouped bursts, reactions. Mirrors official bubble-demo.
 ColumnLayout {
     width: 360
-    spacing: 32   // gap-8:为叠边表情预留竖向空间
+    spacing: 32   // gap-8: reserve vertical space for edge-overlapping reactions
 
     Bubble {
         align: Bubble.End

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// aria-invalid —— 破坏色描边 + 环。选中时描边仍回到 primary(仿 mira)。
+// aria-invalid —— destructive-color border + ring. When checked the border still returns to primary (mira-style).
 ColumnLayout {
     width: 240
     spacing: 12

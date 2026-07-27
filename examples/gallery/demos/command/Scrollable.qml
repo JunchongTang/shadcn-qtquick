@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// Scrollable:大量分组条目,列表在 max-h-72 内滚动(command-scrollable)。
+// Scrollable: many grouped items, list scrolls within max-h-72 (command-scrollable).
 Button {
     text: qsTr("Open Menu")
     variant: Button.Outline

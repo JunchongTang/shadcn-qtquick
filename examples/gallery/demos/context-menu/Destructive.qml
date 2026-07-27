@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 破坏性项:destructive 使文本/图标转为 destructive 色,focus 背景转 destructive/10。
+// Destructive item: destructive turns text/icon to the destructive color, focus background to destructive/10.
 Item {
     id: area
     implicitWidth: 320

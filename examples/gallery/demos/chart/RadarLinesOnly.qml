@@ -25,7 +25,7 @@ Card {
             Layout.preferredHeight: 250
             type: Chart.Radar
             categoryKey: "month"
-            radarFillOpacity: 0                 // 只描边
+            radarFillOpacity: 0                 // stroke only
             polarRadialLines: false             // radialLines={false}
             tooltipIndicator: ChartTooltip.Line
             series: [

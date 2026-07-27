@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 悬停链接式触发,弹出用户名片:头像 + 用户名 + 简介 + 加入时间。
+// Link-style hover trigger that pops a user card: avatar + username + bio + join date.
 Button {
     id: trigger
     text: qsTr("@nextjs")

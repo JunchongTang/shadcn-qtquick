@@ -27,10 +27,10 @@ PageScaffold {
         source: "qrc:/demos/date-picker/Presets.qml"
         previewMinHeight: 460
     }
-    // 已跳过的官方小节(依赖尚未实现的组件/库):
-    //   · Date of Birth  —— 需 Calendar captionLayout="dropdown" 组合入 picker,当前仅在 Calendar 页演示,跳过。
-    //   · Input          —— 需 InputGroup 组件 + 可输入解析日期,均未实现,跳过。
-    //   · Time Picker    —— 需 dropdown caption + 独立时间输入,跳过。
-    //   · Natural Language—— 需 chrono-node 自然语言解析,无对应实现,跳过。
-    //   · RTL            —— 按约定跳过 RTL 小节。
+    // Official sections skipped (depend on components/libraries not yet implemented):
+    //   · Date of Birth  —— needs Calendar captionLayout="dropdown" composed into the picker; currently only demoed on the Calendar page, skipped.
+    //   · Input          —— needs the InputGroup component + editable date parsing, neither implemented, skipped.
+    //   · Time Picker    —— needs dropdown caption + a separate time input, skipped.
+    //   · Natural Language—— needs chrono-node natural-language parsing, no equivalent, skipped.
+    //   · RTL            —— RTL sections skipped by convention.
 }

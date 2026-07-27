@@ -3,9 +3,9 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 可折叠侧边栏(collapsible=icon):顶栏 SidebarTrigger 切换展开/图标条,
-// 右边缘 SidebarRail 也可点击切换。折叠时菜单只显图标(hover 出 Tooltip)、
-// 分组标题隐去,宽度按 duration-200 ease-linear 平滑过渡。
+// Collapsible sidebar (collapsible=icon): top-bar SidebarTrigger toggles expanded/icon rail,
+// the right-edge SidebarRail is also clickable to toggle. When collapsed the menu shows icons only
+// (Tooltip on hover), group titles are hidden, and width transitions smoothly with duration-200 ease-linear.
 Rectangle {
     id: shell
     width: 620
@@ -22,7 +22,7 @@ Rectangle {
         anchors.fill: parent
         spacing: 0
 
-        // ==== 侧边栏(宽度由自身 implicitWidth 驱动并动画)====
+        // ==== Sidebar (width driven and animated by its own implicitWidth) ====
         Sidebar {
             id: sidebar
             Layout.fillHeight: true
@@ -45,7 +45,7 @@ Rectangle {
                         }
                     }
                     ColumnLayout {
-                        // 折叠态隐藏品牌文字。
+                        // Hide brand text when collapsed.
                         visible: !sidebar.collapsed
                         Layout.fillWidth: true
                         spacing: 0
@@ -146,7 +146,7 @@ Rectangle {
             }
         }
 
-        // ==== 内容区 ====
+        // ==== Content area ====
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -155,7 +155,7 @@ Rectangle {
                 anchors.fill: parent
                 spacing: 0
 
-                // 顶栏:折叠触发器 + 标题
+                // Top bar: collapse trigger + title
                 Item {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 48
@@ -194,7 +194,7 @@ Rectangle {
                     }
                 }
 
-                // 内容占位
+                // Content placeholder
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -225,12 +225,12 @@ Rectangle {
         }
     }
 
-    // ==== 边缘 rail:贴 Sidebar 右缘,点击切换折叠 ====
+    // ==== Edge rail: hugs the Sidebar's right edge, click to toggle collapse ====
     SidebarRail {
         sidebar: sidebar
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        // 中缝对齐 Sidebar 右边框(rail 宽 16,居中于边界)。
+        // Center seam aligned to the Sidebar's right border (rail is 16 wide, centered on the edge).
         x: sidebar.width - width / 2
     }
 }

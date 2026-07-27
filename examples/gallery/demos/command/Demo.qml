@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 内联命令面板(command-demo)—— max-w-sm rounded-lg border,分组 + 图标 + shortcut。
+// Inline command palette (command-demo) — max-w-sm rounded-lg border, groups + icons + shortcut.
 Command {
     width: 384                    // max-w-sm
     showBorder: true              // rounded-lg border

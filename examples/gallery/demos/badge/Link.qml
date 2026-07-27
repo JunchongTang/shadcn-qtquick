@@ -5,7 +5,7 @@ import Shadcn
 RowLayout {
     spacing: 8
 
-    // 用 Link 变体把 Badge 当链接展示,后置 arrow-up-right 图标。
+    // Use the Link variant to present the Badge as a link, with a trailing arrow-up-right icon.
     Badge {
         variant: Badge.Link
         text: qsTr("Open Link")

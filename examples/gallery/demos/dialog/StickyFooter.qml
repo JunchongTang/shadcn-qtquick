@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Sticky Footer —— 长内容在 ScrollView 里滚动,footer 用 footer 槽固定底部(对标 dialog-sticky-footer)。
+// Sticky Footer -- long content scrolls inside a ScrollView, while the footer is pinned to the bottom via the footer slot (matches dialog-sticky-footer).
 Button {
     text: qsTr("Sticky Footer")
     variant: Button.Outline
@@ -16,7 +16,7 @@ Button {
         ScrollView {
             id: scroll
             width: dialog.availableWidth
-            implicitHeight: 300          // max-h,超出滚动
+            implicitHeight: 300          // max-h, scroll on overflow
             clip: true
             contentWidth: availableWidth
             rightPadding: Theme.space3
@@ -39,7 +39,7 @@ Button {
             }
         }
 
-        // footer 固定在滚动区之外
+        // footer pinned outside the scroll area
         footerContent: RowLayout {
             Item { Layout.fillWidth: true }
             Button {

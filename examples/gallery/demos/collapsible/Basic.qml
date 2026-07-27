@@ -3,8 +3,9 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 官方 collapsible-basic —— 卡片内一个可折叠区块:全宽 ghost 触发器(文本 + 右侧
-// chevron 旋转),展开后揭示说明文本与「Learn More」按钮。展开时整块背景转为 muted。
+// Official collapsible-basic —— a collapsible section inside a card: full-width ghost
+// trigger (text + chevron rotation on the right), expanding to reveal descriptive text
+// and a "Learn More" button. Background turns muted while expanded.
 Card {
     width: 360
 
@@ -47,7 +48,7 @@ Card {
                 TapHandler { onTapped: c.toggle() }
             }
 
-            // ---- 可折叠内容(p-2.5 pt-0)----
+            // ---- Collapsible content (p-2.5 pt-0) ----
             Text {
                 Layout.fillWidth: true
                 Layout.leftMargin: 10

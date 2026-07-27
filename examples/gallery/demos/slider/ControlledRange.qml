@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 slider-controlled:受控区间。value={[0.3, 0.7]} min={0} max={1} step={0.1}
-// label + 实时值显示(两值以 ", " 拼接),值双向绑定到区间滑块。
+// Official slider-controlled: controlled range. value={[0.3, 0.7]} min={0} max={1} step={0.1}
+// label + live value display (two values joined with ", "), value two-way bound to the range slider.
 ColumnLayout {
     width: 320                  // max-w-xs
     spacing: 12

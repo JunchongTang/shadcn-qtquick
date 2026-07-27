@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 Multiple:chips 容器 + 内联输入过滤;下拉项左侧勾选;预选 Next.js。
+// Official Multiple: chips container + inline input filtering; dropdown items check on the left; Next.js preselected.
 Combobox {
     width: 260
     multiple: true

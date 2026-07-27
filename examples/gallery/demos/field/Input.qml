@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// FieldSet + FieldGroup:两个纵向 Field(标签/输入/描述)。
-// 第二个字段刻意把描述放在输入之上,验证子项顺序自由。
+// FieldSet + FieldGroup: two vertical Fields (label/input/description).
+// The second field deliberately places the description above the input, verifying free child ordering.
 FieldSet {
     width: 280        // max-w-xs
 

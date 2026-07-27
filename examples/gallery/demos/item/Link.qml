@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 用 asLink 让整行成为可点击链接:悬停 bg-muted、指针手型、可获焦点(焦点环)。
+// Use asLink to make the whole row a clickable link: bg-muted on hover, pointer cursor, focusable (focus ring).
 ColumnLayout {
     width: 420
     spacing: 16

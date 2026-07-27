@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 API 示例(ButtonGroupText):在组内展示一段文本(bg-muted 药丸),与 Input 相接。
+// Official API example (ButtonGroupText): display a piece of text within the group (bg-muted pill), joined to Input.
 ButtonGroup {
     ButtonGroupText { text: qsTr("Currency") }
     Input {

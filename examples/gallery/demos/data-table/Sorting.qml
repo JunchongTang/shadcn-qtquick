@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 排序(新 Table)—— Email 表头是 ghost Button(headerDelegate),点击在 升/降 间切换,
-// 尾图标随方向变化;model 为按方向排序后的行。
+// Sorting (new Table) -- the Email header is a ghost Button (headerDelegate); clicking toggles between asc/desc,
+// the trailing icon changes with direction; model is the rows sorted by direction.
 Rectangle {
     id: root
     width: 620

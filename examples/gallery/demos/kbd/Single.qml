@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 单键:每个 Kbd 独立显示一个按键(修饰符号 / Enter / Esc / 方向键)。
+// Single keys: each Kbd shows one key on its own (modifier symbols / Enter / Esc / arrow keys).
 RowLayout {
     spacing: Theme.space2
 

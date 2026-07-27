@@ -3,8 +3,8 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import Shadcn
 
-// FieldSet + Legend(label 变体)+ 描述 + RadioGroup(三个横排 Field)。
-// 单选项分散在各自 Field 中,用 ButtonGroup 维持互斥(组以属性传入,避免跨组件引用外层 id)。
+// FieldSet + Legend (label variant) + description + RadioGroup (three horizontal Fields).
+// Radio options are spread across their own Fields, kept mutually exclusive via ButtonGroup (group passed in as a property to avoid cross-component references to an outer id).
 FieldSet {
     width: 280        // max-w-xs
     C.ButtonGroup { id: plan }

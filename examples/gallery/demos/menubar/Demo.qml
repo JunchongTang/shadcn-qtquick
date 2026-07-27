@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 典型桌面应用菜单栏:File / Edit / View / Profiles —— 含分组、快捷键、子菜单、
-// 复选、单选(复用 Menu 族)。点任一触发按钮打开对应菜单,展开时悬停切换。
+// Typical desktop application menu bar: File / Edit / View / Profiles —— with groups, shortcuts, submenus,
+// checkboxes, radios (reuses the Menu family). Click any trigger button to open its menu; hover switches while open.
 Menubar {
     id: menubar
 

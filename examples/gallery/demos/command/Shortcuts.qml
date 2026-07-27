@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// Shortcuts:条目右侧对齐键盘提示(command-shortcuts)。
+// Shortcuts: items show right-aligned keyboard hints (command-shortcuts).
 Button {
     text: qsTr("Open Menu")
     variant: Button.Outline

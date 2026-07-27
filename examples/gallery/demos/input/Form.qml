@@ -2,13 +2,13 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Form: 多字段表单(Name/Email/Phone/Country/Address + 操作按钮)。
-// 对标前端 input-form:FieldGroup + 两列网格 + Select。
+// Form: multi-field form (Name/Email/Phone/Country/Address + action buttons).
+// Mirrors the web input-form: FieldGroup + two-column grid + Select.
 ColumnLayout {
     width: 360
     spacing: 16
 
-    // Name(必填)
+    // Name (required)
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 6
@@ -20,7 +20,7 @@ ColumnLayout {
         Input { Layout.fillWidth: true; placeholderText: qsTr("Evil Rabbit") }
     }
 
-    // Email + 描述
+    // Email + description
     ColumnLayout {
         Layout.fillWidth: true
         spacing: 6
@@ -37,7 +37,7 @@ ColumnLayout {
         }
     }
 
-    // Phone / Country 两列
+    // Phone / Country two columns
     GridLayout {
         Layout.fillWidth: true
         columns: 2
@@ -68,7 +68,7 @@ ColumnLayout {
         Input { Layout.fillWidth: true; placeholderText: qsTr("123 Main St") }
     }
 
-    // 操作按钮(横向)
+    // Action buttons (horizontal)
     RowLayout {
         Layout.fillWidth: true
         Layout.topMargin: 4

@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 竖排 Tabs:TabButton 纵向堆叠、文本左对齐,激活胶囊照常。
+// Vertical Tabs: TabButtons stacked vertically, text left-aligned; active pill as usual.
 Tabs {
     vertical: true
     TabButton { text: qsTr("Account") }

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Disabled: 整个 Field 禁用(标签变暗 + 输入不可编辑)。对标前端 <Field data-disabled>。
+// Disabled: entire Field disabled (label dimmed + input non-editable). Mirrors the web <Field data-disabled>.
 ColumnLayout {
     width: 260
     spacing: 6

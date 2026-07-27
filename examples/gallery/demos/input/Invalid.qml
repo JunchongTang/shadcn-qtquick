@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Field(data-invalid): 标签 + 破坏色输入 + 描述。对标前端 aria-invalid。
+// Field (data-invalid): label + destructive-colored input + description. Mirrors the web aria-invalid.
 ColumnLayout {
     width: 260
     spacing: 6

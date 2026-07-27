@@ -2,12 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 spinner-empty:icon 圆底内放 Spinner(处理中状态)。
+// Official spinner-empty: Spinner inside the icon rounded slot (processing state).
 Empty {
     EmptyHeader {
         EmptyMedia {
             variant: EmptyMedia.Icon
-            Spinner { size: 16 }    // 圆底内 svg size-4
+            Spinner { size: 16 }    // svg size-4 inside the rounded slot
         }
         EmptyTitle { text: qsTr("Processing your request") }
         EmptyDescription {

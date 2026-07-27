@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// side 属性改变气泡放置方向(对标 tooltip-sides:left / top / bottom / right)。
+// The side property changes the tooltip placement direction (matches tooltip-sides: left / top / bottom / right).
 Flow {
     spacing: Theme.space2
 

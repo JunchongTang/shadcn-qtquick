@@ -31,7 +31,7 @@ ColumnLayout {
         Layout.fillWidth: true
         variant: ShadItem.Outline
         ItemMedia {
-            // 头像组:-space-x-2 重叠 + 与背景同色的 ring。
+            // Avatar stack: -space-x-2 overlap + ring matching the background color.
             Row {
                 spacing: -8
                 Repeater {

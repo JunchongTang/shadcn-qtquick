@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Actions:消息级操作按钮(复制/点赞/点踩、失败重试)放在 footer。
-// 默认子项(IconButton)即为操作组。此处 actionsOnHover=false 让操作常显以便预览;
-// 默认行为是仅在消息 hover 时淡显(见 MessageContent.actionsOnHover)。
+// Actions: message-level action buttons (copy/upvote/downvote, retry on failure) placed in the footer.
+// The default children (IconButton) form the action group. Here actionsOnHover=false keeps actions always visible for preview;
+// the default behavior is to fade in only on message hover (see MessageContent.actionsOnHover).
 ColumnLayout {
     width: 360
     spacing: Theme.space8

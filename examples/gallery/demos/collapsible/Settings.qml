@@ -2,8 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 collapsible-settings —— 「Radius」设置卡:常驻两个输入框 + 右侧触发按钮
-// (maximize/minimize 图标切换),展开后在下方揭示另外两个输入框。
+// Official collapsible-settings —— "Radius" settings card: two pinned inputs + a trigger
+// button on the right (toggles maximize/minimize icon); expanding reveals two more inputs
+// below.
 Card {
     id: root
     width: 320
@@ -20,7 +21,7 @@ Card {
             Layout.fillWidth: true
             gap: 8
 
-            // ---- 常驻:首行两个输入框 + 触发按钮 ----
+            // ---- Pinned: first row of two inputs + trigger button ----
             trigger: RowLayout {
                 width: parent.width
                 spacing: 8
@@ -34,7 +35,7 @@ Card {
                 }
             }
 
-            // ---- 可折叠:次行两个输入框(右侧预留按钮列以对齐)----
+            // ---- Collapsible: second row of two inputs (reserves a button column on the right for alignment) ----
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 8

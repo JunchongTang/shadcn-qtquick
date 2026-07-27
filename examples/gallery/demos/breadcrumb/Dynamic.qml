@@ -2,25 +2,25 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// model 驱动的动态面包屑:面包屑本身是纯展示,状态在外部的 path 数组里。
-// 改 path(重新赋值)→ Repeater 自动重建。演示三种动态切换:
-//   · 点某一级链接 → 截断到那一级(常见的"点面包屑回上层")
-//   · Navigate deeper → 向 path 追加新一层
-//   · Reset → 还原初始路径
+// model-driven dynamic breadcrumb: the breadcrumb is pure presentation; state lives in the external path array.
+// Reassigning path → Repeater rebuilds automatically. Demonstrates three dynamic transitions:
+//   · Click a level's link → truncate to that level (the common "click breadcrumb to go up")
+//   · Navigate deeper → append a new level to path
+//   · Reset → restore the initial path
 Column {
     id: root
     spacing: Theme.space4
 
-    // 当前路径:每项一层,最后一项 = 当前页(无链接)。
+    // Current path: one item per level, last item = current page (no link).
     property var path: [
         { label: qsTr("Home") },
         { label: qsTr("Components") },
         { label: qsTr("Breadcrumb") }
     ]
-    // 追加时轮换取用的下一级名字。
+    // Next-level names cycled through when appending.
     readonly property var pool: ["Settings", "Profile", "Billing", "Team", "Details"]
 
-    // ==== 面包屑:由 path 生成 ====
+    // ==== Breadcrumb: generated from path ====
     Breadcrumb {
         Repeater {
             id: rep
@@ -32,17 +32,17 @@ Column {
                 readonly property bool isLast: index === rep.count - 1
                 spacing: Theme.space1_5
 
-                // 首项前不放分隔符
+                // No separator before the first item
                 BreadcrumbSeparator { visible: crumb.index > 0 }
 
                 BreadcrumbItem {
-                    // 非末项 = 可点链接;点它截断路径到这一级
+                    // Non-last item = clickable link; clicking truncates path to this level
                     BreadcrumbLink {
                         visible: !crumb.isLast
                         text: crumb.modelData.label
                         onClicked: root.path = root.path.slice(0, crumb.index + 1)
                     }
-                    // 末项 = 当前页
+                    // Last item = current page
                     BreadcrumbPage {
                         visible: crumb.isLast
                         text: crumb.modelData.label
@@ -52,7 +52,7 @@ Column {
         }
     }
 
-    // ==== 动态切换控制 ====
+    // ==== Dynamic switching controls ====
     Row {
         spacing: Theme.space2
 
@@ -61,7 +61,7 @@ Column {
             variant: Button.Outline
             size: Button.Sm
             enabled: root.path.length < root.pool.length + 3
-            // 取一个尚未出现在 path 里的名字,追加为新的当前页
+            // Take a name not yet in path and append it as the new current page
             onClicked: {
                 var next = root.pool[(root.path.length - 3) % root.pool.length]
                 root.path = root.path.concat([{ label: next }])

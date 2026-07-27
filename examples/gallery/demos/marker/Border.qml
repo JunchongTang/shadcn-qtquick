@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-border:带底部边框的状态行(分隔下一行)。
+// Official marker-border: status row with a bottom border (separates the next line).
 ColumnLayout {
     width: 320
     spacing: 12                     // gap-3

@@ -1,9 +1,9 @@
 import QtQuick
 import Shadcn
 
-// Scrollable Content —— 内容超高时用 ScrollView 滚动,header 保持可见(对标 dialog-scrollable-content)。
-// 关键:给 ScrollView 一个固定 implicitHeight 作为最大高度,内容 Column 超出即滚动;
-// Dialog 依此高度定尺,header/footer 在滚动区之外。
+// Scrollable Content -- when content overflows, scroll it with a ScrollView while the header stays visible (matches dialog-scrollable-content).
+// Key: give the ScrollView a fixed implicitHeight as its max height; the content Column scrolls once it overflows;
+// the Dialog sizes to this height, and header/footer stay outside the scroll area.
 Button {
     text: qsTr("Scrollable Content")
     variant: Button.Outline
@@ -17,10 +17,10 @@ Button {
         ScrollView {
             id: scroll
             width: dialog.availableWidth
-            implicitHeight: 300          // max-h,超出滚动
+            implicitHeight: 300          // max-h, scroll on overflow
             clip: true
-            contentWidth: availableWidth // 只纵向滚动
-            rightPadding: Theme.space3   // 给滚动条留位
+            contentWidth: availableWidth // vertical scrolling only
+            rightPadding: Theme.space3   // leave room for the scrollbar
 
             Column {
                 width: scroll.availableWidth

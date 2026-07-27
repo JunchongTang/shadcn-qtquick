@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Checked / unchecked states —— checked 属性控制勾选,默认关闭。
+// Checked / unchecked states —— the checked property controls the check; off by default.
 ColumnLayout {
     spacing: 12
     Checkbox { text: qsTr("Unchecked") }

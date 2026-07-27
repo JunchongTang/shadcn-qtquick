@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 分页(新 Table)—— 13 条数据、每页 5 行;底部 Pagination + 行数区间。model 为当前页切片。
+// Pagination (new Table) -- 13 records, 5 rows per page; footer Pagination + row range. model is the current-page slice.
 ColumnLayout {
     id: root
     width: 640

@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 各类型 toast:default / success / info / warning / error(对标 sonner-types)。
-// base-mira 未启用 richColors,类型仅决定图标(circle-check/info/triangle-alert/octagon-x)。
+// Toast types: default / success / info / warning / error (matches sonner-types).
+// base-mira doesn't enable richColors; the type only selects the icon (circle-check/info/triangle-alert/octagon-x).
 Item {
     implicitWidth: 480
     implicitHeight: 220

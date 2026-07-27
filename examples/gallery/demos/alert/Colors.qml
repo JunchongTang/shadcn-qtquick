@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 自定义配色(amber),对标官方 Custom Colors 示例。
+// Custom colors (amber), mirroring the official Custom Colors example.
 Alert {
     width: 420
     iconName: "triangle-alert"

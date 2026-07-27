@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 breadcrumb-separator:用圆点(dot)作自定义分隔符。
+// Official breadcrumb-separator: use a dot as the custom separator.
 Breadcrumb {
     BreadcrumbItem {
         BreadcrumbLink { text: qsTr("Home") }

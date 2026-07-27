@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 基础 toast:点击按钮弹出一条无图标的通知(sonner-demo 的最简形态)。
+// Basic toast: clicking the button pops an icon-less notification (simplest form of sonner-demo).
 Item {
     implicitWidth: 420
     implicitHeight: 200

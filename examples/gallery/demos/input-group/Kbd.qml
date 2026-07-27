@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 import LucideIcons
 
-// 前缀搜索图标 + 后缀快捷键提示(Kbd)。
+// Leading search icon + trailing shortcut hint (Kbd).
 InputGroup {
     width: 320
 

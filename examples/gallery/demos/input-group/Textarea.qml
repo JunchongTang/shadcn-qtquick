@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 文本域版:顶部工具条(block-start + border-b)+ 底部状态栏(block-end + border-t)。
+// Textarea variant: top toolbar (block-start + border-b) + bottom status bar (block-end + border-t).
 InputGroup {
     width: 400
 
@@ -13,7 +13,7 @@ InputGroup {
         font.family: Theme.fontMono
     }
 
-    // 顶部:语言图标 + 文件名 + 刷新/复制
+    // Top: language icon + filename + refresh/copy
     InputGroupAddon {
         align: InputGroupAddon.BlockStart
         border: true
@@ -27,7 +27,7 @@ InputGroup {
         InputGroupButton { kind: InputGroupButton.KindIconXs; iconName: "copy" }
     }
 
-    // 底部:光标位置 + 运行按钮(靠右)
+    // Bottom: cursor position + run button (right-aligned)
     InputGroupAddon {
         align: InputGroupAddon.BlockEnd
         border: true

@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 子菜单:用嵌套 Menu 承载次级动作(sub-trigger 自动带右侧 chevron)。
+// Submenu: a nested Menu hosts secondary actions (sub-trigger auto-adds a right-side chevron).
 Item {
     id: area
     implicitWidth: 320

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 attachment-demo:一行垂直图片附件 + 上传中卡 + 已完成文件卡。
+// Official attachment-demo: a row of vertical image attachments + an uploading card + a completed file card.
 ColumnLayout {
     width: 360
     spacing: 12
@@ -32,7 +32,7 @@ ColumnLayout {
         }
     }
 
-    // 上传中:spinner 媒体 + 进度文案。
+    // Uploading: spinner media + progress text.
     Attachment {
         Layout.fillWidth: true
         uploadState: Attachment.Uploading
@@ -49,7 +49,7 @@ ColumnLayout {
         }
     }
 
-    // 已完成文件卡。
+    // Completed file card.
     Attachment {
         Layout.fillWidth: true
 

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Shadcn
 
-// 垂直分栏:orientation=Qt.Vertical,手柄变为横向 1px 分隔线。
+// Vertical split: orientation=Qt.Vertical, the handle becomes a horizontal 1px divider.
 Resizable {
     width: 340
     height: 220

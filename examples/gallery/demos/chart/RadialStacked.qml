@@ -25,7 +25,7 @@ Card {
             Layout.preferredHeight: 200
             type: Chart.Radial
             stacked: true
-            // 顶部半环(官方 endAngle=180):左→上→右扫 180°。
+            // Top half-ring (official endAngle=180): sweeps 180° left→top→right.
             radialStartDeg: -90
             radialEndDeg: 90
             innerRadius: 70

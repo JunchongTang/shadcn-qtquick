@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 sheet-side:四个方向各一个触发器,用 side 属性设置滑入边。
+// Official sheet-side: one trigger per direction, the side property sets the slide-in edge.
 Flow {
     spacing: Theme.space2
 

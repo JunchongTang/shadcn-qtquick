@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 两个 FieldSet 用 FieldSeparator 分隔;每组:FieldLabel 作小标题 + 描述 + 复选组。
+// Two FieldSets divided by a FieldSeparator; each group: FieldLabel as subheading + description + checkbox group.
 FieldGroup {
     width: 300        // max-w-xs
 

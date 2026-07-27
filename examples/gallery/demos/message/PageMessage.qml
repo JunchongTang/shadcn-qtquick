@@ -1,7 +1,7 @@
 import QtQuick
 
-// Message 详情页。基础版:头像/分组/头脚/操作/附件/对齐。
-// 未实现:富文本 markdown、气泡尾巴、反应表情、完整 Attachment、独立 MessageGroup 组件。
+// Message detail page. Basic version: avatar/group/header-footer/actions/attachment/alignment.
+// Not implemented: rich-text markdown, bubble tails, reaction emojis, full Attachment, standalone MessageGroup component.
 PageScaffold {
     description: qsTr("Displays a message in a conversation, with optional avatar, header, footer, and alignment. Basic QML port — rich text/markdown, bubble tails, reactions, and the full Attachment component are not implemented.")
 

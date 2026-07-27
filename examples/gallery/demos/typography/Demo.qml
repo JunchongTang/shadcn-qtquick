@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// typography-demo —— 完整排版范例(标题层级 + 段落 + 链接 + 引用 + 列表 + 表格)。
-// 段间距对齐官方:h2 mt-10、h3 mt-8、blockquote/ul/table/p mt-6(my-6)。
+// typography-demo -- full typography sample (heading hierarchy + paragraphs + links + blockquote + list + table).
+// Paragraph spacing aligned with Official: h2 mt-10, h3 mt-8, blockquote/ul/table/p mt-6 (my-6).
 ColumnLayout {
     id: article
     width: 600

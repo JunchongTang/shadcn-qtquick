@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 重叠头像组 + 末尾计数(+N)。
+// Overlapping avatar group + trailing count (+N).
 Item {
     readonly property int step: 24
     readonly property var people: [

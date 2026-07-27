@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 完整交互数据表(新 Table)—— Filter Input + Columns 列显隐 + 全选/逐行 Checkbox(选中高亮)
-// + Email 表头排序 + 行末操作下拉 + 底部「已选/总数」+ 上一页/下一页。
-// 数据管线:payments → 过滤(email)→ 排序(email)→ 分页;Table 用 model+columns 驱动。
+// Full interactive data table (new Table) -- Filter Input + Columns show/hide + select-all/per-row Checkbox (row highlight)
+// + Email header sorting + row-end actions dropdown + footer "selected/total" + Previous/Next.
+// Data pipeline: payments → filter (email) → sort (email) → paginate; Table driven by model+columns.
 ColumnLayout {
     id: root
     width: 760
@@ -44,7 +44,7 @@ ColumnLayout {
     }
     readonly property int _pageCount: Math.max(1, Math.ceil(_sorted.length / pageSize))
     readonly property var _pageRows: _sorted.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-    // 当前页中被选中的行索引 → Table.selectedRows(行高亮)
+    // Selected row indices within the current page → Table.selectedRows (row highlight)
     readonly property var _selRows: {
         var a = []
         for (var i = 0; i < _pageRows.length; i++)
@@ -78,7 +78,7 @@ ColumnLayout {
         return s === "success" ? Badge.Secondary : s === "failed" ? Badge.Destructive : Badge.Outline
     }
 
-    // ==== 列的自定义表头/单元格 ====
+    // ==== Custom headers/cells for columns ====
     Component {
         id: selHeader
         Item { Checkbox {
@@ -136,7 +136,7 @@ ColumnLayout {
             } }
     }
 
-    // ==== 顶部工具条 ====
+    // ==== Top toolbar ====
     RowLayout {
         Layout.fillWidth: true
         Layout.bottomMargin: 16
@@ -167,7 +167,7 @@ ColumnLayout {
         }
     }
 
-    // ==== 表体外框 ====
+    // ==== Table body frame ====
     Rectangle {
         Layout.fillWidth: true
         implicitHeight: tbl.implicitHeight
@@ -195,7 +195,7 @@ ColumnLayout {
         }
     }
 
-    // ==== 底部 ====
+    // ==== Footer ====
     RowLayout {
         Layout.fillWidth: true
         Layout.topMargin: 16

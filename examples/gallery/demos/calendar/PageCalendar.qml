@@ -39,9 +39,9 @@ PageScaffold {
         source: "qrc:/demos/calendar/DropdownCaption.qml"
         previewMinHeight: 340
     }
-    // 仍跳过的官方小节(依赖当前月历尚未实现的能力):
-    // Multiple(多选)、Presets(区间预设侧栏)、Date and Time Picker、
-    // Booked dates(禁用日)、Week Numbers(周号)、Persian/Hijri、RTL。
-    // 简化:多月视图导航每次移动 1 个月(未实现 pagedNavigation 整页翻);
-    //       跨月区间连续性依赖各列首尾外月补格(showOutsideDays)衔接,与官方一致。
+    // Official sections still skipped (depend on calendar capabilities not yet implemented):
+    // Multiple (multi-select), Presets (range preset sidebar), Date and Time Picker,
+    // Booked dates (disabled days), Week Numbers, Persian/Hijri, RTL.
+    // Simplification: multi-month view navigation moves 1 month at a time (pagedNavigation full-page flip not implemented);
+    //       cross-month range continuity relies on each column's leading/trailing outside-month fill cells (showOutsideDays), matching the official behavior.
 }

@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 import LucideIcons
 
-// 竖屏 —— ratio 9/16、max-w-[10rem](160)。
+// Portrait — ratio 9/16, max-w-[10rem] (160).
 AspectRatio {
     width: 160
     ratio: 9 / 16

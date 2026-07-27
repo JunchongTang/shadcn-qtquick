@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 自定义单元格尺寸(对齐 "Custom Cell Size":调 --cell-size)。这里用 cellSize=40。
+// Custom cell size (matches "Custom Cell Size": tuning --cell-size). Here cellSize=40 is used.
 Rectangle {
     implicitWidth: cal.implicitWidth
     implicitHeight: cal.implicitHeight

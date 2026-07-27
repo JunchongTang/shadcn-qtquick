@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 图标 + 标签:MenuItem.iconName 取 Lucide 图标名(左侧 size-3.5)。
+// Icons + labels: MenuItem.iconName takes a Lucide icon name (leading size-3.5).
 Item {
     id: area
     implicitWidth: 320

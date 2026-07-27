@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// List —— 列表项之间用水平分隔线。
+// List — horizontal dividers between list items.
 ColumnLayout {
     width: 300
     spacing: 8

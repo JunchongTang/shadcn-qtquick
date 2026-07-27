@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 sheet-no-close-button:showCloseButton: false 隐藏右上角关闭,点击外部关闭。
+// Official sheet-no-close-button: showCloseButton: false hides the top-right close; click outside to close.
 Button {
     text: qsTr("Open Sheet")
     variant: Button.Outline

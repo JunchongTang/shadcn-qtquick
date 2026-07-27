@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 attachment-group:横向可滚动的一行,混合文件类型图标与图片缩略。
+// Official attachment-group: a horizontally scrollable row mixing file-type icons and image thumbnails.
 ColumnLayout {
     width: 360
 

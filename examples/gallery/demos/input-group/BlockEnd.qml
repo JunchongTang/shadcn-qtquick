@@ -2,12 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// align="block-end":addon 位于输入/文本域下方(纵向)。
+// align="block-end": addon sits below the input/textarea (vertical).
 ColumnLayout {
     width: 340
     spacing: 20
 
-    // 输入 + 底部单位
+    // Input + bottom unit
     InputGroup {
         Layout.fillWidth: true
         InputGroupInput { placeholderText: qsTr("Enter amount") }
@@ -17,7 +17,7 @@ ColumnLayout {
         }
     }
 
-    // 文本域 + 底部计数 + 提交按钮(靠右)
+    // Textarea + bottom count + submit button (right-aligned)
     InputGroup {
         Layout.fillWidth: true
         InputGroupTextarea {

@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 attachment-image:variant="image" + orientation="vertical",媒体在上、内容在下,
-// 带移除操作与全卡 Trigger(此处近似为在外部浏览器打开图片)。
+// Official attachment-image: variant="image" + orientation="vertical", media on top, content below,
+// with a remove action and a full-card Trigger (approximated here by opening the image in an external browser).
 ColumnLayout {
     width: 360
 

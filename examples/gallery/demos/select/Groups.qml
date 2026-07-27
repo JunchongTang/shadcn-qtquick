@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 分组:model 中的 { header } 渲染为分组标题,{ separator: true } 渲染为分隔线。
+// Groups: { header } in the model renders as a group title, { separator: true } renders as a divider.
 Select {
     width: 200
     textRole: "text"

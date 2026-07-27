@@ -16,7 +16,7 @@ QString SourceReader::read(const QString &url) const
 
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return QStringLiteral("// 无法读取源码: %1").arg(url);
+        return QStringLiteral("// Failed to read source: %1").arg(url);
     return QString::fromUtf8(file.readAll());
 }
 

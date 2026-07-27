@@ -28,7 +28,7 @@ Card {
             valueKey: "visitors"
             innerRadius: 30
             outerRadius: 110
-            // 官方 startAngle=-90 endAngle=380(470° 轻微叠绕);此处裁剪到整圈。
+            // Official startAngle=-90 endAngle=380 (470°, slight overlap); clipped here to a full circle.
             radialStartDeg: -90
             radialEndDeg: 270
             radialBackground: true

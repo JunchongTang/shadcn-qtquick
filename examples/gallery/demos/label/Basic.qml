@@ -2,14 +2,14 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Label 配合 Checkbox。对标前端 label-demo。
+// Label paired with a Checkbox. Mirrors the web label-demo.
 RowLayout {
     spacing: 8
 
     Checkbox { id: terms }
     Label {
         text: qsTr("Accept terms and conditions")
-        // 点击标签联动勾选(对标 htmlFor)。
+        // Clicking the label toggles the checkbox (mirrors htmlFor).
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor

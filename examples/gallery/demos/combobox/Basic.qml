@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 combobox-basic:可编辑输入框选择框架(打字过滤)。
+// Official combobox-basic: editable input selecting a framework (type to filter).
 Combobox {
     width: 220
     placeholder: qsTr("Select a framework")

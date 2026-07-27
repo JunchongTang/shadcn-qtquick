@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Pattern:仅数字(REGEXP_ONLY_DIGITS → 逐字符正则 "[0-9]"),配 Label(对标 input-otp-pattern)。
+// Pattern: digits only (REGEXP_ONLY_DIGITS → per-char regex "[0-9]"), with a Label (mirrors input-otp-pattern).
 ColumnLayout {
     spacing: 6
     Label { text: qsTr("Digits Only") }

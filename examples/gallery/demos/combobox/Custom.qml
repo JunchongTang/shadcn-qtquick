@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 Custom Items:两行条目(标题 + 次级说明「大洲 (代码)」)。
+// Official Custom Items: two-line entries (title + secondary caption "continent (code)").
 Combobox {
     width: 260
     placeholder: qsTr("Search countries...")

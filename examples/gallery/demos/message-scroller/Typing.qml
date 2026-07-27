@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Typing 视觉状态:转录底部一条「正在输入」消息(点动画)。
-// 注:基础版仅提供 typing 点动画;真正的流式逐字跟随(follow live edge)未实现。
+// Typing visual state: a "typing" message at the bottom of the transcript (dot animation).
+// Note: the basic version only provides the typing dot animation; true streaming character-by-character follow (follow live edge) is not implemented.
 Rectangle {
     implicitWidth: 380
     implicitHeight: 360

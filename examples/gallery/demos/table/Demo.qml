@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 基础发票表(新 Table)—— 表头 + 7 行 + 合计 footer + 底部 caption。
-// 列:Invoice(固定 100,medium)/ Status(fill)/ Method(fill)/ Amount(固定 100,右对齐)。
+// Basic invoice table (new Table) -- header + 7 rows + total footer + bottom caption.
+// Columns: Invoice (fixed 100, medium) / Status (fill) / Method (fill) / Amount (fixed 100, right-aligned).
 Table {
     id: root
     width: 560

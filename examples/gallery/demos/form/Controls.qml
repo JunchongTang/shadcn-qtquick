@@ -2,11 +2,11 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// FormField 与控件无关:Input / Textarea / Select 均可置入槽位。
-// 最后一个字段演示静态错误态(error 非空 → 控件 invalid + 破坏色错误文本)。
+// FormField is control-agnostic: Input / Textarea / Select can all go in the slot.
+// The last field shows a static error state (non-empty error → control invalid + destructive-colored error text).
 ColumnLayout {
     width: 360
-    spacing: Theme.space4          // 对标 FieldGroup gap-4
+    spacing: Theme.space4          // matches FieldGroup gap-4
 
     FormField {
         Layout.fillWidth: true

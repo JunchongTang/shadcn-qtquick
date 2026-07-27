@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Card Spacing —— 对标官方 card-spacing:用 ToggleGroup 切换 --card-spacing
-// (16 / 20 / 24 / 32px),实时改变卡片各区块的内边距与区块间距。
+// Card Spacing —— mirrors official card-spacing: a ToggleGroup switches --card-spacing
+// (16 / 20 / 24 / 32px), live-updating each block's padding and inter-block gap.
 ColumnLayout {
     id: root
     width: 360
@@ -26,7 +26,7 @@ ColumnLayout {
         cardSpacing: root.selectedSpacing
 
         CardHeader {
-            // 标题/描述在左,操作(Sign Up 链接)在右上(对标 CardAction)。
+            // Title/description on the left, action (Sign Up link) at top-right (mirrors CardAction).
             RowLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space2
@@ -41,7 +41,7 @@ ColumnLayout {
         }
 
         CardContent {
-            spacing: 24 // 表单字段间 gap-6
+            spacing: 24 // gap-6 between form fields
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space2
@@ -66,7 +66,7 @@ ColumnLayout {
         }
 
         CardFooter {
-            // flex-col gap-2:两个全宽按钮竖排。
+            // flex-col gap-2: two full-width buttons stacked vertically.
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Theme.space2

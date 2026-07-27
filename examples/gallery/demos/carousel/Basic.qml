@@ -2,13 +2,13 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 基础 —— 5 张数字卡片,每张占满视口(basis-full)。左右圆形按钮翻页,亦可拖拽。
+// Basic —— 5 number cards, each filling the viewport (basis-full). Round prev/next buttons page through them; dragging also works.
 Item {
     id: root
     width: 300
     height: 210
 
-    // 一张数字卡片(数字居中,近似 aspect-square)。
+    // A single number card (number centered, roughly aspect-square).
     component NumberSlide: CarouselItem {
         property int n: 0
         Card {

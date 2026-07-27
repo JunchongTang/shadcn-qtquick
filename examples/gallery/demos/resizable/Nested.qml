@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import Shadcn
 
-// 嵌套:右侧面板内再放一个垂直 Resizable(framed=false,避免双重外框)。
-// 三块 One / Two / Three 均可独立拖拽,所有手柄带抓手。
+// Nested: put another vertical Resizable inside the right pane (framed=false to avoid a double border).
+// The three panes One / Two / Three each resize independently; all handles show a grip.
 Resizable {
     width: 400
     height: 220

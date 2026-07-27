@@ -4,8 +4,8 @@
 #include <QString>
 #include <QtQml/qqmlregistration.h>
 
-// 读取示例源码的辅助单例 —— QML 侧 XMLHttpRequest 读 qrc 不稳,改由 C++ 用 QFile 直读。
-// 支持 qrc:/... 与 file:// 两种 URL,供文档站「Code」标签显示示例文件原文。
+// Helper singleton for reading example source — QML-side XMLHttpRequest reading qrc is unreliable, so C++ reads directly via QFile.
+// Supports both qrc:/... and file:// URLs, for the docs site's "Code" tab to display the raw example file.
 class SourceReader : public QObject
 {
     Q_OBJECT
@@ -17,6 +17,6 @@ public:
 
     Q_INVOKABLE QString read(const QString &url) const;
 
-    // 把文本写入系统剪贴板(供示例卡「复制路径」按钮使用)。
+    // Write text to the system clipboard (used by the example card's "copy path" button).
     Q_INVOKABLE void copyToClipboard(const QString &text) const;
 };

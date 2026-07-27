@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 empty-background:带背景色的空状态(bg-muted/30)。
+// Official empty-background: empty state with a background color (bg-muted/30).
 Empty {
     surface: Theme.alpha(Theme.muted, 0.3)
 

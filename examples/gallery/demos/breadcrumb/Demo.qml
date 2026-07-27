@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 breadcrumb-demo:Home / 省略号下拉 / Components / Breadcrumb。
+// Official breadcrumb-demo: Home / ellipsis dropdown / Components / Breadcrumb.
 Breadcrumb {
     BreadcrumbItem {
         BreadcrumbLink { text: qsTr("Home") }

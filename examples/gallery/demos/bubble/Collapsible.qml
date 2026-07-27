@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Show More / 折叠:长内容用预览 + "Show more/less" 切换。对标官方 bubble-collapsible。
+// Show More / collapse: long content uses a preview + "Show more/less" toggle. Mirrors official bubble-collapsible.
 ColumnLayout {
     id: root
     width: 360

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 基础字段:Label + Input + 描述(FormField 纵向容器)。
+// Basic field: Label + Input + description (FormField vertical container).
 FormField {
     width: 300
     label: qsTr("Username")

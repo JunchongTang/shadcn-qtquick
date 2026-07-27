@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 未实现组件的占位页。
+// Placeholder page for unimplemented components.
 PageScaffold {
-    description: qsTr("该组件尚未移植。此处将展示与 ui.shadcn.com 对齐的示例。")
+    description: qsTr("This component has not been ported yet. Examples aligned with ui.shadcn.com will be shown here.")
 
     Preview {
         title: qsTr("Coming soon")

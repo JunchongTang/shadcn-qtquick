@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 native-select-groups:optgroup 分组 —— model 中的 { header } 渲染为分组标题(不可选)。
+// Official native-select-groups: optgroup grouping -- { header } entries in the model render as group titles (non-selectable).
 NativeSelect {
     width: 200
     textRole: "text"

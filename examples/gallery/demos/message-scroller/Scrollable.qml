@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 长转录:12 条消息超出视口,可上下滚动;细滚动条 + 跳至最新按钮。
+// Long transcript: 12 messages overflow the viewport, scrollable up and down; thin scrollbar + jump-to-latest button.
 Rectangle {
     implicitWidth: 380
     implicitHeight: 460

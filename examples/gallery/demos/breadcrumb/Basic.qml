@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 breadcrumb-basic:Home / Components 链接 + 当前页 Breadcrumb。
+// Official breadcrumb-basic: Home / Components links + current page Breadcrumb.
 Breadcrumb {
     BreadcrumbItem {
         BreadcrumbLink { text: qsTr("Home") }

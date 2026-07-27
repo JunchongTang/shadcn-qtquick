@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 单个纵向 Field:标签 + Select + 描述。
+// Single vertical Field: label + Select + description.
 Field {
     width: 280        // max-w-xs
 

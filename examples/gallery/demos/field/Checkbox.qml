@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// FieldGroup: 上半 FieldSet(label 变体 legend + 描述 + 四个横排复选)+ 分隔 + 带 FieldContent 的复选。
+// FieldGroup: top FieldSet (label-variant legend + description + four horizontal checkboxes) + separator + checkbox with FieldContent.
 FieldGroup {
     width: 300        // max-w-xs
 
@@ -13,7 +13,7 @@ FieldGroup {
         }
         FieldDescription { text: qsTr("Select the items you want to show on the desktop.") }
 
-        // gap-3 复选组
+        // gap-3 checkbox group
         FieldGroup {
             spacing: Theme.space3
 
@@ -41,7 +41,7 @@ FieldGroup {
 
     FieldSeparator {}
 
-    // 复选 + FieldContent(标签 + 描述),items-start。
+    // Checkbox + FieldContent (label + description), items-start.
     Field {
         orientation: Field.Horizontal
         Checkbox {

@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 无初始选择的单选月历(对齐 calendar-basic:mode="single" + rounded-lg border)。
+// Single-select calendar with no initial selection (matches calendar-basic: mode="single" + rounded-lg border).
 Rectangle {
     implicitWidth: cal.implicitWidth
     implicitHeight: cal.implicitHeight

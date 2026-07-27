@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// Line 变体:无 muted 底,激活项以底部 2px 前景色下划线标示。
+// Line variant: no muted background; the active item is marked with a bottom 2px foreground underline.
 Tabs {
     variant: Tabs.Line
     TabButton { text: qsTr("Overview") }

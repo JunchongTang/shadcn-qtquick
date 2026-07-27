@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 button-group-size:用各按钮的 size 控制整组尺寸(sm / default / lg)。
+// Official button-group-size: use each button's size to control the whole group's size (sm / default / lg).
 Column {
     spacing: Theme.space8   // items gap-8
 

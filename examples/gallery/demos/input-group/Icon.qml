@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 前缀/后缀图标的多种组合。
+// Various combinations of leading/trailing icons.
 ColumnLayout {
     width: 320
     spacing: 20

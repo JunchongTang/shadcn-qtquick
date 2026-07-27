@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 spinner-badge:徽章内加载态 —— Spinner 作为前置(leading)元素表示进行中。
+// Official spinner-badge: loading state inside a badge -- Spinner as leading element indicates in-progress.
 RowLayout {
     spacing: Theme.space4                  // gap-4
 

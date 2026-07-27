@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 尺寸 —— basis=0.5(对标 basis-1/2):每张卡片占视口一半,同屏可见约两张。
+// Sizes —— basis=0.5 (mirrors basis-1/2): each card takes half the viewport, so about two are visible at once.
 Item {
     id: root
     width: 420

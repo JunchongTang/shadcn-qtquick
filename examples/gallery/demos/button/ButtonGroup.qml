@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 多个 ButtonGroup 之间留 gap-2;组内相邻 Button 首尾相接。
+// Multiple ButtonGroups leave gap-2; adjacent Buttons within a group join edge-to-edge.
 RowLayout {
     spacing: 8
 

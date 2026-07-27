@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 完整表单:Payment Method + Billing Address + Comments + 操作按钮。
-// 综合演示 FieldSet/Legend/Description/Group/Separator/Field(纵横)/Content。
+// Full form: Payment Method + Billing Address + Comments + action buttons.
+// Comprehensive demo of FieldSet/Legend/Description/Group/Separator/Field (vertical & horizontal)/Content.
 FieldGroup {
     width: 420        // max-w-md
 
@@ -89,7 +89,7 @@ FieldGroup {
         }
     }
 
-    // ==== Comments(无 Legend 的 FieldSet)====
+    // ==== Comments (FieldSet without a Legend) ====
     FieldSet {
         FieldGroup {
             Field {
@@ -103,7 +103,7 @@ FieldGroup {
         }
     }
 
-    // ==== 操作按钮(横排)====
+    // ==== Action buttons (horizontal) ====
     Field {
         orientation: Field.Horizontal
         Button {

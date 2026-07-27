@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 尺寸:default(h-7)与 sm(h-6,字号 + 箭头同缩)。
+// Sizes: default (h-7) and sm (h-6, font size + arrow scale down together).
 RowLayout {
     spacing: 12
 

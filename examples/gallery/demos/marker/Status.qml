@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-status:role="status" + Spinner 的进行中标记(含 separator 变体)。
+// Official marker-status: in-progress marker with role="status" + Spinner (includes a separator variant).
 ColumnLayout {
     width: 320
     spacing: 32                     // gap-8

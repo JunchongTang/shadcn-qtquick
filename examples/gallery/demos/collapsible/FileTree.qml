@@ -3,14 +3,15 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 官方 collapsible-file-tree —— 用嵌套 Collapsible 搭出文件树。
-// 文件夹为可折叠触发行(chevron 旋转 90° + 文件夹图标),文件为静态行,子层缩进 20px。
+// Official collapsible-file-tree —— a file tree built from nested Collapsibles.
+// Folders are collapsible trigger rows (chevron rotates 90° + folder icon), files are
+// static rows, child levels indent 20px.
 Card {
     id: root
     width: 256
     size: Card.Small
 
-    // 通用行:文件夹(带旋转 chevron)或文件。
+    // Generic row: folder (with rotating chevron) or file.
     component TreeRow: Rectangle {
         id: rowRoot
         property string label: ""
@@ -61,7 +62,7 @@ Card {
         TapHandler { onTapped: rowRoot.activated() }
     }
 
-    // 文件夹:可折叠,触发行用 TreeRow(folder 样式)。
+    // Folder: collapsible, trigger row uses TreeRow (folder styling).
     component Folder: Collapsible {
         id: f
         property string label: ""

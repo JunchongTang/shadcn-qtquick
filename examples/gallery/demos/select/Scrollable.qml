@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 多项 + 分组:弹层高度上限 300,超出则列表滚动(ListView 自带滚动条)。
+// Many items + groups: popup height capped at 300; the list scrolls beyond that (ListView's own scrollbar).
 Select {
     width: 256
     textRole: "text"

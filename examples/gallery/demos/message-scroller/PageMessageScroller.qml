@@ -1,9 +1,9 @@
 import QtQuick
 
-// Message Scroller 详情页。基础版:可滚动聊天容器 + 自动贴底 + 跳至最新 + typing 视觉。
-// 诚实跳过(均未实现):流式跟随(follow live edge)、新回合锚定(scrollAnchor + 顶部锚点 + 上一条 peek)、
-// 加载历史位置保持(preserveScrollOnPrepend)、打开已存会话 last-anchor 定位、虚拟化 / content-visibility、
-// 命令面板 / scrollToMessage / 可见性追踪 hooks、进场动画。
+// Message Scroller detail page. Basic version: scrollable chat container + auto scroll-to-bottom + jump to latest + typing visual.
+// Honestly skipped (all unimplemented): streaming follow (follow live edge), new-turn anchoring (scrollAnchor + top anchor + previous-message peek),
+// load-history position preservation (preserveScrollOnPrepend), last-anchor positioning when opening an existing session, virtualization / content-visibility,
+// command palette / scrollToMessage / visibility-tracking hooks, entrance animation.
 PageScaffold {
     description: qsTr("A chat scroll container: a vertical message column with a thin scrollbar, auto scroll-to-bottom, and a jump-to-latest control. Basic QML port — turn anchoring, streaming follow, load-history preservation, virtualization, and scroll commands are NOT implemented.")
 

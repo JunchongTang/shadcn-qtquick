@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 行选择(新 Table)—— 表头「全选」+ 每行 Checkbox;选中行经 selectedRows → bg-muted 高亮。
+// Row selection (new Table) -- header "select all" + a Checkbox per row; selected rows highlight via selectedRows -> bg-muted.
 Table {
     id: root
     width: 560
@@ -13,7 +13,7 @@ Table {
         { invoice: "INV003", status: "Unpaid",  amount: "$350.00" },
         { invoice: "INV004", status: "Paid",    amount: "$450.00" }
     ]
-    property var sel: [0]                      // 选中行索引(预选首行)
+    property var sel: [0]                      // selected row indices (first row preselected)
     function toggleRow(r, v) {
         var s = sel.slice(); var i = s.indexOf(r)
         if (v && i < 0) s.push(r); else if (!v && i >= 0) s.splice(i, 1)

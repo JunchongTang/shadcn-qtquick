@@ -12,7 +12,8 @@ option(SHADCN_BUILD_TESTS "Build the shadcn-qtquick unit tests" ON)
 find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick)
 qt_standard_project_setup(REQUIRES 6.8)
 
-# 依赖:Lucide 图标(vendored 子模块)。带守卫,便于消费方已提供 LucideIcons 时不重复添加。
+# Dependency: Lucide icons (vendored submodule). Guarded so a consumer that already
+# provides a LucideIcons target does not add it twice.
 if(NOT TARGET LucideIcons)
     set(LUCIDE_QTQUICK_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
     add_subdirectory(third_party/lucide-qtquick)

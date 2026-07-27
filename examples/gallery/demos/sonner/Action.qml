@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 带动作的 toast:描述 + 右侧动作按钮(Undo),点击动作后再弹一条确认(对标 sonner-demo)。
+// Toast with action: description + trailing action button (Undo); triggering the action pops a confirmation (matches sonner-demo).
 Item {
     implicitWidth: 420
     implicitHeight: 200

@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 官方 empty-input-group:EmptyContent 内放输入组(搜索框 + 前置图标 + 快捷键)。
+// Official empty-input-group: input group inside EmptyContent (search box + leading icon + shortcut).
 Empty {
     EmptyHeader {
         EmptyTitle { text: qsTr("404 - Not Found") }
@@ -15,7 +15,7 @@ Empty {
     EmptyContent {
         InputGroup {
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 260    // sm:w-3/4 近似
+            Layout.preferredWidth: 260    // sm:w-3/4 approximation
 
             InputGroupInput { placeholderText: qsTr("Try searching for pages...") }
             InputGroupAddon {

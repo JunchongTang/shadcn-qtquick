@@ -1,12 +1,12 @@
 import QtQuick
 import Shadcn
 
-// 基础导航菜单:两个带下拉的项(简介 / 组件网格)+ 一个带图标的项 + 一个纯链接项。
-// 对齐官方 navigation-menu-demo:hover / 点击展开 popover 面板,面板内为链接网格。
+// Basic navigation menu: two dropdown items (intro / component grid) + one item with icons + one plain link item.
+// Matches Official navigation-menu-demo: hover / click expands a popover panel with a grid of links.
 NavigationMenu {
     id: nav
 
-    // 带下拉:单列、带描述的链接(w-96)。
+    // Dropdown: single column, links with descriptions (w-96).
     NavigationMenuItem {
         text: qsTr("Getting started")
         contentWidth: 384
@@ -24,7 +24,7 @@ NavigationMenu {
         }
     }
 
-    // 带下拉:两列网格、带描述(w-[560])。
+    // Dropdown: two-column grid with descriptions (w-[560]).
     NavigationMenuItem {
         text: qsTr("Components")
         columns: 2
@@ -47,7 +47,7 @@ NavigationMenu {
         }
     }
 
-    // 带下拉:图标 + 文本的窄列表(w-[200])。
+    // Dropdown: narrow list of icon + text (w-[200]).
     NavigationMenuItem {
         text: qsTr("With Icon")
         contentWidth: 200
@@ -56,7 +56,7 @@ NavigationMenu {
         NavigationMenuLink { text: qsTr("Done"); iconName: "circle-check" }
     }
 
-    // 纯链接项(触发头样式,直接可点)。
+    // Plain link item (trigger-header style, directly clickable).
     NavigationMenuItem {
         text: qsTr("Docs")
         asLink: true

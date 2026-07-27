@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-separator:带居中标签的分隔线(日期 / 分节)。
+// Official marker-separator: separator line with a centered label (date / section).
 ColumnLayout {
     width: 320
     spacing: 32                     // gap-8

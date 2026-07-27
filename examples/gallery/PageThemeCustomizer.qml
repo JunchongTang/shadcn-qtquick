@@ -5,18 +5,18 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 主题定制器 —— 对标 ui.shadcn.com/create 的双栏体验:
-//   左侧:深色浮动定制面板(紧凑的下拉选择器行,对齐官网 className="dark" 的定制卡);
-//   右侧:实时 preview-02 bento 仪表盘(CreateDashboard,全库随主题即时变样)。
-// 全部通过 Theme 覆盖层(setToken/setRadius/resetTheme/exportJson)驱动。Web 专属能力
-// (v0、Get Code、分享链接、preset API、样式/图标/字体库选择器)在桌面库中不适用,故略去。
+// Theme customizer — mirrors the two-pane experience of ui.shadcn.com/create:
+//   Left: dark floating customization panel (compact dropdown picker rows, matching the official className="dark" customize card);
+//   Right: live preview-02 bento dashboard (CreateDashboard, the whole library restyles instantly with the theme).
+// All driven through the Theme overlay (setToken/setRadius/resetTheme/exportJson). Web-only features
+// (v0, Get Code, share links, preset API, style/icon/font library pickers) don't apply in the desktop library, so they're omitted.
 Item {
     id: page
 
     property real viewportHeight: 600
     implicitHeight: viewportHeight
 
-    // ==== base color 色系:设置中性色板(明/暗)。card/popover=bg,secondary/accent=muted,input=border ====
+    // ==== base color scheme: sets the neutral palette (light/dark). card/popover=bg, secondary/accent=muted, input=border ====
     readonly property var baseColors: [
         { name: "Neutral", dot: "#737373",
           l: { bg: "#ffffff", fg: "#0a0a0a", muted: "#f5f5f5", mutedFg: "#737373", border: "#e5e5e5", ring: "#a1a1a1" },
@@ -35,7 +35,7 @@ Item {
           d: { bg: "#030712", fg: "#f9fafb", muted: "#1f2937", mutedFg: "#9ca3af", border: "#1f2937", ring: "#6b7280" } }
     ]
 
-    // ==== accent 强调色:设置 primary + primaryForeground(明/暗)====
+    // ==== accent color: sets primary + primaryForeground (light/dark) ====
     readonly property var accents: [
         { name: "Amber",  dot: "#f0b100", lp: "#fdc700", lf: "#733e0a", dp: "#f0b100", df: "#733e0a" },
         { name: "Blue",   dot: "#3b82f6", lp: "#2563eb", lf: "#ffffff", dp: "#3b82f6", df: "#ffffff" },
@@ -47,7 +47,7 @@ Item {
     ]
     readonly property var radii: [0, 4, 8, 10, 14, 16]
 
-    // ==== chart 配色:每个方案设置 chart1..chart5(明/暗共用)====
+    // ==== chart palette: each scheme sets chart1..chart5 (shared by light/dark) ====
     readonly property var chartPalettes: [
         { name: "Amber",   c: ["#ffd230", "#fe9a00", "#e17100", "#bb4d00", "#973c00"] },
         { name: "Blue",    c: ["#93c5fd", "#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8"] },
@@ -57,7 +57,7 @@ Item {
         { name: "Neutral", c: ["#d4d4d4", "#a3a3a3", "#737373", "#525252", "#404040"] }
     ]
 
-    // 面板显示的当前选择状态。
+    // Current selection state shown by the panel.
     property string baseName: "Neutral"
     property color  baseDot: "#737373"
     property string accentName: "Amber"
@@ -66,7 +66,7 @@ Item {
     property color  chartDot: "#fe9a00"
     property int    radiusValue: 10
 
-    // 面板固定深色(对齐官网 className="dark" 的定制卡,不随 app 明暗变化)。
+    // Panel is fixed dark (matches the official className="dark" customize card, doesn't follow the app's light/dark mode).
     readonly property color pBg: "#0a0a0a"
     readonly property color pBorder: "#262626"
     readonly property color pText: "#fafafa"
@@ -110,7 +110,7 @@ Item {
         setRadius(radii[Math.floor(Math.random() * radii.length)])
     }
 
-    // 紧凑选择器行:小标签 + 当前值 + 右侧色点/图标;点击弹出菜单(默认子项即菜单项)。
+    // Compact picker row: small label + current value + right-side color dot/icon; click pops up a menu (default children are the menu items).
     component PickerRow: Rectangle {
         id: prow
         property string label: ""
@@ -152,7 +152,7 @@ Item {
         Menu { id: prowMenu }
     }
 
-    // 深色小按钮(面板底部动作;不用库 Button 以免与 app 明暗冲突)。
+    // Dark small button (panel bottom actions; not using the library Button to avoid conflicting with the app's light/dark mode).
     component DarkBtn: Rectangle {
         id: dbtn
         property string label: ""
@@ -177,7 +177,7 @@ Item {
         anchors.fill: parent
         spacing: 16
 
-        // ============================ 左:深色定制面板(对齐官网)============================
+        // ============================ Left: dark customization panel (matches the official site) ============================
         Rectangle {
             Layout.preferredWidth: 240
             Layout.fillHeight: true
@@ -207,7 +207,7 @@ Item {
                     }
                     Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: page.pBorder }
 
-                    // Style(单一,静态展示)
+                    // Style (single, static display)
                     PickerRow {
                         label: qsTr("Style"); valueText: qsTr("Mira")
                         MenuItem { text: qsTr("Mira") }

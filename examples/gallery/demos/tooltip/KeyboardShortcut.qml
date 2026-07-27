@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 气泡内容 = 文本 + Kbd 键位提示(对标 tooltip-keyboard:Save Changes <Kbd>S</Kbd>)。
+// Tooltip content = text + Kbd key hint (matches tooltip-keyboard: Save Changes <Kbd>S</Kbd>).
 Button {
     id: saveBtn
     iconName: "save"

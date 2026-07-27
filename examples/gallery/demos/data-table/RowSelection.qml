@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 行选择(新 Table)—— 表头全选 + 逐行 Checkbox;选中行 bg-muted;Status 用 Badge;底部「已选/总数」。
+// Row selection (new Table) -- header select-all + per-row Checkbox; selected rows use bg-muted; Status uses Badge; footer "selected/total".
 ColumnLayout {
     id: root
     width: 640
@@ -16,7 +16,7 @@ ColumnLayout {
         { id: "5kma53ae", amount: 874, status: "success",    email: "Silas22@example.com" },
         { id: "bhqecj4p", amount: 721, status: "failed",     email: "carmella@example.com" }
     ]
-    property var sel: [1]                       // 选中行索引(预选一行)
+    property var sel: [1]                       // selected row indices (one row preselected)
     function toggleRow(r, v) {
         var s = sel.slice(); var i = s.indexOf(r)
         if (v && i < 0) s.push(r); else if (!v && i >= 0) s.splice(i, 1)

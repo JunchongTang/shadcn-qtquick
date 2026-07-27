@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 button-group-dropdown:主动作按钮 + 下拉触发(chevron)组成拆分按钮。
+// Official button-group-dropdown: main action button + dropdown trigger (chevron) form a split button.
 ButtonGroup {
     Button { variant: Button.Outline; text: qsTr("Follow") }
     Button {

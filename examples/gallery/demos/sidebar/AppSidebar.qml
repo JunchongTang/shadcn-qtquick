@@ -3,9 +3,9 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// 完整应用侧边栏:头部品牌 + 若干分组菜单(图标 + 文本)+ 页脚用户项,
-// 右侧配一个简化的 inset 内容区,整体放进有边框圆角的容器中展示。
-// 简化(见报告):可折叠图标条 / 移动端 sheet / SidebarTrigger / inset 圆角浮起等未实现。
+// Full app sidebar: header brand + several grouped menus (icon + text) + footer user item,
+// paired with a simplified inset content area on the right, all inside a bordered rounded container.
+// Simplified (see report): collapsible icon rail / mobile sheet / SidebarTrigger / inset rounded float are not implemented.
 Rectangle {
     id: shell
     width: 620
@@ -22,7 +22,7 @@ Rectangle {
         anchors.fill: parent
         spacing: 0
 
-        // ==== 侧边栏 ====
+        // ==== Sidebar ====
         Sidebar {
             Layout.preferredWidth: 240
             Layout.fillHeight: true
@@ -176,7 +176,7 @@ Rectangle {
             }
         }
 
-        // ==== 简化 inset 内容区 ====
+        // ==== Simplified inset content area ====
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true

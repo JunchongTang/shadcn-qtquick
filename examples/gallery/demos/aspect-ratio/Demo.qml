@@ -2,14 +2,14 @@ import QtQuick
 import Shadcn
 import LucideIcons
 
-// 基础 16:9 —— max-w-sm、bg-muted、rounded-lg;内含图片占位(object-cover + rounded-lg)。
+// Basic 16:9 — max-w-sm, bg-muted, rounded-lg; contains an image placeholder (object-cover + rounded-lg).
 AspectRatio {
     width: 384                  // max-w-sm
     ratio: 16 / 9
     radius: Theme.radiusLg
     color: Theme.muted
 
-    // 图片占位(灰阶质感的色块 + image 图标)
+    // Image placeholder (grayscale-textured fill + image icon)
     Rectangle {
         anchors.fill: parent
         radius: Theme.radiusLg

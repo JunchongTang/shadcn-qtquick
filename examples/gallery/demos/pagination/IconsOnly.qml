@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 仅上一页 / 下一页按钮(隐藏页码),配合「每页行数」下拉——常用于数据表页脚。
+// Previous / next buttons only (page numbers hidden), paired with a "rows per page" dropdown -- common in data-table footers.
 RowLayout {
     width: 420
     spacing: 16

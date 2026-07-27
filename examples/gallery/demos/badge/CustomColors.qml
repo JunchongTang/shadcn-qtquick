@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 仿官方 badge-colors:用字面 hex 覆盖 bgColor/fgColor(Tailwind *-50/*-700 浅色档)。
+// Mimics the official badge-colors: override bgColor/fgColor with literal hex (Tailwind *-50/*-700 light shades).
 RowLayout {
     spacing: 8
 

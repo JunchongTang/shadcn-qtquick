@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 native-select-invalid:aria-invalid → 破坏色边框 + 破坏色环。
+// Official native-select-invalid: aria-invalid → destructive border + destructive ring.
 NativeSelect {
     width: 180
     invalid: true

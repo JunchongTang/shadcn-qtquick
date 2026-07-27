@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 受控:读取 value 实时回显(对标 input-otp-controlled)。
+// Controlled: read value and echo it live (mirrors input-otp-controlled).
 ColumnLayout {
     spacing: 8
     InputOtp {

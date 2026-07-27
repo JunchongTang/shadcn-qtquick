@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// FieldTitle + FieldDescription + Slider(描述随取值联动)。
-// 前端为双滑块区间 [200,800];本库 Slider 为单值,简化为单一预算上限。
+// FieldTitle + FieldDescription + Slider (description updates with the value).
+// The web uses a dual-handle range [200,800]; this library's Slider is single-value, simplified to a single budget cap.
 Field {
     id: f
     width: 280        // max-w-xs

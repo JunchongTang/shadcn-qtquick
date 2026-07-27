@@ -2,11 +2,11 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 七种变体:default / secondary / muted / tinted / outline / destructive / ghost。
-// 对标官方 bubble-variants(ghost 用富文本近似 markdown)。
+// Seven variants: default / secondary / muted / tinted / outline / destructive / ghost.
+// Mirrors official bubble-variants (ghost approximates markdown with rich text).
 ColumnLayout {
     width: 360
-    spacing: 48   // gap-12:表情叠边预留
+    spacing: 48   // gap-12: reserve space for edge-overlapping reactions
 
     Bubble {
         BubbleContent { text: qsTr("This is the default primary bubble.") }

@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 附加节(非官方独立小节,覆盖题述「添加附件按钮/拖放区近似」):
-// 用 idle 虚线态 + 全卡 Trigger 近似一个「点击添加/拖放上传」入口。
-// 说明:真实文件选择与拖放逻辑此处不实现,仅静态近似交互外观(点击弹出提示计数)。
+// Extra section (not an official standalone one; approximates the described "add attachment button / drop zone"):
+// uses the idle dashed state + full-card Trigger to approximate a "click to add / drag-drop upload" entry point.
+// Note: real file selection and drag-drop logic are not implemented here; this only statically approximates the interaction (a click bumps a counter).
 ColumnLayout {
     id: root
     width: 360
@@ -14,7 +14,7 @@ ColumnLayout {
 
     Attachment {
         Layout.fillWidth: true
-        uploadState: Attachment.Idle          // 虚线描边 → 拖放区外观
+        uploadState: Attachment.Idle          // dashed border → drop-zone look
 
         AttachmentMedia { iconName: "upload" }
         AttachmentContent {

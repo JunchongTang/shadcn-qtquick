@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Attachment:图片封面(气泡上方)与文件卡(气泡下方)。
-// 基础版:附件为便捷属性内建绘制(imageSource / fileName + fileMeta),非完整 Attachment 组件。
-// 图片来自网络,离线时显示 muted 占位块。
+// Attachment: image cover (above the bubble) and file card (below the bubble).
+// Basic version: attachments are drawn inline via convenience properties (imageSource / fileName + fileMeta), not a full Attachment component.
+// Images come from the network; a muted placeholder block is shown when offline.
 ColumnLayout {
     width: 360
     spacing: Theme.space8

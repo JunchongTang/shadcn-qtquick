@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 禁用态:enabled=false → 整件 opacity-50 且不接受输入(对标 input-otp-disabled)。
+// Disabled state: enabled=false → whole control opacity-50 and rejects input (mirrors input-otp-disabled).
 InputOtp {
     length: 6
     groups: [3, 3]

@@ -16,7 +16,7 @@ Button {
             width: pop.availableWidth
             spacing: 16                  // gap-4
 
-            // header:gap-1
+            // header: gap-1
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 4
@@ -35,7 +35,7 @@ Button {
                 }
             }
 
-            // FieldGroup:gap-4,label 占一半宽
+            // FieldGroup: gap-4, label takes half the width
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 16

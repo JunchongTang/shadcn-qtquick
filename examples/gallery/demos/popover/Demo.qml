@@ -16,7 +16,7 @@ Button {
             width: pop.availableWidth
             spacing: 16                  // gap-4
 
-            // 标题 + 描述(space-y-2)
+            // Title + description (space-y-2)
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -35,7 +35,7 @@ Button {
                 }
             }
 
-            // 字段列表(grid gap-2)
+            // Field list (grid gap-2)
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8

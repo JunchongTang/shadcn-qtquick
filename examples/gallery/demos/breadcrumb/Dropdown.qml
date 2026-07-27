@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 import LucideIcons
 
-// 官方 breadcrumb-dropdown:中间项为下拉触发(Components + chevron-down),圆点分隔。
+// Official breadcrumb-dropdown: middle item is a dropdown trigger (Components + chevron-down), dot separators.
 Breadcrumb {
     BreadcrumbItem {
         BreadcrumbLink { text: qsTr("Home") }
@@ -10,8 +10,8 @@ Breadcrumb {
     BreadcrumbSeparator { iconName: "dot" }
     BreadcrumbItem {
         id: dropdownItem
-        // 下拉触发:文本 + chevron 同属一个可点区域(对标单个 DropdownMenuTrigger),
-        // 统一 hover 高亮、点任意处均弹出菜单。
+        // Dropdown trigger: text + chevron share one clickable area (mirrors a single DropdownMenuTrigger),
+        // unified hover highlight, clicking anywhere pops the menu.
         Row {
             id: trigger
             spacing: Theme.space1

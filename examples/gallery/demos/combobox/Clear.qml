@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 Clear Button:ComboboxInput showClear + 预选值 → 显示清除 × 按钮。
+// Official Clear Button: ComboboxInput showClear + preselected value → shows a clear × button.
 Combobox {
     width: 220
     placeholder: qsTr("Select a framework")

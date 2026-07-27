@@ -2,12 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// addon 内的小按钮:图标按钮(icon-xs)与文本按钮(secondary)。
+// Small buttons inside an addon: icon button (icon-xs) and text button (secondary).
 ColumnLayout {
     width: 320
     spacing: 20
 
-    // 只读链接 + 复制图标按钮
+    // Read-only link + copy icon button
     InputGroup {
         Layout.fillWidth: true
         InputGroupInput { text: "https://x.com/shadcn"; readOnly: true }
@@ -20,7 +20,7 @@ ColumnLayout {
         }
     }
 
-    // 前缀 https:// + 收藏图标按钮
+    // Leading https:// + favorite icon button
     InputGroup {
         Layout.fillWidth: true
         InputGroupAddon { InputGroupText { text: "https://" } }
@@ -34,7 +34,7 @@ ColumnLayout {
         }
     }
 
-    // 搜索文本按钮
+    // Search text button
     InputGroup {
         Layout.fillWidth: true
         InputGroupInput { placeholderText: qsTr("Type to search...") }

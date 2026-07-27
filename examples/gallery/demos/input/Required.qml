@@ -2,12 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Required: 标签带红色星号,提示必填。对标前端 <FieldLabel>… <span className="text-destructive">*</span>。
+// Required: label with a red asterisk marking it mandatory. Mirrors the web <FieldLabel>… <span className="text-destructive">*</span>.
 ColumnLayout {
     width: 260
     spacing: 6
 
-    // Label + 破坏色星号内联组合(不新建 Field 组件)。
+    // Label + destructive asterisk composed inline (no separate Field component).
     RowLayout {
         Layout.fillWidth: true
         spacing: 2

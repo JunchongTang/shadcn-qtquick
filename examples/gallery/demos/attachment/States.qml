@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 attachment-states:idle / uploading / processing / error / done。
-// uploading、processing 标题微光;error 转 destructive 处理(失败原因写在描述里)。
+// Official attachment-states: idle / uploading / processing / error / done.
+// uploading and processing get a shimmering title; error switches to destructive styling (failure reason goes in the description).
 ColumnLayout {
     width: 360
     spacing: 8

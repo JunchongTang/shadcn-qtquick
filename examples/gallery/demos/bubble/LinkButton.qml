@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 链接/按钮气泡:BubbleContent interactive: true(对标 render={<button/>})。
-// 点击更新底部状态文本(替代官方 toast,保持自包含)。对标 bubble-link-button。
+// Link/button bubble: BubbleContent interactive: true (mirrors render={<button/>}).
+// Clicking updates the status text at the bottom (replaces the official toast, keeps it self-contained). Mirrors bubble-link-button.
 ColumnLayout {
     id: root
     width: 360

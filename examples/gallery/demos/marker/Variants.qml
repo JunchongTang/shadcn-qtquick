@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-variants:default / separator / border 三种布局。
+// Official marker-variants: default / separator / border, three layouts.
 ColumnLayout {
     width: 320
     spacing: 32                     // gap-8

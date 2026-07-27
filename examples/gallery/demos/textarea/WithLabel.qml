@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Field: 标签 + 描述 + 文本域。对标前端 textarea-field。
+// Field: label + description + textarea. Matches the frontend textarea-field.
 ColumnLayout {
     width: 320
     spacing: 6

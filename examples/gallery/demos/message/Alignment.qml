@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Alignment:start(接收方,左)与 end(发送方,右)。
+// Alignment: start (receiver, left) and end (sender, right).
 ColumnLayout {
     width: 360
     spacing: Theme.space6

@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Markdown 内容:用 Text.MarkdownText 近似富文本(粗体 / 行内 code / 段落)。
-// 对标官方 bubble-markdown。
+// Markdown content: use Text.MarkdownText to approximate rich text (bold / inline code / paragraphs).
+// Mirrors official bubble-markdown.
 ColumnLayout {
     width: 360
     spacing: 32

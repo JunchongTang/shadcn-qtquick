@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// Groups:分组 + 图标 + 分隔线(相邻分组间自动分隔)(command-groups)。
+// Groups: groups + icons + separators (adjacent groups auto-separated) (command-groups).
 Button {
     text: qsTr("Open Menu")
     variant: Button.Outline

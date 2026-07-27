@@ -5,7 +5,7 @@ compile_commands.json
 .DS_Store
 *.qmlc
 *.jsc
-# 上游 shadcn/ui 源码,仅作本地对齐参照,不纳入版本库
+# Upstream shadcn/ui source, kept locally for fidelity comparison only; not versioned.
 /reference/
 .cache
 # Generated API documentation (regenerate with docs/build-docs.sh)

@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 整个 Select 禁用(enabled:false → opacity 0.5,不可交互)。
-// 单项禁用:model 条目加 { disabled: true }(见列表里的 Grapes)。
+// Whole Select disabled (enabled:false → opacity 0.5, non-interactive).
+// Per-item disable: add { disabled: true } to the model entry (see Grapes in the list).
 Select {
     width: 200
     enabled: false

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Shadcn
 
-// 水平两栏:拖拽中间 1px 手柄改变左右占比。SplitView.* 为附加属性,故需 import QtQuick.Controls。
+// Horizontal two-pane: drag the 1px center handle to change the left/right ratio. SplitView.* are attached properties, so import QtQuick.Controls.
 Resizable {
     width: 380
     height: 200

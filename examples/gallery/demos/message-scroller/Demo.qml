@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 聊天滚动容器:置于固定高度的卡片框内,加载后自动贴底;上滑后浮现「跳至最新」按钮。
+// Chat scroll container: placed inside a fixed-height card frame, auto scroll-to-bottom after load; a "jump to latest" button appears once scrolled up.
 Rectangle {
     implicitWidth: 380
     implicitHeight: 460

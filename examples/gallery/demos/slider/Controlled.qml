@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 受控:label + 实时值显示,值双向绑定到滑块。
-// 官方 slider-controlled 用的是双值区间;单值 Slider 无法覆盖区间,这里以单值演示受控模式。
+// Controlled: label + live value display, value two-way bound to the slider.
+// Official slider-controlled uses a two-value range; single-value Slider can't cover a range, so demo the controlled mode with a single value here.
 ColumnLayout {
     width: 320                  // max-w-xs
     spacing: 12

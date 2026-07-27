@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Checkbox + 标签 + 辅助描述内联组合(对标 FieldContent + FieldDescription)。
+// Checkbox + label + helper description composed inline (mirrors FieldContent + FieldDescription).
 RowLayout {
     width: 300
     spacing: 8

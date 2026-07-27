@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 Disabled:整体禁用(输入框 opacity-50、不可编辑/展开)。
+// Official Disabled: fully disabled (input opacity-50, not editable/expandable).
 Combobox {
     width: 220
     enabled: false

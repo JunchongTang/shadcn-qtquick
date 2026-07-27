@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-shimmer:MarkerContent 加 shimmer 微光(流式文本)。
-// 近似说明:QML 无 background-clip:text 扫光,shimmer 以不透明度脉冲近似(见 Marker.qml)。
+// Official marker-shimmer: MarkerContent with a shimmer glow (streaming text).
+// Approximation note: QML has no background-clip:text sweep, so shimmer is approximated with an opacity pulse (see Marker.qml).
 ColumnLayout {
     width: 320
     spacing: 32                     // gap-8

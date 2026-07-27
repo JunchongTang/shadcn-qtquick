@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 基础:按钮打开承载 Command 的 Dialog(command-basic)。
+// Basic: a Button opens a Dialog hosting the Command (command-basic).
 Button {
     text: qsTr("Open Menu")
     variant: Button.Outline

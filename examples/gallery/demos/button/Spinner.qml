@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// loading:按钮内显示旋转 Spinner 并禁用交互(dim)。
+// loading: show a spinning Spinner inside the button and disable interaction (dim).
 RowLayout {
     spacing: 8
     Button { variant: Button.Outline; text: qsTr("Generating"); loading: true }

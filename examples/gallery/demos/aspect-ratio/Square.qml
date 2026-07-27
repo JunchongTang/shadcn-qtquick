@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 import LucideIcons
 
-// 方形 —— ratio 1/1、max-w-[12rem](192)。
+// Square — ratio 1/1, max-w-[12rem] (192).
 AspectRatio {
     width: 192
     ratio: 1 / 1

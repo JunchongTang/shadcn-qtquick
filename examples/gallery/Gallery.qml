@@ -5,10 +5,10 @@ import QtQuick.Controls.Basic as QC
 import Shadcn
 import LucideIcons
 
-// shadcn/QML 文档站 —— 仿 ui.shadcn.com/docs/components 外观:
-// 顶栏 + 左侧组件导航 + 右侧组件详情页(Loader 路由)。
-// 导航列出官方 registry 组件全集,已实现的挂真实页面,未实现的落占位页,
-// 便于逐项对比"哪些完成 / 哪些未完成"。
+// shadcn/QML docs site — mimics the ui.shadcn.com/docs/components look:
+// top bar + left component navigation + right component detail page (Loader routing).
+// The nav lists the full official registry component set; implemented ones mount real pages, unimplemented ones fall back to a placeholder page,
+// making it easy to compare item by item "which are done / which are not".
 Window {
     id: win
     width: 1180
@@ -17,15 +17,15 @@ Window {
     color: Theme.background
     title: qsTr("Shadcn - QtQuick")
 
-    // 当前选中组件 id 与其页面文件(空 → 占位页)。
+    // Currently selected component id and its page file (empty → placeholder page).
     property string currentId: "button"
     property string currentPage: "demos/button/PageButton.qml"
     property string currentLabel: "Button"
 
-    // 顶栏主导航当前分区:components | charts | create。
+    // Top-bar main navigation's current section: components | charts | create.
     property string section: "components"
 
-    // 顶栏导航项:纯文本 tab,选中态用前景色 + 中等字重。
+    // Top-bar nav item: plain-text tab, active state uses foreground color + medium weight.
     component NavTab: Text {
         id: navTab
         property bool active: false
@@ -38,11 +38,11 @@ Window {
         TapHandler { onTapped: navTab.clicked() }
     }
 
-    // 窄屏(< 860)收起侧栏,顶栏出汉堡按钮开抽屉,让内容区拿到全部宽度。
+    // Narrow screens (< 860) collapse the sidebar; the top bar shows a hamburger button to open a drawer, giving the content area full width.
     readonly property bool compact: width < 860
 
-    // 不可见的初始焦点占位:满足"场景需有 activeFocus,Tab 导航才启动"的前提,但自身无焦点环。
-    // 启动焦点落这里 → 首次 Tab 才把焦点送入真正的可交互控件(那时才按键盘 focus-visible 显环)。
+    // Invisible initial focus placeholder: satisfies the "the scene needs activeFocus before Tab navigation starts" prerequisite, but has no focus ring itself.
+    // Startup focus lands here → the first Tab then sends focus into a real interactive control (only then does keyboard focus-visible show a ring).
     Item { id: kbStart; width: 0; height: 0 }
 
     Component.onCompleted: {
@@ -50,8 +50,8 @@ Window {
         Qt.callLater(function () { kbStart.forceActiveFocus() })
     }
 
-    // ==== 导航数据:官方 Components 列表(含实现状态)========================
-    // page 非空即为已实现;label 用于详情页标题。
+    // ==== Nav data: official Components list (with implementation status) ========================
+    // A non-empty page means implemented; label is used for the detail page title.
     readonly property var nav: [
         { id: "accordion",        label: qsTr("Accordion"),        page: "demos/accordion/PageAccordion.qml" },
         { id: "alert",            label: qsTr("Alert"),            page: "demos/alert/PageAlert.qml" },
@@ -136,7 +136,7 @@ Window {
         return slug === "" ? "" : "qml-shadcn-" + slug + ".html"
     }
 
-    // 供示例卡「复制路径」调用:弹一条 toast 显示已复制的路径,短暂停留后自动消失。
+    // Called by the example card's "copy path": show a toast displaying the copied path, which auto-dismisses after a brief pause.
     function notifyCopied(path) {
         toaster.success(qsTr("Copied to clipboard"), { "description": path, "duration": 2000 })
     }
@@ -145,7 +145,7 @@ Window {
         anchors.fill: parent
         spacing: 0
 
-        // ==== 顶栏 ====
+        // ==== Top bar ====
         Item {
             Layout.fillWidth: true
             implicitHeight: 52
@@ -156,7 +156,7 @@ Window {
                 anchors.rightMargin: 16
                 spacing: 10
 
-                // 汉堡按钮:仅 Components 分区 + 窄屏,点开侧栏抽屉。
+                // Hamburger button: only in the Components section + narrow screens, opens the sidebar drawer.
                 IconButton {
                     visible: win.compact && win.section === "components"
                     iconName: "menu"
@@ -175,7 +175,7 @@ Window {
                 //     font.pixelSize: 13
                 // }
 
-                // 主导航:Components / Charts / Create
+                // Main navigation: Components / Charts / Create
                 RowLayout {
                     //Layout.leftMargin: 14
                     spacing: 18
@@ -200,17 +200,17 @@ Window {
             }
         }
 
-        // ==== 分区切换:Components / Charts / Create ====
+        // ==== Section switch: Components / Charts / Create ====
         StackLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
             currentIndex: win.section === "components" ? 0 : (win.section === "charts" ? 1 : 2)
 
-            // ---- 0: Components(侧栏 + 内容)----
+            // ---- 0: Components (sidebar + content) ----
             RowLayout {
                 spacing: 0
 
-                // ==== 左侧导航(宽屏内联;窄屏收起,改用抽屉)====
+                // ==== Left navigation (inline on wide screens; collapsed on narrow, uses a drawer instead) ====
                 DocsSidebar {
                     id: sidebar
                 visible: !win.compact
@@ -221,7 +221,7 @@ Window {
                 onItemClicked: (item) => win.select(item)
             }
 
-            // ==== 右侧内容区:顶部工具条 + Preview(示例卡片)/ API(内嵌 qdoc 文档)====
+            // ==== Right content area: top toolbar + Preview (example cards) / API (embedded qdoc docs) ====
             ColumnLayout {
                 id: contentArea
                 Layout.fillWidth: true
@@ -230,14 +230,14 @@ Window {
 
                 property bool showApi: false
                 readonly property string apiHtml: win.apiFile(win.currentId)
-                // 仅当文档已生成(docsBaseUrl 非空)且该组件有对应页时,才提供 API 切换。
+                // Offer the API toggle only when docs have been generated (docsBaseUrl non-empty) and the component has a corresponding page.
                 readonly property bool apiAvail: (typeof docsBaseUrl !== "undefined")
                                                  && docsBaseUrl !== "" && apiHtml !== ""
                 onApiAvailChanged: if (!apiAvail) showApi = false
-                // 切换组件时回到 Preview。
+                // Return to Preview when switching components.
                 Connections { target: win; function onCurrentIdChanged() { contentArea.showApi = false } }
 
-                // ---- 顶部工具条:左(仅 API 模式)后退/刷新/外部打开;右 Preview|API 分段 ----
+                // ---- Top toolbar: left (API mode only) back/refresh/open externally; right Preview|API segment ----
                 Item {
                     Layout.fillWidth: true
                     implicitHeight: 48
@@ -274,7 +274,7 @@ Window {
 
                         Item { Layout.fillWidth: true }
 
-                        // Preview | API 分段
+                        // Preview | API segment
                         Rectangle {
                             radius: Theme.radiusMd
                             color: Theme.background
@@ -302,7 +302,7 @@ Window {
                             }
                         }
                     }
-                    // 工具条底部分隔线
+                    // Toolbar bottom separator line
                     Rectangle {
                         anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
                         height: 1
@@ -310,14 +310,14 @@ Window {
                     }
                 }
 
-                // ---- Preview:示例卡片 ----
+                // ---- Preview: example cards ----
                 ScrollView {
                     id: contentScroll
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     visible: !contentArea.showApi
                     clip: true
-                    // 内容宽度锁定到视口可用宽 → 永不产生横向滚动,页面随窗口宽度自适应收缩。
+                    // Content width locked to the viewport's available width → never produces horizontal scrolling; the page shrinks responsively with the window width.
                     contentWidth: availableWidth
 
                     Item {
@@ -329,11 +329,11 @@ Window {
                             readonly property int pad: parent.width < 560 ? 16 : 40
                             x: pad
                             y: pad
-                            // 填满视口可用宽(不再封顶 760),使卡片随窗口变宽而变宽。
+                            // Fill the viewport's available width (no longer capped at 760), so cards grow as the window widens.
                             width: Math.max(0, parent.width - 2 * pad)
                             source: win.currentPage !== "" ? win.currentPage : "PagePlaceholder.qml"
-                            // 把标题/描述传给页面骨架;对需要铺满视口的页面(如主题定制器双栏)
-                            // 再传入可用视口高度,使其内部两栏各自滚动而非整页滚动。
+                            // Pass title/description to the page scaffold; for pages that need to fill the viewport (e.g. the theme customizer's two columns),
+                            // also pass the available viewport height so its inner two columns scroll individually rather than the whole page scrolling.
                             onLoaded: {
                                 if (!item)
                                     return
@@ -348,7 +348,7 @@ Window {
                     }
                 }
 
-                // ---- API:内嵌 qdoc 文档(懒加载,仅在切到 API 时实例化)----
+                // ---- API: embedded qdoc docs (lazy-loaded, instantiated only when switching to API) ----
                 Loader {
                     id: apiLoader
                     Layout.fillWidth: true
@@ -361,7 +361,7 @@ Window {
                 }
             }
 
-            // ---- 1: Charts(占位,暂未实现)----
+            // ---- 1: Charts (placeholder, not yet implemented) ----
             Item {
                 ColumnLayout {
                     anchors.centerIn: parent
@@ -382,7 +382,7 @@ Window {
                 }
             }
 
-            // ---- 2: Create(主题定制器,全宽)----
+            // ---- 2: Create (theme customizer, full width) ----
             Item {
                 PageThemeCustomizer {
                     anchors.fill: parent
@@ -393,13 +393,13 @@ Window {
         }
     }
 
-    // ==== 窄屏侧栏抽屉(汉堡按钮打开;选中后自动关闭)====
+    // ==== Narrow-screen sidebar drawer (opened by the hamburger button; auto-closes after selection) ====
     QC.Drawer {
         id: navDrawer
         edge: Qt.LeftEdge
         width: 260
         height: win.height
-        // 若窗口在抽屉打开时变宽到非 compact,自动收起。
+        // If the window widens past compact while the drawer is open, close it automatically.
         Connections { target: win; function onCompactChanged() { if (!win.compact) navDrawer.close() } }
 
         background: Rectangle { color: Theme.background }
@@ -412,7 +412,7 @@ Window {
         }
     }
 
-    // ==== 全局 Toast 层(覆盖全窗,右下角堆叠)====
+    // ==== Global Toast layer (covers the whole window, stacked at bottom-right) ====
     ToastArea {
         id: toaster
         anchors.fill: parent

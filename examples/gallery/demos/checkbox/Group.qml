@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Checkbox 列表(对标 FieldSet + FieldLegend + FieldGroup)。
+// Checkbox list (mirrors FieldSet + FieldLegend + FieldGroup).
 ColumnLayout {
     width: 300
     spacing: 6

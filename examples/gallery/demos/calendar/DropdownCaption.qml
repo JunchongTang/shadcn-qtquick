@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 月/年下拉标题(对齐 calendar-caption:captionLayout="dropdown")。
-// 标题区改用两个 NativeSelect 切换月份与年份;仍为单选模式。
+// Month/year dropdown caption (matches calendar-caption: captionLayout="dropdown").
+// The caption area uses two NativeSelects to switch month and year; still single-select mode.
 Rectangle {
     implicitWidth: cal.implicitWidth
     implicitHeight: cal.implicitHeight

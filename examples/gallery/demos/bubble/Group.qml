@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 分组连发:BubbleGroup 收紧同源气泡间距(gap-2)。align 设在各 Bubble 上。
-// 对标官方 bubble-group-demo。
+// Grouped bursts: BubbleGroup tightens spacing between same-source bubbles (gap-2). align is set on each Bubble.
+// Mirrors official bubble-group-demo.
 ColumnLayout {
     width: 360
     spacing: 32

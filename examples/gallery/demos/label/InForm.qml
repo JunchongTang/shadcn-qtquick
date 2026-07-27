@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 在表单中的 Label —— 与 Input、Checkbox 配合。
-// 对标前端「Label in Field」:标签 + 输入 纵向,以及标签 + 复选框 横向。
+// Label within a form — paired with Input and Checkbox.
+// Mirrors the web "Label in Field": label + input vertical, and label + checkbox horizontal.
 ColumnLayout {
     width: 280
     spacing: 16

@@ -2,7 +2,7 @@ import QtQuick
 import Shadcn
 import LucideIcons
 
-// 前缀搜索图标 + 后缀结果计数(对标官方 hero:input-group-demo)。
+// Leading search icon + trailing result count (matches official hero:input-group-demo).
 InputGroup {
     width: 320
 

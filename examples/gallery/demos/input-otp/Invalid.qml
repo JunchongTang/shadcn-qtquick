@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 错误态:invalid=true → 边框/环转破坏色(对标 input-otp-invalid)。
+// Error state: invalid=true → border/ring switch to destructive color (mirrors input-otp-invalid).
 InputOtp {
     length: 6
     groups: [2, 2, 2]

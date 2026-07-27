@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 快捷键提示:右侧对齐的 muted 文本(cn-context-menu-shortcut)。
+// Shortcut hints: right-aligned muted text (cn-context-menu-shortcut).
 Item {
     id: area
     implicitWidth: 320

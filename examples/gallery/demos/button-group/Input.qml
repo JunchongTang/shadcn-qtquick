@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 官方 button-group-input:Input 与按钮编成一组。ButtonGroup 自动为 Input(左)与
-// Button(右)拉直相邻内侧角:Input 圆左直右、Button 圆右直左。
+// Official button-group-input: Input and button form one group. ButtonGroup automatically flattens the
+// adjacent inner corners of Input (left) and Button (right): Input rounded-left/square-right, Button rounded-right/square-left.
 ButtonGroup {
     Input {
         width: 200

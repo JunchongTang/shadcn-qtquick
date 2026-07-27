@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 基础单选月历,预选今天;外框 rounded-lg border(对齐 calendar-demo)。
+// Basic single-select calendar, preselecting today; outer rounded-lg border (matches calendar-demo).
 Rectangle {
     implicitWidth: cal.implicitWidth
     implicitHeight: cal.implicitHeight

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 sheet-demo:右侧滑入,编辑资料表单 + 底部 Save / Close。
+// Official sheet-demo: slides in from the right, edit-profile form + Save / Close at the bottom.
 Button {
     text: qsTr("Open")
     variant: Button.Outline

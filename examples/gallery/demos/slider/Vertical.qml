@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// orientation="vertical" 双列,className="h-40"(160);gap-6(24)。
+// orientation="vertical" two columns, className="h-40" (160); gap-6 (24).
 RowLayout {
     spacing: 24
 

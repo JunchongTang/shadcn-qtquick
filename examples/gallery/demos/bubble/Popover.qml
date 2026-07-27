@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 气泡配 Popover:失败气泡的表情行放信息按钮,点击展开完整错误详情。
-// 对标官方 bubble-popover。
+// Bubble with Popover: the failed bubble's reaction row holds an info button that expands full error details on click.
+// Mirrors official bubble-popover.
 ColumnLayout {
     width: 360
     spacing: 16

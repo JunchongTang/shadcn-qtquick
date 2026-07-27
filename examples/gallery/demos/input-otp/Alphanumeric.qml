@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 字母数字:REGEXP_ONLY_DIGITS_AND_CHARS → 逐字符正则,3+3 分组(对标 input-otp-alphanumeric)。
+// Alphanumeric: REGEXP_ONLY_DIGITS_AND_CHARS → per-char regex, 3+3 groups (mirrors input-otp-alphanumeric).
 InputOtp {
     length: 6
     groups: [3, 3]

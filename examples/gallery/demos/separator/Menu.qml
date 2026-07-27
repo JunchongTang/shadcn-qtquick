@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Menu —— 用纵向分隔线在带描述的菜单项之间分组。
+// Menu — vertical dividers group menu items with descriptions.
 RowLayout {
     spacing: 16
 

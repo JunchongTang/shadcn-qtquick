@@ -1,14 +1,14 @@
 import QtQuick
-// 本文件名为 Avatar.qml,与 Shadcn 的 Avatar 同名 → 用命名空间导入 S. 消除「同目录自引用」递归。
+// This file is named Avatar.qml, the same name as Shadcn's Avatar → import via namespace S. to avoid "same-directory self-reference" recursion.
 import Shadcn as S
 
-// 头像触发的账户切换菜单(DropdownMenuTrigger render=ghost icon rounded-full + Avatar;align=end)。
+// Avatar-triggered account switcher menu (DropdownMenuTrigger render=ghost icon rounded-full + Avatar; align=end).
 S.Avatar {
     id: trigger
     fallback: "LR"
     source: "https://github.com/shadcn.png"
 
-    // align=end:菜单右缘对齐头像右缘(用常量宽度,避免 popup 时 width 尚未求值)
+    // align=end: menu right edge aligns to avatar right edge (uses a constant width to avoid width not yet being evaluated at popup time)
     TapHandler { onTapped: menu.popup(trigger.width - menu._w, trigger.height + 4) }
 
     S.Menu {

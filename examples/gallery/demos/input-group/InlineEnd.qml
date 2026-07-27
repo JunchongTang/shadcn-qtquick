@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// align="inline-end":图标位于输入末尾处(如密码可见性)。
+// align="inline-end": icon at the end of the input (e.g. password visibility).
 ColumnLayout {
     width: 320
     spacing: 6

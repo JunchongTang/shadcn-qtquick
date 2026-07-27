@@ -2,13 +2,13 @@ import QtQuick
 import QtQuick.Controls.Basic as QC
 import Shadcn
 
-// 单选项:两个互斥选择组。用两个 ButtonGroup 隔离(否则同一 Menu 内会被统一互斥)。
+// Radio items: two mutually exclusive selection groups. Isolate them with two ButtonGroups (otherwise a single Menu makes them all exclusive together).
 Item {
     id: area
     implicitWidth: 320
     implicitHeight: 180
 
-    // 独立的两个单选组(声明于区域内,仅作分组容器)
+    // Two independent radio groups (declared in the area, just grouping containers)
     QC.ButtonGroup { id: peopleGroup }
     QC.ButtonGroup { id: themeGroup }
 

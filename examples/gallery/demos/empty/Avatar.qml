@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 empty-avatar:default 媒体槽内放头像。
-// 注:Avatar 组件用枚举尺寸(Lg = 40),web 为 size-12(48);grayscale 未支持(近似)。
+// Official empty-avatar: avatar in the default media slot.
+// Note: Avatar uses enum sizes (Lg = 40); web is size-12 (48); grayscale unsupported (approximation).
 Empty {
     EmptyHeader {
         EmptyMedia {

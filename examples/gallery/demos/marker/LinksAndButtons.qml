@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-link-button:用 render 把标记变为链接或按钮。
-//   链接:interactive + underline(常驻下划线,hover→foreground)。
-//   按钮:interactive(hover→foreground,点击触发动作)。
+// Official marker-link-button: use render to turn a marker into a link or button.
+//   Link: interactive + underline (persistent underline, hover→foreground).
+//   Button: interactive (hover→foreground, click triggers an action).
 ColumnLayout {
     width: 320
     spacing: 32                     // gap-8

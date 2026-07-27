@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 表格中的 Checkbox —— 表头「全选」+ 行选择。用 ColumnLayout/RowLayout + Separator 模拟表格行。
+// Checkbox in a table —— header "select all" + row selection. Table rows are faked with ColumnLayout/RowLayout + Separator.
 ColumnLayout {
     id: root
     width: 460
@@ -26,7 +26,7 @@ ColumnLayout {
         ListElement { name: "David Kim"; email: "david.kim@example.com"; role: "Editor"; sel: false }
     }
 
-    // ---- 表头 ----
+    // ---- Header ----
     RowLayout {
         Layout.fillWidth: true
         Layout.leftMargin: 8
@@ -73,7 +73,7 @@ ColumnLayout {
 
     Separator { Layout.fillWidth: true }
 
-    // ---- 数据行 ----
+    // ---- Data rows ----
     Repeater {
         model: tableModel
         delegate: ColumnLayout {
@@ -87,7 +87,7 @@ ColumnLayout {
                 Layout.preferredHeight: 44
                 spacing: 0
 
-                // data-state=selected → bg-muted 行高亮
+                // data-state=selected → bg-muted row highlight
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true

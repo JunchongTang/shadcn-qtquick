@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 组件详情页骨架 —— 大标题 + 描述 + 预览块列表。componentLabel 由外壳注入。
+// Component detail page scaffold — large title + description + list of preview blocks. componentLabel is injected by the shell.
 ColumnLayout {
     id: root
     property string componentLabel: ""

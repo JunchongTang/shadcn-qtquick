@@ -2,14 +2,14 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Card Image —— 对标官方 card-image:卡片顶部一张贴边封面图(aspect-video、圆角上沿)。
-// 图片是卡片首个子项 → 去掉顶部内边距(has-[>img:first-child]:pt-0),并向上/左/右
-// 各用 -cardSpacing 负边距铺满到卡片边缘;顶部两角圆角对齐卡片圆角(*:[img:first-child]:rounded-t-lg)。
+// Card Image —— mirrors official card-image: a flush cover image at the card top (aspect-video, rounded top).
+// The image is the card's first child → drop the top padding (has-[>img:first-child]:pt-0), and use
+// -cardSpacing negative margins on top/left/right to span the card edges; the two top corners match the card radius (*:[img:first-child]:rounded-t-lg).
 Card {
     id: card
     width: 340
 
-    // ==== 顶部封面(Rectangle 占位色 + 暗化遮罩,等价 <img> + bg-black/35)====
+    // ==== Top cover (Rectangle placeholder color + dark overlay, equivalent to <img> + bg-black/35) ====
     Item {
         Layout.fillWidth: true
         Layout.leftMargin: -card.cardSpacing
@@ -21,9 +21,9 @@ Card {
             anchors.fill: parent
             topLeftRadius: Theme.radiusLg
             topRightRadius: Theme.radiusLg
-            color: Theme.secondary               // 占位封面色
+            color: Theme.secondary               // placeholder cover color
         }
-        // 暗化遮罩(bg-black/35)
+        // Dark overlay (bg-black/35)
         Rectangle {
             anchors.fill: parent
             topLeftRadius: Theme.radiusLg

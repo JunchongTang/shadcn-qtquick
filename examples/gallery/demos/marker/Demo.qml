@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-demo:内联标记 / 状态(spinner + shimmer)/ 分隔 / 内联。
+// Official marker-demo: inline marker / status (spinner + shimmer) / separator / inline.
 ColumnLayout {
     width: 320
     spacing: 32                     // gap-8

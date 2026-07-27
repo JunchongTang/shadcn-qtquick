@@ -3,12 +3,12 @@ import QtQuick.Layouts
 import Shadcn
 import LucideIcons
 
-// align="block-start":addon 位于输入/文本域上方(纵向)。
+// align="block-start": addon sits above the input/textarea (vertical).
 ColumnLayout {
     width: 340
     spacing: 20
 
-    // 输入 + 顶部标题
+    // Input + top title
     InputGroup {
         Layout.fillWidth: true
         InputGroupInput { placeholderText: qsTr("Enter your name") }
@@ -18,7 +18,7 @@ ColumnLayout {
         }
     }
 
-    // 文本域 + 顶部工具条(图标 + 文件名 + 复制)
+    // Textarea + top toolbar (icon + filename + copy)
     InputGroup {
         Layout.fillWidth: true
         InputGroupTextarea {

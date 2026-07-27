@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 breadcrumb-ellipsis(Collapsed):用 BreadcrumbEllipsis 表示折叠的中间层级。
+// Official breadcrumb-ellipsis (Collapsed): use BreadcrumbEllipsis to represent collapsed middle levels.
 Breadcrumb {
     BreadcrumbItem {
         BreadcrumbLink { text: qsTr("Home") }

@@ -2,26 +2,26 @@ import QtQuick
 import QtTest
 import Shadcn
 
-// Table(TableView 版)单测:列定义 / 列宽计算(固定+fill+min/max)/ fill 兜底铺满 / 行数 / 选择。
-// 外观类断言:渲染后读内部 _widths 数组做数值比对。
+// Table (TableView version) unit tests: column definitions / column-width computation (fixed+fill+min/max) / fill safety-net filling / row count / selection.
+// Appearance assertions: read the internal _widths array after render for numeric comparison.
 Item {
     id: root
     width: 760
     height: 400
 
-    // 固定 + fill + 固定
+    // fixed + fill + fixed
     Table {
         id: t1
         width: 600
         columns: [
             { title: "A", key: "a", width: 150 },
-            { title: "B", key: "b" },                    // 无 width → fill
+            { title: "B", key: "b" },                    // no width → fill
             { title: "C", key: "c", width: 120 }
         ]
         model: [ { a: "1", b: "2", c: "3" }, { a: "4", b: "5", c: "6" } ]
     }
 
-    // 全固定,和 < 表宽 → 末列兜底吸收
+    // all fixed, sum < table width → last column absorbs the remainder as a safety net
     Table {
         id: t2
         width: 500
@@ -29,7 +29,7 @@ Item {
         model: [ { a: "x", b: "y" } ]
     }
 
-    // min/max 夹取
+    // min/max clamping
     Table {
         id: t3
         width: 600
@@ -37,7 +37,7 @@ Item {
         model: [ { a: "x", b: "y" } ]
     }
 
-    // 声明式列(columnItems + TableColumn)—— 与 JS columns 等价。
+    // Declarative columns (columnItems + TableColumn) — equivalent to JS columns.
     Table {
         id: t4
         width: 600
@@ -49,7 +49,7 @@ Item {
         model: [ { a: "1", b: "2", c: "3" }, { a: "4", b: "5", c: "6" } ]
     }
 
-    // 动态切列:columns 由属性驱动,运行时增减列。用于回归「派生列集合滞后」错位 bug。
+    // Dynamic column switching: columns driven by a property, adding/removing columns at runtime. Regression test for the "derived column set lags" misalignment bug.
     property bool showMiddle: true
     Table {
         id: t5
@@ -72,7 +72,7 @@ Item {
             compare(t1.rowHeight, 40)
         }
 
-        // 固定列保持;fill 列 = 剩余;总宽铺满。
+        // fixed columns preserved; fill column = remainder; total width fills.
         function test_widths_fixed_and_fill() {
             wait(0)
             compare(t1._widths[0], 150)
@@ -82,7 +82,7 @@ Item {
             verify(Math.abs(sum - 600) <= 1)
         }
 
-        // 无 fill 列也兜底铺满:末列吸收剩余,首列不变。
+        // even with no fill column it fills as a safety net: last column absorbs the remainder, first column unchanged.
         function test_fill_safety_net() {
             wait(0)
             compare(t2._widths[0], 100)
@@ -91,15 +91,15 @@ Item {
             verify(Math.abs(sum - 500) <= 1)
         }
 
-        // maxWidth 夹取 fill 列;仍兜底铺满(末列 B 吸收超出部分)。
+        // maxWidth clamps the fill column; still fills as a safety net (last column B absorbs the excess).
         function test_minmax_clamp() {
             wait(0)
-            verify(t3._widths[0] <= 200 + 1)             // A 被 maxWidth 夹到 ≤200
+            verify(t3._widths[0] <= 200 + 1)             // A clamped by maxWidth to ≤200
             var sum = t3._widths[0] + t3._widths[1]
             verify(Math.abs(sum - 600) <= 1)
         }
 
-        // JS 数组 → 内部 TableModel → 行数正确。
+        // JS array → internal TableModel → correct row count.
         function test_model_rows() {
             wait(0)
             compare(t1.view.rows, 2)
@@ -110,7 +110,7 @@ Item {
             compare(t1.selectedRows.length, 2)
         }
 
-        // 声明式 columnItems 等价 JS columns:固定/fill 宽解析与行数一致。
+        // Declarative columnItems equivalent to JS columns: fixed/fill width resolution and row count match.
         function test_declarative_columns() {
             wait(0)
             compare(t4.view.rows, 2)
@@ -119,16 +119,16 @@ Item {
             verify(Math.abs(t4._widths[1] - (600 - 150 - 120)) <= 1)
         }
 
-        // 回归:动态切列后,内部模型列数 / _widths 长度必须与当前列集合同步(修复前会滞后一步 → 错位)。
+        // Regression: after dynamic column switching, the internal model column count / _widths length must stay in sync with the current column set (before the fix it lagged by one step → misalignment).
         function test_dynamic_column_change() {
             wait(0)
             compare(t5.view.columns, 3)
             compare(t5._widths.length, 3)
-            root.showMiddle = false                 // 去掉中间列 → 2 列
+            root.showMiddle = false                 // remove the middle column → 2 columns
             wait(0)
             compare(t5.view.columns, 2)
             compare(t5._widths.length, 2)
-            root.showMiddle = true                  // 再加回 → 3 列
+            root.showMiddle = true                  // add it back → 3 columns
             wait(0)
             compare(t5.view.columns, 3)
             compare(t5._widths.length, 3)

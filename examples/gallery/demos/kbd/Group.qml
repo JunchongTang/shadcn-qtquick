@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 kbd-group:在一句说明文字中内联一组 KbdGroup(每个 Kbd 是完整快捷键)。
+// Official kbd-group: inline a KbdGroup within a line of explanatory text (each Kbd is a full shortcut).
 RowLayout {
     spacing: Theme.space1_5
 

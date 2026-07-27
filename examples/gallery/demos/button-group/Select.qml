@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 官方 button-group-select:Select + Input 编为一组,再与「发送」图标按钮分组(gap-2)。
+// Official button-group-select: Select + Input form one group, then grouped with the "send" icon button (gap-2).
 Row {
     spacing: 8
 

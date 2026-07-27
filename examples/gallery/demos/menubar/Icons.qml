@@ -1,7 +1,7 @@
 import QtQuick
 import Shadcn
 
-// 图标 + 标签,便于快速扫读(复用 MenuItem.iconName;destructive 变体)。
+// Icon + label for quick scanning (reuses MenuItem.iconName; destructive variant).
 Menubar {
     id: menubar
 

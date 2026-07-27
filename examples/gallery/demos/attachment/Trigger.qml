@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 attachment-trigger:全卡 Trigger 打开对话框预览,而 actions(复制/移除)仍独立可点。
-// Trigger 覆盖层位于内容之下、actions 之下,故两者互不遮挡。
+// Official attachment-trigger: a full-card Trigger opens a preview dialog, while actions (copy/remove) stay independently clickable.
+// The Trigger overlay sits below the content and below the actions, so the two never occlude each other.
 ColumnLayout {
     width: 360
 

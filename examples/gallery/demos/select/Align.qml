@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// Align Item With Trigger:开关切换 alignItemWithTrigger。
-// true → 弹层上移使当前项(Banana)覆盖触发器;false → 贴触发器下沿弹出。
-// 注:简化实现,不含滚动/视口夹取,适用于条目较少可完整显示的场景。
+// Align Item With Trigger: switch toggles alignItemWithTrigger.
+// true → popup shifts up so the current item (Banana) covers the trigger; false → opens flush below the trigger.
+// Note: simplified implementation, no scroll/viewport clamping; suits cases with few fully-visible items.
 ColumnLayout {
     width: 260
     spacing: 12

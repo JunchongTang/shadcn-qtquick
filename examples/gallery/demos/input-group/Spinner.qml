@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 加载态:Spinner 作为 addon(前缀 / 后缀 / 与文本并列)。
+// Loading state: Spinner as an addon (leading / trailing / alongside text).
 ColumnLayout {
     width: 320
     spacing: 16

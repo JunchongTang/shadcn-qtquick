@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Shadcn
 
-// 官方 marker-icon:MarkerIcon 图标槽;第三个用 flex-col(stacked)图标在上、内容在下。
+// Official marker-icon: MarkerIcon icon slot; the third uses flex-col (stacked) with the icon on top and content below.
 ColumnLayout {
     width: 320
     spacing: 48                     // gap-12

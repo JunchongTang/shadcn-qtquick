@@ -84,8 +84,9 @@ qt_add_qml_module(shadcn_gallery
         demos/typography/PageTypography.qml
 )
 
-# 示例内容以「原始资源」而非 QML_FILES 收录:按组件分文件夹、文件名可重复,
-# 运行期由 Loader 按 URL(qrc:/demos/...)加载,同一 URL 经 XMLHttpRequest 读出源码显示。
+# Demo content is bundled as raw resources rather than QML_FILES: grouped per component
+# in folders (file names may repeat). Loaded at runtime by a Loader via URL (qrc:/demos/...),
+# and the same URL is read back over XMLHttpRequest to show the source.
 qt_add_resources(shadcn_gallery "gallery_demos"
     PREFIX "/"
     BASE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -483,7 +484,7 @@ qt_add_resources(shadcn_gallery "gallery_demos"
         shots/Sonner.qml
 )
 
-# STATIC 模块的 backing lib + plugin 均可链接;LucideIcons 供 gallery 直接/间接用。
+# Link the STATIC module's backing lib + plugin; LucideIcons is used by the gallery directly/indirectly.
 # Qt6::WebView backs the embedded API-docs pane (ApiDocsView.qml).
 target_link_libraries(shadcn_gallery PRIVATE
     Qt6::Quick

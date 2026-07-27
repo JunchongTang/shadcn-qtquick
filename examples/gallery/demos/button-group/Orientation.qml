@@ -1,8 +1,8 @@
 import QtQuick
 import Shadcn
 
-// 官方 button-group-orientation:orientation=vertical 让整组纵向排列(媒体控制)。
-// 纵向时 ButtonGroup 自动为相邻按钮拉直上/下内侧角。
+// Official button-group-orientation: orientation=vertical lays out the whole group vertically (media controls).
+// When vertical, ButtonGroup automatically flattens the top/bottom inner corners of adjacent buttons.
 ButtonGroup {
     orientation: ButtonGroup.Vertical
 
