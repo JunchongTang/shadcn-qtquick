@@ -2,6 +2,7 @@
 
 [English](README.md) | **简体中文**
 
+[![Documentation](https://img.shields.io/badge/docs-online-blue.svg)](https://junchongtang.github.io/shadcn-qtquick/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](LICENSE)
 ![Qt 6.8+](https://img.shields.io/badge/Qt-6.8%2B-41cd52.svg)
 ![C++20](https://img.shields.io/badge/C%2B%2B-20-00599c.svg)
