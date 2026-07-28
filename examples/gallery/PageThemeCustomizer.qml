@@ -2,6 +2,8 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls.Basic as QC
+import QtQuick.Effects
 import Shadcn
 import LucideIcons
 
@@ -67,11 +69,14 @@ Item {
     property int    radiusValue: 10
 
     // Panel is fixed dark (matches the official className="dark" customize card, doesn't follow the app's light/dark mode).
-    readonly property color pBg: "#0a0a0a"
-    readonly property color pBorder: "#262626"
+    // Official panel is bg-card/90 (dark card #171717 at 90%), so the measured
+    // color is that blended over the page background: ~#2f2f2f in light mode,
+    // ~#161616 in dark. Keep it translucent so it composites the same way.
+    readonly property color pBg: Qt.rgba(0.09, 0.09, 0.09, 0.9)
+    readonly property color pBorder: "#2c2c2e"
     readonly property color pText: "#fafafa"
     readonly property color pMuted: "#a1a1a1"
-    readonly property color pHover: "#1f1f22"
+    readonly property color pHover: "#2a2a2c"
 
     function applyBase(b) {
         var map = { "background": b.l.bg, "foreground": b.l.fg, "card": b.l.bg, "cardForeground": b.l.fg,
@@ -110,7 +115,9 @@ Item {
         setRadius(radii[Math.floor(Math.random() * radii.length)])
     }
 
-    // Compact picker row: small label + current value + right-side color dot/icon; click pops up a menu (default children are the menu items).
+    // Compact picker row: small label + current value + right-side color dot/icon.
+    // Clicking opens a hand-styled dark popup (matches the official create card).
+    // Callers still pass MenuItem children (used purely as data: text + triggered).
     component PickerRow: Rectangle {
         id: prow
         property string label: ""
@@ -118,13 +125,13 @@ Item {
         property bool hasDot: false
         property color dotColor: "transparent"
         property string iconName: "chevron-down"
-        default property alias menuData: prowMenu.contentData
+        default property alias menuData: itemHost.data
         Layout.fillWidth: true
         implicitHeight: 46
         radius: Theme.radiusMd
         color: prowHover.hovered ? page.pHover : "transparent"
         HoverHandler { id: prowHover; cursorShape: Qt.PointingHandCursor }
-        TapHandler { onTapped: prowMenu.popup(0, prow.height + 2) }
+        TapHandler { onTapped: prowMenu.open() }
         RowLayout {
             anchors.fill: parent
             anchors.leftMargin: 10
@@ -149,7 +156,92 @@ Item {
             }
             LucideIcon { visible: !prow.hasDot && prow.iconName !== ""; name: prow.iconName; size: 15; color: page.pMuted }
         }
-        Menu { id: prowMenu }
+
+        // Holds the caller's MenuItem children as data only (never shown directly).
+        Item { id: itemHost; visible: false }
+
+        QC.Popup {
+            id: prowMenu
+            // Official: side="right", align="start" — open to the right of the
+            // panel (clear of its edge), top-aligned, nudged down a touch.
+            x: prow.width + 20
+            y: 4
+            width: 208                              // md:w-52
+            padding: 6
+            modal: false
+            closePolicy: QC.Popup.CloseOnEscape | QC.Popup.CloseOnPressOutside
+
+            // Same color as the sidebar (opaque, so it stays crisp over the busy
+            // preview): the panel's composited shade — #2e2e2e in light, #161616
+            // in dark.
+            background: Rectangle {
+                color: Theme.dark ? "#161616" : "#2e2e2e"
+                radius: 14
+                border.width: 1
+                border.color: Theme.dark ? Qt.rgba(1, 1, 1, 0.08) : Qt.rgba(1, 1, 1, 0.06)
+                layer.enabled: true
+                layer.effect: MultiEffect {
+                    shadowEnabled: true
+                    shadowColor: "#000000"
+                    shadowOpacity: 0.35
+                    shadowVerticalOffset: 6
+                    shadowBlur: 0.8
+                }
+            }
+
+            enter: Transition {
+                NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 110 }
+                NumberAnimation { property: "scale"; from: 0.96; to: 1; duration: 110; easing.type: Easing.OutCubic }
+            }
+            exit: Transition {
+                NumberAnimation { property: "opacity"; from: 1; to: 0; duration: 70 }
+            }
+
+            contentItem: Column {
+                spacing: 1
+                Repeater {
+                    model: itemHost.children
+                    delegate: Rectangle {
+                        id: mrow
+                        required property var modelData
+                        width: prowMenu.availableWidth
+                        height: 38
+                        radius: 9
+                        color: mrowHover.hovered ? (Theme.dark ? "#262628" : "#3d3d3d") : "transparent"
+                        readonly property bool current: prow.valueText === mrow.modelData.text
+                                                      || prow.valueText === mrow.modelData.text + " px"
+                        HoverHandler { id: mrowHover; cursorShape: Qt.PointingHandCursor }
+                        TapHandler {
+                            onTapped: {
+                                if (typeof mrow.modelData.trigger === "function")
+                                    mrow.modelData.trigger()
+                                else
+                                    mrow.modelData.triggered()
+                                prowMenu.close()
+                            }
+                        }
+                        RowLayout {
+                            anchors.fill: parent
+                            anchors.leftMargin: 12
+                            anchors.rightMargin: 12
+                            spacing: 8
+                            Text {
+                                Layout.fillWidth: true
+                                text: mrow.modelData.text
+                                color: "#fafafa"
+                                font.pixelSize: Theme.textSm
+                                font.weight: Font.Medium
+                                elide: Text.ElideRight
+                            }
+                            LucideIcon {
+                                visible: mrow.current
+                                name: "check"; size: 15; color: "#fafafa"
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // Dark small button (panel bottom actions; not using the library Button to avoid conflicting with the app's light/dark mode).
@@ -162,7 +254,7 @@ Item {
         Layout.fillWidth: true
         implicitHeight: 32
         radius: Theme.radiusMd
-        color: prominent ? page.pText : (dbtnHover.hovered ? "#27272a" : "#18181b")
+        color: prominent ? page.pText : (dbtnHover.hovered ? "#333336" : "#262628")
         HoverHandler { id: dbtnHover; cursorShape: Qt.PointingHandCursor }
         TapHandler { onTapped: dbtn.clicked() }
         RowLayout {
@@ -177,7 +269,7 @@ Item {
         anchors.fill: parent
         spacing: 16
 
-        // ============================ Left: dark customization panel (matches the official site) ============================
+        // Left: solid dark customization panel (side-by-side, does not cover the preview).
         Rectangle {
             Layout.preferredWidth: 240
             Layout.fillHeight: true
@@ -193,6 +285,7 @@ Item {
                 anchors.margins: 8
                 clip: true
                 contentWidth: availableWidth
+                QC.ScrollBar.vertical.policy: QC.ScrollBar.AlwaysOff   // official hides the scrollbar
 
                 ColumnLayout {
                     width: panelScroll.availableWidth
@@ -300,7 +393,7 @@ Item {
             }
         }
 
-        // ==================== Right: live showcase — preview-02 bento dashboard ====================
+        // Right: live preview-02 bento dashboard (beside the panel, not covered).
         CreateDashboard {
             Layout.fillWidth: true
             Layout.fillHeight: true
