@@ -35,7 +35,7 @@ Item {
         "bar":    ["Bar", "BarHorizontal", "BarMultiple", "BarLabel", "BarNegative"],
         "line":   ["Line", "LineLinear", "LineStep", "LineDots", "LineMultiple"],
         "pie":    ["Pie", "PieDonut"],
-        "radar":  ["Radar", "RadarDots", "RadarMultiple", "RadarLinesOnly", "RadarGridCircle", "RadarLegend"],
+        "radar":  ["Radar", "RadarDots", "RadarLinesOnly", "RadarLabelCustom", "RadarGridCustom", "RadarGridNone", "RadarGridCircle", "RadarGridCircleNoLines", "RadarGridCircleFill", "RadarGridFill", "RadarMultiple", "RadarLegend"],
         "radial": ["RadialSimple", "RadialLabel", "RadialGrid", "RadialText", "RadialShape", "RadialStacked"]
     })
 

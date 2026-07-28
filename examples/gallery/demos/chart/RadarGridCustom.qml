@@ -9,7 +9,7 @@ Card {
     CardHeader {
         Layout.alignment: Qt.AlignHCenter
         CardTitle {
-            text: qsTr("Radar Chart - Legend")
+            text: qsTr("Radar Chart - Grid Custom")
             horizontalAlignment: Text.AlignHCenter
         }
         CardDescription {
@@ -24,19 +24,17 @@ Card {
             Layout.preferredHeight: 250
             type: Chart.Radar
             categoryKey: "month"
-            showLegend: true
-            tooltipIndicator: ChartTooltip.Line
-            series: [
-                { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 },
-                { key: "mobile",  label: qsTr("Mobile"),  color: Theme.chart2 }
-            ]
+            polarRadialLines: false
+            polarGridLevels: 1
+            hideTooltipLabel: true
+            series: [ { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 } ]
             chartData: [
-                { month: "January",  desktop: 186, mobile: 80 },
-                { month: "February", desktop: 305, mobile: 200 },
-                { month: "March",    desktop: 237, mobile: 120 },
-                { month: "April",    desktop: 73,  mobile: 190 },
-                { month: "May",      desktop: 209, mobile: 130 },
-                { month: "June",     desktop: 214, mobile: 140 }
+                { month: "January",  desktop: 186 },
+                { month: "February", desktop: 305 },
+                { month: "March",    desktop: 237 },
+                { month: "April",    desktop: 273 },
+                { month: "May",      desktop: 209 },
+                { month: "June",     desktop: 214 }
             ]
         }
     }

@@ -200,6 +200,12 @@ qt_add_resources(shadcn_gallery "gallery_demos"
         demos/chart/Radar.qml
         demos/chart/RadarDots.qml
         demos/chart/RadarGridCircle.qml
+        demos/chart/RadarGridCircleFill.qml
+        demos/chart/RadarGridCircleNoLines.qml
+        demos/chart/RadarGridCustom.qml
+        demos/chart/RadarGridFill.qml
+        demos/chart/RadarGridNone.qml
+        demos/chart/RadarLabelCustom.qml
         demos/chart/RadarLegend.qml
         demos/chart/RadarLinesOnly.qml
         demos/chart/RadarMultiple.qml

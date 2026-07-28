@@ -191,6 +191,27 @@ Item {
         Radar polygon fill opacity (0 = stroke only). Defaults to \c 0.6.
     */
     property real radarFillOpacity: 0.6
+    /*!
+        \qmlproperty color Chart::polarGridFill
+        Radar: fill colour of the outermost grid ring (Recharts \c {<PolarGrid
+        fill=... />}). Transparent (the default) leaves the grid unfilled.
+    */
+    property color polarGridFill: "transparent"
+    /*!
+        \qmlproperty int Chart::polarGridLevels
+        Radar: number of concentric grid rings. \c 0 (the default) derives the
+        rings from the value ticks; a positive value draws exactly that many
+        evenly spaced rings (e.g. \c 1 for a single outer ring, Recharts
+        \c {polarRadius={[90]}}).
+    */
+    property int polarGridLevels: 0
+    /*!
+        \qmlproperty bool Chart::polarAngleValueLabels
+        Radar: replace each angle label with its per-series values (\c a/b) above
+        the category name (Recharts custom \c PolarAngleAxis tick). Defaults to
+        \c false.
+    */
+    property bool polarAngleValueLabels: false
 
     // ==== Polar: Radial bars ====
     /*!
@@ -846,6 +867,20 @@ Item {
     }
     // Canvas angle of category i (starting at -90 degrees, clockwise)
     function _radarAngle(i, n) { return -Math.PI / 2 + i * 2 * Math.PI / n }
+    // Trace a single radar grid ring (circle or n-gon) at radius rr.
+    function _radarRingPath(ctx, cx, cy, rr, n) {
+        ctx.beginPath()
+        if (polarGridCircle) {
+            ctx.arc(cx, cy, rr, 0, 2 * Math.PI)
+        } else {
+            for (var i = 0; i < n; i++) {
+                var a = _radarAngle(i, n)
+                var px = cx + rr * Math.cos(a), py = cy + rr * Math.sin(a)
+                if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py)
+            }
+            ctx.closePath()
+        }
+    }
 
     function _paintRadar(ctx) {
         var n = chartData.length
@@ -858,22 +893,24 @@ Item {
         // ---- Polar grid ----
         if (showGrid) {
             ctx.save()
+            // Ring radii: a fixed level count when requested, else one ring per
+            // value tick.
+            var radii = []
+            if (polarGridLevels > 0) {
+                for (var lv = 1; lv <= polarGridLevels; lv++) radii.push(R * lv / polarGridLevels)
+            } else {
+                var ticks = _scale.ticks
+                for (var t = 1; t < ticks.length; t++) radii.push(R * (ticks[t] / max))
+            }
+            // Optional filled background under the outermost ring.
+            if (polarGridFill.a > 0 && radii.length > 0) {
+                _radarRingPath(ctx, cx, cy, radii[radii.length - 1], n)
+                ctx.fillStyle = polarGridFill; ctx.fill()
+            }
             ctx.strokeStyle = Theme.border
             ctx.lineWidth = 1
-            var ticks = _scale.ticks
-            for (var t = 1; t < ticks.length; t++) {
-                var rr = R * (ticks[t] / max)
-                ctx.beginPath()
-                if (polarGridCircle) {
-                    ctx.arc(cx, cy, rr, 0, 2 * Math.PI)
-                } else {
-                    for (var i = 0; i < n; i++) {
-                        var a = _radarAngle(i, n)
-                        var px = cx + rr * Math.cos(a), py = cy + rr * Math.sin(a)
-                        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py)
-                    }
-                    ctx.closePath()
-                }
+            for (var ri = 0; ri < radii.length; ri++) {
+                _radarRingPath(ctx, cx, cy, radii[ri], n)
                 ctx.stroke()
             }
             // Spokes
@@ -922,9 +959,8 @@ Item {
             }
         }
 
-        // ---- Angle labels (category names) ----
+        // ---- Angle labels (category names, or per-series value labels) ----
         ctx.save()
-        ctx.fillStyle = Theme.mutedForeground
         ctx.font = Theme.textXs + "px '" + Theme.fontSans + "'"
         ctx.textBaseline = "middle"
         for (var q = 0; q < n; q++) {
@@ -935,7 +971,20 @@ Item {
             ctx.textAlign = Math.abs(cosv) < 0.3 ? "center" : (cosv > 0 ? "left" : "right")
             var lab = xTickFormatter ? xTickFormatter(chartData[q][categoryKey])
                                      : (chartData[q][categoryKey] !== undefined ? String(chartData[q][categoryKey]) : "")
-            ctx.fillText(lab, lx, ly)
+            if (polarAngleValueLabels && s >= 1) {
+                // "a/b" values above, category name below (Recharts custom tick).
+                var vals = []
+                for (var vi = 0; vi < s; vi++) vals.push(Number(chartData[q][seriesKeys[vi]]) || 0)
+                ctx.fillStyle = Theme.foreground
+                ctx.font = "500 13px '" + Theme.fontSans + "'"
+                ctx.fillText(vals.join("/"), lx, ly - 7)
+                ctx.fillStyle = Theme.mutedForeground
+                ctx.font = "12px '" + Theme.fontSans + "'"
+                ctx.fillText(lab, lx, ly + 8)
+            } else {
+                ctx.fillStyle = Theme.mutedForeground
+                ctx.fillText(lab, lx, ly)
+            }
         }
         ctx.restore()
     }

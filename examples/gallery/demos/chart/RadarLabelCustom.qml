@@ -9,7 +9,7 @@ Card {
     CardHeader {
         Layout.alignment: Qt.AlignHCenter
         CardTitle {
-            text: qsTr("Radar Chart - Legend")
+            text: qsTr("Radar Chart - Custom Label")
             horizontalAlignment: Text.AlignHCenter
         }
         CardDescription {
@@ -24,7 +24,7 @@ Card {
             Layout.preferredHeight: 250
             type: Chart.Radar
             categoryKey: "month"
-            showLegend: true
+            polarAngleValueLabels: true
             tooltipIndicator: ChartTooltip.Line
             series: [
                 { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 },
