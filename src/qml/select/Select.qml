@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
-import LucideIcons
 
 /*!
     \qmltype Select
@@ -118,7 +117,7 @@ C.ComboBox {
     }
 
     // ==== Trailing chevron-down ====
-    indicator: LucideIcon {
+    indicator: Icon {
         x: control.width - width - Theme.space2
         y: (control.height - height) / 2
         name: "chevron-down"
@@ -238,7 +237,7 @@ C.ComboBox {
                 verticalAlignment: Text.AlignVCenter
             }
             // Trailing check on the selected item (absolute right-2).
-            LucideIcon {
+            Icon {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.space2
                 anchors.verticalCenter: parent.verticalCenter

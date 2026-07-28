@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype Command
@@ -193,7 +192,7 @@ Rectangle {
                 anchors.rightMargin: Theme.space2_5
                 spacing: Theme.space2                // gap-2
 
-                LucideIcon {
+                Icon {
                     name: "search"
                     size: 14                         // size-3.5
                     color: Theme.foreground
@@ -311,7 +310,7 @@ Rectangle {
                             readonly property color _fg: rowItem._selected
                                 ? Theme.foreground : Theme.popoverForeground
 
-                            LucideIcon {
+                            Icon {
                                 visible: (rowItem.modelData.icon || "") !== ""
                                 name: rowItem.modelData.icon || ""
                                 size: 14                         // svg size-3.5

@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype Badge
@@ -147,7 +146,7 @@ Item {
             implicitWidth: childrenRect.width
             implicitHeight: childrenRect.height
         }
-        LucideIcon {
+        Icon {
             visible: control.iconName !== ""
             name: control.iconName
             size: 10                                 // svg size-2.5
@@ -161,7 +160,7 @@ Item {
             font.weight: Font.Medium
             font.underline: control.variant === Badge.Link
         }
-        LucideIcon {
+        Icon {
             visible: control.trailingIconName !== ""
             name: control.trailingIconName
             size: 10

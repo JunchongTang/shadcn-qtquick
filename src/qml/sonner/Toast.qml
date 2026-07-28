@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
-import LucideIcons
 
 /*!
     \qmltype Toast
@@ -114,7 +113,7 @@ Rectangle {
         anchors.rightMargin: Theme.space4
         spacing: Theme.space3              // gap-3 (icon to text)
 
-        LucideIcon {
+        Icon {
             visible: control._hasIcon
             name: control._iconName
             size: 16                       // size-4

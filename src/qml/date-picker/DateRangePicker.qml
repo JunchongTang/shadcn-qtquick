@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
-import LucideIcons
 import Shadcn
 
 /*!
@@ -117,7 +116,7 @@ C.AbstractButton {
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
         }
-        LucideIcon {
+        Icon {
             name: "chevron-down"
             size: 14                 // size-3.5
             color: Theme.mutedForeground

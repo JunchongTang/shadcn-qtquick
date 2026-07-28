@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype Toggle
@@ -96,7 +95,7 @@ C.Button {
             anchors.centerIn: parent
             spacing: Theme.space1 // gap-1
 
-            LucideIcon {
+            Icon {
                 visible: control.iconName !== ""
                 name: control.iconName
                 size: control._iconSize

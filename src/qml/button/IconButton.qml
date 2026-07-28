@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype IconButton
@@ -101,7 +100,7 @@ C.Button {
     contentItem: Item {
         // active:translate-y-px -- the icon sinks 1px while pressed.
         transform: Translate { y: control.down ? 1 : 0 }
-        LucideIcon {
+        Icon {
             anchors.centerIn: parent
             name: control.iconName
             size: control._iconSize

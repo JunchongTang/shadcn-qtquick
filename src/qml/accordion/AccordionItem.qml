@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype AccordionItem
@@ -105,7 +104,7 @@ Item {
                     font.underline: hover.hovered
                     verticalAlignment: Text.AlignVCenter
                 }
-                LucideIcon {
+                Icon {
                     objectName: "chevron"
                     name: "chevron-down"
                     size: 16

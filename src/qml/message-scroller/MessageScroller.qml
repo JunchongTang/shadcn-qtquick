@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype MessageScroller
@@ -156,7 +155,7 @@ Item {
         Behavior on opacity { NumberAnimation { duration: Theme.durBase } }
         Behavior on color { ColorAnimation { duration: Theme.durFast } }
 
-        LucideIcon {
+        Icon {
             anchors.centerIn: parent
             name: "arrow-down"
             size: 16

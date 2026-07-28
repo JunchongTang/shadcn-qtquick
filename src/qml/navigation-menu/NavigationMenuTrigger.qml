@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype NavigationMenuTrigger
@@ -92,7 +91,7 @@ Item {
             font.weight: Font.Medium
             verticalAlignment: Text.AlignVCenter
         }
-        LucideIcon {
+        Icon {
             visible: trigger.showChevron
             name: "chevron-down"
             size: 12                      // size-3

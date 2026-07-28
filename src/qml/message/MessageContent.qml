@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype MessageContent
@@ -246,7 +245,7 @@ Item {
                 id: fileRow
                 anchors.centerIn: parent
                 spacing: Theme.space2_5
-                LucideIcon {
+                Icon {
                     name: "file-text"
                     size: 20
                     color: Theme.mutedForeground

@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype SidebarMenuButton
@@ -103,7 +102,7 @@ Item {
         anchors.rightMargin: 8
         spacing: control.collapsed ? 0 : 8               // gap-2
 
-        LucideIcon {
+        Icon {
             visible: control.iconName !== ""
             name: control.iconName
             size: 16                                     // [&_svg]:size-4

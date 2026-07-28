@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
 import QtQml.Models
-import LucideIcons
 
 /*!
     \qmltype Carousel
@@ -155,7 +154,7 @@ Item {
         opacity: enabled ? 1.0 : 0.5
 
         contentItem: Item {
-            LucideIcon {
+            Icon {
                 anchors.centerIn: parent
                 name: nav.glyph
                 size: 14

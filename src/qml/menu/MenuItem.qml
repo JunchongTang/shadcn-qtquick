@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype MenuItem
@@ -29,7 +28,7 @@ C.MenuItem {
     property string shortcut: ""     // trailing keyboard-shortcut hint (muted)
     /*!
         \qmlproperty string MenuItem::iconName
-        Name of the leading \l LucideIcon. Empty hides the icon. A separate property
+        Name of the leading \l Icon. Empty hides the icon. A separate property
         is used because AbstractButton's \c icon grouped property is \c FINAL.
     */
     property string iconName: ""     // leading Lucide icon (icon is FINAL, hence iconName)
@@ -80,7 +79,7 @@ C.MenuItem {
 
     contentItem: RowLayout {
         spacing: control.spacing
-        LucideIcon {
+        Icon {
             visible: control._iconName !== ""
             name: control._iconName
             size: 14                 // svg size-3.5
@@ -105,7 +104,7 @@ C.MenuItem {
             verticalAlignment: Text.AlignVCenter
         }
         // Submenu trigger chevron (sub-trigger: ChevronRightIcon ml-auto).
-        LucideIcon {
+        Icon {
             visible: control.subMenu !== null
             name: "chevron-right"
             size: 14

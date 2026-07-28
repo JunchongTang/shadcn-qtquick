@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
-import LucideIcons
 
 /*!
     \qmltype Combobox
@@ -271,7 +270,7 @@ C.Control {
         }
 
         // Optional leading icon
-        LucideIcon {
+        Icon {
             visible: control.leadingIcon !== ""
             anchors.left: parent.left
             anchors.leftMargin: Theme.space2
@@ -294,7 +293,7 @@ C.Control {
                 radius: Theme.radiusSm
                 visible: control.showClear && control.currentValue !== ""
                 color: clearHover.hovered ? Theme.accent : Theme.alpha(Theme.accent, 0)
-                LucideIcon {
+                Icon {
                     anchors.centerIn: parent
                     name: "x"; size: 14
                     color: Theme.mutedForeground
@@ -310,7 +309,7 @@ C.Control {
                 radius: Theme.radiusSm
                 visible: !(control.showClear && control.currentValue !== "")
                 color: chevHover.hovered ? Theme.accent : Theme.alpha(Theme.accent, 0)
-                LucideIcon {
+                Icon {
                     anchors.centerIn: parent
                     name: "chevron-down"; size: 14
                     color: Theme.mutedForeground
@@ -544,7 +543,7 @@ C.Control {
                         color: Theme.mutedForeground
                         elide: Text.ElideRight
                     }
-                    LucideIcon {
+                    Icon {
                         id: leftCheck
                         anchors.left: parent.left; anchors.leftMargin: Theme.space2
                         anchors.verticalCenter: parent.verticalCenter
@@ -576,7 +575,7 @@ C.Control {
                             elide: Text.ElideRight
                         }
                     }
-                    LucideIcon {
+                    Icon {
                         id: check
                         anchors.right: parent.right; anchors.rightMargin: Theme.space2
                         anchors.verticalCenter: parent.verticalCenter

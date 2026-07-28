@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
-import LucideIcons
 
 /*!
     \qmltype NativeSelect
@@ -83,7 +82,7 @@ C.ComboBox {
     }
 
     // ==== Trailing single chevron-down ====
-    indicator: LucideIcon {
+    indicator: Icon {
         x: control.width - width - Theme.space1_5  // right-1.5
         y: (control.height - height) / 2
         name: "chevron-down"

@@ -67,6 +67,7 @@ qt_add_qml_module(shadcn_ui
         qml/context-menu/ContextMenu.qml
         qml/core/FocusRing.qml
         qml/core/RoundedImage.qml
+        qml/core/Icon.qml
         qml/date-picker/DatePicker.qml
         qml/date-picker/DateRangePicker.qml
         qml/dialog/Dialog.qml

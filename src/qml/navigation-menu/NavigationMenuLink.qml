@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype NavigationMenuLink
@@ -80,7 +79,7 @@ Item {
             Layout.fillWidth: true
             spacing: Theme.space1_5   // gap-1.5
 
-            LucideIcon {
+            Icon {
                 visible: link.iconName !== ""
                 name: link.iconName
                 size: 16              // size-4

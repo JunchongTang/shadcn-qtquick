@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype AttachmentMedia
@@ -10,7 +9,7 @@ import LucideIcons
 
     AttachmentMedia mirrors \c .cn-attachment-media: an aspect-square, center-cropped,
     bg-muted, rounded-md box. With \l variant \c Icon it shows a built-in
-    \c LucideIcon (\l iconName), or you can supply a custom centered child such as
+    \c Icon (\l iconName), or you can supply a custom centered child such as
     a Spinner. With \l variant \c Image it shows a cover thumbnail from \l source
     (or a custom child), cropped to the box radius via \c RoundedImage.
 
@@ -110,7 +109,7 @@ Item {
         }
 
         // Convenience file-type icon (variant=icon + iconName).
-        LucideIcon {
+        Icon {
             anchors.centerIn: parent
             visible: !media._isImage && media.iconName !== "" && slot.children.length === 0
             name: media.iconName

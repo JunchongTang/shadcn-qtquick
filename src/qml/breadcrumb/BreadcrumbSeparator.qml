@@ -1,5 +1,4 @@
 import QtQuick
-import LucideIcons
 
 /*!
     \qmltype BreadcrumbSeparator
@@ -26,7 +25,7 @@ Item {
     implicitWidth: 14                   // svg size-3.5
     implicitHeight: 14
 
-    LucideIcon {
+    Icon {
         anchors.centerIn: parent
         name: root.iconName
         size: 14

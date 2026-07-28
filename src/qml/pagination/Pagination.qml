@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype Pagination
@@ -181,7 +180,7 @@ RowLayout {
 
             // Ellipsis: size-7 container + svg size-3.5. Inherits foreground
             // (the .cn-pagination-ellipsis rule sets no color).
-            LucideIcon {
+            Icon {
                 anchors.centerIn: parent
                 visible: cell._isEllipsis
                 name: "ellipsis"

@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype Marker
@@ -134,7 +133,7 @@ Item {
         }
 
         // Icon slot (Lucide or Spinner); centers with content in separator mode.
-        LucideIcon {
+        Icon {
             visible: root._hasIcon && !root.spinner
             Layout.alignment: Qt.AlignVCenter
             name: root.iconName
@@ -193,7 +192,7 @@ Item {
         anchors.top: parent.top
         spacing: Theme.space2
 
-        LucideIcon {
+        Icon {
             visible: root._hasIcon && !root.spinner
             Layout.alignment: Qt.AlignHCenter
             name: root.iconName

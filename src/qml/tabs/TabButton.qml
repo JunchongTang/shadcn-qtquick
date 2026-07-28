@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
-import LucideIcons
 
 /*!
     \qmltype TabButton
@@ -83,7 +82,7 @@ C.TabButton {
             anchors.left: control._vertical ? parent.left : undefined
             anchors.horizontalCenter: control._vertical ? undefined : parent.horizontalCenter
 
-            LucideIcon {
+            Icon {
                 visible: control.iconName !== ""
                 name: control.iconName
                 size: 14              // size-3.5

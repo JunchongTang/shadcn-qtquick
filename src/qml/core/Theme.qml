@@ -239,6 +239,15 @@ QtObject {
     readonly property string fontMono: "Geist Mono"
     readonly property string fontHeading: fontHeadingOverride !== "" ? fontHeadingOverride : fontSans
 
+    /*!
+        \qmlproperty Component Theme::iconDelegate
+        Global icon delegate used by \l Icon. When null (the default), \l Icon
+        draws with the built-in Lucide delegate. Assign a \c Component whose root
+        exposes \c name, \c size and \c color to switch the whole application to
+        a different icon library.
+    */
+    property Component iconDelegate: null
+
     // ==== Focus ring (base-mira: ring-2 ring-ring/30 + border->ring) ========
     /*!
         \qmlproperty real Theme::ringWidth

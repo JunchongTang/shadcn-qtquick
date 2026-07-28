@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import QtQuick.Controls as QQC
 import QtQuick.Controls.Basic as C
 import QtQuick.Effects
-import LucideIcons
 
 /*!
     \qmltype AlertDialog
@@ -166,7 +165,7 @@ C.Dialog {
                 implicitHeight: 32
                 radius: Theme.radiusMd
                 color: control.mediaDestructive ? Theme.alpha(Theme.destructive, 0.1) : Theme.muted
-                LucideIcon {
+                Icon {
                     anchors.centerIn: parent
                     name: control.mediaIconName
                     size: 16           // svg size-4
@@ -211,7 +210,7 @@ C.Dialog {
                 implicitHeight: 32
                 radius: Theme.radiusMd
                 color: control.mediaDestructive ? Theme.alpha(Theme.destructive, 0.1) : Theme.muted
-                LucideIcon {
+                Icon {
                     anchors.centerIn: parent
                     name: control.mediaIconName
                     size: 16

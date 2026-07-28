@@ -1,5 +1,4 @@
 import QtQuick
-import LucideIcons
 
 /*!
     \qmltype BreadcrumbEllipsis
@@ -16,7 +15,7 @@ Item {
     implicitWidth: 16                   // size-4
     implicitHeight: 16
 
-    LucideIcon {
+    Icon {
         anchors.centerIn: parent
         name: "ellipsis"
         size: 14                        // svg size-3.5

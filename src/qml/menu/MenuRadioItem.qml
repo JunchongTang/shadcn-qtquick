@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype MenuRadioItem
@@ -25,7 +24,7 @@ C.MenuItem {
 
     /*!
         \qmlproperty string MenuRadioItem::iconName
-        Optional leading \l LucideIcon (e.g. the radio-with-icons example). Empty
+        Optional leading \l Icon (e.g. the radio-with-icons example). Empty
         hides the icon.
     */
     property string iconName: ""     // optional leading icon (e.g. radio-icons example)
@@ -61,7 +60,7 @@ C.MenuItem {
     readonly property color _fg: control._active ? Theme.accentForeground : Theme.popoverForeground
 
     // Trailing check indicator (cn-dropdown-menu-item-indicator: absolute right-2).
-    indicator: LucideIcon {
+    indicator: Icon {
         x: control.width - width - Theme.space2
         y: (control.height - height) / 2
         name: "check"
@@ -72,7 +71,7 @@ C.MenuItem {
 
     contentItem: RowLayout {
         spacing: control.spacing
-        LucideIcon {
+        Icon {
             visible: control.iconName !== ""
             name: control.iconName
             size: 14

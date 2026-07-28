@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype AttachmentAction
@@ -42,7 +41,7 @@ C.Button {
     opacity: enabled ? 1.0 : 0.5
 
     contentItem: Item {
-        LucideIcon {
+        Icon {
             anchors.centerIn: parent
             name: control.iconName
             size: 14

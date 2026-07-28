@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype ItemMedia
@@ -9,7 +8,7 @@ import LucideIcons
     \brief Leading media slot of a \l ShadItem: icon, image or avatar.
 
     Shrinks to fit (shrink-0) and centres its content. The \c icon variant
-    renders a built-in \l LucideIcon (\l iconName, size-4). The \c image variant
+    renders a built-in \l Icon (\l iconName, size-4). The \c image variant
     is a rounded clipping box (size-8, or size-6 at host size xs) that shows the
     convenience \l source, or custom children when no source is set. The
     \c default variant is transparent and hosts arbitrary children such as an
@@ -96,7 +95,7 @@ Item {
         }
     }
 
-    LucideIcon {
+    Icon {
         visible: media._isIcon
         anchors.centerIn: parent
         name: media.iconName

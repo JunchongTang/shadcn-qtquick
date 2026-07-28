@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype Alert
@@ -76,9 +75,18 @@ Rectangle {
     property string description: ""
     /*!
         \qmlproperty string Alert::iconName
-        Optional leading Lucide icon (kebab-case name); the icon is hidden when empty.
+        Canonical leading icon name (kebab-case), drawn by the active icon
+        library via \l Icon; the icon is hidden when empty. Ignored when a
+        custom \l icon delegate is set.
     */
     property string iconName: ""
+    /*!
+        \qmlproperty Component Alert::icon
+        Optional custom leading-icon delegate. When set, it replaces the default
+        icon entirely (and \l iconName is ignored), letting you drop in any Item
+        — an image, a hand-drawn shape, or a different icon library.
+    */
+    property Component icon: null
 
     /*!
         \qmlproperty color Alert::surface
@@ -129,14 +137,23 @@ Rectangle {
         spacing: Theme.space1_5                 // gap-x-1.5 between icon and text
 
         // Leading icon; spans the title+description block, nudged down 2px
-        // (translate-y-0.5) to align with the first text baseline.
-        LucideIcon {
-            visible: control.iconName !== ""
-            name: control.iconName
-            size: 14                            // size-3.5
-            color: control.titleColor           // text-current
+        // (translate-y-0.5) to align with the first text baseline. A custom
+        // control.icon delegate replaces the default; otherwise the default
+        // draws control.iconName through the active icon library.
+        Loader {
+            visible: control.icon !== null || control.iconName !== ""
+            sourceComponent: control.icon !== null ? control.icon : defaultIcon
             Layout.alignment: Qt.AlignTop
             Layout.topMargin: 2
+
+            Component {
+                id: defaultIcon
+                Icon {
+                    name: control.iconName
+                    size: 14                    // size-3.5
+                    color: control.titleColor   // text-current
+                }
+            }
         }
 
         ColumnLayout {

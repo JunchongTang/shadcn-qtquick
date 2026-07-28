@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype Button
@@ -193,7 +192,7 @@ C.Button {
                 size: control._iconSize
                 color: control._fg
             }
-            LucideIcon {
+            Icon {
                 visible: control.iconName !== "" && !control.loading
                 name: control.iconName
                 size: control._iconSize
@@ -210,7 +209,7 @@ C.Button {
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
             }
-            LucideIcon {
+            Icon {
                 visible: control.trailingIconName !== ""
                 name: control.trailingIconName
                 size: control._iconSize

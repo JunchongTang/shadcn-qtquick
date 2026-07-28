@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype EmptyMedia
@@ -51,7 +50,7 @@ Item {
     }
 
     // Convenience Lucide glyph for the icon variant (svg size-4 = 16, text-foreground).
-    LucideIcon {
+    Icon {
         anchors.centerIn: parent
         visible: control._icon && control.iconName !== ""
         name: control.iconName

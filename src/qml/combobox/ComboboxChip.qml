@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import LucideIcons
 
 /*!
     \qmltype ComboboxChip
@@ -64,7 +63,7 @@ Item {
             Layout.preferredWidth: 14
             Layout.preferredHeight: 14
             Layout.leftMargin: -Theme.space1                                // -ml-1
-            LucideIcon {
+            Icon {
                 anchors.centerIn: parent
                 name: "x"
                 size: 12

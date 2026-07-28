@@ -9,7 +9,7 @@ import QtQuick
 
     InputGroupText renders \c text-muted-foreground at \c text-xs with
     \c font-medium weight. Place it inside an \l InputGroupAddon. For an
-    icon-plus-text combination, put a LucideIcon and this component side by side
+    icon-plus-text combination, put a Icon and this component side by side
     in the same InputGroupAddon (the addon lays its children out horizontally).
 
     \sa InputGroupAddon, InputGroup

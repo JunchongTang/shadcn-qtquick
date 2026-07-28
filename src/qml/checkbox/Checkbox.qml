@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls.Basic as C
-import LucideIcons
 
 /*!
     \qmltype Checkbox
@@ -83,7 +82,7 @@ C.CheckBox {
         }
 
         // Check glyph.
-        LucideIcon {
+        Icon {
             objectName: "checkIcon"
             anchors.centerIn: parent
             name: "check"

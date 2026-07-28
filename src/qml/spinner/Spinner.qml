@@ -1,10 +1,9 @@
 import QtQuick
-import LucideIcons
 
 /*!
     \qmltype Spinner
     \inqmlmodule Shadcn
-    \inherits LucideIcon
+    \inherits Icon
     \brief A continuously rotating loading indicator.
     \image spinner.png
 
@@ -15,7 +14,7 @@ import LucideIcons
     matching the reference's \c currentColor so it inherits the surrounding text
     color when embedded in a Button, Badge, InputGroup addon, or Empty state.
 
-    Being a \l LucideIcon, both \l size and \l color can be set directly by the
+    Being a \l Icon, both \l size and \l color can be set directly by the
     caller (for example a Button sets \c color to its own foreground token).
 
     \qml
@@ -24,19 +23,19 @@ import LucideIcons
     Spinner { color: Theme.primaryForeground }  // inside a primary Button
     \endqml
 */
-LucideIcon {
+Icon {
     id: control
 
     /*!
         \qmlproperty int Spinner::size
         The glyph size in pixels; also the item's implicit width/height.
-        Defaults to 16 (\c size-4). Inherited from \l LucideIcon.
+        Defaults to 16 (\c size-4). Inherited from \l Icon.
     */
 
     /*!
         \qmlproperty color Spinner::color
         The glyph color. Defaults to \c Theme.foreground (the reference's
-        \c currentColor). Inherited from \l LucideIcon.
+        \c currentColor). Inherited from \l Icon.
     */
 
     /*!
