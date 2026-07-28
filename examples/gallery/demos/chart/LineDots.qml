@@ -7,31 +7,30 @@ Card {
     width: 420
 
     CardHeader {
-        Layout.alignment: Qt.AlignHCenter
-        CardTitle {
-            text: qsTr("Pie Chart")
-            horizontalAlignment: Text.AlignHCenter
-        }
-        CardDescription {
-            text: qsTr("January - June 2024")
-            horizontalAlignment: Text.AlignHCenter
-        }
+        CardTitle { text: qsTr("Line Chart - Dots") }
+        CardDescription { text: qsTr("January - June 2024") }
     }
 
     CardContent {
         Chart {
             Layout.fillWidth: true
             Layout.preferredHeight: 250
-            type: Chart.Pie
-            nameKey: "browser"
-            valueKey: "visitors"
+            type: Chart.Line
+            categoryKey: "month"
+            curved: true
+            showDots: true
+            showGrid: true
+            showXAxis: true
             hideTooltipLabel: true
+            xTickFormatter: function (v) { return String(v).substring(0, 3) }
+            series: [ { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 } ]
             chartData: [
-                { browser: "Chrome",  visitors: 275, color: Theme.chart1 },
-                { browser: "Safari",  visitors: 200, color: Theme.chart2 },
-                { browser: "Firefox", visitors: 187, color: Theme.chart3 },
-                { browser: "Edge",    visitors: 173, color: Theme.chart4 },
-                { browser: "Other",   visitors: 90,  color: Theme.chart5 }
+                { month: "January",  desktop: 186 },
+                { month: "February", desktop: 305 },
+                { month: "March",    desktop: 237 },
+                { month: "April",    desktop: 73  },
+                { month: "May",      desktop: 209 },
+                { month: "June",     desktop: 214 }
             ]
         }
     }
@@ -41,7 +40,6 @@ Card {
             Layout.fillWidth: true
             spacing: Theme.space2
             RowLayout {
-                Layout.alignment: Qt.AlignHCenter
                 spacing: Theme.space2
                 Text {
                     text: qsTr("Trending up by 5.2% this month")
@@ -52,8 +50,6 @@ Card {
                 LucideIcon { name: "trending-up"; size: 16; color: Theme.foreground }
             }
             Text {
-                Layout.fillWidth: true
-                horizontalAlignment: Text.AlignHCenter
                 text: qsTr("Showing total visitors for the last 6 months")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm

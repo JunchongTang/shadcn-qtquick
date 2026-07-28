@@ -7,31 +7,31 @@ Card {
     width: 420
 
     CardHeader {
-        Layout.alignment: Qt.AlignHCenter
-        CardTitle {
-            text: qsTr("Radar Chart - Legend")
-            horizontalAlignment: Text.AlignHCenter
-        }
-        CardDescription {
-            text: qsTr("Showing total visitors for the last 6 months")
-            horizontalAlignment: Text.AlignHCenter
-        }
+        CardTitle { text: qsTr("Area Chart - Gradient") }
+        CardDescription { text: qsTr("Showing total visitors for the last 6 months") }
     }
 
     CardContent {
         Chart {
             Layout.fillWidth: true
-            Layout.preferredHeight: 280
-            type: Chart.Radar
+            Layout.preferredHeight: 250
+            type: Chart.Area
+            areaGradient: true
             categoryKey: "month"
+            curved: true
+            stacked: true
+            areaFillOpacity: 0.4
+            showGrid: true
+            showXAxis: true
             showLegend: true
-            tooltipIndicator: ChartTooltip.Line
+            tooltipIndicator: ChartTooltip.Dot
+            xTickFormatter: function (v) { return String(v).substring(0, 3) }
             series: [
-                { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 },
-                { key: "mobile",  label: qsTr("Mobile"),  color: Theme.chart2 }
+                { key: "mobile",  label: qsTr("Mobile"),  color: Theme.chart2 },
+                { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 }
             ]
             chartData: [
-                { month: "January",  desktop: 186, mobile: 80 },
+                { month: "January",  desktop: 186, mobile: 80  },
                 { month: "February", desktop: 305, mobile: 200 },
                 { month: "March",    desktop: 237, mobile: 120 },
                 { month: "April",    desktop: 73,  mobile: 190 },
@@ -46,7 +46,6 @@ Card {
             Layout.fillWidth: true
             spacing: Theme.space2
             RowLayout {
-                Layout.alignment: Qt.AlignHCenter
                 spacing: Theme.space2
                 Text {
                     text: qsTr("Trending up by 5.2% this month")
@@ -57,8 +56,6 @@ Card {
                 LucideIcon { name: "trending-up"; size: 16; color: Theme.foreground }
             }
             Text {
-                Layout.fillWidth: true
-                horizontalAlignment: Text.AlignHCenter
                 text: qsTr("January - June 2024")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm

@@ -78,6 +78,7 @@ qt_add_qml_module(shadcn_gallery
         demos/tabs/PageTabs.qml
         demos/textarea/PageTextarea.qml
         PageThemeCustomizer.qml
+        PageCharts.qml
         demos/toggle/PageToggle.qml
         demos/toggle-group/PageToggleGroup.qml
         demos/tooltip/PageTooltip.qml
@@ -176,12 +177,23 @@ qt_add_resources(shadcn_gallery "gallery_demos"
         demos/carousel/Spacing.qml
         demos/carousel/Vertical.qml
         demos/chart/Area.qml
+        demos/chart/AreaInteractive.qml
+        demos/chart/AreaLinear.qml
+        demos/chart/AreaAxes.qml
+        demos/chart/AreaStep.qml
+        demos/chart/AreaGradient.qml
         demos/chart/AreaStacked.qml
         demos/chart/Bar.qml
+        demos/chart/BarInteractive.qml
         demos/chart/BarHorizontal.qml
         demos/chart/BarLabel.qml
         demos/chart/BarMultiple.qml
+        demos/chart/BarNegative.qml
         demos/chart/Line.qml
+        demos/chart/LineInteractive.qml
+        demos/chart/LineLinear.qml
+        demos/chart/LineDots.qml
+        demos/chart/LineStep.qml
         demos/chart/LineMultiple.qml
         demos/chart/Pie.qml
         demos/chart/PieDonut.qml

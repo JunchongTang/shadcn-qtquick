@@ -20,8 +20,7 @@ Card {
 
     CardContent {
         Chart {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 250
+            Layout.fillWidth: true
             Layout.preferredHeight: 250
             type: Chart.Radar
             categoryKey: "month"
@@ -46,7 +45,6 @@ Card {
     CardFooter {
         ColumnLayout {
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter
             spacing: Theme.space2
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
@@ -60,7 +58,8 @@ Card {
                 LucideIcon { name: "trending-up"; size: 16; color: Theme.foreground }
             }
             Text {
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
                 text: qsTr("January - June 2024")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm

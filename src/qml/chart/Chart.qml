@@ -120,9 +120,21 @@ Item {
     property bool horizontal: false
     /*!
         \qmlproperty bool Chart::curved
-        Line/area: smooth the path. Defaults to \c true.
+        Line/area: smooth the path. Defaults to \c true. Ignored when \l stepped.
     */
     property bool curved: true
+    /*!
+        \qmlproperty bool Chart::stepped
+        Line/area: draw a step (staircase) path with the step at each segment's
+        midpoint (Recharts \c step). Takes precedence over \l curved. Defaults to \c false.
+    */
+    property bool stepped: false
+    /*!
+        \qmlproperty bool Chart::areaGradient
+        Area: fill with a vertical gradient (opaque at the top fading out at the
+        bottom) instead of a flat \l areaFillOpacity tint. Defaults to \c false.
+    */
+    property bool areaGradient: false
     /*!
         \qmlproperty bool Chart::showDots
         Line/radar: draw a dot at each data point. Defaults to \c false.
@@ -138,6 +150,15 @@ Item {
         Corner radius of bars in px. Defaults to \c 8.
     */
     property real barRadius: 8
+    /*!
+        \qmlproperty color Chart::negativeColor
+        Fill colour for bars whose value is negative. When left transparent
+        (the default) negative bars keep their series colour. Only affects
+        non-stacked vertical bar charts, which draw from a zero baseline so
+        negative values extend downward. Mirrors the sign-based cell colouring
+        of shadcn/ui's negative bar chart.
+    */
+    property color negativeColor: "transparent"
     /*!
         \qmlproperty real Chart::areaFillOpacity
         Fill opacity of area series. Defaults to \c 0.4.
@@ -298,23 +319,28 @@ Item {
         return nf * Math.pow(10, exp)
     }
     readonly property var _scale: {
-        var mx = 0
+        var mx = 0, mn = 0
         for (var i = 0; i < chartData.length; i++) {
             var row = chartData[i]
             if (stacked) {
                 var sum = 0
                 for (var k = 0; k < seriesKeys.length; k++) sum += Number(row[seriesKeys[k]]) || 0
-                mx = Math.max(mx, sum)
+                mx = Math.max(mx, sum); mn = Math.min(mn, sum)
             } else {
-                for (var j = 0; j < seriesKeys.length; j++) mx = Math.max(mx, Number(row[seriesKeys[j]]) || 0)
+                for (var j = 0; j < seriesKeys.length; j++) {
+                    var v = Number(row[seriesKeys[j]]) || 0
+                    mx = Math.max(mx, v); mn = Math.min(mn, v)
+                }
             }
         }
-        if (mx <= 0) mx = 1
-        var step = _niceNum(mx / 4, true)
+        if (mx <= 0 && mn >= 0) mx = 1
+        var step = _niceNum((mx - mn) / 4, true)
+        if (step <= 0) step = 1
         var niceMax = Math.ceil(mx / step) * step
+        var niceMin = Math.floor(mn / step) * step
         var ticks = []
-        for (var t = 0; t <= niceMax + step * 0.001; t += step) ticks.push(t)
-        return { "max": niceMax, "ticks": ticks }
+        for (var t = niceMin; t <= niceMax + step * 0.001; t += step) ticks.push(t)
+        return { "min": niceMin, "max": niceMax, "ticks": ticks }
     }
 
     // ==== Coordinate mapping ====
@@ -330,8 +356,8 @@ Item {
         var band = (plotY1 - plotY0) / Math.max(1, n)
         return plotY0 + (i + 0.5) * band
     }
-    function valToY(v) { return plotY1 - (v / _scale.max) * (plotY1 - plotY0) }
-    function valToX(v) { return plotX0 + (v / _scale.max) * (plotX1 - plotX0) }
+    function valToY(v) { return plotY1 - ((v - _scale.min) / (_scale.max - _scale.min)) * (plotY1 - plotY0) }
+    function valToX(v) { return plotX0 + ((v - _scale.min) / (_scale.max - _scale.min)) * (plotX1 - plotX0) }
 
     // ==== Legend entries ====
     readonly property var legendItems: {
@@ -478,9 +504,10 @@ Item {
         Column {
             visible: root.type === Chart.Radial && (root.centerText !== "" || root.centerSubtext !== "")
             spacing: 2
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset: root.centerYOffset
+            // Follow the (bbox-centered) arc centre so the value sits inside the
+            // ring/gauge opening rather than the raw plot-area centre.
+            x: root._radialGeom.cx - width / 2
+            y: root._radialGeom.cy + root.centerYOffset - height / 2
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: root.centerText
@@ -574,6 +601,17 @@ Item {
         ctx.lineTo(x, y + h)
         ctx.closePath()
     }
+    function _roundedBottomRect(ctx, x, y, w, h, r) {
+        r = Math.max(0, Math.min(r, w / 2, h))
+        ctx.beginPath()
+        ctx.moveTo(x, y)
+        ctx.lineTo(x + w, y)
+        ctx.lineTo(x + w, y + h - r)
+        ctx.arcTo(x + w, y + h, x + w - r, y + h, r)
+        ctx.lineTo(x + r, y + h)
+        ctx.arcTo(x, y + h, x, y + h - r, r)
+        ctx.closePath()
+    }
 
     function _paintBars(ctx) {
         var n = chartData.length
@@ -626,15 +664,21 @@ Item {
                     accY -= hgt
                 } else {
                     var bx = gx0 + sj * barW + barGap / 2
-                    _roundedTopRect(ctx, bx, plotY1 - hgt, drawW, hgt, barRadius)
+                    var zeroY = valToY(0)
+                    var barTopY = Math.min(zeroY, valToY(val))
+                    var barLen = Math.abs(zeroY - valToY(val))
+                    if (val < 0 && root.negativeColor.a > 0) ctx.fillStyle = root.negativeColor
+                    if (val >= 0) _roundedTopRect(ctx, bx, barTopY, drawW, barLen, barRadius)
+                    else _roundedBottomRect(ctx, bx, barTopY, drawW, barLen, barRadius)
                     ctx.fill()
                     if (showBarLabels) {
                         ctx.save()
                         ctx.fillStyle = Theme.mutedForeground
                         ctx.font = "12px '" + Theme.fontSans + "'"
                         ctx.textAlign = "center"
-                        ctx.textBaseline = "bottom"
-                        ctx.fillText(_fmtVal(val), bx + drawW / 2, plotY1 - hgt - 6)
+                        ctx.textBaseline = val >= 0 ? "bottom" : "top"
+                        ctx.fillText(_fmtVal(val), bx + drawW / 2,
+                                     val >= 0 ? barTopY - 6 : barTopY + barLen + 6)
                         ctx.restore()
                     }
                 }
@@ -645,6 +689,17 @@ Item {
     function _smoothPath(ctx, pts) {
         if (pts.length === 0) return
         ctx.moveTo(pts[0].x, pts[0].y)
+        if (stepped) {
+            // Midpoint step (Recharts "step"): horizontal to the segment midpoint
+            // at the current y, vertical there to the next y, then to the point.
+            for (var si = 1; si < pts.length; si++) {
+                var midX = (pts[si - 1].x + pts[si].x) / 2
+                ctx.lineTo(midX, pts[si - 1].y)
+                ctx.lineTo(midX, pts[si].y)
+                ctx.lineTo(pts[si].x, pts[si].y)
+            }
+            return
+        }
         if (pts.length < 3 || !curved) {
             for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y)
             return
@@ -692,8 +747,15 @@ Item {
                 _smoothPath(ctx, top)
                 for (var b = base.length - 1; b >= 0; b--) ctx.lineTo(base[b].x, base[b].y)
                 ctx.closePath()
-                ctx.globalAlpha = areaFillOpacity
-                ctx.fillStyle = col
+                if (areaGradient) {
+                    var grad = ctx.createLinearGradient(0, plotY0, 0, plotY1)
+                    grad.addColorStop(0, Theme.alpha(col, 0.8))
+                    grad.addColorStop(1, Theme.alpha(col, 0.1))
+                    ctx.fillStyle = grad
+                } else {
+                    ctx.globalAlpha = areaFillOpacity
+                    ctx.fillStyle = col
+                }
                 ctx.fill()
                 ctx.restore()
             }
@@ -879,19 +941,38 @@ Item {
     }
 
     // ================= Polar: Radial bars =================
-    function _radialGeom() {
+    readonly property var _radialGeom: {
         var c = _polarCenter()
         var oR = outerRadius > 0 ? outerRadius : c.R - 6
         var iR = innerRadius > 0 ? innerRadius : oR * 0.3
-        return { "cx": c.cx, "cy": c.cy, "oR": oR, "iR": iR,
-                 "start": -Math.PI / 2 + radialStartDeg * Math.PI / 180,
-                 "sweep": (radialEndDeg - radialStartDeg) * Math.PI / 180 }
+        var start = -Math.PI / 2 + radialStartDeg * Math.PI / 180
+        var sweep = (radialEndDeg - radialStartDeg) * Math.PI / 180
+        // Bounding box of the drawn sector, relative to a 0,0 centre.
+        var xmin = 1e9, xmax = -1e9, ymin = 1e9, ymax = -1e9
+        var steps = 72
+        for (var s = 0; s <= steps; s++) {
+            var a = start + sweep * (s / steps)
+            var ca = Math.cos(a), sa = Math.sin(a)
+            var ox = oR * ca, oy = oR * sa, ix = iR * ca, iy = iR * sa
+            xmin = Math.min(xmin, ox, ix); xmax = Math.max(xmax, ox, ix)
+            ymin = Math.min(ymin, oy, iy); ymax = Math.max(ymax, oy, iy)
+        }
+        // Keep the ring centre at the plot centre so the centre label stays
+        // centred; only nudge it inward when a partial sweep would otherwise
+        // clip past an edge (e.g. a tall top half-gauge whose radius exceeds the
+        // available half-height). Symmetric/full sweeps stay dead-centre.
+        var cx = c.cx, cy = c.cy
+        if (cx + xmax > plotX1) cx = plotX1 - xmax
+        if (cx + xmin < plotX0) cx = plotX0 - xmin
+        if (cy + ymax > plotY1) cy = plotY1 - ymax
+        if (cy + ymin < plotY0) cy = plotY0 - ymin
+        return { "cx": cx, "cy": cy, "oR": oR, "iR": iR, "start": start, "sweep": sweep }
     }
 
     function _paintRadial(ctx) {
         var n = chartData.length
         if (n === 0) return
-        var g = _radialGeom()
+        var g = _radialGeom
         var cx = g.cx, cy = g.cy
 
         // ---- Stacked: one row's series accumulate along the angle (single ring) ----
@@ -1080,7 +1161,7 @@ Item {
     function _hoverRadial(mx, my) {
         var n = chartData.length
         if (n === 0 || stacked) { tip.visible = false; return }
-        var g = _radialGeom()
+        var g = _radialGeom
         var dx = mx - g.cx, dy = my - g.cy
         var dist = Math.sqrt(dx * dx + dy * dy)
         if (dist > g.oR || dist < g.iR) { hoverSeries = -1; tip.visible = false; return }

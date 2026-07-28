@@ -20,9 +20,8 @@ Card {
 
     CardContent {
         Chart {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 250
-            Layout.preferredHeight: 200
+            Layout.fillWidth: true
+            Layout.preferredHeight: 250
             type: Chart.Radial
             stacked: true
             // Top half-ring (official endAngle=180): sweeps 180° left→top→right.
@@ -48,7 +47,6 @@ Card {
     CardFooter {
         ColumnLayout {
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter
             spacing: Theme.space2
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
@@ -62,7 +60,8 @@ Card {
                 LucideIcon { name: "trending-up"; size: 16; color: Theme.foreground }
             }
             Text {
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
                 text: qsTr("Showing total visitors for the last 6 months")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm

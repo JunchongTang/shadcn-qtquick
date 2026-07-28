@@ -361,23 +361,13 @@ Window {
                 }
             }
 
-            // ---- 1: Charts (placeholder, not yet implemented) ----
+            // ---- 1: Charts (hero header + type tabs + per-type card grid) ----
             Item {
-                ColumnLayout {
-                    anchors.centerIn: parent
-                    spacing: 8
-                    Text {
-                        text: qsTr("Charts")
-                        color: Theme.foreground
-                        font.pixelSize: 24
-                        font.weight: Font.DemiBold
-                        Layout.alignment: Qt.AlignHCenter
-                    }
-                    Text {
-                        text: qsTr("Coming soon.")
-                        color: Theme.mutedForeground
-                        font.pixelSize: Theme.textSm
-                        Layout.alignment: Qt.AlignHCenter
+                PageCharts {
+                    anchors.fill: parent
+                    onDocumentationRequested: {
+                        win.section = "components"
+                        win.select({ id: "chart", label: qsTr("Chart"), page: "demos/chart/PageChart.qml" })
                     }
                 }
             }

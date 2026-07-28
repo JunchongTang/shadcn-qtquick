@@ -7,30 +7,28 @@ Card {
     width: 420
 
     CardHeader {
-        Layout.alignment: Qt.AlignHCenter
-        CardTitle {
-            text: qsTr("Radar Chart - Dots")
-            horizontalAlignment: Text.AlignHCenter
-        }
-        CardDescription {
-            text: qsTr("Showing total visitors for the last 6 months")
-            horizontalAlignment: Text.AlignHCenter
-        }
+        CardTitle { text: qsTr("Area Chart - Step") }
+        CardDescription { text: qsTr("Showing total visitors for the last 6 months") }
     }
 
     CardContent {
         Chart {
             Layout.fillWidth: true
             Layout.preferredHeight: 250
-            type: Chart.Radar
+            type: Chart.Area
             categoryKey: "month"
-            showDots: true
+            stepped: true
+            areaFillOpacity: 0.4
+            showGrid: true
+            showXAxis: true
+            tooltipIndicator: ChartTooltip.Line
+            xTickFormatter: function (v) { return String(v).substring(0, 3) }
             series: [ { key: "desktop", label: qsTr("Desktop"), color: Theme.chart1 } ]
             chartData: [
                 { month: "January",  desktop: 186 },
                 { month: "February", desktop: 305 },
                 { month: "March",    desktop: 237 },
-                { month: "April",    desktop: 273 },
+                { month: "April",    desktop: 73  },
                 { month: "May",      desktop: 209 },
                 { month: "June",     desktop: 214 }
             ]
@@ -42,7 +40,6 @@ Card {
             Layout.fillWidth: true
             spacing: Theme.space2
             RowLayout {
-                Layout.alignment: Qt.AlignHCenter
                 spacing: Theme.space2
                 Text {
                     text: qsTr("Trending up by 5.2% this month")
@@ -53,8 +50,6 @@ Card {
                 LucideIcon { name: "trending-up"; size: 16; color: Theme.foreground }
             }
             Text {
-                Layout.fillWidth: true
-                horizontalAlignment: Text.AlignHCenter
                 text: qsTr("January - June 2024")
                 color: Theme.mutedForeground
                 font.pixelSize: Theme.textSm
