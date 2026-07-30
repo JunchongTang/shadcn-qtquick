@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtTest
 import Shadcn
 
-// Resizable unit tests: property defaults (withHandle, framed, orientation),
+// Resizable unit tests: property defaults (withHandle, orientation),
 // panel split sizing driven by SplitView attached properties, handle presence
 // and position inferred from the gap between adjacent panels, orientation
 // (horizontal vs vertical geometry), and minimum/maximum clamping driven via
@@ -53,13 +53,12 @@ Item {
         }
     }
 
-    // A group that opts into the centre grip and turns off the outer frame.
+    // A group that opts into the centre grip.
     Resizable {
         id: styled
         width: 300
         height: 200
         withHandle: true
-        framed: false
 
         Item { SplitView.fillWidth: true }
         Item { SplitView.fillWidth: true }
@@ -81,9 +80,8 @@ Item {
         when: windowShown
 
         function test_defaults() {
-            // withHandle/framed defaults and the default orientation.
+            // withHandle default and the default orientation.
             compare(hz.withHandle, false)
-            compare(hz.framed, true)
             compare(hz.orientation, Qt.Horizontal)
             // Handle grab thickness is space-2 (8px).
             compare(hz._thickness, 8)
@@ -158,10 +156,9 @@ Item {
             verify(dgP0.width > 120)
         }
 
-        // The styled group exposes the grip and drops the frame.
-        function test_with_handle_and_framed_properties() {
+        // The styled group exposes the grip.
+        function test_with_handle_property() {
             compare(styled.withHandle, true)
-            compare(styled.framed, false)
         }
     }
 }
