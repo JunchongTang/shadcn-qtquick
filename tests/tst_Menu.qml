@@ -117,9 +117,9 @@ Item {
         function test_label_and_separator() {
             compare(lbl.text, "My Account")
             compare(lbl.inset, false)
-            // Separator is a 1px rule tinted border/50.
+            // Separator is a 1px rule filled with the border colour (bg-border).
             compare(sep.contentItem.implicitHeight, 1)
-            compare(sep.contentItem.color, Theme.alpha(Theme.border, 0.5))
+            compare(sep.contentItem.color, Theme.border)
         }
 
         // ---- Inset shifts the left padding to the inset gutter ----

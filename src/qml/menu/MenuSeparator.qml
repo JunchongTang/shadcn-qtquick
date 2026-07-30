@@ -8,7 +8,7 @@ import QtQuick.Controls.Basic as C
     \brief A 1px divider between \l Menu groups.
 
     MenuSeparator is the QML port of shadcn/ui's \c DropdownMenuSeparator
-    (base-mira): a 1px rule tinted \c {bg-border/50} with small vertical margins
+    (base-mira): a 1px rule filled \c bg-border with small vertical margins
     (\c my-1).
 
     The file name shadows the Controls base type, so the base is imported under
@@ -23,6 +23,6 @@ C.MenuSeparator {
 
     contentItem: Rectangle {
         implicitHeight: 1            // h-px
-        color: Theme.alpha(Theme.border, 0.5)  // bg-border/50
+        color: Theme.border                     // bg-border
     }
 }
