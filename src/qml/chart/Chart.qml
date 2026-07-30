@@ -523,12 +523,15 @@ Item {
 
         // ==== Center text (radial text/shape/stacked variants) ====
         Column {
-            visible: root.type === Chart.Radial && (root.centerText !== "" || root.centerSubtext !== "")
+            visible: (root.type === Chart.Radial || root.type === Chart.Pie)
+                     && (root.centerText !== "" || root.centerSubtext !== "")
             spacing: 2
-            // Follow the (bbox-centered) arc centre so the value sits inside the
-            // ring/gauge opening rather than the raw plot-area centre.
-            x: root._radialGeom.cx - width / 2
-            y: root._radialGeom.cy + root.centerYOffset - height / 2
+            // Follow the (bbox-centered) radial arc centre, or the pie centre for
+            // a donut, so the value sits inside the ring/hole rather than the raw
+            // plot-area centre.
+            x: (root.type === Chart.Pie ? (root.plotX0 + root.plotX1) / 2 : root._radialGeom.cx) - width / 2
+            y: (root.type === Chart.Pie ? (root.plotY0 + root.plotY1) / 2 : root._radialGeom.cy)
+               + root.centerYOffset - height / 2
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: root.centerText
