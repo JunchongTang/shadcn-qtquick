@@ -65,6 +65,17 @@ Item {
         Item { SplitView.fillWidth: true }
     }
 
+    // Dedicated group for the drag test so mutating its split ratio never leaks
+    // into the sizing assertions on hz.
+    Resizable {
+        id: dragGroup
+        width: 300
+        height: 200
+        orientation: Qt.Horizontal
+        Item { id: dgP0; SplitView.preferredWidth: 100; SplitView.minimumWidth: 60; SplitView.maximumWidth: 250 }
+        Item { id: dgP1; SplitView.fillWidth: true; SplitView.minimumWidth: 60 }
+    }
+
     TestCase {
         name: "Resizable"
         when: windowShown
@@ -86,31 +97,33 @@ Item {
         }
 
         // Horizontal split: preferred sidebar keeps its size, the content panel
-        // takes the remainder minus one handle thickness.
+        // takes the remainder minus the 1px visible handle (grab area is wider
+        // via containmentMask but does not consume layout space).
         function test_horizontal_split_sizing() {
             tryCompare(hzP0, "width", 100)
             tryCompare(hzP0, "height", 200)
-            // 300 total - 100 sidebar - 8 handle = 192.
-            tryCompare(hzP1, "width", 192)
+            // 300 total - 100 sidebar - 1 handle = 199.
+            tryCompare(hzP1, "width", 199)
             tryCompare(hzP1, "height", 200)
         }
 
-        // The single handle sits between the two panels; the gap between them
-        // equals exactly one handle thickness, confirming presence + position.
+        // The single handle sits between the two panels; the visible gap is 1px
+        // (the grab area is widened via containmentMask, not layout).
         function test_handle_presence_and_position() {
             tryCompare(hzP0, "x", 0)
             var gap = hzP1.x - (hzP0.x + hzP0.width)
-            compare(gap, hz._thickness)
+            compare(gap, 1)
         }
 
-        // Vertical split: header keeps its height, body fills the rest minus a handle.
+        // Vertical split: header keeps its height, body fills the rest minus the
+        // 1px handle.
         function test_vertical_split_sizing() {
             tryCompare(vtP0, "height", 80)
             tryCompare(vtP0, "width", 300)
-            // 240 total - 80 header - 8 handle = 152.
-            tryCompare(vtP1, "height", 152)
+            // 240 total - 80 header - 1 handle = 159.
+            tryCompare(vtP1, "height", 159)
             var gap = vtP1.y - (vtP0.y + vtP0.height)
-            compare(gap, vt._thickness)
+            compare(gap, 1)
         }
 
         // Requesting a size below the minimum clamps up to minimumWidth.
@@ -128,6 +141,21 @@ Item {
             tryCompare(hzP0, "width", 150)
             hzP0.SplitView.preferredWidth = 100
             tryCompare(hzP0, "width", 100)
+        }
+
+        // Dragging the handle resizes the panels. Regression test: a custom
+        // SplitView `background` (or any item overlapping the handle) silently
+        // suppresses the built-in drag; the frame must stay off the SplitView.
+        function test_handle_drag_resizes() {
+            tryCompare(dgP0, "width", 100)
+            // The 1px handle sits at the 100px boundary; press within its
+            // widened (containmentMask) grab area and drag right.
+            mouseMove(dragGroup, 100, 100)
+            mousePress(dragGroup, 100, 100, Qt.LeftButton)
+            for (var i = 1; i <= 8; ++i)
+                mouseMove(dragGroup, 100 + i * 5, 100)
+            mouseRelease(dragGroup, 140, 100, Qt.LeftButton)
+            verify(dgP0.width > 120)
         }
 
         // The styled group exposes the grip and drops the frame.
