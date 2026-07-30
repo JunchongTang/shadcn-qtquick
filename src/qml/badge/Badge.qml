@@ -83,7 +83,7 @@ Item {
         case Badge.Default: return Theme.primary
         case Badge.Secondary: return Theme.secondary
         // bg-input/20 (light) or bg-input/30 (dark).
-        case Badge.Outline: return Theme.alpha(Theme.input, Theme.dark ? 0.3 : 0.2)
+        case Badge.Outline: return Theme.alpha(Theme.input, Theme.input.a * (Theme.dark ? 0.3 : 0.2))
         // bg-destructive/10 (light) or bg-destructive/20 (dark).
         case Badge.Destructive: return Theme.alpha(Theme.destructive, Theme.dark ? 0.2 : 0.1)
         default: return "transparent"  // Ghost / Link

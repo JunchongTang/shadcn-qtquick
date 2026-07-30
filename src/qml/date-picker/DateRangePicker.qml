@@ -128,7 +128,7 @@ C.AbstractButton {
     background: Rectangle {
         id: bg
         radius: Theme.radiusMd
-        color: control.hovered ? Theme.alpha(Theme.input, 0.5) : Theme.alpha(Theme.input, 0)  // hover:bg-input/50
+        color: control.hovered ? Theme.alpha(Theme.input, Theme.input.a * (0.5)) : Theme.alpha(Theme.input, Theme.input.a * (0))  // hover:bg-input/50
         border.width: 1
         border.color: control.activeFocus ? Theme.ring : Theme.border
         Behavior on color { ColorAnimation { duration: Theme.durBase } }

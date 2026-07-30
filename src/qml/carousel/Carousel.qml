@@ -163,7 +163,7 @@ Item {
         }
         background: Rectangle {
             radius: width / 2
-            color: nav.hovered ? Theme.alpha(Theme.input, 0.5) : Theme.alpha(Theme.input, 0)
+            color: nav.hovered ? Theme.alpha(Theme.input, Theme.input.a * (0.5)) : Theme.alpha(Theme.input, Theme.input.a * (0))
             border.width: 1
             border.color: Theme.border
             Behavior on color { ColorAnimation { duration: Theme.durBase } }

@@ -184,7 +184,7 @@ Rectangle {
             Layout.topMargin: Theme.space1
             implicitHeight: 32               // h-8
             radius: Theme.radiusMd
-            color: Theme.alpha(Theme.input, Theme.dark ? 0.3 : 0.2)   // bg-input/20 dark:/30
+            color: Theme.alpha(Theme.input, Theme.input.a * (Theme.dark ? 0.3 : 0.2))   // bg-input/20 dark:/30
 
             RowLayout {
                 anchors.fill: parent

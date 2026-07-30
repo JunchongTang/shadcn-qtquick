@@ -246,7 +246,7 @@ C.Button {
             case Button.Destructive:
                 return Theme.alpha(Theme.destructive, control.hovered ? 0.2 : 0.1)
             case Button.Outline:
-                return control.hovered ? Theme.alpha(Theme.input, 0.5) : Theme.alpha(Theme.input, 0)
+                return control.hovered ? Theme.alpha(Theme.input, Theme.input.a * (0.5)) : Theme.alpha(Theme.input, Theme.input.a * (0))
             case Button.Ghost:
                 return control.hovered ? Theme.muted : Theme.alpha(Theme.muted, 0)
             default:

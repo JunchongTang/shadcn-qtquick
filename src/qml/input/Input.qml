@@ -92,7 +92,7 @@ C.TextField {
         topRightRadius:    (_n || (!_v && _l) || (_v && _f)) ? radius : 0
         bottomLeftRadius:  (_n || (!_v && _f) || (_v && _l)) ? radius : 0
         // bg-input/20 dark:bg-input/30
-        color: Theme.alpha(Theme.input, Theme.dark ? 0.3 : 0.2)
+        color: Theme.alpha(Theme.input, Theme.input.a * (Theme.dark ? 0.3 : 0.2))
         border.width: 1
         // border-input, focus-visible:border-ring, aria-invalid:border-destructive
         // (dark:aria-invalid:border-destructive/50). invalid wins over focus.

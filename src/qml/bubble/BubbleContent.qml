@@ -94,7 +94,7 @@ Rectangle {
         case Bubble.Secondary:   return h ? _mix(Theme.secondary, Theme.foreground, 0.05) : Theme.secondary
         case Bubble.Muted:       return h ? _mix(Theme.muted, Theme.foreground, 0.05) : Theme.muted
         case Bubble.Tinted:      return h ? _tintedHover : _tinted
-        case Bubble.Outline:     return h ? (Theme.dark ? Theme.alpha(Theme.input, 0.3) : Theme.muted) : Theme.background
+        case Bubble.Outline:     return h ? (Theme.dark ? Theme.alpha(Theme.input, Theme.input.a * (0.3)) : Theme.muted) : Theme.background
         case Bubble.Ghost:       return h ? (Theme.dark ? Theme.alpha(Theme.muted, 0.5) : Theme.muted) : Theme.alpha(Theme.muted, 0)
         case Bubble.Destructive: return Theme.alpha(Theme.destructive, Theme.dark ? (h ? 0.3 : 0.2) : (h ? 0.2 : 0.1))
         }

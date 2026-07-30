@@ -249,7 +249,7 @@ C.Control {
         background: Rectangle {
             id: bg
             radius: Theme.radiusMd
-            color: control.invalid ? Theme.alpha(Theme.input, 0) : Theme.alpha(Theme.input, 0.2)  // bg-input/20
+            color: control.invalid ? Theme.alpha(Theme.input, Theme.input.a * (0)) : Theme.alpha(Theme.input, Theme.input.a * (0.2))  // bg-input/20
             border.width: 1
             border.color: control.invalid ? Theme.destructive
                           : input.activeFocus ? Theme.ring : Theme.border
@@ -347,8 +347,8 @@ C.Control {
             id: chipsBg
             anchors.fill: parent
             radius: Theme.radiusMd
-            color: control.invalid ? Theme.alpha(Theme.input, 0)
-                   : Theme.dark ? Theme.alpha(Theme.input, 0.3) : Theme.alpha(Theme.input, 0.2)
+            color: control.invalid ? Theme.alpha(Theme.input, Theme.input.a * (0))
+                   : Theme.dark ? Theme.alpha(Theme.input, Theme.input.a * (0.3)) : Theme.alpha(Theme.input, Theme.input.a * (0.2))
             border.width: 1
             border.color: control.invalid ? Theme.destructive
                           : chipsInput.activeFocus ? Theme.ring : Theme.input

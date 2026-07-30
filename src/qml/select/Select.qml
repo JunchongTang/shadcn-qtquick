@@ -140,9 +140,7 @@ C.ComboBox {
         topRightRadius:    (_n || (!_v && _l) || (_v && _f)) ? radius : 0
         bottomLeftRadius:  (_n || (!_v && _f) || (_v && _l)) ? radius : 0
         // bg-input/20; dark:bg-input/30 + dark:hover:bg-input/50 (light mode has no hover change).
-        color: Theme.dark
-               ? Theme.alpha(Theme.input, control.hovered ? 0.5 : 0.3)
-               : Theme.alpha(Theme.input, 0.2)
+        color: Theme.alpha(Theme.input, Theme.input.a * (Theme.dark ? (control.hovered ? 0.5 : 0.3) : 0.2))
         Behavior on color { ColorAnimation { duration: Theme.durFast } }
         border.width: 1
         // aria-invalid:border-destructive wins over focus-visible:border-ring.

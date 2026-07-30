@@ -57,7 +57,7 @@ C.CheckBox {
         radius: 4                       // rounded-[4px] (mira fixed value)
         // Unchecked: transparent in light mode, bg-input/30 in dark mode.
         color: control.checked ? Theme.primary
-                               : (Theme.dark ? Theme.alpha(Theme.input, 0.3) : Theme.alpha(Theme.primary, 0))
+                               : (Theme.dark ? Theme.alpha(Theme.input, Theme.input.a * (0.3)) : Theme.alpha(Theme.primary, 0))
         border.width: 1
         // Checked keeps the primary border even when invalid
         // (aria-invalid:aria-checked:border-primary). Focus turns it to ring.

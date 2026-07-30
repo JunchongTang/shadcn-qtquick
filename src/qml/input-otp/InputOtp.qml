@@ -157,8 +157,8 @@ FocusScope {
                     implicitWidth: slots.implicitWidth
                     implicitHeight: 28
                     radius: Theme.radiusMd
-                    color: Theme.dark ? Theme.alpha(Theme.input, 0.3)   // dark:bg-input/30
-                                      : Theme.alpha(Theme.input, 0.2)   // bg-input/20
+                    color: Theme.dark ? Theme.alpha(Theme.input, Theme.input.a * (0.3))   // dark:bg-input/30
+                                      : Theme.alpha(Theme.input, Theme.input.a * (0.2))   // bg-input/20
                     border.width: 1
                     border.color: control.invalid ? Theme.destructive : Theme.input
 

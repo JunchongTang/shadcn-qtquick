@@ -60,7 +60,7 @@ C.RadioButton {
         // Selected: primary fill. Unselected: transparent (light) or
         // bg-input/30 (dark), matching .cn-radio-group-item.
         color: control.checked ? Theme.primary
-                               : (Theme.dark ? Theme.alpha(Theme.input, 0.3) : Theme.alpha(Theme.primary, 0))
+                               : (Theme.dark ? Theme.alpha(Theme.input, Theme.input.a * (0.3)) : Theme.alpha(Theme.primary, 0))
         border.width: 1
         // Selected keeps the primary border even when invalid
         // (aria-invalid:aria-checked:border-primary). Invalid+unselected turns

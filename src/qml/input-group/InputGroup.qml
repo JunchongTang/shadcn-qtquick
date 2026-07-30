@@ -80,7 +80,7 @@ FocusScope {
         id: bg
         anchors.fill: parent
         radius: Theme.radiusMd
-        color: Theme.alpha(Theme.input, 0.2)          // bg-input/20 subtle fill
+        color: Theme.alpha(Theme.input, Theme.input.a * (0.2))          // bg-input/20 subtle fill
         border.width: 1
         border.color: root.invalid ? Theme.destructive
                      : root.activeFocus ? Theme.ring : Theme.border

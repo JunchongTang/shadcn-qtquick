@@ -72,7 +72,7 @@ C.Switch {
         radius: height / 2          // rounded-full
         // Checked -> bg-primary; unchecked -> bg-input (dark: bg-input/80).
         color: control.checked ? Theme.primary
-                               : (Theme.dark ? Theme.alpha(Theme.input, 0.8) : Theme.input)
+                               : (Theme.dark ? Theme.alpha(Theme.input, Theme.input.a * (0.8)) : Theme.input)
         // Reference keeps a 1px border ("border border-transparent"); it turns
         // destructive on aria-invalid. The transparent border also defines the
         // 1px inset the thumb rests against.
