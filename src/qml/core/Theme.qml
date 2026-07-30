@@ -226,7 +226,10 @@ QtObject {
     /*!
         \qmlproperty string Theme::fontBodyOverride
         Overrides the body (sans) font family when non-empty; empty uses the
-        built-in default (\c Inter). Cleared by \l resetTheme.
+        built-in default (\c Inter). Either way the family is resolved against
+        the installed fonts and falls back to the platform default when
+        unavailable, so a missing family never triggers font warnings. Cleared
+        by \l resetTheme.
     */
     property string fontBodyOverride: ""
     /*!
@@ -235,9 +238,20 @@ QtObject {
         \l fontSans. Cleared by \l resetTheme.
     */
     property string fontHeadingOverride: ""
-    readonly property string fontSans: fontBodyOverride !== "" ? fontBodyOverride : "Inter"
-    readonly property string fontMono: "Geist Mono"
-    readonly property string fontHeading: fontHeadingOverride !== "" ? fontHeadingOverride : fontSans
+    // Resolve a desired family only if it is actually installed/bundled;
+    // otherwise fall back to the platform default UI font. Referencing a
+    // missing family makes Qt emit "missing font family" warnings and the
+    // Chart's Canvas re-warn ("Context2D: ... invalid") on every repaint, so
+    // we never hand an unavailable family to QML or Canvas.
+    function _resolveFont(desired, fallback) {
+        return Qt.fontFamilies().indexOf(desired) >= 0 ? desired : fallback
+    }
+    readonly property string fontSans: _resolveFont(fontBodyOverride !== "" ? fontBodyOverride : "Inter",
+                                                     Qt.application.font.family)
+    readonly property string fontMono: _resolveFont("Geist Mono",
+                                       _resolveFont("Menlo", Qt.application.font.family))
+    readonly property string fontHeading: fontHeadingOverride !== ""
+                                          ? _resolveFont(fontHeadingOverride, fontSans) : fontSans
 
     /*!
         \qmlproperty Component Theme::iconDelegate
