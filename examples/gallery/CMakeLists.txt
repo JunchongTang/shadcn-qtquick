@@ -16,6 +16,7 @@ qt_add_qml_module(shadcn_gallery
         ExampleCard.qml
         ApiDocsView.qml
         CreateDashboard.qml
+        CreateDashboard2.qml
         PageScaffold.qml
         PagePlaceholder.qml
         demos/accordion/PageAccordion.qml

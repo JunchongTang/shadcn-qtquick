@@ -393,10 +393,70 @@ Item {
             }
         }
 
-        // Right: live preview-02 bento dashboard (beside the panel, not covered).
-        CreateDashboard {
+        // Right: live preview area with two swappable example pages and a
+        // floating 01/02 switcher (mirrors the official create page).
+        Item {
+            id: previewArea
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            property int previewIndex: 0     // 0 = finance bento, 1 = component showcase
+
+            StackLayout {
+                anchors.fill: parent
+                currentIndex: previewArea.previewIndex
+                CreateDashboard {}
+                CreateDashboard2 {}
+            }
+
+            // Floating page switcher — always dark, rounded-xl, soft shadow.
+            Rectangle {
+                id: pager
+                z: 20
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.margins: 12
+                radius: 14
+                color: Qt.rgba(0.086, 0.086, 0.086, 0.9)   // dark bg-card/90
+                border.width: 1
+                border.color: Qt.rgba(1, 1, 1, 0.08)
+                implicitWidth: pagerRow.implicitWidth + 8
+                implicitHeight: pagerRow.implicitHeight + 8
+
+                layer.enabled: true
+                layer.effect: MultiEffect {
+                    shadowEnabled: true
+                    shadowColor: Qt.rgba(0, 0, 0, 0.35)
+                    shadowVerticalOffset: 4
+                    shadowBlur: 0.8
+                }
+
+                Row {
+                    id: pagerRow
+                    anchors.centerIn: parent
+                    spacing: 4
+                    Repeater {
+                        model: [{ label: "01", index: 0 }, { label: "02", index: 1 }]
+                        delegate: Rectangle {
+                            required property var modelData
+                            readonly property bool active: modelData.index === previewArea.previewIndex
+                            width: 34
+                            height: 28
+                            radius: 10
+                            color: active ? Qt.rgba(1, 1, 1, 0.12) : (phover.hovered ? Qt.rgba(1, 1, 1, 0.06) : "transparent")
+                            Text {
+                                anchors.centerIn: parent
+                                text: modelData.label
+                                font.pixelSize: Theme.textXs
+                                font.weight: Font.Medium
+                                color: parent.active ? "#fafafa" : "#a1a1a1"
+                            }
+                            HoverHandler { id: phover; cursorShape: Qt.PointingHandCursor }
+                            TapHandler { onTapped: previewArea.previewIndex = modelData.index }
+                        }
+                    }
+                }
+            }
         }
     }
 }
