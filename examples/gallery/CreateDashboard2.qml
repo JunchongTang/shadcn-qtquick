@@ -381,13 +381,14 @@ ScrollView {
             Card {
                 Layout.fillWidth: true
                 CardContent {
-                    Grid {
+                    // 8 equal fractional columns (grid-cols-8 place-items-center):
+                    // each cell fills 1/8 of the card width with a 32px ring chip
+                    // centred in it, so the row never overflows the card.
+                    GridLayout {
                         Layout.fillWidth: true
                         columns: 8
-                        columnSpacing: 16
-                        rowSpacing: 16
-                        horizontalItemAlignment: Grid.AlignHCenter
-                        verticalItemAlignment: Grid.AlignVCenter
+                        columnSpacing: 8
+                        rowSpacing: 12
                         Repeater {
                             model: [
                                 "copy", "circle-alert", "trash-2", "share-2",
@@ -395,14 +396,19 @@ ScrollView {
                                 "minus", "arrow-left", "arrow-right", "check",
                                 "chevron-down", "chevron-right", "search", "settings"
                             ]
-                            delegate: Rectangle {
+                            delegate: Item {
                                 required property var modelData
-                                width: 32; height: 32
-                                radius: Theme.radiusMd
-                                color: "transparent"
-                                border.width: 1
-                                border.color: Theme.border
-                                LucideIcon { anchors.centerIn: parent; name: modelData; size: 16; color: Theme.foreground }
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 32
+                                Rectangle {
+                                    anchors.centerIn: parent
+                                    width: 32; height: 32
+                                    radius: Theme.radiusMd
+                                    color: "transparent"
+                                    border.width: 1
+                                    border.color: Theme.border
+                                    LucideIcon { anchors.centerIn: parent; name: modelData; size: 16; color: Theme.foreground }
+                                }
                             }
                         }
                     }
