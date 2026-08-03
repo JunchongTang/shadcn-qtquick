@@ -18,6 +18,7 @@
 #include <QImage>
 #include <QtWebView/QtWebView>
 
+#include "i18ncontroller.h"
 #include "shooter.h"
 
 // Serve the generated API docs over local HTTP. QtWebView's native backend
@@ -102,6 +103,11 @@ int main(int argc, char *argv[])
 
     // Native web view (WKWebView on macOS) for the embedded API-docs pane.
     QtWebView::initialize();
+
+    // Runtime EN/中文 switcher for the gallery chrome (top-bar nav, sidebar,
+    // page titles/descriptions). See i18ncontroller.h.
+    I18nController i18n(&engine);
+    engine.rootContext()->setContextProperty("i18n", &i18n);
 
     // Headless verification: SHADCN_DARK makes the gallery start in dark mode.
     engine.rootContext()->setContextProperty(
