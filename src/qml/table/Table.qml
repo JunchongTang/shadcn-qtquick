@@ -95,13 +95,33 @@ Item {
         var cols = root._currentCols()
         if (root._isArray) {
             if (cols.length === 0) { tableView.model = null; return }
+            // Keyless columns (custom cellDelegate columns like select/actions)
+            // have no data field. TableModel only registers a "display" role for
+            // a column when that field is present in the rows, so a keyless column
+            // ends up role-less and TableModel warns while (re)populating it
+            // ("setData(): no role named display ..."). Map each keyless column to
+            // a synthetic field and make sure that field exists in every row (as
+            // null) so the role registers and any write lands on a harmless dummy.
             var colsQml = ""
-            for (var i = 0; i < cols.length; i++)
-                colsQml += '    TableModelColumn { display: "' + (cols[i].key || "") + '" }\n'
+            var keyless = []
+            for (var i = 0; i < cols.length; i++) {
+                var field = cols[i].key || ("_col" + i)
+                if (!cols[i].key) keyless.push(field)
+                colsQml += '    TableModelColumn { display: "' + field + '" }\n'
+            }
             if (root._internalModel) { root._internalModel.destroy(); root._internalModel = null }
             root._internalModel = Qt.createQmlObject(
                 'import Qt.labs.qmlmodels\nTableModel {\n' + colsQml + '}', root)
-            root._internalModel.rows = root.model
+            var rows = root.model
+            if (keyless.length > 0) {
+                rows = root.model.map(function (rw) {
+                    var o = {}
+                    for (var key in rw) o[key] = rw[key]
+                    for (var j = 0; j < keyless.length; j++) o[keyless[j]] = null
+                    return o
+                })
+            }
+            root._internalModel.rows = rows
             tableView.model = root._internalModel
         } else {
             root._internalModel = null
