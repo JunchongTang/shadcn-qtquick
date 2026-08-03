@@ -40,6 +40,16 @@ Item {
         TabButton { id: vNotifications; text: "Notifications" }
     }
 
+    // Horizontal strip stretched wider than its content (flex-1 fill), with
+    // unequal-length labels to prove the equal-width distribution.
+    Tabs {
+        id: sTabs
+        y: 180
+        width: 400
+        TabButton { id: sA; text: "Hi" }             // short (2 chars)
+        TabButton { id: sB; text: "Notifications" }  // long
+    }
+
     // Content follows the horizontal strip's currentIndex.
     StackLayout {
         id: stack
@@ -106,6 +116,17 @@ Item {
             compare(vAccount.width, vTabs.contentItem.width)
             // The short "Account" label was stretched beyond its intrinsic width.
             verify(vAccount.width > vAccount.implicitWidth)
+        }
+
+        // flex-1 fill: when the horizontal strip is stretched wider than its
+        // content, unequal-length triggers become equal width and together fill
+        // the list (independent of label length). The short "Hi" is padded out.
+        function test_horizontal_stretch_equal_width() {
+            tryCompare(sA, "width", sB.width)
+            verify(sA.width > sA.implicitWidth)          // short label stretched out
+            // The two triggers plus inter-item spacing fill the content width.
+            var used = sA.width + sB.width + sTabs.spacing
+            fuzzyCompare(used, sTabs.contentItem.width, 1)
         }
 
         // Default list: muted rounded-lg background; line list: transparent, square.
