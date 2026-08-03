@@ -22,6 +22,25 @@ import QtQuick.Controls.Basic as C
     Set \l vertical to stack triggers in a column; \l orientation reports the
     same state as an enumeration for readability.
 
+    \section2 Trigger width
+
+    Triggers follow shadcn's \c flex-1 sizing, driven by the width the strip is
+    given (no dedicated property, mirroring the reference where the choice is the
+    consumer's \c {w-fit} vs \c {w-full}):
+
+    \list
+        \li At its natural (content-fit) width — the default \l implicitWidth,
+            i.e. the sum of the trigger widths — each trigger keeps its own
+            content width.
+        \li Stretched wider than that (e.g. \c {Layout.fillWidth: true}, an
+            explicit \c width, or filling anchors), the triggers share the width
+            equally: every trigger becomes the same width and together they fill
+            the strip, regardless of label length.
+    \endlist
+
+    Vertical triggers always fill the strip width. So a full-width sidebar
+    navigation is just \c {Tabs { Layout.fillWidth: true; ... }}.
+
     \qml
     Tabs {
         TabButton { text: "Account" }

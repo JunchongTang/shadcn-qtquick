@@ -60,10 +60,28 @@ C.TabButton {
     bottomPadding: _vertical ? 5 : 0
     implicitHeight: _vertical ? (contentItem.implicitHeight + topPadding + bottomPadding)
                               : 26  // list h-8 (32) minus p-[3px] both sides = 26
-    // Vertical: every trigger fills the list width so the active pill and muted
-    // background stay aligned. Bind to ListView.view.width (not implicitWidth) to
-    // break the binding loop against Tabs._maxChildWidth (fix #005 - do not regress).
-    width: (control._vertical && ListView.view) ? ListView.view.width : implicitWidth
+    // Trigger width mirrors shadcn's flex-1 (flex: 1 1 0%):
+    //  - Vertical: every trigger fills the list width (group-data-vertical:w-full)
+    //    so the active pill and muted background stay aligned.
+    //  - Horizontal, list at its content-fit width (w-fit): triggers keep their
+    //    individual content widths (basis 0% resolves to content when the list
+    //    width is indefinite).
+    //  - Horizontal, list stretched wider (Layout.fillWidth / explicit width, i.e.
+    //    w-full): the extra space is shared equally, so every trigger is the same
+    //    width and together they fill the list -- independent of label length.
+    // Bind to ListView.view.width/count (never a width that depends on ours) and
+    // read _sumChildWidth (children implicitWidth) to avoid the #005 binding loop.
+    width: {
+        if (!ListView.view) return implicitWidth
+        if (control._vertical) return ListView.view.width
+        const bar = control._bar
+        const n = ListView.view.count
+        if (!bar || n <= 0) return implicitWidth
+        // Slack exists once the list is wider than its content-fit width.
+        if (ListView.view.width <= bar._sumChildWidth) return implicitWidth
+        const avail = ListView.view.width - Math.max(0, n - 1) * bar.spacing
+        return avail / n
+    }
     font.pixelSize: Theme.textXs
     font.weight: Font.Medium
     hoverEnabled: true
