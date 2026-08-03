@@ -125,8 +125,23 @@ ColumnLayout {
                 id: codeArea
                 width: parent.width
                 implicitHeight: card.codeExpanded
-                    ? Math.min(codeText.implicitHeight + 32, 420)
+                    ? Math.min(codeMeasure.implicitHeight + 32, 420)
                     : card._collapsedCodeH
+
+                // Off-layout height probe: measures the code block independently of
+                // codeText, which lives inside the fill-anchored ScrollView below.
+                // Reading codeText.implicitHeight here would form an implicitHeight
+                // binding loop through the ScrollView during its content init.
+                Text {
+                    id: codeMeasure
+                    visible: false
+                    text: card.code
+                    font.family: Theme.fontMono
+                    font.pixelSize: Theme.textXs
+                    lineHeight: 1.5
+                    lineHeightMode: Text.ProportionalHeight
+                    textFormat: Text.PlainText
+                }
 
                 // Muted background; bottom corners rounded to match the card
                 // (the card's clip only clips to its rectangular bounds).
