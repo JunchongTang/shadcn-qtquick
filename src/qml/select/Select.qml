@@ -227,8 +227,22 @@ C.ComboBox {
                 anchors.leftMargin: Theme.space2
                 anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - Theme.space2 * 2 - 14
-                text: item.model[control.textRole] !== undefined
-                      ? item.model[control.textRole] : item.model.modelData
+                // Header/separator rows lack control.textRole, and their raw
+                // modelData is the whole row object (not a string) -- reading
+                // it here would try to assign a QJSValue object to this
+                // string property and warn every repaint, even though the
+                // Text stays invisible for those rows. Skip straight to ""
+                // for non-items, and only trust modelData when it is really
+                // a string (plain string-array models).
+                text: {
+                    if (!item._isItem)
+                        return ""
+                    const v = item.model[control.textRole]
+                    if (v !== undefined)
+                        return v
+                    const md = item.model.modelData
+                    return typeof md === "string" ? md : ""
+                }
                 font.pixelSize: Theme.textXs
                 color: item._active ? Theme.accentForeground : Theme.foreground
                 elide: Text.ElideRight
