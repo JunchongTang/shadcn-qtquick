@@ -335,6 +335,10 @@ Window {
                             // Pass title/description to the page scaffold; for pages that need to fill the viewport (e.g. the theme customizer's two columns),
                             // also pass the available viewport height so its inner two columns scroll individually rather than the whole page scrolling.
                             onLoaded: {
+                                // Switching components loads a new page into the same
+                                // ScrollView; scroll back to the top so the new page
+                                // starts at its heading, not the previous scroll offset.
+                                contentScroll.contentItem.contentY = 0
                                 if (!item)
                                     return
                                 if (item.hasOwnProperty("componentLabel"))
