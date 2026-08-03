@@ -17,6 +17,13 @@ ColumnLayout {
 
     readonly property int _collapsedCodeH: 92
     readonly property int _lineCount: code === "" ? 1 : code.split("\n").length
+    // Expanded code height derived purely from the line count (each mono line
+    // renders at ~textXs*1.75, i.e. 21px for textXs=12). Computing it — rather
+    // than reading the code Text's implicitHeight — keeps codeArea.implicitHeight
+    // a pure arithmetic value that can never enter a binding loop; the code Text
+    // lives inside a fill-anchored ScrollView, which otherwise risks a transient
+    // implicitHeight loop during the ScrollView's content init.
+    readonly property int _codeContentH: _lineCount * Math.round(Theme.textXs * 1.75)
 
     // Copyable path derived from source, e.g. Component/ButtonGroup/Orientation
     //   qrc:/demos/button-group/Orientation.qml → component directory to PascalCase + file name.
@@ -124,24 +131,12 @@ ColumnLayout {
             Item {
                 id: codeArea
                 width: parent.width
+                // Height is computed from the line count (card._codeContentH) plus
+                // the 32px ScrollView margins, capped at 420 — never read from a
+                // child Item's implicitHeight, so this can't form a binding loop.
                 implicitHeight: card.codeExpanded
-                    ? Math.min(codeMeasure.implicitHeight + 32, 420)
+                    ? Math.min(card._codeContentH + 32, 420)
                     : card._collapsedCodeH
-
-                // Off-layout height probe: measures the code block independently of
-                // codeText, which lives inside the fill-anchored ScrollView below.
-                // Reading codeText.implicitHeight here would form an implicitHeight
-                // binding loop through the ScrollView during its content init.
-                Text {
-                    id: codeMeasure
-                    visible: false
-                    text: card.code
-                    font.family: Theme.fontMono
-                    font.pixelSize: Theme.textXs
-                    lineHeight: 1.5
-                    lineHeightMode: Text.ProportionalHeight
-                    textFormat: Text.PlainText
-                }
 
                 // Muted background; bottom corners rounded to match the card
                 // (the card's clip only clips to its rectangular bounds).
