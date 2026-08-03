@@ -1,4 +1,4 @@
-find_package(Qt6 REQUIRED COMPONENTS WebView HttpServer)
+find_package(Qt6 REQUIRED COMPONENTS WebView HttpServer LinguistTools)
 
 qt_add_executable(shadcn_gallery main.cpp)
 
@@ -10,6 +10,8 @@ qt_add_qml_module(shadcn_gallery
         sourcereader.cpp
         shooter.h
         shooter.cpp
+        i18ncontroller.h
+        i18ncontroller.cpp
     QML_FILES
         Gallery.qml
         DocsSidebar.qml
@@ -501,6 +503,19 @@ qt_add_resources(shadcn_gallery "gallery_demos"
         shots/Drawer.qml
         shots/Sheet.qml
         shots/Sonner.qml
+)
+
+# UI-chrome translations (nav, sidebar, page titles/descriptions; demo sample
+# content is intentionally left in English). i18n/qml_zh_CN.ts is hand-curated
+# from an `lupdate` skeleton -- update it by re-running lupdate over the same
+# file set and re-filling <translation> entries, not by editing generated .qm
+# output. Compiled to .qm and embedded so I18nController (see main.cpp) can
+# load it from ":/i18n/qml_zh_CN.qm" at runtime.
+qt6_add_translation(shadcn_gallery_qm_files i18n/qml_zh_CN.ts)
+qt_add_resources(shadcn_gallery "gallery_i18n"
+    PREFIX "/i18n"
+    BASE ${CMAKE_CURRENT_BINARY_DIR}
+    FILES ${shadcn_gallery_qm_files}
 )
 
 # Link the STATIC module's backing lib + plugin; LucideIcons is used by the gallery directly/indirectly.

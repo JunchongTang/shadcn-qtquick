@@ -201,6 +201,14 @@ Window {
                 }
 
                 Item { Layout.fillWidth: true }
+                // EN/中文 switcher for the gallery chrome (nav, sidebar, page
+                // titles/descriptions); see I18nController. Demo sample content
+                // is intentionally left in English.
+                IconButton {
+                    iconName: "languages"
+                    variant: IconButton.Ghost
+                    onClicked: i18n.language = i18n.language === "zh_CN" ? "en" : "zh_CN"
+                }
                 IconButton {
                     iconName: Theme.dark ? qsTr("sun") : qsTr("moon")
                     variant: IconButton.Ghost
