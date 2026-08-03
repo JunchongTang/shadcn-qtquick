@@ -26,15 +26,31 @@ Window {
     property string section: "components"
 
     // Top-bar nav item: plain-text tab, active state uses foreground color + medium weight.
-    component NavTab: Text {
+    // Top-bar nav item. Mirrors the official docs MainNav, which renders each
+    // item as a ghost Button: foreground (not muted) text so inactive items read
+    // as active-looking, with a muted rounded background on hover. The current
+    // section is cued with medium weight rather than a colour change.
+    component NavTab: Rectangle {
         id: navTab
+        property alias text: navLabel.text
         property bool active: false
         signal clicked()
-        color: active ? Theme.foreground : Theme.mutedForeground
-        font.pixelSize: 14
-        font.weight: active ? Font.Medium : Font.Normal
-        verticalAlignment: Text.AlignVCenter
-        HoverHandler { cursorShape: Qt.PointingHandCursor }
+
+        implicitWidth: navLabel.implicitWidth + 2 * Theme.space2_5   // px-2.5
+        implicitHeight: 32                                           // size sm (h-8)
+        radius: Theme.radiusMd
+        color: navHover.hovered ? Theme.muted : Theme.alpha(Theme.muted, 0)
+        Behavior on color { ColorAnimation { duration: Theme.durFast } }
+
+        Text {
+            id: navLabel
+            anchors.centerIn: parent
+            color: Theme.foreground
+            font.pixelSize: 14
+            font.weight: navTab.active ? Font.Medium : Font.Normal
+            verticalAlignment: Text.AlignVCenter
+        }
+        HoverHandler { id: navHover; cursorShape: Qt.PointingHandCursor }
         TapHandler { onTapped: navTab.clicked() }
     }
 
@@ -178,7 +194,7 @@ Window {
                 // Main navigation: Components / Charts / Create
                 RowLayout {
                     //Layout.leftMargin: 14
-                    spacing: 18
+                    spacing: 2   // official nav is gap-0; each tab's px-2.5 padding provides the separation
                     NavTab { text: qsTr("Components"); active: win.section === "components"; onClicked: win.section = "components" }
                     NavTab { text: qsTr("Charts"); active: win.section === "charts"; onClicked: win.section = "charts" }
                     NavTab { text: qsTr("Create"); active: win.section === "create"; onClicked: win.section = "create" }
