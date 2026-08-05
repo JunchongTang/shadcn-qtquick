@@ -191,8 +191,10 @@ C.Dialog {
             color: Theme.alpha(Theme.muted, 0.5)      // bg-muted/50
             topLeftRadius: 0
             topRightRadius: 0
-            bottomLeftRadius: Theme.radiusXl - Theme.overlayRingWidth
-            bottomRightRadius: Theme.radiusXl - Theme.overlayRingWidth
+            // Never negative: the inset is subtracted so the fill hugs the interior of the
+            // ring, and a theme with square corners would otherwise ask for -1.
+            bottomLeftRadius: Math.max(0, Theme.radiusXl - Theme.overlayRingWidth)
+            bottomRightRadius: Math.max(0, Theme.radiusXl - Theme.overlayRingWidth)
         }
         // Divider between body and footer (border-t only — no surrounding border).
         Rectangle {
