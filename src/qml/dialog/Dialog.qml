@@ -50,6 +50,27 @@ C.Dialog {
     property bool showCloseButton: true
 
     /*!
+        \qmlproperty bool Dialog::clipContent
+        Whether the body clips its content. Defaults to \c true, which keeps overflowing
+        content inside the content area instead of bleeding under the (semi-transparent)
+        footer or past the rounded corners.
+
+        Set to \c false when the body deliberately hosts something that must escape those
+        bounds — a suggestion panel anchored to an input, for example, which is visually
+        part of the input rather than of the body flow. Turning it off also raises the
+        content above the footer in the stacking order: overflow that renders behind the
+        footer would be pointless.
+
+        \qml
+        Dialog {
+            clipContent: false          // the combo box below drops past the body
+            MyComboLikeInput {}
+        }
+        \endqml
+    */
+    property bool clipContent: true
+
+    /*!
         \qmlproperty list<QtObject> Dialog::footerContent
         Footer content slot, typically a single \c RowLayout of buttons. The
         component lays it out inside the padded, muted, divider-topped footer bar
@@ -64,7 +85,23 @@ C.Dialog {
 
     // Clip the body so overflowing content stays within the content area instead of
     // bleeding under the (semi-transparent) footer or past the rounded corners.
-    Component.onCompleted: contentItem.clip = true
+    // Opt out per-dialog via clipContent — see its docs for when that is the right call.
+    //
+    // Bindings rather than Component.onCompleted: contentItem is created by the base
+    // type, and a one-shot assignment would not follow later changes to clipContent.
+    Binding {
+        target: control.contentItem
+        property: "clip"
+        value: control.clipContent
+    }
+    // Content above the footer when it is allowed to overflow — the footer is a sibling
+    // of contentItem and paints after it, so without this the escaping content lands
+    // behind the footer and the opt-out achieves nothing.
+    Binding {
+        target: control.contentItem
+        property: "z"
+        value: control.clipContent ? 0 : 1
+    }
 
     // Modal backdrop: a blurred snapshot of the content behind plus a light scrim
     // (base-mira uses backdrop-blur rather than a plain black/80 dim).
