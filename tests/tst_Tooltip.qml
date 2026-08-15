@@ -76,6 +76,53 @@ Item {
         }
     }
 
+    // Flush against the top of the window: a TopEdge bubble has nowhere to go but down.
+    Item {
+        id: topTrigger
+        x: 150
+        y: 0
+        width: 100
+        height: 40
+        Tooltip {
+            id: topTip
+            text: "Add to library"
+            timeout: 60000
+            side: Tooltip.Side.TopEdge
+        }
+    }
+
+    // Flush against the right of the window, for the same case on the other axis.
+    Item {
+        id: rightTrigger
+        x: 380
+        y: 150
+        width: 20
+        height: 40
+        Tooltip {
+            id: rightTip
+            text: "Add to library"
+            timeout: 60000
+            side: Tooltip.Side.RightEdge
+        }
+    }
+
+    // A narrow control in the top-right corner, like the last button in a title bar: the
+    // bubble above it is centred on it and so overruns the window, and has to slide along
+    // its edge to stay inside. Moved into place by the tests, which know the bubble's width.
+    Item {
+        id: cornerTrigger
+        x: 200
+        y: 120
+        width: 24
+        height: 24
+        Tooltip {
+            id: cornerTip
+            text: "Add to library"
+            timeout: 60000
+            side: Tooltip.Side.TopEdge
+        }
+    }
+
     TestCase {
         id: testCase
         name: "Tooltip"
@@ -85,9 +132,13 @@ Item {
             posTip.close()
             defTip.close()
             clampTip.close()
+            topTip.close()
+            rightTip.close()
+            cornerTip.close()
             posTip.side = Tooltip.Side.TopEdge
             posTip.align = Tooltip.Align.Middle
             posTip.alignOffset = 0
+            cornerTrigger.x = 200
         }
 
         function openTip(tip) {
@@ -233,6 +284,78 @@ Item {
             openTip(clampTip)
             var upperBound = clampTip.width - clampTip.arrowPadding - clampTip.arrowHalfWidth
             fuzzyCompare(clampTip.arrowCenterX, upperBound, 0.6)
+        }
+
+        // ---- Flip: a bubble with no room on the requested edge moves to the opposite one,
+        //      and the notch moves with it ----
+        // Qt's positioner would flip the bubble on its own, but it moves the bubble alone:
+        // the notch is traced by the component from the side it believes it is on, and a
+        // tooltip on a trigger at the top of a window ended up below it with the notch still
+        // cut into its bottom edge, pointing away at nothing.
+        function test_flip_vertical_when_no_room() {
+            openTip(topTip)
+            compare(topTip.side, Tooltip.Side.TopEdge)              // the request is unchanged
+            compare(topTip.effectiveSide, Tooltip.Side.BottomEdge)  // ... and honoured downward
+            fuzzyCompare(topTip.y, 40 + topTip.sideOffset, 0.6)     // triggerH + offset
+
+            // Still over the middle of the trigger, which is what the notch is cut at. The
+            // canvas reads effectiveSide, so on BottomEdge it is cut into the top edge.
+            fuzzyCompare(topTip.arrowCenterX, topTip.width / 2, 0.6)
+            compare(topTip.background.side, Tooltip.Side.BottomEdge)
+        }
+
+        function test_flip_horizontal_when_no_room() {
+            openTip(rightTip)
+            compare(rightTip.effectiveSide, Tooltip.Side.LeftEdge)
+            fuzzyCompare(rightTip.x, -rightTip.width - rightTip.sideOffset, 0.6)
+            fuzzyCompare(rightTip.arrowCenterY, rightTip.height / 2, 0.6)
+            compare(rightTip.background.side, Tooltip.Side.LeftEdge)
+        }
+
+        // ---- A bubble the positioner pushes back inside the window keeps its notch on the
+        //      trigger, without this component computing the nudge itself ----
+        // The other half of the collision problem, and the half Qt already handles: a bubble
+        // is centred on its trigger, so a narrow control near the right edge carries one that
+        // hangs over the window. The positioner slides it back and writes the corrected
+        // position to Popup.x -- which is what arrowCenterX is measured from, so the notch
+        // travels with it. Locked down here because that dependency is invisible in either
+        // file on its own: it lives between the positioner and arrowCenterX.
+        function test_positioner_shift_keeps_the_arrow_on_the_trigger() {
+            openTip(cornerTip)  // opened first: the amount to overrun by depends on its width
+
+            // Positioned so the centred bubble would overrun the right edge by exactly 10 --
+            // enough to be pushed back, little enough that the notch can follow the whole way.
+            const overrun = 10
+            cornerTrigger.x = 400 - cornerTip.margins + overrun
+                    - cornerTrigger.width / 2 - cornerTip.width / 2
+
+            compare(cornerTip.effectiveSide, Tooltip.Side.TopEdge)  // room above: no flip
+            // Inside the window by the padding, and no further in than that.
+            fuzzyCompare(cornerTrigger.x + cornerTip.x + cornerTip.width,
+                         400 - cornerTip.margins, 0.6)
+            // The point of it: the notch is over the middle of the trigger.
+            fuzzyCompare(cornerTrigger.x + cornerTip.x + cornerTip.arrowCenterX,
+                         cornerTrigger.x + cornerTrigger.width / 2, 0.6)
+        }
+
+        // ---- The same at the other end, where the slide changes sign ----
+        function test_positioner_shift_at_the_leading_edge() {
+            openTip(cornerTip)
+            const overrun = 10
+            cornerTrigger.x = cornerTip.margins - overrun
+                    - cornerTrigger.width / 2 + cornerTip.width / 2
+
+            fuzzyCompare(cornerTrigger.x + cornerTip.x, cornerTip.margins, 0.6)
+            fuzzyCompare(cornerTrigger.x + cornerTip.x + cornerTip.arrowCenterX,
+                         cornerTrigger.x + cornerTrigger.width / 2, 0.6)
+        }
+
+        // ---- No flip when the requested edge has room: side is not a suggestion ----
+        function test_no_flip_when_room() {
+            posTip.side = Tooltip.Side.TopEdge
+            openTip(posTip)
+            compare(posTip.effectiveSide, Tooltip.Side.TopEdge)
+            compare(defTip.effectiveSide, defTip.side)   // never opened: still the request
         }
 
         // ---- Kbd padding: right padding tightens when a shortcut is set ----

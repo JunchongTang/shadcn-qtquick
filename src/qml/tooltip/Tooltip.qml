@@ -27,6 +27,14 @@ import QtQuick.Controls.Basic
     \l Middle / \l End), offset by \l alignOffset -- the same \c side +
     \c align axes as Radix Popper / base-ui's positioning.
 
+    Placement also answers to the window it is in: the bubble flips to the
+    opposite edge when the requested one leaves no room (\l effectiveSide,
+    base-ui's flip middleware). Sliding it back inside along that edge
+    (base-ui's shift middleware) is left to Qt's positioner, which already does
+    it and writes the result back to \c x / \c y -- and since the arrow is
+    placed from those, it follows without being told. The flip cannot be left
+    there too: see \l effectiveSide.
+
     The surface and its arrow are traced as a single filled \c Canvas path
     (pill outline with a triangular notch cut into the edge facing the
     trigger) rather than two overlapping semi-transparent Items. That keeps
@@ -149,10 +157,12 @@ ToolTip {
     readonly property real arrowHalfWidth: _arrowHalfDiagonal - 2
 
     // The trigger's centre, converted into this popup's own local coordinate
-    // space via its own x/y offset from the trigger (the parent): correct
-    // for any align value, and for any future viewport-collision shift,
-    // since it is derived from the popup's actual resolved position rather
-    // than assuming it is centred on the trigger.
+    // space via its own x/y offset from the trigger (the parent): correct for
+    // any align value, and for the positioner's viewport-collision shift as
+    // well, since it is derived from the popup's actual resolved position
+    // rather than assuming it is centred on the trigger: a bubble the
+    // positioner pushes back inside the window reports the corrected x here,
+    // so the arrow follows it with nothing further computed.
     readonly property real _anchorX: parent ? parent.width / 2 - x : width / 2
     readonly property real _anchorY: parent ? parent.height / 2 - y : height / 2
     /*!
@@ -178,6 +188,114 @@ ToolTip {
     */
     property string kbd: ""
 
+    /*!
+        \qmlproperty enumeration Tooltip::effectiveSide
+        The edge the bubble is actually on: \l side, or the opposite one when the
+        window leaves no room there (base-ui's flip middleware). Derived state --
+        read it, do not set it; assign \l side instead.
+
+        The flip has to be decided here rather than left to Qt. \c ToolTip enables
+        the positioner's vertical and horizontal flipping, so a bubble that does
+        not fit is already mirrored to the other edge -- but the positioner moves
+        the bubble alone, and the arrow notch is traced by this component from the
+        side it believes it is on. A tooltip on a trigger at the top of a window
+        therefore ended up below it with the notch still cut into its bottom edge,
+        pointing away at nothing. Deciding first, and placing both parts from the
+        answer, keeps them together.
+
+        Only the flip. The positioner's other correction -- sliding a bubble that
+        overruns the window back inside it -- needs nothing from us, because it
+        writes the corrected position back to \c x and \l arrowCenterX is measured
+        from there. Deciding that here as well was tried and changed no pixel of the
+        result; the flip is the half Qt cannot be left to do.
+    */
+    property int effectiveSide: side
+
+
+    onSideChanged: control.updatePlacement()
+    onVisibleChanged: if (control.visible) control.updatePlacement()
+    // The first real size arrives after the bubble is shown, so the decision made on open is
+    // taken again once there is something to measure against.
+    onWidthChanged: if (control.visible) control.updatePlacement()
+    onHeightChanged: if (control.visible) control.updatePlacement()
+
+    /*!
+        \qmlmethod void Tooltip::updatePlacement()
+        Works out \l effectiveSide for where the trigger sits in the window right
+        now.
+
+        Called when the bubble opens or changes size, which is when the answer can
+        change, rather than bound: the room available depends on the trigger's
+        position in the window, and \c mapToItem() is not something a binding is
+        notified about. base-ui computes placement on open for the same reason. Call
+        it directly after moving a trigger under a bubble that is already showing.
+    */
+    function updatePlacement() {
+        control.effectiveSide = control.placementFor();
+    }
+
+    /*
+        How close to the window's edge the bubble may come -- base-ui's collisionPadding,
+        which Qt Quick Controls already has as Popup.margins and the Basic style's ToolTip
+        already sets to 6.
+
+        Read from there rather than added as a property of our own, because the positioner
+        clamps to it whatever we think: with a padding of our own at 4 it corrected our
+        placement by the remaining 2px and the arrow was 2px off its trigger, which is this
+        whole class of bug in miniature. One number, on the property Qt documents for it.
+        A negative margins means "no clamping" to a Popup, and no padding to us.
+    */
+    function edgePadding(): real {
+        return Math.max(0, control.margins)
+    }
+
+    // The trigger's rectangle in window coordinates, or null with nothing to measure
+    // against. Both decisions below start from it. Untyped on purpose: a declared rect
+    // return cannot be null, and "no window yet" is a case both callers have to handle.
+    function triggerBounds() {
+        const trigger = control.parent
+        if (!trigger || !trigger.Window.window || control.width <= 0 || control.height <= 0)
+            return null
+        const at = trigger.mapToItem(null, 0, 0)
+        return Qt.rect(at.x, at.y, trigger.width, trigger.height)
+    }
+
+    // The Side value effectiveSide should take.
+    function placementFor(): int {
+        const bounds = control.triggerBounds()
+        if (!bounds)
+            return control.side
+
+        // Free space beyond each edge of the trigger, with the gap and the window's own
+        // padding already deducted: what is left for a bubble to occupy.
+        const trigger = control.parent
+        const spare = control.sideOffset + control.edgePadding()
+        const above = bounds.y - spare
+        const below = trigger.Window.height - (bounds.y + bounds.height) - spare
+        const before = bounds.x - spare
+        const after = trigger.Window.width - (bounds.x + bounds.width) - spare
+
+        // Keep the requested edge when the bubble fits on it, or when the opposite edge is no
+        // roomier -- moving to a side that is just as cramped only relocates the problem, and
+        // the requested side is what the caller meant.
+        const keeps = (mine, other, needed) => mine >= needed || mine >= other
+
+        switch (control.side) {
+        case Tooltip.Side.LeftEdge:
+            return keeps(before, after, control.width) ? Tooltip.Side.LeftEdge
+                                                       : Tooltip.Side.RightEdge
+        case Tooltip.Side.RightEdge:
+            return keeps(after, before, control.width) ? Tooltip.Side.RightEdge
+                                                       : Tooltip.Side.LeftEdge
+        case Tooltip.Side.BottomEdge:
+            return keeps(below, above, control.height) ? Tooltip.Side.BottomEdge
+                                                       : Tooltip.Side.TopEdge
+        default:
+            return keeps(above, below, control.height) ? Tooltip.Side.TopEdge
+                                                       : Tooltip.Side.BottomEdge
+        }
+    }
+
     delay: 300
     font.pixelSize: Theme.textXs
     leftPadding: Theme.space3
@@ -197,18 +315,21 @@ ToolTip {
         default:                  return (triggerLen - ownLen) / 2 + alignOffset  // Middle
         }
     }
+    // From effectiveSide rather than side: the edge the bubble is actually on, so that the
+    // notch is cut into the same one. The cross axis is left as align asked for it, and the
+    // positioner slides it inside the window from there.
     x: {
-        switch (side) {
+        switch (effectiveSide) {
         case Tooltip.Side.LeftEdge: return -width - sideOffset
         case Tooltip.Side.RightEdge: return parent ? parent.width + sideOffset : 0
-        default: return parent ? _crossAxis(parent.width, width) : 0   // TopEdge / BottomEdge
+        default: return parent ? _crossAxis(parent.width, width) : 0        // TopEdge / BottomEdge
         }
     }
     y: {
-        switch (side) {
+        switch (effectiveSide) {
         case Tooltip.Side.TopEdge: return -height - sideOffset
         case Tooltip.Side.BottomEdge: return parent ? parent.height + sideOffset : 0
-        default: return parent ? _crossAxis(parent.height, height) : 0  // LeftEdge / RightEdge
+        default: return parent ? _crossAxis(parent.height, height) : 0       // LeftEdge / RightEdge
         }
     }
 
@@ -246,7 +367,9 @@ ToolTip {
         property real pillH: control.height
         property real arrowX: control.arrowCenterX
         property real arrowY: control.arrowCenterY
-        property int side: control.side
+        // The edge actually used, not the one asked for: a flipped bubble needs its notch cut
+        // into the other side or it points away from the trigger.
+        property int side: control.effectiveSide
         property real cornerRadius: Theme.radiusMd
         property color fillColor: Theme.foreground
         // Half-width of the notch where it meets the pill's edge, which (for
