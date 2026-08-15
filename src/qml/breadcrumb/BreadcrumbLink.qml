@@ -26,7 +26,7 @@ Text {
     lineHeight: Theme.lineRelaxed       // /relaxed line height
     lineHeightMode: Text.ProportionalHeight
     verticalAlignment: Text.AlignVCenter
-    Behavior on color { ColorAnimation { duration: Theme.durBase } }  // transition-colors
+    Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }  // transition-colors
 
     HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }
     TapHandler { onTapped: root.clicked() }

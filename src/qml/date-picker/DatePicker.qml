@@ -118,8 +118,8 @@ C.AbstractButton {
         color: control.hovered ? Theme.alpha(Theme.input, Theme.input.a * (0.5)) : Theme.alpha(Theme.input, Theme.input.a * (0))  // hover:bg-input/50
         border.width: 1
         border.color: control.activeFocus ? Theme.ring : Theme.border
-        Behavior on color { ColorAnimation { duration: Theme.durBase } }
-        Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
+        Behavior on border.color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         FocusRing { active: control.visualFocus; targetRadius: bg.radius }
     }

@@ -39,6 +39,7 @@ Item {
         width: 2
         color: hover.hovered ? Theme.sidebarBorder : Theme.alpha(Theme.sidebarBorder, 0)
         Behavior on color {
+            enabled: Theme.animateColors
             ColorAnimation { duration: 200; easing.type: Easing.Linear }
         }
     }

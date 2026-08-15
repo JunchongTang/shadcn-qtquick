@@ -120,7 +120,7 @@ C.Button {
         border.color: Theme.input
         // Checked or hovered -> bg-muted; otherwise transparent.
         color: (control.checked || control.hovered) ? Theme.muted : Theme.alpha(Theme.muted, 0)
-        Behavior on color { ColorAnimation { duration: Theme.durBase } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
 
         FocusRing { active: control.visualFocus; targetRadius: control._radius }
     }

@@ -76,7 +76,7 @@ Item {
                 return hover.hovered ? Theme.muted : Theme.alpha(Theme.muted, 0.5)
             return hover.hovered ? Theme.muted : Theme.alpha(Theme.muted, 0)
         }
-        Behavior on color { ColorAnimation { duration: Theme.durBase } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
     }
 
     RowLayout {

@@ -127,7 +127,7 @@ Item {
                ? Theme.alpha(Theme.muted, 0.5) : Theme.card
         border.width: control._idle ? 0 : 1
         border.color: control._error ? Theme.alpha(Theme.destructive, 0.30) : Theme.border
-        Behavior on color { ColorAnimation { duration: Theme.durBase } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
     }
 
     // Idle dashed border (Rectangle has no dash support; a Canvas approximates

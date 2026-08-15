@@ -84,7 +84,7 @@ FocusScope {
         border.width: 1
         border.color: root.invalid ? Theme.destructive
                      : root.activeFocus ? Theme.ring : Theme.border
-        Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on border.color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         // aria-invalid destructive ring
         Rectangle {

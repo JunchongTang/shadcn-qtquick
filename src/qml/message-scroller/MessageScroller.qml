@@ -153,7 +153,7 @@ Item {
         opacity: root._atBottom ? 0 : 1
         visible: opacity > 0.01
         Behavior on opacity { NumberAnimation { duration: Theme.durBase } }
-        Behavior on color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         Icon {
             anchors.centerIn: parent

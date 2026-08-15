@@ -40,6 +40,40 @@ QtObject {
     */
     property bool dark: false
 
+    /*!
+        \qmlproperty bool Theme::animateColors
+        Whether components animate their color and border-color transitions.
+        Defaults to \c true, which is what makes hover and press feedback read
+        as responsive.
+
+        The library turns this off for a couple of frames whenever the palette
+        itself turns over -- toggling \l dark, \l resetTheme or \l importJson --
+        and restores it afterwards. Without that, a switch leaves every animated
+        component behind: the tokens all change at once, but only the properties
+        carrying a Behavior ramp, so an input keeps its old border colour on a
+        surface that has already repainted. Set it to \c false to suppress the
+        transitions permanently, for instance to honour a reduce-motion setting.
+    */
+    property bool animateColors: true
+
+    // Shuts the transitions off for the turn in which the palette changes.
+    // A Timer rather than Qt.callLater: the token bindings feed component
+    // bindings that are only re-evaluated on the next scene polish, so
+    // restoring on the very next event-loop pass can beat them to it and the
+    // ramp plays after all. Declared as a property because a QtObject has no
+    // default property to hold a child.
+    readonly property Timer _colorAnimationGate: Timer {
+        interval: 32
+        onTriggered: theme.animateColors = true
+    }
+
+    function _repaintWithoutAnimating() {
+        theme.animateColors = false
+        theme._colorAnimationGate.restart()
+    }
+
+    onDarkChanged: theme._repaintWithoutAnimating()
+
     // ==== Customization override layer ==================================
     /*!
         \qmlproperty var Theme::lightOverrides
@@ -84,6 +118,7 @@ QtObject {
         Clears all color, radius and font overrides, restoring the defaults.
     */
     function resetTheme() {
+        _repaintWithoutAnimating()
         lightOverrides = ({}); darkOverrides = ({}); radiusOverride = -1
         fontBodyOverride = ""; fontHeadingOverride = ""
     }
@@ -145,6 +180,7 @@ QtObject {
     function importJson(text) {
         try {
             let cfg = JSON.parse(text)
+            _repaintWithoutAnimating()
             lightOverrides = cfg.light || ({})
             darkOverrides = cfg.dark || ({})
             radiusOverride = (cfg.radius !== undefined) ? cfg.radius : -1

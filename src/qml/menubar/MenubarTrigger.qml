@@ -57,6 +57,6 @@ C.AbstractButton {
     background: Rectangle {
         radius: Theme.radiusSm       // calc(radius-md - 2px) = 8 - 2 = 6
         color: control._active ? Theme.muted : Theme.alpha(Theme.muted, 0)
-        Behavior on color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
     }
 }

@@ -253,7 +253,7 @@ C.Control {
             border.width: 1
             border.color: control.invalid ? Theme.destructive
                           : input.activeFocus ? Theme.ring : Theme.border
-            Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
+            Behavior on border.color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
             Rectangle {
                 anchors.fill: parent
@@ -352,7 +352,7 @@ C.Control {
             border.width: 1
             border.color: control.invalid ? Theme.destructive
                           : chipsInput.activeFocus ? Theme.ring : Theme.input
-            Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
+            Behavior on border.color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
             Rectangle {
                 anchors.fill: parent

@@ -141,7 +141,7 @@ C.ComboBox {
         bottomLeftRadius:  (_n || (!_v && _f) || (_v && _l)) ? radius : 0
         // bg-input/20; dark:bg-input/30 + dark:hover:bg-input/50 (light mode has no hover change).
         color: Theme.alpha(Theme.input, Theme.input.a * (Theme.dark ? (control.hovered ? 0.5 : 0.3) : 0.2))
-        Behavior on color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
         border.width: 1
         // aria-invalid:border-destructive wins over focus-visible:border-ring.
         // border-ring is focus-visible (keyboard only): a mouse click that opens the
@@ -150,7 +150,7 @@ C.ComboBox {
         border.color: control.invalid
                       ? (Theme.dark ? Theme.alpha(Theme.destructive, 0.5) : Theme.destructive)
                       : control.visualFocus ? Theme.ring : Theme.input
-        Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on border.color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         // aria-invalid destructive ring (ring-destructive/20, dark 40).
         Rectangle {
