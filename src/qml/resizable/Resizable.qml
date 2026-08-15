@@ -78,7 +78,7 @@ C.SplitView {
         // True while the handle is hovered or being dragged.
         readonly property bool active: C.SplitHandle.hovered || C.SplitHandle.pressed
         color: active ? Theme.ring : Theme.border
-        Behavior on color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         // Expanded hit area (centred on the 1px line), for mouse and touch.
         containmentMask: Item {
@@ -97,7 +97,7 @@ C.SplitView {
             height: control._horizontal ? Theme.space6 : Theme.space1
             radius: Theme.radiusLg
             color: hnd.active ? Theme.ring : Theme.border
-            Behavior on color { ColorAnimation { duration: Theme.durFast } }
+            Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
         }
 
         // Split cursor on hover; a HoverHandler only reacts to hover and never

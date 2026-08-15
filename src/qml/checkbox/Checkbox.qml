@@ -65,7 +65,7 @@ C.CheckBox {
                      : control.invalid ? (Theme.dark ? Theme.alpha(Theme.destructive, 0.5) : Theme.destructive)
                      : control.visualFocus ? Theme.ring
                      : Theme.input
-        Behavior on color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         // aria-invalid ring: destructive/20 (light), destructive/40 (dark).
         Rectangle {

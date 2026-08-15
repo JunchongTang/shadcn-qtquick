@@ -109,7 +109,7 @@ Rectangle {
     color: _bgFor(hover.hovered)
     border.width: _variant === Bubble.Outline ? 1 : 0   // other variants: border-transparent
     border.color: Theme.border
-    Behavior on color { ColorAnimation { duration: Theme.durBase } }   // [button,a]:transition-colors
+    Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }   // [button,a]:transition-colors
 
     // Register as the parent Bubble's content on completion (drives its size).
     Component.onCompleted: if (_bubble) _bubble._contentRef = content

@@ -127,7 +127,7 @@ C.Button {
                 return control.hovered ? Theme.muted : Theme.alpha(Theme.muted, 0)
             }
         }
-        Behavior on color { ColorAnimation { duration: Theme.durBase } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
 
         // Keyboard-only focus-visible ring (a mouse click that takes focus does
         // not show it). Radius matches the background's rounded-md.

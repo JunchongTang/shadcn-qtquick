@@ -166,7 +166,7 @@ Item {
             color: nav.hovered ? Theme.alpha(Theme.input, Theme.input.a * (0.5)) : Theme.alpha(Theme.input, Theme.input.a * (0))
             border.width: 1
             border.color: Theme.border
-            Behavior on color { ColorAnimation { duration: Theme.durBase } }
+            Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
             // Keyboard-only focus ring (focus-visible), gated on visualFocus.
             FocusRing { active: nav.visualFocus; targetRadius: nav.width / 2 }
         }

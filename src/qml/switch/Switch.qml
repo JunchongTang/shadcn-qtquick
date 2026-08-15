@@ -78,7 +78,7 @@ C.Switch {
         // 1px inset the thumb rests against.
         border.width: 1
         border.color: control.invalid ? Theme.destructive : "transparent"
-        Behavior on color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         // aria-invalid ring: destructive/20 (light), destructive/40 (dark).
         Rectangle {

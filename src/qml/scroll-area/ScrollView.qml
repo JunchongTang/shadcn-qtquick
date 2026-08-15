@@ -69,7 +69,7 @@ C.ScrollView {
                                 : Theme.alpha(Theme.mutedForeground, 0.4)
             opacity: vbar.active ? 1.0 : 0.0   // fade out while idle / not scrollable
             Behavior on opacity { NumberAnimation { duration: Theme.durFast } }
-            Behavior on color { ColorAnimation { duration: Theme.durFast } }
+            Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
         }
         background: Rectangle { color: "transparent" }
     }
@@ -90,7 +90,7 @@ C.ScrollView {
                                 : Theme.alpha(Theme.mutedForeground, 0.4)
             opacity: hbar.active ? 1.0 : 0.0
             Behavior on opacity { NumberAnimation { duration: Theme.durFast } }
-            Behavior on color { ColorAnimation { duration: Theme.durFast } }
+            Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
         }
         background: Rectangle { color: "transparent" }
     }

@@ -162,7 +162,7 @@ Item {
             lineHeightMode: Text.ProportionalHeight
             wrapMode: Text.Wrap
             horizontalAlignment: root._isSeparator ? Text.AlignHCenter : Text.AlignLeft
-            Behavior on color { ColorAnimation { duration: Theme.durBase } }
+            Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
 
             // Approximates the CSS shimmer sweep (no QML background-clip:text)
             // with an opacity pulse. Only runs for the visible (row) layout.
@@ -215,7 +215,7 @@ Item {
             lineHeight: Theme.lineRelaxed
             lineHeightMode: Text.ProportionalHeight
             horizontalAlignment: Text.AlignHCenter
-            Behavior on color { ColorAnimation { duration: Theme.durBase } }
+            Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durBase } }
             SequentialAnimation on opacity {
                 running: root.shimmer && root.stacked
                 loops: Animation.Infinite

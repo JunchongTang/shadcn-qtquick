@@ -105,7 +105,7 @@ C.TabButton {
                 name: control.iconName
                 size: 14              // size-3.5
                 color: control._fg
-                Behavior on color { ColorAnimation { duration: Theme.durFast } }
+                Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
             }
             Text {
                 text: control.text
@@ -115,7 +115,7 @@ C.TabButton {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
-                Behavior on color { ColorAnimation { duration: Theme.durFast } }
+                Behavior on color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
             }
         }
     }

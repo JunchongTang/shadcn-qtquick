@@ -76,7 +76,7 @@ C.TextArea {
         border.color: control.invalid
                         ? (Theme.dark ? Theme.alpha(Theme.destructive, 0.5) : Theme.destructive)
                      : control.activeFocus ? Theme.ring : Theme.input
-        Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
+        Behavior on border.color { enabled: Theme.animateColors; ColorAnimation { duration: Theme.durFast } }
 
         // aria-invalid ring: ring-destructive/20 (dark:ring-destructive/40),
         // shown whenever invalid regardless of focus.
