@@ -108,17 +108,40 @@ C.Dialog {
     QQC.Overlay.modal: Item {
         id: backdrop
 
-        // The application content to blur: the first window-content child that is
-        // not the popup overlay (this backdrop's own parent). Sourcing the whole
-        // content item would include the overlay and feed back into itself.
+        // The application content to blur: the **largest** window-content child that is not
+        // the popup overlay (this backdrop's own parent). Sourcing the whole content item
+        // would include the overlay and feed back into itself.
+        //
+        // Largest rather than first: an application may keep small floating items as direct
+        // window children — a drag ghost, a HUD, a toast — and nothing says those are declared
+        // after the main layout. Taking children[0] then snapshots, say, a 26px chip and
+        // stretches it across the whole window: one enormous blurred glyph where the app
+        // should be. Hit for real by an application that parents a small drag ghost to the
+        // window while a file is being dragged out of a list.
+        //
+        // No visibility filter on purpose. It looks tempting (ShaderEffectSource renders its
+        // sourceItem even while that item is hidden, so a hidden ghost would still be a
+        // candidate) but \c Item::visible is the *effective* value — it is false whenever an
+        // ancestor or the window itself is not shown yet, which made the main content lose to
+        // a 26px sibling in exactly the moment the backdrop is first evaluated. Area alone
+        // already rules out small hidden items.
         readonly property Item content: {
             var ci = backdrop.Window.contentItem
             if (!ci)
                 return null
-            for (let i = 0; i < ci.children.length; ++i)
-                if (ci.children[i] !== backdrop.parent)
-                    return ci.children[i]
-            return ci
+            var best = null
+            var bestArea = -1
+            for (let i = 0; i < ci.children.length; ++i) {
+                const child = ci.children[i]
+                if (child === backdrop.parent)
+                    continue
+                const area = child.width * child.height
+                if (area > bestArea) {
+                    best = child
+                    bestArea = area
+                }
+            }
+            return best ? best : ci
         }
 
         ShaderEffectSource {
