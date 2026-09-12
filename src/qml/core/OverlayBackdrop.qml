@@ -23,9 +23,11 @@ import QtQuick
     \note Only one subtree is blurred: the largest child of the window's content
     item that is not the overlay this backdrop lives in. That is the whole
     application in the usual single-root layout, but a window that puts several
-    large siblings directly under its content item only gets the biggest blurred.
-    Qt Quick cannot render a subtree while excluding a node from it, so the
-    overlay has to be excluded by picking a sibling rather than by masking.
+    large siblings directly under its content item only gets the biggest blurred --
+    and only that one is hidden behind the blur, so a small floating sibling (a drag
+    ghost, a toast layer) stays sharp over it. Qt Quick cannot render a subtree while
+    excluding a node from it, so the overlay has to be excluded by picking a sibling
+    rather than by masking.
 */
 Item {
     id: root
@@ -104,19 +106,6 @@ Item {
         NumberAnimation { duration: Theme.durFast }
     }
 
-    // The capture is only as opaque as the subtree it copies, and an application
-    // root normally paints nothing of its own -- its white comes from the
-    // window. Compositing a mostly transparent blurred copy straight over the
-    // scene therefore leaves the original showing through it, sharp, with a
-    // blurred ghost on top: text on the page background stays crisp while text
-    // on a card blurs. An opaque base of the window's own colour hides the
-    // original first, so what the scrim dims is only the blurred copy.
-    Rectangle {
-        anchors.fill: parent
-        visible: root.blurActive
-        color: root.Window.window ? root.Window.window.color : Theme.background
-    }
-
     ShaderEffectSource {
         id: capture
 
@@ -124,8 +113,31 @@ Item {
         sourceItem: root.blurActive ? root.blurredItem : null
         live: root.live
         recursive: false
-        hideSource: false
         visible: false              // consumed by the BlurChain below
+
+        // **Replace** the captured subtree rather than draw over it. A
+        // ShaderEffectSource re-renders its source into a transparent texture, so the
+        // copy is only as opaque as what those items actually paint -- and an
+        // application root normally paints nothing of its own, its background coming
+        // from the window. Left in the scene, the original then shows through its own
+        // blurred copy, sharp, with a blurred ghost on top: text on a card blurs while
+        // text on the page background does not.
+        //
+        // The previous fix laid an opaque base of Window.color underneath. That works
+        // only while the window has a colour: a translucent window (macOS vibrancy or
+        // liquid glass, where the material is composited by the window server *under*
+        // the Qt surface and the clear colour is transparent by necessity) paints no
+        // base at all, and the blur silently does nothing. Hiding the source has no
+        // such dependency, and it is what the property is for -- input still reaches
+        // the hidden item, which a modal blocks anyway.
+        //
+        // Only while fully shown. Qt steps a modal overlay's opacity to 1 and this
+        // backdrop fades it (see below); during that fade the original has to stay,
+        // because the fade *is* the cross-fade from sharp to blurred -- CSS does the
+        // same, blending the filtered backdrop with the unfiltered one by the
+        // element's opacity. Hiding it up front would blink the application out and
+        // fade it back in instead.
+        hideSource: root.opacity >= 1
     }
 
     // BlurChain rather than Qt's MultiEffect. MultiEffect states its blur as a
