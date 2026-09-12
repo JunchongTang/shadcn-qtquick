@@ -298,15 +298,19 @@ QtObject {
     */
     property Component iconDelegate: null
 
-    // ==== Focus ring (base-mira: ring-2 ring-ring/30 + border->ring) ========
+    // ==== Focus ring (ring-[3px] ring-ring/18 + border->ring) ==============
     /*!
         \qmlproperty real Theme::ringWidth
         \qmlproperty real Theme::ringOpacity
-        Focus-ring metrics (base-mira uses \c {ring-2 ring-ring/30}): a 2px stroke of
-        \l ring at 30% opacity.
+        Focus-ring metrics: a 3px stroke of \l ring at 18% opacity.
+
+        \note A deliberate divergence from base-mira, which specifies
+        \c {ring-2 ring-ring/30}. The ring is drawn *outside* the control, where a
+        narrow-and-strong one reads as a second border sitting against the real one;
+        wider and fainter reads as a glow, which is what focus should look like.
     */
-    readonly property real ringWidth: 2
-    readonly property real ringOpacity: 0.30
+    readonly property real ringWidth: 3
+    readonly property real ringOpacity: 0.18
 
     // ==== Overlay elevation (ring-1 ring-foreground/10 + shadow-md) =========
     readonly property color overlayRing: alpha(foreground, 0.10)
