@@ -59,6 +59,20 @@ Item {
     readonly property bool opened: popup.visible
 
     /*!
+        \qmlproperty color MenubarMenu::highlight
+        Fill behind the trigger while this menu is open. Follows the owning
+        \l {Menubar::triggerHighlight}{Menubar} unless assigned here.
+    */
+    property alias highlight: trigger.highlight
+
+    /*!
+        \qmlproperty color MenubarMenu::hoverHighlight
+        Fill behind the trigger while it is hovered and the menu is closed. Follows
+        the owning \l {Menubar::triggerHoverHighlight}{Menubar} unless assigned here.
+    */
+    property alias hoverHighlight: trigger.hoverHighlight
+
+    /*!
         \qmlproperty list<QtObject> MenubarMenu::content
         \qmldefault
         Default child list; declared items fall into the internal \l Menu.
@@ -73,6 +87,10 @@ Item {
         anchors.fill: parent
         text: mm.title
         open: popup.visible
+        // Default to whatever the bar says; assigning MenubarMenu.highlight from
+        // outside replaces this binding, so a single menu can still differ.
+        highlight: mm.bar ? mm.bar.triggerHighlight : Theme.muted
+        hoverHighlight: mm.bar ? mm.bar.triggerHoverHighlight : trigger.highlight
         onClicked: mm.toggle()
         // Menu-bar linkage: when a menu is already open, hovering another
         // trigger switches to it (standard desktop menu-bar behaviour).

@@ -82,13 +82,55 @@ Item {
         // ---- Trigger active-background: transparent by default, muted when open ----
         function test_trigger_active_background() {
             soloTrigger.open = false
-            compare(soloTrigger._active, false)
             compare(soloTrigger.background.color.a, 0)          // transparent
             soloTrigger.open = true
-            compare(soloTrigger._active, true)
             tryCompare(soloTrigger.background, "color", Theme.muted)
             soloTrigger.open = false
             tryCompare(soloTrigger.background, "color", Theme.alpha(Theme.muted, 0))
+        }
+
+        // ---- The open fill is a hook, and the fade-out follows it ----
+        // An application whose toolbar uses overlay tints needs the bar on that same
+        // scale; `muted` is an absolute fill and reads heavier next to them.
+        function test_trigger_highlight_is_overridable() {
+            const custom = Qt.rgba(1, 0, 0, 0.5)
+            soloTrigger.highlight = custom
+            soloTrigger.open = true
+            tryCompare(soloTrigger.background, "color", custom)
+            // Transparent is taken from the highlight, not from muted -- otherwise the
+            // ramp crosses to another hue on its way out.
+            soloTrigger.open = false
+            tryCompare(soloTrigger.background, "color", Theme.alpha(custom, 0))
+            soloTrigger.highlight = Theme.muted
+        }
+
+        // ---- Hover has its own fill, defaulting to the open one ----
+        function test_hover_highlight_defaults_to_highlight() {
+            const custom = Qt.rgba(0, 1, 0, 0.5)
+            soloTrigger.highlight = custom
+            compare(soloTrigger.hoverHighlight, custom,
+                    "unset hoverHighlight must follow highlight -- the reference uses one colour")
+            soloTrigger.highlight = Theme.muted
+        }
+
+        // ---- Set once on the bar, inherited by every menu ----
+        function test_bar_drives_every_trigger() {
+            const open = Qt.rgba(0, 0, 1, 0.5)
+            const hover = Qt.rgba(0, 0, 1, 0.25)
+            bar.triggerHighlight = open
+            bar.triggerHoverHighlight = hover
+            compare(triggerOf(fileMenu).highlight, open)
+            compare(triggerOf(editMenu).highlight, open)
+            compare(triggerOf(fileMenu).hoverHighlight, hover)
+
+            // ... and a single menu can still opt out.
+            const odd = Qt.rgba(1, 1, 0, 0.5)
+            editMenu.highlight = odd
+            compare(triggerOf(editMenu).highlight, odd)
+            compare(triggerOf(fileMenu).highlight, open, "one menu opting out moved the others")
+
+            bar.triggerHighlight = Theme.muted
+            bar.triggerHoverHighlight = Theme.muted
         }
 
         // ---- Each MenubarMenu forwards its title to its trigger ----
