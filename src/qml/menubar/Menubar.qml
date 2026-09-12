@@ -45,6 +45,21 @@ Control {
     property Item openMenu: null
 
     /*!
+        \qmlproperty color Menubar::triggerHighlight
+        Fill behind a trigger whose menu is open, for every \l MenubarMenu in the bar.
+        Defaults to \l Theme::muted. See \l MenubarTrigger::highlight for why this is
+        worth overriding when the bar sits among other toolbar buttons.
+    */
+    property color triggerHighlight: Theme.muted
+
+    /*!
+        \qmlproperty color Menubar::triggerHoverHighlight
+        Fill behind a hovered trigger whose menu is closed. Defaults to
+        \l triggerHighlight -- one colour for both states, as the reference has it.
+    */
+    property color triggerHoverHighlight: control.triggerHighlight
+
+    /*!
         \qmlproperty list<QtObject> Menubar::content
         \qmldefault
         Default child list; declared \l MenubarMenu items fall into the internal Row.
