@@ -21,6 +21,11 @@ C.MenuSeparator {
     topPadding: Theme.space1         // my-1
     bottomPadding: Theme.space1
 
+    // Same reason as MenuItem: a hidden separator would otherwise leave its my-1
+    // padding behind as a gap. Separators are conditional whenever the group they
+    // divide is (e.g. the platform-specific "Quit" block).
+    height: visible ? implicitHeight : 0
+
     contentItem: Rectangle {
         implicitHeight: 1            // h-px
         color: Theme.border                     // bg-border

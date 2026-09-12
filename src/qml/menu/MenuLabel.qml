@@ -28,6 +28,13 @@ Item {
 
     implicitWidth: label.x + label.implicitWidth + Theme.space2
     implicitHeight: label.implicitHeight + Theme.space1_5 * 2   // py-1.5
+    // Hidden items must not take up a row. QQuickMenu lays its children out in a
+    // ListView over contentModel, and that keeps allocating each delegate's height
+    // whether or not it is visible — so a `visible: false` item leaves a blank gap
+    // in the middle of the menu. Conditional items are the normal case ("Quit" only
+    // off macOS, "Restore Automatic Title" only when renamed), so this belongs here
+    // rather than at every call site.
+    height: visible ? implicitHeight : 0
 
     Text {
         id: label
