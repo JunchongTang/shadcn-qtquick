@@ -53,7 +53,9 @@ C.MenuItem {
     // off macOS, "Restore Automatic Title" only when renamed), so this belongs here
     // rather than at every call site.
     height: visible ? implicitHeight : 0
-    leftPadding: inset ? 30 : Theme.space2   // pl-7.5 when inset, else px-2
+    // pl-7.5 when inset, else px-2. `_autoInset` makes a mixed menu line up without
+    // every call site remembering `inset: true` — see Menu::hasIconItems.
+    leftPadding: (inset || control._autoInset) ? 30 : Theme.space2
     rightPadding: Theme.space2
     topPadding: 0
     bottomPadding: 0
@@ -67,6 +69,7 @@ C.MenuItem {
     // Width is computed from content: a RowLayout with a fillWidth Text does not
     // report a usable implicitWidth, which would clamp the Menu to its min-width
     // and elide the label. This lets Menu grow to the widest item (#021).
+    // NOTE: leftPadding already accounts for the auto-indent, so the width follows.
     implicitWidth: leftPadding + rightPadding
                    + (_iconName !== "" ? 14 + spacing : 0)
                    + Math.ceil(_labelMetrics.advanceWidth) + 1
@@ -80,6 +83,12 @@ C.MenuItem {
     // Submenu trigger items are created by Menu's delegate (subMenu is set);
     // their leading icon comes from the submenu's icon.name.
     readonly property string _iconName: control.subMenu ? control.subMenu.icon.name : control.iconName
+    // Indent an icon-less item so its label starts where the labelled items' do:
+    // leftPadding 8 + icon 14 + gap 8 = 30, which is exactly what `inset` gives.
+    // Only when this menu actually mixes the two — an all-text menu should not carry
+    // a pointless left gutter.
+    readonly property bool _autoInset: control._iconName === "" && control.menu !== null
+                                       && control.menu.hasIconItems === true
     readonly property color _fg: control.destructive
         ? Theme.destructive
         : (control._active ? Theme.accentForeground : Theme.popoverForeground)

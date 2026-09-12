@@ -34,6 +34,34 @@ C.Menu {
     overlap: 0
     modal: false
 
+    /*!
+        \qmlproperty bool Menu::hasIconItems
+        \readonly
+        Whether any item in this menu carries a leading icon. Icon-less items indent
+        themselves to match when it is \c true, so labels line up in a mixed menu —
+        see MenuItem's leftPadding.
+
+        The upstream library leaves this to the caller (\c data-inset / \l
+        MenuItem::inset). That is one more thing to remember at every call site, and
+        forgetting it is invisible in code review — you only notice the ragged left
+        edge in a screenshot. Deriving it here makes the common case correct by
+        default; \l MenuItem::inset still forces the indent on its own.
+    */
+    readonly property bool hasIconItems: {
+        for (var i = 0; i < count; ++i) {
+            var it = itemAt(i)
+            // Not every child is a MenuItem (separators, labels), and a submenu
+            // trigger takes its icon from the submenu — mirror MenuItem's _iconName.
+            if (!it)
+                continue
+            if (it.iconName !== undefined && it.iconName !== "")
+                return true
+            if (it.subMenu && it.subMenu.icon && it.subMenu.icon.name !== "")
+                return true
+        }
+        return false
+    }
+
     // The base Menu does not grow to fit its widest item: its ListView
     // contentItem reports no content width, so the menu clamps to the
     // background min-width and elides long labels. Bind contentWidth to the
