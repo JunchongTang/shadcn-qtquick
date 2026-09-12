@@ -66,6 +66,8 @@ qt_add_qml_module(shadcn_ui
         qml/command/Command.qml
         qml/context-menu/ContextMenu.qml
         qml/core/FocusRing.qml
+        qml/core/OverlayBackdrop.qml
+        qml/core/blur/BlurChain.qml
         qml/core/RoundedImage.qml
         qml/core/Icon.qml
         qml/date-picker/DatePicker.qml
@@ -195,3 +197,16 @@ qt_add_qml_module(shadcn_ui
 
 # Components use LucideIcon (import LucideIcons); MultiEffect shadows use QtQuick.Effects.
 target_link_libraries(shadcn_ui PRIVATE Qt6::Quick LucideIcons)
+
+# Fragment shaders for the vendored pyramid blur (qml/core/blur/BlurChain.qml).
+# PREFIX matches the module URI so the .qsb files land at
+# qrc:/qt/qml/Shadcn/shaders/, which is what BlurChain asks for.
+qt_add_shaders(shadcn_ui "shadcn_blur_shaders"
+    BATCHABLE
+    PRECOMPILE
+    PREFIX "/qt/qml/Shadcn"
+    FILES
+        shaders/downsample.frag
+        shaders/upsample.frag
+        shaders/gauss.frag
+)

@@ -85,7 +85,10 @@ C.Drawer {
     height: _vertical ? Math.min(layoutRoot.implicitHeight, _viewportH - 96) : _viewportH
 
     // Modal backdrop: black/80 (.cn-drawer-overlay bg-black/80).
-    QQC.Overlay.modal: Rectangle { color: Theme.alpha("#000000", 0.8) }
+    // Modal backdrop: blurred application content under a scrim. Both halves
+    // come from Theme, which follows luma rather than mira here; see
+    // Theme::overlayScrimOpacity for why.
+    QQC.Overlay.modal: OverlayBackdrop { }
 
     // Surface: popover base + ring-1 ring-foreground/10 + shadow; only the corners
     // facing into the viewport are rounded (rounded-xl).

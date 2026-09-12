@@ -9,7 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(SHADCN_BUILD_EXAMPLES "Build the shadcn-qtquick gallery example" ON)
 option(SHADCN_BUILD_TESTS "Build the shadcn-qtquick unit tests" ON)
 
-find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick ShaderTools)
 qt_standard_project_setup(REQUIRES 6.8)
 
 # Dependency: Lucide icons (vendored submodule). Guarded so a consumer that already

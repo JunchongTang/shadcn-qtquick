@@ -319,6 +319,41 @@ QtObject {
     readonly property real shadowBlur: 0.5
     readonly property real shadowOffset: 4
 
+    // ==== Modal backdrop (luma: bg-black/30 + backdrop-blur-sm) ============
+    /*!
+        \qmlproperty real Theme::overlayScrimOpacity
+        \qmlproperty color Theme::overlayScrim
+        Dim laid over the application while a modal popup is open, with
+        \l overlayScrim derived from it.
+
+        \note This is a deliberate departure from base-mira, which the rest of
+        the library follows. mira specifies \c {bg-black/80}, and at that
+        strength the whole backdrop is crushed into the bottom fifth of the
+        range, where the blur behind it has no contrast left to show and reads
+        as dirt. The value here is shadcn's luma instead -- \c {bg-black/30}
+        against a wider blur -- which is the combination those styles use to get
+        frosted glass rather than a dark smear. Do not "correct" it back to 0.80
+        against style-mira.css without looking at the result.
+    */
+    property real overlayScrimOpacity: 0.30
+    readonly property color overlayScrim: alpha("#000000", overlayScrimOpacity)
+
+    /*!
+        \qmlproperty real Theme::overlayBlur
+        Blur applied to whatever sits behind a modal popup, as the standard
+        deviation of a gaussian in logical pixels -- the same quantity CSS
+        \c {blur(<length>)} takes, and not a kernel radius.
+
+        Paired with \l overlayScrimOpacity, and departing from base-mira for the
+        same reason: mira asks for \c {backdrop-blur-xs} (4px) under a heavy
+        dim, luma for \c {backdrop-blur-sm} (8px) under a light one. The second
+        is what reads as frosted glass.
+
+        Set to \c 0 to skip the blur entirely, which also skips capturing and
+        re-rendering the content behind on every frame.
+    */
+    property real overlayBlur: 8
+
     // ==== Spacing (Tailwind spacing = rem x 4 -> px) ========================
     /*!
         \qmlproperty real Theme::space1
