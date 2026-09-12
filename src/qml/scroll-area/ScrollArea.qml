@@ -62,41 +62,21 @@ C.ScrollView {
         border.color: Theme.border
     }
 
-    C.ScrollBar.vertical: C.ScrollBar {
-        id: vbar
+    // The look lives in \l ScrollBar so that views outside a ScrollArea can attach the
+    // same bar (a TreeView scrolls itself) instead of copying these two blocks.
+    C.ScrollBar.vertical: ScrollBar {
         parent: control
         anchors.top: control.top
         anchors.right: control.right
         anchors.bottom: control.bottom
         anchors.margins: 1              // p-px: inset 1px to sit inside the border
-        policy: C.ScrollBar.AsNeeded
-
-        contentItem: Rectangle {
-            implicitWidth: 10           // w-2.5
-            radius: Theme.radiusFull    // rounded-full
-            color: Theme.border         // bg-border
-            opacity: vbar.active ? 1.0 : 0.0   // fade out while idle / not scrollable
-            Behavior on opacity { NumberAnimation { duration: Theme.durFast } }
-        }
-        background: Rectangle { color: "transparent" }
     }
 
-    C.ScrollBar.horizontal: C.ScrollBar {
-        id: hbar
+    C.ScrollBar.horizontal: ScrollBar {
         parent: control
         anchors.left: control.left
         anchors.right: control.right
         anchors.bottom: control.bottom
         anchors.margins: 1
-        policy: C.ScrollBar.AsNeeded
-
-        contentItem: Rectangle {
-            implicitHeight: 10          // h-2.5
-            radius: Theme.radiusFull    // rounded-full
-            color: Theme.border         // bg-border
-            opacity: hbar.active ? 1.0 : 0.0
-            Behavior on opacity { NumberAnimation { duration: Theme.durFast } }
-        }
-        background: Rectangle { color: "transparent" }
     }
 }

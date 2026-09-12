@@ -145,6 +145,7 @@ qt_add_qml_module(shadcn_ui
         qml/radio-group/RadioGroup.qml
         qml/resizable/Resizable.qml
         qml/scroll-area/ScrollArea.qml
+        qml/scroll-area/ScrollBar.qml
         qml/scroll-area/ScrollView.qml
         qml/select/Select.qml
         qml/separator/Separator.qml
