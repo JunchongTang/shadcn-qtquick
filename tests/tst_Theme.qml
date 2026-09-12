@@ -73,10 +73,11 @@ Item {
             compare(Theme.lineRelaxed, 1.625)
         }
 
-        // Focus-ring metrics: 2px stroke at 30% opacity (ring-2 ring-ring/30).
+        // Focus-ring metrics: 3px stroke at 18% opacity.
         function test_ring_tokens() {
-            compare(Theme.ringWidth, 2)
-            compare(Theme.ringOpacity, 0.30)
+            // Deliberately not base-mira's ring-2/30 -- see Theme::ringWidth.
+            compare(Theme.ringWidth, 3)
+            compare(Theme.ringOpacity, 0.18)
             // Overlay elevation uses a 1px foreground ring at 10%.
             compare(Theme.overlayRingWidth, 1)
         }
