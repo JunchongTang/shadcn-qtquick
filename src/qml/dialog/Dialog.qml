@@ -103,66 +103,10 @@ C.Dialog {
         value: control.clipContent ? 0 : 1
     }
 
-    // Modal backdrop: a blurred snapshot of the content behind plus a light scrim
-    // (base-mira uses backdrop-blur rather than a plain black/80 dim).
-    QQC.Overlay.modal: Item {
-        id: backdrop
-
-        // The application content to blur: the **largest** window-content child that is not
-        // the popup overlay (this backdrop's own parent). Sourcing the whole content item
-        // would include the overlay and feed back into itself.
-        //
-        // Largest rather than first: an application may keep small floating items as direct
-        // window children — a drag ghost, a HUD, a toast — and nothing says those are declared
-        // after the main layout. Taking children[0] then snapshots, say, a 26px chip and
-        // stretches it across the whole window: one enormous blurred glyph where the app
-        // should be. Hit for real by an application that parents a small drag ghost to the
-        // window while a file is being dragged out of a list.
-        //
-        // No visibility filter on purpose. It looks tempting (ShaderEffectSource renders its
-        // sourceItem even while that item is hidden, so a hidden ghost would still be a
-        // candidate) but \c Item::visible is the *effective* value — it is false whenever an
-        // ancestor or the window itself is not shown yet, which made the main content lose to
-        // a 26px sibling in exactly the moment the backdrop is first evaluated. Area alone
-        // already rules out small hidden items.
-        readonly property Item content: {
-            var ci = backdrop.Window.contentItem
-            if (!ci)
-                return null
-            var best = null
-            var bestArea = -1
-            for (let i = 0; i < ci.children.length; ++i) {
-                const child = ci.children[i]
-                if (child === backdrop.parent)
-                    continue
-                const area = child.width * child.height
-                if (area > bestArea) {
-                    best = child
-                    bestArea = area
-                }
-            }
-            return best ? best : ci
-        }
-
-        ShaderEffectSource {
-            id: backdropSource
-            anchors.fill: parent
-            sourceItem: backdrop.content
-            live: true
-            recursive: false
-            hideSource: false
-            visible: false            // consumed by the MultiEffect below
-        }
-        MultiEffect {
-            anchors.fill: parent
-            source: backdropSource
-            blurEnabled: true
-            blur: 1.0
-            blurMax: 40
-            autoPaddingEnabled: false
-        }
-        Rectangle { anchors.fill: parent; color: Theme.alpha("#000000", 0.25) }  // subtle scrim over blur
-    }
+    // Modal backdrop: blurred application content under a scrim. Both halves
+    // come from Theme, which follows luma rather than mira here; see
+    // Theme::overlayScrimOpacity for why.
+    QQC.Overlay.modal: OverlayBackdrop { }
 
     // Content surface: popover base + ring-1 ring-foreground/10 + rounded-xl + shadow.
     background: Rectangle {

@@ -117,7 +117,10 @@ C.Drawer {
 
     // Modal backdrop: black/80 (.cn-sheet-overlay bg-black/80). backdrop-blur has
     // no matching token, so it is omitted.
-    QQC.Overlay.modal: Rectangle { color: Theme.alpha("#000000", 0.8) }
+    // Modal backdrop: blurred application content under a scrim. Both halves
+    // come from Theme, which follows luma rather than mira here; see
+    // Theme::overlayScrimOpacity for why.
+    QQC.Overlay.modal: OverlayBackdrop { }
 
     // Surface: popover base + edge-pinned (no radius) + 1px inner border (border
     // token) + drop shadow (shadow-lg approximation).
