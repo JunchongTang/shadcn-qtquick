@@ -84,6 +84,30 @@ C.Control {
         equivalent to ItemDescription). Defaults to \c "description". */
     property string descriptionRole: "description"
 
+    /*! \qmlproperty string Combobox::keywordsRole
+        Object key holding an entry's extra search terms. The value may be one
+        string or an array of strings; both are matched in addition to the label,
+        case-insensitively.
+
+        Needed because the label is not always what the user will type. A row that
+        shows a localized name — a font family rendered as \e{苹方-简}, say — has to
+        stay findable by its canonical name too. Defaults to \c "keywords". */
+    property string keywordsRole: "keywords"
+
+    /*! \qmlproperty Component Combobox::labelDelegate
+        Optional custom renderer for an item row's content, replacing the default
+        label + description column. Only the content is replaced: the row chrome —
+        hover, highlight, the leading / trailing check marks, the disabled state —
+        still comes from the Combobox.
+
+        Inside it, \c parent exposes \c modelData (the normalized row),
+        \c label, \c value, \c description, \c highlighted and \c selected — the
+        same shape \l TableColumn::cellDelegate uses. The row grows to fit a
+        delegate taller than the default row height; when the delegate is \c null
+        (the default) the label and description are drawn as two lines exactly as
+        before. */
+    property Component labelDelegate: null
+
     /*! \qmlproperty bool Combobox::multiple
         Enable multiple selection (chips container with inline input). Defaults to \c false. */
     property bool multiple: false
@@ -128,6 +152,15 @@ C.Control {
         }
         return ""
     }
+    //! Search text for one entry: the label plus \l keywordsRole. Keeping the two
+    //! together is what lets a rewritten label stay findable by its original name.
+    function _searchText(it, lbl) {
+        if (!_isObj(it)) return lbl
+        var kw = it[keywordsRole]
+        if (kw === undefined || kw === null) return lbl
+        if (Array.isArray(kw)) return kw.length > 0 ? lbl + " " + kw.join(" ") : lbl
+        return lbl + " " + String(kw)
+    }
 
     // ==== Filter query: while the popup is open and the user has typed, use the
     // matching input's text; otherwise empty (show everything). ====
@@ -150,7 +183,7 @@ C.Control {
                 continue
             }
             var lbl = _label(it)
-            if (q === "" || lbl.toLowerCase().indexOf(q) >= 0) {
+            if (q === "" || _searchText(it, lbl).toLowerCase().indexOf(q) >= 0) {
                 if (pendingHeader !== null) { out.push({ type: "header", label: pendingHeader }); pendingHeader = null }
                 out.push({ type: "item", label: lbl, value: _value(it),
                            description: _isObj(it) && it[descriptionRole] !== undefined ? String(it[descriptionRole]) : "",
@@ -216,6 +249,7 @@ C.Control {
     // ==== Single-select trigger: editable input (ComboboxInput) ====
     C.TextField {
         id: input
+        objectName: "cbInput"               // for unit-test lookup
         visible: !control.multiple
         anchors.fill: parent
         enabled: control.enabled
@@ -424,6 +458,7 @@ C.Control {
     // ==== Popup: list + empty state only (no search box) ====
     C.Popup {
         id: pop
+        objectName: "cbPopup"               // for unit-test lookup
         y: control.height + 4
         x: 0
         width: control.width
@@ -482,6 +517,7 @@ C.Control {
 
             ListView {
                 id: list
+                objectName: "cbList"        // for unit-test lookup
                 visible: control._rows.length > 0
                 Layout.fillWidth: true
                 Layout.preferredHeight: Math.min(contentHeight + 2 * Theme.space1, pop._listMax)
@@ -508,7 +544,11 @@ C.Control {
                     readonly property bool _highlighted: _isItem && !modelData.disabled
                         && (hover.hovered || control._highlight === index)
                     readonly property bool _hasDesc: _isItem && modelData.description !== undefined && modelData.description !== ""
-                    implicitHeight: _isSep ? 9 : (_isHeader ? 26 : (_hasDesc ? 44 : 28))
+                    readonly property bool _customContent: _isItem && control.labelDelegate !== null
+                    implicitHeight: _isSep ? 9
+                                  : (_isHeader ? 26
+                                               : (_customContent ? Math.max(28, labelSlot.implicitHeight)
+                                                                 : (_hasDesc ? 44 : 28)))
                     opacity: (_isItem && modelData.disabled) ? 0.5 : 1.0
 
                     HoverHandler {
@@ -552,7 +592,7 @@ C.Control {
                         visible: control.multiple && row._selected
                     }
                     Column {
-                        visible: row._isItem
+                        visible: row._isItem && !row._customContent
                         anchors.left: parent.left
                         anchors.leftMargin: control.multiple ? Theme.space2 + Theme.space5 : Theme.space2
                         anchors.right: check.left
@@ -574,6 +614,31 @@ C.Control {
                             color: row._highlighted ? Theme.alpha(Theme.accentForeground, 0.75) : Theme.mutedForeground
                             elide: Text.ElideRight
                         }
+                    }
+                    /*!
+                        Custom row content (\l labelDelegate). The context lives on this
+                        Loader and is read from the delegate via \c parent — the shape
+                        \l TableColumn::cellDelegate already established. Only item rows
+                        load it, so a custom delegate is never built for a group header or
+                        a divider, and a closed popup builds none at all.
+                    */
+                    Loader {
+                        id: labelSlot
+                        anchors.left: parent.left
+                        anchors.leftMargin: control.multiple ? Theme.space2 + Theme.space5 : Theme.space2
+                        anchors.right: check.left
+                        anchors.rightMargin: Theme.space1
+                        anchors.verticalCenter: parent.verticalCenter
+                        active: row._customContent
+                        visible: active
+                        sourceComponent: control.labelDelegate
+
+                        readonly property var modelData: row.modelData
+                        readonly property string label: row._isItem ? String(row.modelData.label) : ""
+                        readonly property string value: row._isItem ? String(row.modelData.value) : ""
+                        readonly property string description: row._hasDesc ? String(row.modelData.description) : ""
+                        readonly property bool highlighted: row._highlighted
+                        readonly property bool selected: row._selected
                     }
                     Icon {
                         id: check
