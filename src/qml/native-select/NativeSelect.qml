@@ -183,6 +183,12 @@ C.ComboBox {
 
     // ==== Popup (plain list surface) ====
     popup: C.Popup {
+        // Dropdown placement follows Theme. Left at Item a list near the window's
+        // bottom edge is flipped above the field to stay inside; as a window it
+        // opens downward the way a native dropdown does. See
+        // Theme::popupsUseWindows.
+        popupType: Theme.popupsUseWindows ? C.Popup.Window : C.Popup.Item
+
         y: control.height + Theme.space1
         width: control.width
         implicitHeight: Math.min(contentItem.implicitHeight + 2 * padding, 300)

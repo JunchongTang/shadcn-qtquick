@@ -269,6 +269,12 @@ C.ComboBox {
 
     // ==== Popup (popover surface) ====
     popup: C.Popup {
+        // Dropdown placement follows Theme. Left at Item a list near the window's
+        // bottom edge is flipped above the field to stay inside; as a window it
+        // opens downward the way a native dropdown does. See
+        // Theme::popupsUseWindows.
+        popupType: Theme.popupsUseWindows ? C.Popup.Window : C.Popup.Item
+
         // With alignItemWithTrigger=true, shift up so the current row overlays the trigger
         // (rows are the same 28px height as the trigger). Simplified: no list scrolling and
         // no clamping against the viewport top edge (base-ui clamps and falls back to

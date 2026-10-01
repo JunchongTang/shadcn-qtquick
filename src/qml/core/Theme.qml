@@ -354,6 +354,34 @@ QtObject {
     */
     property real overlayBlur: 8
 
+    // ==== Popup hosting ====================================================
+    /*!
+        \qmlproperty bool Theme::popupsUseWindows
+        Whether dropdown-style popups open in a window of their own rather than
+        inside the one that hosts them. Defaults to \c false, which is Qt's
+        behaviour and keeps every popup inside the application window.
+
+        The difference shows at a window edge. Measured with a window occupying
+        screen rows 200..360 and a select 44px above its bottom:
+
+        \list
+        \li default -- the list is flipped above the field and crammed inside,
+            spanning rows 206..354, nothing past the window
+        \li \c true -- the list opens downward from the field as a native
+            dropdown does, spanning 341..489, 129px of it over the desktop
+        \endlist
+
+        Turning it on therefore buys native placement, at the cost of each popup
+        being a real window: it takes activation, it is subject to whatever the
+        platform allows a popup window to do (Wayland constrains this heavily),
+        and it is composited by the system rather than drawn into the scene.
+
+        Modal popups -- \l Dialog, \l AlertDialog, \l Sheet, \l Drawer -- do not
+        follow this. Their backdrop blurs the application by capturing it from
+        the same scene, which is only possible while they share that scene.
+    */
+    property bool popupsUseWindows: false
+
     // ==== Spacing (Tailwind spacing = rem x 4 -> px) ========================
     /*!
         \qmlproperty real Theme::space1

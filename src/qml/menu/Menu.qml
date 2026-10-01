@@ -27,6 +27,12 @@ import QtQuick.Effects
     Behavior has been removed and must not be reintroduced.
 */
 C.Menu {
+    // Dropdown placement follows Theme. Left at Item a list near the window's
+    // bottom edge is flipped above the field to stay inside; as a window it
+    // opens downward the way a native dropdown does. See
+    // Theme::popupsUseWindows.
+    popupType: Theme.popupsUseWindows ? C.Popup.Window : C.Popup.Item
+
     id: control
 
     padding: Theme.space1            // p-1

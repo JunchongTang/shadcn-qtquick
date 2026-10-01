@@ -47,6 +47,12 @@ import QtQuick.Effects
     \sa HoverCard, DatePicker
 */
 C.Popup {
+    // Dropdown placement follows Theme. Left at Item a list near the window's
+    // bottom edge is flipped above the field to stay inside; as a window it
+    // opens downward the way a native dropdown does. See
+    // Theme::popupsUseWindows.
+    popupType: Theme.popupsUseWindows ? C.Popup.Window : C.Popup.Item
+
     id: control
 
     // Horizontal alignment (documented on the align property); no collision with any inherited enum since Popup is not an Item.

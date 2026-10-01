@@ -159,6 +159,12 @@ Item {
         C.Popup {
             id: popup
 
+            // Dropdown placement follows Theme. Left at Item a list near the window's
+            // bottom edge is flipped above the trigger to stay inside; as a window it
+            // opens downward the way a native dropdown does. See
+            // Theme::popupsUseWindows.
+            popupType: Theme.popupsUseWindows ? C.Popup.Window : C.Popup.Item
+
             width: control.cardWidth
             padding: Theme.space2_5            // p-2.5
             font.pixelSize: Theme.textXs       // text-xs

@@ -459,6 +459,12 @@ C.Control {
     C.Popup {
         id: pop
         objectName: "cbPopup"               // for unit-test lookup
+
+        // Dropdown placement follows Theme. Left at Item a list near the window's
+        // bottom edge is flipped above the trigger to stay inside; as a window it
+        // opens downward the way a native dropdown does. See
+        // Theme::popupsUseWindows.
+        popupType: Theme.popupsUseWindows ? C.Popup.Window : C.Popup.Item
         y: control.height + 4
         x: 0
         width: control.width

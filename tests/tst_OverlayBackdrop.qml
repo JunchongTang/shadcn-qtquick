@@ -35,6 +35,16 @@ Item {
         visible: false
     }
 
+    // Grabbed as a control: it is plain Rectangles, so a backend that renders
+    // it but not the BlurChain below is one without shader support, which is a
+    // skip. A backend that renders neither cannot be grabbed at all.
+    Item {
+        id: plainStep
+        anchors.fill: parent
+        Rectangle { anchors.fill: parent; color: "#000000" }
+        Rectangle { x: parent.width / 2; width: parent.width / 2; height: parent.height; color: "#ffffff" }
+    }
+
     BlurChain {
         id: blurred
         anchors.fill: parent
@@ -58,8 +68,8 @@ Item {
         // Standard deviation recovered from the blurred step: differentiating
         // the edge response gives the line-spread function, whose second moment
         // is the sigma that produced it.
-        function measuredSigma() {
-            const shot = grabImage(blurred)
+        function measuredSigma(item) {
+            const shot = grabImage(item)
             const y = Math.floor(shot.height / 2)
             const ratio = shot.width / root.width      // device pixels per logical pixel
 
@@ -104,14 +114,20 @@ Item {
             root.testRadius = data.radius
             wait(80)
 
-            const sigma = measuredSigma()
-
-            // A backend that does not run the shader leaves the step exactly as
-            // it was. Skipping says so; passing would claim a blur that never
-            // happened.
-            if (sigma >= 0 && sigma < 0.5)
+            // -1 means the grab held no edge at all. On its own that is
+            // ambiguous, so the shader-free control settles it: if even that
+            // yields nothing the backend cannot be grabbed here and the case is
+            // a skip, whereas a readable control with an unreadable blur is the
+            // blur having genuinely stopped working.
+            const sigma = measuredSigma(blurred)
+            if (sigma < 0) {
+                if (measuredSigma(plainStep) < 0)
+                    skip("this backend renders nothing that can be grabbed")
+                fail("the control grabbed but the blurred source did not: "
+                     + "BlurChain produced no image")
+            }
+            if (sigma < 0.5)
                 skip("this backend did not blur the source at all")
-            verify(sigma > 0, "could not recover an edge profile from the grab")
 
             fuzzyCompare(sigma, data.radius, data.radius * 0.12,
                          "BlurChain's radius no longer measures back as the sigma")

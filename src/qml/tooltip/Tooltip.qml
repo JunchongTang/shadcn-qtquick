@@ -78,6 +78,12 @@ import QtQuick.Controls.Basic
     \sa Popover, HoverCard, Kbd
 */
 ToolTip {
+    // Dropdown placement follows Theme. Left at Item a list near the window's
+    // bottom edge is flipped above the field to stay inside; as a window it
+    // opens downward the way a native dropdown does. See
+    // Theme::popupsUseWindows.
+    popupType: Theme.popupsUseWindows ? Popup.Window : Popup.Item
+
     id: control
 
     // Edge of the trigger the bubble is placed on (documented on the side
