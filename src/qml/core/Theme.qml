@@ -90,6 +90,26 @@ QtObject {
     */
     property real radiusOverride: -1
 
+    // Whether `item` sits inside a Field that is in its error state.
+    //
+    // The web does this with inheritance rather than anything explicit: Field
+    // carries data-[invalid=true]:text-destructive, and Tailwind's preflight
+    // gives inputs color: inherit, so the text typed into a control inside an
+    // invalid field is red while the same control on its own stays foreground.
+    // QML has no inherited colour, so a text control asks instead.
+    //
+    // Keeps walking past a Field that is not invalid, as inheritance would: only
+    // an ancestor that actually sets the colour matters. Reads go through the
+    // calling binding, so it re-evaluates when invalid flips or the control is
+    // reparented.
+    function _inInvalidField(item) {
+        for (let p = item ? item.parent : null; p; p = p.parent) {
+            if (p._isField === true && p.invalid === true)
+                return true
+        }
+        return false
+    }
+
     // Resolve a color token: prefer the active mode's override, else fallback.
     function _resolve(name, fallback) {
         var o = dark ? darkOverrides : lightOverrides

@@ -62,7 +62,11 @@ C.TextField {
     topPadding: 0
     bottomPadding: 0
     font.pixelSize: Theme.textXs    // md:text-xs
-    color: Theme.foreground
+    // Inside an invalid Field the text turns destructive along with the border,
+    // as it does on the web by inheritance. The control's own `invalid` does not
+    // do this: a bare aria-invalid input keeps its foreground text there too.
+    readonly property bool _inInvalidField: Theme._inInvalidField(control)
+    color: _inInvalidField ? Theme.destructive : Theme.foreground
     placeholderTextColor: Theme.mutedForeground
     selectionColor: Theme.alpha(Theme.primary, 0.35)
     selectedTextColor: Theme.foreground

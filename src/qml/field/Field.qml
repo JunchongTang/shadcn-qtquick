@@ -39,6 +39,11 @@ GridLayout {
     // turn destructive; FieldError is always destructive.
     property bool invalid: false
 
+    // Lets a control find its enclosing Field without importing the type or
+    // guessing from which properties an ancestor happens to have. See
+    // Theme._inInvalidField.
+    readonly property bool _isField: true
+
     /*!
         \qmlproperty bool Field::horizontal
         \readonly
