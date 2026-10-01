@@ -1,0 +1,7 @@
+{
+  "cmake.buildDirectory": "${workspaceFolder}/build/${buildKit}-${buildType}",
+  "cmake.generator": "Ninja",
+  "cmake.configureEnvironment": {
+    "QTFRAMEWORK_BYPASS_LICENSE_CHECK": "1"
+  }
+}
