@@ -35,7 +35,14 @@ C.Menu {
 
     id: control
 
-    padding: Theme.space1            // p-1
+    // A popup that owns its window clips everything outside its bounds, so the drop
+    // shadow drawn by the background would be cut off at the window edge. Grow the
+    // popup by the shadow margin and inset the background by the same amount; the
+    // shadow then lands inside the window. In-window popups keep the plain padding.
+    readonly property real shadowMargin: popupType === C.Popup.Window
+        ? Math.ceil(Math.max(Theme.shadowBlur, Math.abs(Theme.shadowOffset))) + 2
+        : 0
+    padding: Theme.space1 + control.shadowMargin            // p-1 + shadow room
     font.pixelSize: Theme.textXs
     overlap: 0
     modal: false
@@ -87,19 +94,23 @@ C.Menu {
     delegate: MenuItem {}
 
     // Popover surface: rounded-lg + ring-1 ring-foreground/10 + shadow-md.
-    background: Rectangle {
+    background: Item {
         implicitWidth: 128           // min-w-32 = 8rem
-        color: Theme.popover
-        radius: Theme.radiusLg
-        border.width: Theme.overlayRingWidth
-        border.color: Theme.overlayRing
-        layer.enabled: true
-        layer.effect: MultiEffect {
-            autoPaddingEnabled: true
-            shadowEnabled: true
-            shadowColor: Theme.shadowColor
-            shadowBlur: Theme.shadowBlur
-            shadowVerticalOffset: Theme.shadowOffset
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: control.shadowMargin
+            color: Theme.popover
+            radius: Theme.radiusLg
+            border.width: Theme.overlayRingWidth
+            border.color: Theme.overlayRing
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                autoPaddingEnabled: true
+                shadowEnabled: true
+                shadowColor: Theme.shadowColor
+                shadowBlur: Theme.shadowBlur
+                shadowVerticalOffset: Theme.shadowOffset
+            }
         }
     }
 
